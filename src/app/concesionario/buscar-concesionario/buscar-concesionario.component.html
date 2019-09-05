@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="col s6 offset-s3" style="margin-top: 5em; border: 1px solid black">
+    <div class="row">
+      <div class="col s12">
+        <div class="input-field">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">search</i>
+            <input id="buscar" type="text" class="validate"
+              autofocus
+              placeholder="Buscar"
+              style="text-transform: uppercase"
+              specialOnly autocomplete="off"
+              [(ngModel)]="filtro"
+              (ngModelChange)="buscar($event)" name="filtro">
+            <label for="buscar">Buscar concesión</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row center">
+      <div class="col s6">
+        <p>
+          <label>
+            <input class="with-gap" name="group1" type="radio"
+              (click)="tipo=1" checked/>
+              <span class="buscadores">Nombre/Razón social</span>
+          </label>
+        </p>
+      </div>
+      <div class="col s6">
+        <p>
+          <label>
+            <input class="with-gap" name="group1" type="radio"
+              (click)="tipo=2"/>
+            <span class="buscadores"><label class="buscadores">NUC</label></span>
+          </label>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

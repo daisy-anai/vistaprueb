@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit {
 
     this.submitted = true;
     this.error = null;
-    this.apollo.use('endpoint2').watchQuery({
+    this.apollo.use('servicios').watchQuery({
       query: gql`
       query knock_knock($email:String,$passwd:String,$tI:String){
         login(correo:$email,password:$passwd,tokenId:$tI){

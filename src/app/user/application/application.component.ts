@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { StorageService } from "../../core/services/storage.service";
 import { User } from "../../core/models/user.model";
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-application',
@@ -10,7 +11,8 @@ import { Router } from '@angular/router';
 })
 export class ApplicationComponent implements OnInit {
   public user: User;
-  constructor(private router?: Router, private service?: StorageService) { }
+
+  constructor(private router?: Router, private service?: StorageService){}
 
   ngOnInit() {
     this.user = this.service.getCurrentUser();
@@ -25,5 +27,6 @@ export class ApplicationComponent implements OnInit {
     this.service.logout();
     this.router.navigate(['/login']);
   }
+
 
 }
