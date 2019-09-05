@@ -19,10 +19,9 @@ export class BuscarConcesionarioComponent implements OnInit {
   ngOnInit() {
   }
 
-  buscar(event){
+  buscar(event): void{
     if(!this.filtro){
-      this.concesiones = [];
-      console.log(this.concesiones);
+      this.concesiones = null;
     }else{
       this.loading = true;
       this.apollo.use('sicac').watchQuery({
@@ -70,9 +69,17 @@ export class BuscarConcesionarioComponent implements OnInit {
         }
       })
       .valueChanges.subscribe(result => {
+        this.puente(result.data);
         this.loading = false;
-        this.concesiones = result.data.concesiones;
-      });  
+      });
     }
+  }
+
+  puente(result: any):void {
+    this.concesiones = result.concesiones;
+  }
+
+  seleccion(concesion: any):void {
+    console.log(concesion); 
   }
 }

@@ -46,29 +46,33 @@
 
 <div class="row" *ngIf="concesiones">
   <div class="col s6 offset-s3" style="margin-top: 1em; border: 1px solid black">
-    <div class="row" *ngFor="let consecion  of concesiones" (click)="(consecion)">
-      <div class="col s12">
+    <div class="row">
+      <div class="col s12" *ngFor="let concesion  of concesiones" (click)="seleccion(concesion)">
         <div class="col s12">
-          <label class="conseciontitulored" *ngIf="consecion.concesionario.tipoPersona=='F'">Nombre: </label>
-          <label class="conseciontitulored" *ngIf="consecion.concesionario.tipoPersona=='M'">Razón Social:  </label>
-          <label class="conseciontitulo" *ngIf="consecion.concesionario.tipoPersona=='F'">{{consecion.concesionario.nombre}} {{consecion.concesionario.primerApellido	}} {{consecion.concesionario.segundoApellido}}</label>
-          <label class="conseciontitulo" *ngIf="consecion.concesionario.tipoPersona=='M'">{{consecion.concesionario.razonSocial}} </label>
+          <label class="" *ngIf="concesion.concesionario.tipoPersona=='F'">Nombre: </label>
+          <label class="" *ngIf="concesion.concesionario.tipoPersona=='M'">Razón Social:  </label>
+          <label class="" *ngIf="concesion.concesionario.tipoPersona=='F'">{{concesion.concesionario.nombre}} {{concesion.concesionario.primerApellido	}} {{concesion.concesionario.segundoApellido}}</label>
+          <label class="" *ngIf="concesion.concesionario.tipoPersona=='M'">{{concesion.concesionario.razonSocial}} </label>
         </div>
         <div class="col s12">
-          <label class="conseciontitulopequeñored">NUC:</label>
-          <label class="conseciontitulo"> {{consecion.nuc}}</label>
+          <label class="">NUC:</label>
+          <label class=""> {{concesion.nuc}}</label>
         </div><br>
         <div class="col s12">
-          <label class="conseciontitulopequeñored">Localidad:</label>
-          <label class="conseciontitulo"> {{consecion.concesionario.localidad.nombre}}</label>
+          <label class="">Localidad:</label>
+          <label class=""> {{concesion.concesionario.localidad.nombre}}</label>
         </div><br>
         <div class="col s12">
-          <label class="conseciontitulopequeñored">Municipio:</label>
-          <label class="conseciontitulo"> {{consecion.concesionario.localidad.municipio.nombre}}</label>
+          <label class="">Municipio:</label>
+          <label class=""> {{concesion.concesionario.localidad.municipio.nombre}}</label>
         </div><br>
         <div class="col s12">
-          <label class="conseciontitulopequeñored">Modalidad:</label>
-          <label class="conseciontitulo"> {{consecion.modalidad.nombre}}</label><br><br>
+          <label class="">Modalidad:</label>
+          <label class=""> {{concesion.modalidad.nombre}}</label><br><br>
+        </div><br>
+        <div class="col s12">
+          <label>Estado: </label>
+          <label> {{concesion.condiciones}} </label>
         </div>
       </div>
     </div>
