@@ -37,5 +37,40 @@
         </p>
       </div>
     </div>
+    <div class="progress" *ngIf="loading">
+        <div class="indeterminate"></div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row" *ngIf="concesiones">
+  <div class="col s6 offset-s3" style="margin-top: 1em; border: 1px solid black">
+    <div class="row" *ngFor="let consecion  of concesiones" (click)="(consecion)">
+      <div class="col s12">
+        <div class="col s12">
+          <label class="conseciontitulored" *ngIf="consecion.concesionario.tipoPersona=='F'">Nombre: </label>
+          <label class="conseciontitulored" *ngIf="consecion.concesionario.tipoPersona=='M'">Razón Social:  </label>
+          <label class="conseciontitulo" *ngIf="consecion.concesionario.tipoPersona=='F'">{{consecion.concesionario.nombre}} {{consecion.concesionario.primerApellido	}} {{consecion.concesionario.segundoApellido}}</label>
+          <label class="conseciontitulo" *ngIf="consecion.concesionario.tipoPersona=='M'">{{consecion.concesionario.razonSocial}} </label>
+        </div>
+        <div class="col s12">
+          <label class="conseciontitulopequeñored">NUC:</label>
+          <label class="conseciontitulo"> {{consecion.nuc}}</label>
+        </div><br>
+        <div class="col s12">
+          <label class="conseciontitulopequeñored">Localidad:</label>
+          <label class="conseciontitulo"> {{consecion.concesionario.localidad.nombre}}</label>
+        </div><br>
+        <div class="col s12">
+          <label class="conseciontitulopequeñored">Municipio:</label>
+          <label class="conseciontitulo"> {{consecion.concesionario.localidad.municipio.nombre}}</label>
+        </div><br>
+        <div class="col s12">
+          <label class="conseciontitulopequeñored">Modalidad:</label>
+          <label class="conseciontitulo"> {{consecion.modalidad.nombre}}</label><br><br>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
