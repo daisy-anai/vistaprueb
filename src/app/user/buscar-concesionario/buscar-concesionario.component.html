@@ -54,6 +54,7 @@
           <label class="" *ngIf="concesion.concesionario.tipoPersona=='F'">{{concesion.concesionario.nombre}} {{concesion.concesionario.primerApellido	}} {{concesion.concesionario.segundoApellido}}</label>
           <label class="" *ngIf="concesion.concesionario.tipoPersona=='M'">{{concesion.concesionario.razonSocial}} </label>
         </div>
+
         <div class="col s12">
           <label class="">NUC:</label>
           <label class=""> {{concesion.nuc}}</label>
@@ -68,11 +69,11 @@
         </div><br>
         <div class="col s12">
           <label class="">Modalidad:</label>
-          <label class=""> {{concesion.modalidad.nombre}}</label><br><br>
-        </div><br>
+          <label class=""> {{concesion.modalidad.nombre}}</label>
+        </div>
         <div class="col s12">
           <label>Estado: </label>
-          <label> {{concesion.condiciones}} </label>
+          <label> {{concesion.condiciones.vigente ? 'Vigente' : 'Vencido'}} </label><br><br>
         </div>
       </div>
     </div>
