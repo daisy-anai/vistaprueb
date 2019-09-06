@@ -12,10 +12,10 @@
   box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
 }
 
-.concesionPointerAllowed:hover {
+.concesionPointerAllowed:hover, .concesionPointerAllowed div label {
   cursor: pointer;
 }
 
-.concesionPointerNotAllowed:hover, div label {
+.concesionPointerNotAllowed:hover, .concesionPointerNotAllowed div label{
   cursor: not-allowed
 }
