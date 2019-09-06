@@ -22,13 +22,13 @@ import * as $ from 'jquery';
   ],
   imports: [
     BrowserModule,
-    GraphQLModule,
     HttpClientModule,
+    GraphQLModule,
     FormsModule,
     BrowserAnimationsModule,
     CoreModule,
-    AuthModule,
     UserModule,
+    AuthModule,
     AppRoutingModule
   ],
   providers: [],

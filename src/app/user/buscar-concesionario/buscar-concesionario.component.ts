@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
@@ -14,7 +15,10 @@ export class BuscarConcesionarioComponent implements OnInit {
   public filtro: string;
   public concesiones: Observable<any>;
 
-  constructor(private apollo?: Apollo) { }
+  constructor(
+    private apollo?: Apollo,
+    private router?: Router
+  ) {}
 
   ngOnInit() {
   }
@@ -76,11 +80,11 @@ export class BuscarConcesionarioComponent implements OnInit {
   }
 
   puente(result: any):void {
-    console.log(result.concesiones);
     this.concesiones = result.concesiones;
   }
 
-  seleccion(concesion: any):void {
-    console.log(concesion);
+  redirect(concesion: any): void {
+    console.log(concesion.id);
+    this.router.navigate(['/concesionario/00000']); 
   }
 }

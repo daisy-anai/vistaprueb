@@ -17,7 +17,7 @@ const routes: Routes = [
         children: [
           {
             path: 'concesionario/:id',
-            component: BuscarVehiculoComponent
+            component: BuscarVehiculoComponent,
           },
           {
             path: '',
