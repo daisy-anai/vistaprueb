@@ -76,6 +76,7 @@ export class BuscarConcesionarioComponent implements OnInit {
   }
 
   puente(result: any):void {
+    console.log(result.concesiones);
     this.concesiones = result.concesiones;
   }
 
