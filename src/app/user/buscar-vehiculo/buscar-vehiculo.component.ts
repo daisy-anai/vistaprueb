@@ -13,7 +13,7 @@ export class BuscarVehiculoComponent implements OnInit {
   public loading: boolean = false;
   public filtro: string;
   public concesionID: string;
-  public vehiculos: Observable<any>;
+  public vehiculo: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,7 +26,7 @@ export class BuscarVehiculoComponent implements OnInit {
 
   buscar(): void {
     if(!this.filtro){
-      this.vehiculos = null;
+      this.vehiculo = null;
     }else{
       this.loading = true;
       this.concesionID = this.route.snapshot.paramMap.get("id");
@@ -68,8 +68,7 @@ export class BuscarVehiculoComponent implements OnInit {
   }
 
   puente(result: any):void {
-    console.log(result);
-    // this.vehiculos = result.concesiones;
+    this.vehiculo = result.vehiculoActivo;
   }
 
 }
