@@ -50,6 +50,7 @@
       <div class="col s12 concesionCard" *ngFor="let concesion  of concesiones" [ngClass]="{
         'concesionPointerAllowed': concesion.condiciones.vigente,
         'concesionPointerNotAllowed': !concesion.condiciones.vigente
+          || concesion.modalidad.nombre != 'TAXI'
       }" >
       <!-- [routerLink]="['./concesionario', concesion.id]" -->
         <div class="col s12">
@@ -73,7 +74,9 @@
         </div><br>
         <div class="col s12">
           <label class="">Modalidad:</label>
-          <label class=""> {{concesion.modalidad.nombre}}</label>
+          <label class="" [ngClass]="{
+            'greenLabel': concesion.modalidad.nombre === 'TAXI'
+          }"> {{concesion.modalidad.nombre}}</label>
         </div>
         <div class="col s12">
           <label>Estado de concesión: </label>
