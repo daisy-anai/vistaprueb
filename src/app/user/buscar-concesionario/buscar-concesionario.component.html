@@ -47,14 +47,8 @@
 <div class="row" *ngIf="concesiones">
   <div class="col s6 offset-s3" style="margin-top: 1em; border: 1px solid black">
     <div class="row">
-      <div class="col s12 concesionCard" *ngFor="let concesion  of concesiones" [ngClass]="{
-        'concesionPointerAllowed': concesion.condiciones.vigente,
-        'concesionPointerNotAllowed': !concesion.condiciones.vigente
-          || concesion.modalidad.nombre != 'TAXI'
-      }" >
-        <div class="">
-
-        </div>
+      <div class="col s12 concesionCard concesionPointerAllowed" *ngFor="let concesion  of concesiones"
+      [ngClass]="{'concesionPointerNotAllowed': !permitido(concesion)}">
         <div class="col s12">
           <label class="" *ngIf="concesion.concesionario.tipoPersona=='F'">Nombre: </label>
           <label class="" *ngIf="concesion.concesionario.tipoPersona=='M'">Razón Social:  </label>
@@ -88,8 +82,8 @@
           }"> {{concesion.condiciones.vigente ? 'Vigente' : 'Vencida'}} </label>
         </div>
         <div class="col s12">
-          <a [routerLink]="['./concesionario', concesion.id]">asdasdas</a>
-          <a (click)="redirect(concesion)">Detalle</a><br><br>
+          <a [routerLink]="['./concesionario']">Detalle</a>
+          <button (click)="redirect(concesion)">Detalle2</button><br><br>
         </div>
       </div>
     </div>

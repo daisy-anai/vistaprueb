@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Router, CanActivate } from '@angular/router';
+import { CanActivate, CanActivateChild,
+   ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import {StorageService} from "../services/storage.service";
 
 @Injectable()
-export class AuthorizatedGuard implements CanActivate {
+export class AuthorizatedGuard implements CanActivate, CanActivateChild {
 
   constructor(private router: Router, private storageService: StorageService) {}
 
@@ -12,6 +13,7 @@ export class AuthorizatedGuard implements CanActivate {
       if(this.storageService.isExpired()){
         this.storageService.logout();
         this.router.navigate(['/login']);
+        return false;
       }else{
         return true;
       }
@@ -20,4 +22,8 @@ export class AuthorizatedGuard implements CanActivate {
     this.router.navigate(['/login']);
     return false;
   }
+
+  canActivateChild(){
+    return true;
+  };
 }

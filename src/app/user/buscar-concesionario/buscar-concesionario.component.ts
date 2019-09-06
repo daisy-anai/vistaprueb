@@ -83,8 +83,15 @@ export class BuscarConcesionarioComponent implements OnInit {
     this.concesiones = result.concesiones;
   }
 
+  permitido(concesion: any): boolean {
+    let modalidades: Array<string> = ["TAXI", "PASAJE Y CARGA", "TRANSPORTE URBANO", "MOTOTAXI"];
+    if(modalidades.includes(concesion.modalidad.nombre))
+      return true;
+    return false;
+  }
+
   redirect(concesion: any): void {
     console.log(concesion.id);
-    this.router.navigate(['/concesionario/00000']); 
+    this.router.navigate(["/concesionario/", concesion.id]);
   }
 }
