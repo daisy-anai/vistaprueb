@@ -26,41 +26,41 @@ export class BuscarConcesionarioComponent implements OnInit {
       this.loading = true;
       this.apollo.use('sicac').watchQuery({
         query: gql`
-        query listConcesiones($entrada: String, $opcion: Int, $top: Int) {
-          concesiones(entrada: $entrada, opcion: $opcion, top: $top) {
-            id
-            unidadesAmparadas
-            modalidad {
+          query listConcesiones($entrada: String, $opcion: Int, $top: Int) {
+            concesiones(entrada: $entrada, opcion: $opcion, top: $top) {
               id
-              nombre
-            }
-            sitio {
-              id
-              nombre
-            }
-            nuc
-            estatus
-            concesionario {
-              tipoPersona
-              nombre
-              primerApellido
-              segundoApellido
-              razonSocial
-              localidad {
+              unidadesAmparadas
+              modalidad {
                 id
                 nombre
-                municipio {
+              }
+              sitio {
+                id
+                nombre
+              }
+              nuc
+              estatus
+              concesionario {
+                tipoPersona
+                nombre
+                primerApellido
+                segundoApellido
+                razonSocial
+                localidad {
                   id
                   nombre
+                  municipio {
+                    id
+                    nombre
+                  }
                 }
               }
-            }
-            condiciones{
-              vigente
-              bloqueado
+              condiciones{
+                vigente
+                bloqueado
+              }
             }
           }
-        }
         `,
         variables: {
           entrada: this.filtro,
@@ -80,6 +80,6 @@ export class BuscarConcesionarioComponent implements OnInit {
   }
 
   seleccion(concesion: any):void {
-    console.log(concesion); 
+    console.log(concesion);
   }
 }
