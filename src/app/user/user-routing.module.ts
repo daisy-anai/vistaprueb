@@ -6,6 +6,7 @@ import { BuscarConcesionarioComponent } from './buscar-concesionario/buscar-conc
 import { BuscarVehiculoComponent } from './buscar-vehiculo/buscar-vehiculo.component';
 import { AuthorizatedGuard } from '../core/guards/authorizated.guard';
 
+
 const routes: Routes = [
   {
     path: 'application',

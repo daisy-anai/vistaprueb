@@ -34,5 +34,10 @@
     </ul>
   </div>
 </div>
-
-<router-outlet></router-outlet>
+<br>
+  <div>
+    <input type="file"  id="archivo" (Change)="archivo($event)" name="archivo"> 
+  </div>
+<app-reporte-cromatica></app-reporte-cromatica>
+  
+<router-outlet></router-outlet> 

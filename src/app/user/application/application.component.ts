@@ -27,6 +27,13 @@ export class ApplicationComponent implements OnInit {
     this.service.logout();
     this.router.navigate(['/login']);
   }
-
-
+  
+  archivo(file: File) {
+    var reader = new FileReader();
+    reader.onload = () => {
+      //  console.log(reader.result);
+    };
+    reader.readAsText(file);
+  }
+ 
 }
