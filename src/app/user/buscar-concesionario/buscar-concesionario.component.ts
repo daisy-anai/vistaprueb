@@ -91,7 +91,7 @@ export class BuscarConcesionarioComponent implements OnInit {
   }
 
   redirect(concesion: any): void {
-    console.log(concesion.id);
-    this.router.navigate(["/concesionario/", concesion.id]);
+    if(this.permitido(concesion))
+      this.router.navigate(['/application/concesionario', concesion.id]);
   }
 }

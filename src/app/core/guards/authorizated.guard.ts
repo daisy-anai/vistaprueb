@@ -8,16 +8,18 @@ export class AuthorizatedGuard implements CanActivate, CanActivateChild {
 
   constructor(private router: Router, private storageService: StorageService) {}
 
-  canActivate() {
-    if (this.storageService.isAuthenticated()) {
-      if(this.storageService.isExpired()){
-        this.storageService.logout();
-        this.router.navigate(['/login']);
-        return false;
-      }else{
+  canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): boolean {
+      let url: string = state.url;
+
+      return this.checkLogin(url);
+  }
+
+  checkLogin(url){
+    if (this.storageService.isAuthenticated())
+      if(!this.storageService.isExpired())
         return true;
-      }
-    }
 
     this.router.navigate(['/login']);
     return false;

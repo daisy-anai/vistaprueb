@@ -14,7 +14,6 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        canActivateChild: [AuthorizatedGuard],
         children: [
           {
             path: 'concesionario/:id',
