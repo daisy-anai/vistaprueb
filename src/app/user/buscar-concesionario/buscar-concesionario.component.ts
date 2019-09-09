@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Apollo } from 'apollo-angular';
-import gql from 'graphql-tag';
+
+import { ApplicationService } from '../application.service';
+import { MessageService } from '../message.service';
+import { Concesion } from '../../models/concesion';
 
 @Component({
   selector: 'app-buscar-concesionario',
@@ -16,7 +18,8 @@ export class BuscarConcesionarioComponent implements OnInit {
   public concesiones: Observable<any>;
 
   constructor(
-    private apollo?: Apollo,
+    private messageService?: MessageService,
+    private service?: ApplicationService,
     private router?: Router
   ) {}
 
@@ -28,51 +31,7 @@ export class BuscarConcesionarioComponent implements OnInit {
       this.concesiones = null;
     }else{
       this.loading = true;
-      this.apollo.use('sicac').watchQuery({
-        query: gql`
-          query listConcesiones($entrada: String, $opcion: Int, $top: Int) {
-            concesiones(entrada: $entrada, opcion: $opcion, top: $top) {
-              id
-              unidadesAmparadas
-              modalidad {
-                id
-                nombre
-              }
-              sitio {
-                id
-                nombre
-              }
-              nuc
-              estatus
-              concesionario {
-                tipoPersona
-                nombre
-                primerApellido
-                segundoApellido
-                razonSocial
-                localidad {
-                  id
-                  nombre
-                  municipio {
-                    id
-                    nombre
-                  }
-                }
-              }
-              condiciones{
-                vigente
-                bloqueado
-              }
-            }
-          }
-        `,
-        variables: {
-          entrada: this.filtro,
-          opcion: this.tipo,
-          top: 10
-        }
-      })
-      .valueChanges.subscribe(result => {
+      this.service.getConcesiones(this.filtro, this.tipo).subscribe(result => {
         this.puente(result.data);
         this.loading = false;
       });
@@ -85,13 +44,16 @@ export class BuscarConcesionarioComponent implements OnInit {
 
   permitido(concesion: any): boolean {
     let modalidades: Array<string> = ["TAXI", "PASAJE Y CARGA", "TRANSPORTE URBANO", "MOTOTAXI"];
-    if(modalidades.includes(concesion.modalidad.nombre))
-      return true;
+    if(concesion.condiciones.vigente)
+      if(modalidades.includes(concesion.modalidad.nombre))
+        return true;
     return false;
   }
 
-  redirect(concesion: any): void {
-    if(this.permitido(concesion))
+  redirect(concesion: Concesion): void {
+    if(this.permitido(concesion)){
+      this.messageService.setConcesion(concesion);
       this.router.navigate(['/application/concesionario', concesion.id]);
+    }
   }
 }
