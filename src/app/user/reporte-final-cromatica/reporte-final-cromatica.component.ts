@@ -42,7 +42,7 @@ export class ReporteFinalCromaticaComponent implements OnInit {
       content: 
           [
             { columns:
-              [s
+              [
                 {text:'',fontSize:10}
 
               ]
