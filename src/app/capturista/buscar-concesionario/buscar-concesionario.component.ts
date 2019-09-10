@@ -45,19 +45,20 @@ export class BuscarConcesionarioComponent implements OnInit {
     this.concesiones = result.concesiones;
   }
 
-  permitido(concesion: any): boolean {
+  permitido(concesion: any): Boolean {
     let errores: Array<String> = [];
     let status: Boolean = true;
-    if(concesion.condiciones.vigente){
+
+    if(!concesion.condiciones.vigente){
       errores.push("Concesión vencida");
       status = false;
     }
-    if(concesion.modalidad.estatus){
+    if(!concesion.modalidad.estatus){
       errores.push("Modalidad invalida");
-      status: false;
+      status = false;
     }
-    
-    return false;
+
+    return status;
   }
 
   redirect(concesion: Concesion): void {

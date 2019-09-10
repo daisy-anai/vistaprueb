@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Modulos
 import { AuthModule } from "./auth/auth.module";
-import { UserModule } from "./user/user.module";
+import { UserModule } from "./capturista/user.module";
 
 // Componentes
 import { AppRoutingModule } from './app-routing.module';
