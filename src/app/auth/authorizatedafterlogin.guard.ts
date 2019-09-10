@@ -9,17 +9,15 @@ export class AuthorizatedAfterLoginGuard implements CanActivate {
 
   constructor(private router: Router, private storageService: StorageService) {}
 
-  canActivate() {
+  canActivate(): boolean {
     if (this.storageService.isAuthenticated()) {
-      if(this.storageService.isExpired()){
+      if(!this.storageService.isExpired()){
+        this.router.navigate(['/application']);
+        return false;
+      }else{
         this.storageService.logout();
-        this.router.navigate(['/login']);
       }
-      this.router.navigate(['/application']);
-    }else{
-      this.storageService.logout();
-      return true;
     }
-    this.router.navigate(['/login']);
+    return true;
   }
 }
