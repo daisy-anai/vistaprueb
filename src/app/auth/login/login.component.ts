@@ -6,10 +6,11 @@ import gql from 'graphql-tag';
 
 import { environment } from '../../../environments/environment';
 import { AuthService } from '../auth.service';
-import { StorageService } from "../../core/services/storage.service";
-import { Session } from "../../core/models/session.model";
-import { User } from "../../core/models/user.model";
-import { Role } from "../../core/models/role.model";
+import { StorageService } from "../../shared/services/storage.service";
+
+import { Session } from "../../shared/models/session.model";
+import { User } from "../../shared/models/user.model";
+import { Role } from "../../shared/models/role.model";
 
 declare var M: any;
 
@@ -20,7 +21,6 @@ declare var M: any;
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  user: User;
 
   constructor(
     private apollo?: Apollo,
@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     let RegExpEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-    this.user = this.storageService.getCurrentUser();
     this.loginForm = new FormGroup({
       email_inline: new FormControl('', {
         validators: [

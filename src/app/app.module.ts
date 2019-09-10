@@ -6,7 +6,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Modulos
-import { CoreModule } from "./core/core.module";
 import { AuthModule } from "./auth/auth.module";
 import { UserModule } from "./user/user.module";
 
@@ -26,7 +25,6 @@ import * as $ from 'jquery';
     GraphQLModule,
     FormsModule,
     BrowserAnimationsModule,
-    CoreModule,
     UserModule,
     AuthModule,
     AppRoutingModule

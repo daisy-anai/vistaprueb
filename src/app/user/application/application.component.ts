@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { StorageService } from "../../core/services/storage.service";
-import { User } from "../../core/models/user.model";
+import { StorageService } from "../../shared/services/storage.service";
+import { User } from "../../shared/models/user.model";
 
 @Component({
   selector: 'app-application',

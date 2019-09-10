@@ -1,12 +1,11 @@
-/**
- * Created by xavi on 5/16/17.
- */
 import {Injectable} from "@angular/core";
 import { Router } from '@angular/router';
 import {Session} from "../models/session.model";
 import {User} from "../models/user.model";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class StorageService {
   private localStorageService;
   private currentSession : Session = null;
@@ -63,7 +62,6 @@ export class StorageService {
 
   logout(): void{
     this.removeCurrentSession();
-
   }
 
 }

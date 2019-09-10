@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, CanActivateChild,
    ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
-import {StorageService} from "../services/storage.service";
+import { StorageService } from "../shared/services/storage.service";
 
 @Injectable()
 export class AuthorizatedGuard implements CanActivate, CanActivateChild {
