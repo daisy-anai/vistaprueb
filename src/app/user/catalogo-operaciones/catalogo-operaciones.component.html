@@ -1,0 +1,19 @@
+<div class="">
+  <div class="row">
+    <div class="col s6 offset-s3" style="margin-top: 5em; border: 1px solid black">
+      <div class="row">
+        <div class="col s6">
+          <button type="button" name="button">Cromatica</button>
+        </div>
+        <div class="s6">
+          <button type="button" name="button">Revista fisico mecanica</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s12" *ngIf="concesion">
+          <p>Modalidad: {{concesion.modalidad.nombre}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

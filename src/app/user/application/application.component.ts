@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { StorageService } from "../../core/services/storage.service";
-import { MessageService } from '../message.service';
 import { User } from "../../core/models/user.model";
-import { Concesion } from '../../models/concesion';
 
 @Component({
   selector: 'app-application',
@@ -13,18 +11,11 @@ import { Concesion } from '../../models/concesion';
 })
 export class ApplicationComponent implements OnInit {
   public user: User;
-  public concesion: Concesion;
 
   constructor(
     private router?: Router,
-    private messageService?: MessageService,
     private service?: StorageService
-  ){
-    this.messageService.getConcesion().subscribe(result => {
-      this.concesion = result.concesion;
-      console.log("Application", this.concesion);
-    });
-  }
+  ) {}
 
   ngOnInit() {
     this.user = this.service.getCurrentUser();
@@ -39,6 +30,4 @@ export class ApplicationComponent implements OnInit {
     this.service.logout();
     this.router.navigate(['/login']);
   }
-
-
 }

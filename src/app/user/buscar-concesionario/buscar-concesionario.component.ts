@@ -6,6 +6,9 @@ import { ApplicationService } from '../application.service';
 import { MessageService } from '../message.service';
 import { Concesion } from '../../models/concesion';
 
+// 02-182/PC-POCH-329 3N6DD13S56K028738
+// 11-520/TX-TLACO-461  3N1EB31S15K308251
+
 @Component({
   selector: 'app-buscar-concesionario',
   templateUrl: './buscar-concesionario.component.html',
@@ -43,10 +46,17 @@ export class BuscarConcesionarioComponent implements OnInit {
   }
 
   permitido(concesion: any): boolean {
-    let modalidades: Array<string> = ["TAXI", "PASAJE Y CARGA", "TRANSPORTE URBANO", "MOTOTAXI"];
-    if(concesion.condiciones.vigente)
-      if(modalidades.includes(concesion.modalidad.nombre))
-        return true;
+    let errores: Array<String> = [];
+    let status: Boolean = true;
+    if(concesion.condiciones.vigente){
+      errores.push("Concesión vencida");
+      status = false;
+    }
+    if(concesion.modalidad.estatus){
+      errores.push("Modalidad invalida");
+      status: false;
+    }
+    
     return false;
   }
 

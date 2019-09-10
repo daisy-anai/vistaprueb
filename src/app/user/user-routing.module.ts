@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ApplicationComponent } from './application/application.component';
 import { BuscarConcesionarioComponent } from './buscar-concesionario/buscar-concesionario.component';
 import { BuscarVehiculoComponent } from './buscar-vehiculo/buscar-vehiculo.component';
+import { CatalogoOperacionesComponent } from './catalogo-operaciones/catalogo-operaciones.component';
 import { AuthorizatedGuard } from '../core/guards/authorizated.guard';
 
 const routes: Routes = [
@@ -16,8 +17,12 @@ const routes: Routes = [
         path: '',
         children: [
           {
+            path: 'catalogo',
+            component: CatalogoOperacionesComponent
+          },
+          {
             path: 'concesionario/:id',
-            component: BuscarVehiculoComponent,
+            component: BuscarVehiculoComponent
           },
           {
             path: '',

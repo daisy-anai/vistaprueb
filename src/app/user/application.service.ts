@@ -10,7 +10,7 @@ import { environment } from '../../environments/environment';
 })
 export class ApplicationService {
   public tipo: number = 1;
-  public top: number = 10;
+  public top: number = 1;
 
   constructor(
     private apollo?: Apollo
@@ -26,6 +26,7 @@ export class ApplicationService {
             modalidad {
               id
               nombre
+              estatus
             }
             sitio {
               id

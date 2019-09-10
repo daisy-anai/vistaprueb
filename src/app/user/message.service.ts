@@ -1,23 +1,27 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { Concesion } from '../models/concesion';
+import { Vehiculo } from '../models/vehiculo';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MessageService {
-  private subject = new Subject<any>();
+  private vehiculo: Vehiculo;
+  private concesion: Concesion;
 
   setConcesion(concesion: Concesion){
     this.concesion = concesion;
-    this.subject.next({ concesion: concesion });
   }
 
-  getConcesion(): Observable<any> {
-    return this.subject.asObservable();
+  setVehiculo(vehiculo: Vehiculo){
+    this.vehiculo = vehiculo;
   }
 
-  clearMessages() {
-    this.subject.next();
+  getElements():any {
+    return {
+      concesion: this.concesion,
+      vehiculo: this.vehiculo
+    }
   }
 }

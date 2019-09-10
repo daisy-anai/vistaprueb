@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { ApplicationService } from "../application.service";
 import { MessageService } from '../message.service';
 import { Concesion } from '../../models/concesion';
+import { Vehiculo } from '../../models/vehiculo';
 
 @Component({
   selector: 'app-buscar-vehiculo',
@@ -24,6 +25,7 @@ export class BuscarVehiculoComponent implements OnInit {
     private router?: Router,
     private service?: ApplicationService
   ) {
+
   }
 
   ngOnInit() {
@@ -47,6 +49,13 @@ export class BuscarVehiculoComponent implements OnInit {
 
   puente(result: any):void {
     this.vehiculo = result.vehiculoActivo;
+  }
+
+  redirect(vehiculo: Vehiculo): void {
+    if(true){
+      this.messageService.setVehiculo(vehiculo);
+      this.router.navigate(['/application/catalogo']);
+    }
   }
 
 }

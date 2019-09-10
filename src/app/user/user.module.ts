@@ -6,12 +6,14 @@ import { UserRoutingModule } from './user-routing.module';
 import { ApplicationComponent } from './application/application.component';
 import { BuscarConcesionarioComponent } from './buscar-concesionario/buscar-concesionario.component';
 import { BuscarVehiculoComponent } from './buscar-vehiculo/buscar-vehiculo.component';
+import { CatalogoOperacionesComponent } from './catalogo-operaciones/catalogo-operaciones.component';
 
 @NgModule({
   declarations: [
     ApplicationComponent,
     BuscarConcesionarioComponent,
-    BuscarVehiculoComponent
+    BuscarVehiculoComponent,
+    CatalogoOperacionesComponent
   ],
   imports: [
     CommonModule,
