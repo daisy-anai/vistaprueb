@@ -1,16 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import { Validators, FormGroup, FormControl} from '@angular/forms';
-import {Router} from '@angular/router';
-
+import { Component, OnInit } from '@angular/core';
+import { Validators, FormGroup, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
-import {Apollo} from 'apollo-angular';
-import {KEY} from "../../core/key/key-api";
-import {ENCRIPT} from "../../core/key/encript";
 
-import {StorageService} from "../../core/services/storage.service";
-import {Session} from "../../core/models/session.model";
-import {User} from "../../core/models/user.model";
-import {Role} from "../../core/models/role.model";
+import { environment } from '../../../environments/environment';
+import { AuthService } from '../auth.service';
+import { StorageService } from "../../core/services/storage.service";
+import { Session } from "../../core/models/session.model";
+import { User } from "../../core/models/user.model";
+import { Role } from "../../core/models/role.model";
 
 declare var M: any;
 
@@ -23,17 +22,11 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   user: User;
 
-  submitted: Boolean = false;
-  error: {code: number, message: string} = null;
-  name: string;
-  apellido: string;
-  loged: boolean = false;
-  validemail: boolean = false;
-
   constructor(
     private apollo?: Apollo,
+    private router?: Router,
     private storageService?: StorageService,
-    private router?: Router
+    private authService?: AuthService
   ){}
 
   ngOnInit() {
@@ -55,49 +48,20 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  /*
-    Funcion que manda el correo y password para que se genere el token y
-    el inicio de sesion, el password se encripta con una llave para que
-    vaya encriptada
-  */
   login(){
+    var CryptoJS = require("crypto-js");
+
     let email = this.loginForm.controls['email_inline'].value;
     let password = this.loginForm.controls['password'].value;
+    password = CryptoJS.AES.encrypt(password, environment.__encrypt).toString();
 
-    let url = KEY.HOME_URL;
-    var CryptoJS = require("crypto-js");
-    let encript = ENCRIPT.HOME_URL;
-
-    password = CryptoJS.AES.encrypt(password, ENCRIPT.HOME_URL).toString();
-
-    this.submitted = true;
-    this.error = null;
-    this.apollo.use('servicios').watchQuery({
-      query: gql`
-      query knock_knock($email:String,$passwd:String,$tI:String){
-        login(correo:$email,password:$passwd,tokenId:$tI){
-          user{id,nombre,primer_apellido,segundo_apellido,correo
-            centroTrabajo{id,nombre,
-              region{id,nombre,estatus,createdAt},
-              estatus,createdAt},
-              estatus,createdAt},
-              role{ id, nombre }
-              token
-            }
-          },
-      ` ,
-      variables: {
-        email: email,
-        passwd: password,
-        tI: KEY.HOME_URL
-    }})
-    .valueChanges.subscribe(result => {
+    this.authService.login(email, password).subscribe(result => {
       this.correctlogincheck(result.data);
-     }, (error) => {
-       var divisiones = error.message.split(":", 2);
-       var toastHTML = '<span> <div class="valign-wrapper"><i class="material-icons">error_outline</i>  &nbsp;&nbsp;'+divisiones[1]+'</div></span>';
-       M.toast({html: toastHTML});
-     });
+    }, (error) => {
+      var divisiones = error.message.split(":", 2);
+      var toastHTML = '<span> <div class="valign-wrapper"><i class="material-icons">error_outline</i>  &nbsp;&nbsp;'+divisiones[1]+'</div></span>';
+      M.toast({html: toastHTML});
+    });
  }
 
   /* Parseo del objeto que me regresa el mandar los parametros del login*/

@@ -1,10 +1,7 @@
-import {User} from "./user.model";
-/**
- * Created by xavi on 5/17/17.
- */
+import { User } from "./user.model";
+
 export class Session {
-  public token: string;
+  public token: String;
   public user: User;
   public expire: Date;
-
 }

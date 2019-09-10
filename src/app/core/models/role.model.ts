@@ -1,4 +1,4 @@
 export class Role {
-    public id: number;
-    public role: string;
+  public id: Number;
+  public role: String;
 }

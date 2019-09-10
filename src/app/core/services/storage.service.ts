@@ -8,19 +8,17 @@ import {User} from "../models/user.model";
 
 @Injectable()
 export class StorageService {
-
   private localStorageService;
   private currentSession : Session = null;
+
   constructor(private router: Router) {
     this.localStorageService = localStorage;
     this.currentSession = this.loadSessionData();
   }
 
   isExpired(): boolean {
-     var diaexpire= new Date(this.getCurrentSession().expire);
-
+    var diaexpire= new Date(this.getCurrentSession().expire);
     let actual = new Date();
-
     return (diaexpire.getTime() < actual.getTime()) ? true : false;
   };
 
@@ -49,16 +47,16 @@ export class StorageService {
     return (session && session.user) ? session.user : null;
   };
 
-  isAuthenticated(): boolean {
+  isAuthenticated(): Boolean {
     return (this.getCurrentToken() != null) ? true : false;
   };
 
-  getCurrentToken(): string {
+  getCurrentToken(): String {
     var session = this.getCurrentSession();
     return (session && session.token) ? session.token : null;
   };
 
-  getRole(): string {
+  getRole(): String {
     var session = this.getCurrentSession();
     return (session && session.token) ? session.token : null;
   };
