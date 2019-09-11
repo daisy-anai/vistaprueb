@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
+
+import { User } from "../shared/models/user.model";
 import { StorageService } from "../shared/services/storage.service";
 
 @Injectable({
@@ -12,12 +14,19 @@ export class AuthorizatedAfterLoginGuard implements CanActivate {
   canActivate(): boolean {
     if (this.storageService.isAuthenticated()) {
       if(!this.storageService.isExpired()){
-        this.router.navigate(['/application']);
+        this.redirect(this.storageService.getCurrentUser());
         return false;
       }else{
         this.storageService.logout();
       }
     }
     return true;
+  }
+
+  redirect(user: User){
+    if(user.rol.nombre == 'SUPERVISOR')
+      this.router.navigate(['/supervisor']);
+    else if(user.rol.nombre == 'CAPTURISTA')
+      this.router.navigate(['/capturista']);
   }
 }

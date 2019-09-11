@@ -4,13 +4,15 @@ import { Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 
+// Servicios
 import { environment } from '../../../environments/environment';
 import { AuthService } from '../auth.service';
 import { StorageService } from "../../shared/services/storage.service";
 
+// Modelos
 import { Session } from "../../shared/models/session.model";
 import { User } from "../../shared/models/user.model";
-import { Role } from "../../shared/models/role.model";
+import { Rol } from "../../shared/models/rol.model";
 
 declare var M: any;
 
@@ -72,6 +74,10 @@ export class LoginComponent implements OnInit {
     finsession.setMinutes(dialogeo.getMinutes() + 120);
     newseccion.expire = finsession;
 
+    let rol = new Rol();
+    rol.id = objlogin.login.role.id;
+    rol.nombre = objlogin.login.role.nombre;
+
     let user = new User();
     user.id = objlogin.login.user.id
     user.nombre = objlogin.login.user.nombre;
@@ -79,12 +85,19 @@ export class LoginComponent implements OnInit {
     user.segundo_apellido = objlogin.login.user.segundo_apellido;
     user.correo = objlogin.login.user.correo;
     user.password = objlogin.login.user.password;
-    user.id_rol = objlogin.login.role.id;
+    user.rol = rol;
     user.id_centro_trabajo = objlogin.login.user.centroTrabajo.id;
     user.id_region = objlogin.login.user.centroTrabajo.region.id;
     newseccion.user = user;
 
     this.storageService.setCurrentSession(newseccion);
-    this.router.navigate(['/application']);
+    this.redirect(user);
+  }
+
+  redirect(user: User){
+    if(user.rol.nombre == 'SUPERVISOR')
+      this.router.navigate(['/supervisor']);
+    else if(user.rol.nombre == 'CAPTURISTA')
+      this.router.navigate(['/capturista']);
   }
 }

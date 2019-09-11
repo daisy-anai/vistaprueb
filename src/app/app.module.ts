@@ -7,7 +7,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Modulos
 import { AuthModule } from "./auth/auth.module";
-import { UserModule } from "./capturista/user.module";
+import { UserModule } from "./user/user.module";
+import { SupervisorModule } from './supervisor/supervisor.module';
+import { CapturistaModule } from './capturista/capturista.module';
 
 // Componentes
 import { AppRoutingModule } from './app-routing.module';
@@ -25,6 +27,8 @@ import * as $ from 'jquery';
     GraphQLModule,
     FormsModule,
     BrowserAnimationsModule,
+    SupervisorModule,
+    CapturistaModule,
     UserModule,
     AuthModule,
     AppRoutingModule

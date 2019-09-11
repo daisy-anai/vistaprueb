@@ -6,8 +6,7 @@ import { ApplicationService } from '../application.service';
 import { MessageService } from '../message.service';
 import { Concesion } from '../../models/concesion';
 
-// 02-182/PC-POCH-329 3N6DD13S56K028738
-// 11-520/TX-TLACO-461  3N1EB31S15K308251
+
 
 @Component({
   selector: 'app-buscar-concesionario',

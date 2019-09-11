@@ -1,0 +1,59 @@
+<div class="">
+  <div class="">
+    <nav id="navesconder">
+      <div class="nav-wrapper">
+        <div class="row">
+          <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+          <a id="alogo"><img class="responsive-img" id="logosemovi" src="assets/banner.png" ></a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li>
+              <a class="dropdown-supervisor" data-target="dropdown1">
+                <label class="nombreusuario">{{user.nombre}} {{user.primer_apellido}} {{user.segundo_apellido}}</label>
+                <i class="material-icons right">arrow_drop_down</i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- dropdown -->
+    <ul id="dropdown1" class="dropdown-content">
+
+      <li><a><i class="material-icons left">exit_to_app</i><label>Generar plantilla - cromatica</label></a></li>
+      <li><a (click)="logout()"><i class="material-icons left">exit_to_app</i><label class="nombreusuario">Cerrar sesión</label></a></li>
+    </ul>
+
+    <!-- sidenav -->
+    <ul id="slide-out" class="sidenav">
+      <li><div class="user-view">
+        <a href="#email"><span class="white-text email"><label class="nombreusuario">{{user.nombre}} {{user.primer_apellido}} {{user.segundo_apellido}}</label></span></a>
+      </div></li>
+      <li><a href="/resetpassword" class="waves-effect"><i class="material-icons left">compare_arrows</i> Cambiar contraseña</a></li>
+      <li><a class="waves-effect" (click)="logout()"><i class="material-icons left">exit_to_app</i>Cerrar sesión</a></li>
+    </ul>
+  </div>
+
+  <div class="">
+    <section class="row" style="margin-top: 5em;">
+      <div class="col s6 offset-s3">
+        <buscar-concesion (out)="recibirConcesion($event)"></buscar-concesion>
+      </div>
+    </section>
+    <div class="row" *ngIf="concesion">
+      <div class="col s6 offset-s3">
+        <div class="row">
+          <div class="col s12">
+            <detalle-concesion [concesion]="concesion"></detalle-concesion>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col s12">
+            <buscar-vehiculo [concesion]="concesion" (out)="recibirVehiculo($event)"></buscar-vehiculo>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

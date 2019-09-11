@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col s12">
+    <div class="col s12">
+      <label class="" *ngIf="concesion.tipoPersona=='F'">Nombre: </label>
+      <label class="" *ngIf="concesion.tipoPersona=='M'">Razón Social:  </label>
+      <label class="" *ngIf="concesion.tipoPersona=='F'">{{concesion.concesionario.nombre}} {{concesion.concesionario.primerApellido	}} {{concesion.concesionario.segundoApellido}}</label>
+      <label class="" *ngIf="concesion.tipoPersona=='M'">{{concesion.concesionario.razonSocial}} </label>
+    </div>
+
+    <div class="col s12">
+      <label class="">NUC:</label>
+      <label class=""> {{concesion.nuc}}</label>
+    </div><br>
+    <div class="col s12">
+      <label class="">Localidad:</label>
+      <label class=""> {{concesion.concesionario.localidad.nombre}}</label>
+    </div><br>
+    <div class="col s12">
+      <label class="">Municipio:</label>
+      <label class=""> {{concesion.concesionario.localidad.municipio.nombre}}</label>
+    </div><br>
+    <div class="col s12">
+      <label class="">Modalidad:</label>
+      <label class="" [ngClass]="{
+        'greenLabel': concesion.modalidad.nombre === 'TAXI'
+      }"> {{concesion.modalidad.nombre}}</label>
+    </div>
+    <div class="col s12">
+      <label>Estado de concesión: </label>
+      <label [ngClass]="{
+        'redLabel': !concesion.condiciones.vigente,
+        'greenLabel': concesion.condiciones.vigente
+      }"> {{concesion.condiciones.vigente ? 'Vigente' : 'Vencida'}} </label>
+    </div>
+  </div>
+</div>

@@ -9,7 +9,7 @@ import { AuthorizatedGuard } from './authorizated.guard';
 
 const routes: Routes = [
   {
-    path: 'application',
+    path: 'capturistaaa',
     component: ApplicationComponent,
     canActivate: [AuthorizatedGuard],
     children: [

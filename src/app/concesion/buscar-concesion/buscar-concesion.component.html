@@ -1,0 +1,88 @@
+<div>
+  <div class="row">
+    <div class="col s12">
+      <div class="input-field">
+        <div class="input-field col s12">
+          <i class="material-icons prefix">search</i>
+          <input id="buscar_concesion" type="text" class="validate"
+            autofocus
+            placeholder="Buscar"
+            style="text-transform: uppercase"
+            specialOnly autocomplete="off"
+            [(ngModel)]="filtro"
+            (ngModelChange)="buscar($event)" name="filtro">
+          <label for="buscar_concesion">Buscar concesión</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row center">
+    <div class="col s6">
+      <p>
+        <label>
+          <input class="with-gap" name="group1" type="radio"
+            (click)="tipo=1" checked/>
+            <span class="buscadores">Nombre/Razón social</span>
+        </label>
+      </p>
+    </div>
+    <div class="col s6">
+      <p>
+        <label>
+          <input class="with-gap" name="group1" type="radio"
+            (click)="tipo=2"/>
+          <span class="buscadores"><label class="buscadores">NUC</label></span>
+        </label>
+      </p>
+    </div>
+  </div>
+
+  <div class="progress" *ngIf="loading">
+      <div class="indeterminate"></div>
+  </div>
+
+  <div class="row" *ngIf="concesiones">
+    <div class="col s12">
+      <div class="row">
+        <div class="col s12 concesionCard concesionPointerAllowed"
+          *ngFor="let concesion  of concesiones"
+          [ngClass]="{'concesionPointerNotAllowed': !permitido(concesion)}"
+          (click)="redirect(concesion)">
+          <div class="col s12">
+            <label class="" *ngIf="concesion.concesionario.tipoPersona=='F'">Nombre: </label>
+            <label class="" *ngIf="concesion.concesionario.tipoPersona=='M'">Razón Social:  </label>
+            <label class="" *ngIf="concesion.concesionario.tipoPersona=='F'">{{concesion.concesionario.nombre}} {{concesion.concesionario.primerApellido	}} {{concesion.concesionario.segundoApellido}}</label>
+            <label class="" *ngIf="concesion.concesionario.tipoPersona=='M'">{{concesion.concesionario.razonSocial}} </label>
+          </div>
+
+          <div class="col s12">
+            <label class="">NUC:</label>
+            <label class=""> {{concesion.nuc}}</label>
+          </div><br>
+          <div class="col s12">
+            <label class="">Localidad:</label>
+            <label class=""> {{concesion.concesionario.localidad.nombre}}</label>
+          </div><br>
+          <div class="col s12">
+            <label class="">Municipio:</label>
+            <label class=""> {{concesion.concesionario.localidad.municipio.nombre}}</label>
+          </div><br>
+          <div class="col s12">
+            <label class="">Modalidad:</label>
+            <label class="" [ngClass]="{
+              'greenLabel': concesion.modalidad.nombre === 'TAXI'
+            }"> {{concesion.modalidad.nombre}}</label>
+          </div>
+          <div class="col s12">
+            <label>Estado de concesión: </label>
+            <label [ngClass]="{
+              'redLabel': !concesion.condiciones.vigente,
+              'greenLabel': concesion.condiciones.vigente
+            }"> {{concesion.condiciones.vigente ? 'Vigente' : 'Vencida'}} </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

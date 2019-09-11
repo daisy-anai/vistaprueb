@@ -38,6 +38,7 @@ export class BuscarVehiculoComponent implements OnInit {
       this.loading = true;
       this.concesionID = this.route.snapshot.paramMap.get("id");
       this.service.getVehiculo(this.concesionID, this.filtro).subscribe(result => {
+        console.log(result);
         this.puente(result.data);
         this.loading = false;
       }, error => {

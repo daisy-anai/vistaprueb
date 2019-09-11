@@ -1,4 +1,4 @@
-import {Role} from "./role.model";
+import { Rol } from "./rol.model";
 
 export class User {
   id: Number
@@ -7,7 +7,7 @@ export class User {
   segundo_apellido: String;
   correo: String;
   password: String;
-  id_rol: Number;
+  rol: Rol;
   id_centro_trabajo: Number;
   id_region: Number;
 }
