@@ -9,7 +9,6 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 export class PlantillasCromaticaComponent implements OnInit {
   public dynamicForm: FormGroup;
   public secciones: any;
-  public propiedades: any;
 
   constructor(private formBuilder: FormBuilder) { }
 
@@ -46,14 +45,13 @@ export class PlantillasCromaticaComponent implements OnInit {
     }
   }
 
-  trust(seccion) {
+  propiedades(seccion) {
     return this.secciones[seccion]['controls']['propiedades'] as FormArray;
   }
 
   totalPropiedades(e, seccion){
     let controles = this.secciones[seccion]['controls'];
     let propiedades = controles.propiedades as FormArray;
-    this.propiedades = propiedades.controls;
 
     const valor = e.target.value || 0;
 
@@ -70,9 +68,6 @@ export class PlantillasCromaticaComponent implements OnInit {
         propiedades.removeAt(i);
       }
     }
-
-    console.log(this.secciones[seccion]['controls']['propiedades']['controls']);
-
   }
 
   onSubmit() {
