@@ -1,8 +1,8 @@
 import { Component, OnInit, ModuleWithComponentFactories } from '@angular/core';
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
-import { IMAGEOAXACAWEB } from "../../core/key/imgoaxacagobmx";
-import { IMAGE} from "../../core/key/imglogo";              
+import { IMAGEOAXACAWEB } from "../../../assets/imgoaxacagobmx";
+import { IMAGE} from "../../../assets/imglogo";              
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -29,47 +29,35 @@ export class ReporteCromaticaComponent implements OnInit {
     }
     var  dd = {
       pageSize: 'LETTER',
-      // 70, 80, 70, 140 
-      pageMargins: [ 70, 60, 70, 60 ],
+      pageMargins: [ 50, 80, 80, 10 ],
       header:
           { columns:
             [
               { width: 320,text: ''},           
               { image: 'data:image/jpeg;base64,'+IMAGE.IMAGE_B +'\n\n',width: 200,height: 51, margin: [0, 35, 0, 0]},
-              { width: 320,text: '\n\n\n\n\n'},           
+              { width: 320,text: '\n\n'},           
             ]
           },
       content: 
           [
             { columns: 
               [
-                //{width:50,text:''},
-                //{width:300, image: 'data:image/jpeg;base64,'+IMAGE_BANNER.IMAGE_BA, margin: [0, 10, 0, 0]},
-                {text: '\n\n\n\n\n'},           
-               { width: 240, text: 'CONTROL DE TRANSPORTE', fontSize: 12,bold: true , margin: [0, 10, 0, 0]},               
-                { width: 240, text: 'NÚMERO DE FOLIO', fontSize: 9,bold: true , margin: [0, 10, 0, 0]},
-
+                {text: '\n\n'},           
+                { width: 240, text: 'CONTROL DE TRANSPORTE', fontSize: 12,bold: true , margin: [0, 10, 0, 0]},               
+                { width: 240, text: 'NÚMERO DE FOLIO:', fontSize: 5,bold: true , margin: [0, 10, 0, 0]},
               ]
             },
             { columns:
               [
                 { width: 282, text: ''},
                 { width: 240, text: 'LUGAR Y FECHA:'+ new Date().toLocaleString().split(',')[0]+'', fontSize: 7,bold: true , margin: [0, 10, 0, 0]},
-
               ]
-
             },
             { columns: 
               [              
-                {  width: 250, text: 'CONCESIONARIO DEL SERVICIO PÚBLICO                                DE TRANSPORTE EN LA MODLIDAD DE                                                   P R E S E N T E', fontSize: 9,bold: true , margin: [0, 10, 0, 0]},
+                {  width: 250, text: 'CONCESIONARIO DEL SERVICIO PÚBLICO                                DE TRANSPORTE EN LA MODLIDAD DE                                                   P R E S E N T E \n\n\n', fontSize: 9,bold: true , margin: [0, 10, 0, 0]},
               ]
             },            
-            { columns: 
-              [    
-                {  width: 250, text:'', margin: [0, 10, 0, 0]},
-          
-              ]
-            },
             { columns: 
               [
                 {
@@ -77,7 +65,7 @@ export class ReporteCromaticaComponent implements OnInit {
                 }
               ]
             },
-            {//letras en negrita.. 
+            {
               columns:
               [
                 {  width: 250, text: 'NUC: ', fontSize: 9,bold: true , margin: [0, 10, 0, 0]},  
@@ -108,112 +96,80 @@ export class ReporteCromaticaComponent implements OnInit {
             {
               columns:
               [
-                {  width: 250, text: 'AGRUPACIÓN (SITIO): ', fontSize: 9,bold: true , margin: [0, 10, 0, 0]},
+                {  width: 250, text: 'AGRUPACIÓN (SITIO): \n\n', fontSize: 9,bold: true , margin: [0, 10, 0, 0]},
               ]            
             },
-            { columns: 
-              [    
-                {  width: 180, text: ' ',fontSize: 10, margin: [0, 10, 0, 0]},
-                {  width: 180, text: ' ',fontSize: 10, margin: [0, 10, 0, 0]},
-          
+            {
+              columns: 
+              [
+                {  alignment: 'justify',text: ['Ante la Dirección  de Operación del Tranporte Público de la Secretaría de Vialidad y Transporte del Estado de Oaxaca, en Avenida Carlos Gracida Número 09, Colonia la Experimental, San Antonio de la Cal, Oaxaca (OFICINAS DE SEVITRA), en ____ días NATURALES a partir de su notificación. \n\n',], fontSize: 9}
               ]
             },
             {
               columns: 
               [
-                {
-                    alignment: 'justify',text: ['Ante la Dirección  de Operación del Tranporte Público de la Secretaría de Vialidad y Transporte del Estado de Oaxaca, en Avenida Carlos Gracida Número 09, Colonia la Experimental, San Antonio de la Cal, Oaxaca (OFICINAS DE SEVITRA), en ____ días NATURALES a partir de su notificación. \n\n',], fontSize: 9
-                }
+                {  alignment: 'justify',text: ['A efecto que sea inspeccionada de acuerdo a los lineamientos de ',{text:'NORMA TÉCNICA NT-OAXSEVITRA-01-2015 ',bold:true}, ', CROMATICA, ELEMENTOS DE IDENTIDAD Y LINEAMIENTOS QUE DEBERÁN SEGUIR LOS VEHÍCULOS QUE PERESENTAN EL SERVICIO DE TRANSPORTE PÚBLICO EN SUS DIVERSAS MODALIDADES, QUE CUENTEN CON CONCESIÓN O PERMISO RECONOCIDOS POR LA SECREARIA DE LA VIALIDAD Y TRANSPORTE, la cual fué publicada a través del Periódico Oficial del Gobierno del Estado con fecha 03 de Octubre del año 2015, misma que entró en vigor al día siguiente de la publicación, donde de manera expresa en el transitorio segundo se otorgó a los concesionarios disponer de 30 dias a partir del inicio de su vigencia, para adecuar sus vehículos a las especificaciones y caracteristicas establecidas en el art. 28 de la Ley de Transporte del Estado de Oaxaca; de no cumplir con lo anterior expuesto, sele aplicará la sanción correspondiente.', ], fontSize: 9 }
               ]
             },
             {
               columns: 
               [
-                {
-                    alignment: 'justify',text: ['A efecto que sea inspeccionada de acuerdo a los lineamientos de ',{text:'NORMA TÉCNICA NT-OAXSEVITRA-01-2015 ',bold:true}, ', CROMATICA, ELEMENTOS DE IDENTIDAD Y LINEAMIENTOS QUE DEBERÁN SEGUIR LOS VEHÍCULOS QUE PERESENTAN EL SERVICIO DE TRANSPORTE PÚBLICO EN SUS DIVERSAS MODALIDADES, QUE CUENTEN CON CONCESIÓN O PERMISO RECONOCIDOS POR LA SECREARIA DE LA VIALIDAD Y TRANSPORTE, la cual fué publicada a través del Periódico Oficial del Gobierno del Estado con fecha 03 de Octubre del año 2015, misma que entró en vigor al día siguiente de la publicación, donde de manera expresa en el transitorio segundo se otorgó a los concesionarios disponer de 30 dias a partir del inicio de su vigencia, para adecuar sus vehículos a las especificaciones y caracteristicas establecidas en el art. 28 de la Ley de Transporte del Estado de Oaxaca; de no cumplir con lo anterior expuesto, sele aplicará la sanción correspondiente.', ], fontSize: 9
-                }
+                  { width: 180, text: 'ATENTAMENTE                                                                 SUFRAGIO EFECTIVO NO REELECCIÓN                                "EL RESPETO AL DERECHO AJENO ES LA PAZ"\n\n\n\n\n', fontSize: 7, margin: [0, 10, 0, 0]},  
+              ]
+            },
+            {columns:
+              [
+                { text:'__________________________________________________________',fontSize: 7},  
               ]
             },
             {
-              columns: 
-              
+              columns:               
+              [      
+                { width: 250, text: ' INSPECTOR DE CROMÁTICA    ',fontSize: 7, margin: [0, 10, 0, 0]},  
+                { text:'\n\n\n\n'}
+              ]
+            }, {columns:
               [
-                  { width: 180, text: 'ATENTAMENTE                                                                 SUFRAGIO EFECTIVO NO REELECCIÓN                                "EL RESPETO AL DERECHO AJENO ES LA PAZ"', fontSize: 7, margin: [0, 10, 0, 0]},  
+                { text:'__________________________________________________________',fontSize: 7},  
+                { text:'__________________________________________________________',fontSize: 7},  
               ]
             },
             {
               columns:               
               [ 
-                {  width: 250, text: 'INSPECTOR DE CROMÁTICA', fontSize: 7, margin: [0, 10, 0, 0]},  
+                { width: 250, text: ' NOMBRE Y FIRMA QUIEN RECIBE LA NOTIFICACION  ', fontSize: 7, margin: [0, 10, 0, 0]}, 
+                { width: 250, text: ' FECHA DE LA NOTIFICACIÓN/NÚM DE TELÉFONO   ', fontSize: 7, margin: [0, 10, 0, 0]},  
+                { text:'\n\n'}
               ]
             },
             {
-              columns: 
-              
+              columns:
+              [               
+                { alignment: 'justify',text:"En fundamentos en los artículos 68,116 y 120 de la Ley General de Transparencia y Accceso a la información Pública 56,57,58 y 62 de la Ley de Trasparecia y Acceso a la información Pública del Estado de Oaxaca, 16,17,18,19,20 y 21 de la Ley General de Protección de datos Personales en Posesión de Sujetos Obliagados , 9,10,11,12,13 y 14 de la Ley de Protección de Datos personales en Posesión de Sujetos Obligatorios del Estado de Oaxaca, los datos personales contenidos en el presente documento están protegidos, por tanto, solo podran ser usados paralos fines los cuales fueron entregados, cualquier uso deberán ser autorizado por el titular de los mismos, asi mismo por lo previsto en los artículos 1 y 13 de la Ley de Transporte del Estado de Oaxaca, 331 Reglamento interno de la Secretaria de Vialidad y Transporte.\n" , fontSize: 4}      
+               ]
+            },
+            {
+              columns:
               [
-                  { width: 180, text: '______________________________', fontSize: 7, margin: [0, 10, 0, 0]},  
-              ]
-            },
-            {
-              columns:               
-              [ 
-                {  width: 250, text: 'NOMBRE Y FIRMA QUIEN RECIBE LA NOTIFICACION', fontSize: 7, margin: [0, 10, 0, 0]}, 
-                {  width: 250, text: 'FECHA DE LA NOTIFICACIÓN/NÚM DE TELÉFONO', fontSize: 7, margin: [0, 10, 0, 0]},  
-
-              ]
-            },
-            { columns: 
-              [    
-                {  width: 250, text: '_____________________________________________________',fontSize: 7, margin: [0, 10, 0, 0]},
-                {  width: 250, text: '      _________________________________________________',fontSize: 7, margin: [0, 10, 0, 0]},
-          
-              ]
-            },
-            { columns: 
-              [    
-                {  width: 180, text: ' ',fontSize: 10, margin: [0, 10, 0, 0]},
-                {  width: 180, text: ' ',fontSize: 10, margin: [0, 10, 0, 0]},
-          
+               { image:  'data:image/jpeg;base64,'+IMAGEOAXACAWEB.IMAGE_W,width: 50,height: 500, absolutePosition: {x: 530, y: 180}},
               ]
             },
             {
               columns:
               [
-               
-                { alignment: 'justify',text:"En fundamentos en los artículos 68,116 y 120 de la Ley General de Transparencia y Accceso a la información Pública 56,57,58 y 62 de la Ley de Trasparecia y Acceso a la información Pública del Estado de Oaxaca, 16,17,18,19,20 y 21 de la Ley General de Protección de datos Personales en Posesión de Sujetos Obliagados , 9,10,11,12,13 y 14 de la Ley de Protección de Datos personales en Posesión de Sujetos Obligatorios del Estado de Oaxaca, los datos personales contenidos en el presente documento están protegidos, por tanto, solo podran ser usados paralos fines los cuales fueron entregados, cualquier uso deberán ser autorizado por el titular de los mismos, asi mismo por lo previsto en los artículos 1 y 13 de la Ley de Transporte del Estado de Oaxaca, 331 Reglamento interno de la Secretaria de Vialidad y Transporte." , fontSize: 4}              ]
-            },
-            {
-              columns:
-              [
-               { image:  'data:image/jpeg;base64,'+IMAGEOAXACAWEB.IMAGE_W,width: 50,height: 500,
-               absolutePosition: {x: 539, y: 150}}
-              ]
-            },{
-              columns: 
-              [    
-                { text: '',fontSize: 2, margin: [0, 10, 0, 0]}
-              ]
-            },
-            {
-              columns:
-              [
-                 { 
-                   columns: [
-                    
-                     { width: 200,text:"CP. Lic.Mariana Erandy Nassar Piñeyro- Secretaria de Movilidad para su conocimiento                                              Lic. Mario Alberto Guzmán Jaime- subsecretario de regulación y Control de Transporte  Público-Mismo fin               Ing Felipe Reyna Romero -Director de Operación del Transporte Público- Mismp fin                                                                                     Arq. Marino Hernandez Lopez- Jefe de Departamento de Control de Transporte- Mismo Fin    Expediente *Minotario* " , fontSize: 4}
-                   ]
-               },
+                {  columns: 
+                   [{ width: 200,text:"CP. Lic.Mariana Erandy Nassar Piñeyro- Secretaria de Movilidad para su conocimiento                                              Lic. Mario Alberto Guzmán Jaime- subsecretario de regulación y Control de Transporte  Público-Mismo fin               Ing Felipe Reyna Romero -Director de Operación del Transporte Público- Mismp fin                                                                                     Arq. Marino Hernandez Lopez- Jefe de Departamento de Control de Transporte- Mismo Fin    Expediente *Minotario* " , fontSize: 4}]
+                },
                {
-                 columns: [
-                   { width: 10, text: ''},
-                   { width: 200,text:"Para mayor información consulte la página www.semovi.oaxaca.gob.mx; telefono: atención 0 1( 9 5 1) 5 0 1 6 6 9 1, Ext 1622; o enviar un correo electronico a: controldetransporte@semovioaxaca.gob.mx *OPCIONAL" , fontSize: 4}
-                 ]
+                 columns: 
+                 [{ width: 10, text: ''},
+                   { width: 200,text:"Para mayor información consulte la página www.semovi.oaxaca.gob.mx; telefono: atención 0 1( 9 5 1) 5 0 1 6 6 9 1, Ext 1622; o enviar un correo electronico a: controldetransporte@semovioaxaca.gob.mx *OPCIONAL" , fontSize: 4}]
                  }
-             ]
-            },
-                
-          ] };
-     //Descargar el PDF
-     pdfMake.createPdf(dd).download('Ejemplo.pdf');
+              ]
+            },               
+          ] 
+        };
+          //Descargar el PDF
+     pdfMake.createPdf(dd).download('cromatica-vehiculo.pdf');
   }
 }

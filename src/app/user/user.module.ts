@@ -8,7 +8,7 @@ import { BuscarConcesionarioComponent } from './buscar-concesionario/buscar-conc
 import { BuscarVehiculoComponent } from './buscar-vehiculo/buscar-vehiculo.component';
 import { ReporteCromaticaComponent } from './reporte-cromatica/reporte-cromatica.component';
 import { ReporteFinalCromaticaComponent } from './reporte-final-cromatica/reporte-final-cromatica.component';
-
+ 
 @NgModule({
   declarations: [
     ApplicationComponent,
