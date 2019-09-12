@@ -8,12 +8,15 @@ import { VehiculoModule } from '../vehiculo/vehiculo.module';
 import { UsuarioRoutingModule } from './usuario-routing.module';
 import { AplicacionComponent } from './aplicacion/aplicacion.component';
 import { PlantillasCromaticaComponent } from './plantillas-cromatica/plantillas-cromatica.component';
-
+import { ReporteCromaticaComponent } from './reporte-cromatica/reporte-cromatica.component';
+import { ReporteFinalCromaticaComponent } from './reporte-final-cromatica/reporte-final-cromatica.component';
 
 @NgModule({
   declarations: [
     AplicacionComponent,
-    PlantillasCromaticaComponent
+    PlantillasCromaticaComponent,
+    ReporteCromaticaComponent,
+    ReporteFinalCromaticaComponent
   ],
   imports: [
     CommonModule,

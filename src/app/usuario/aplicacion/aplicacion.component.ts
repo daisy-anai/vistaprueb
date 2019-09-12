@@ -54,4 +54,13 @@ export class AplicacionComponent implements OnInit {
     this.medium.setVehiculo($event);
     console.log($event);
   }
+
+  // REPORTES 
+  archivo(file: File) {
+    var reader = new FileReader();
+    reader.onload = () => {
+      //  console.log(reader.result);
+    };
+    reader.readAsText(file);
+  }
 }
