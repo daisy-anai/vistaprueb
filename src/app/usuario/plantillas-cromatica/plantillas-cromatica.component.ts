@@ -8,6 +8,8 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 })
 export class PlantillasCromaticaComponent implements OnInit {
   public dynamicForm: FormGroup;
+  public secciones: any;
+  public propiedades: any;
 
   constructor(private formBuilder: FormBuilder) { }
 
@@ -19,46 +21,58 @@ export class PlantillasCromaticaComponent implements OnInit {
   }
 
   // Secciones
-  get f() { return this.dynamicForm.controls; }
-  get t() { return this.f.secciones as FormArray; }
+  get form() { return this.dynamicForm.controls; }
+  get t() { return this.form.secciones as FormArray; }
 
   totalSecciones(e) {
-    const secciones = e.target.value || 0;
-    if (this.t.length < secciones) {
-      for (let i = this.t.length; i < secciones; i++) {
-        this.t.push(this.formBuilder.group({
+    let controles = this.dynamicForm.controls;
+    let secciones = controles.secciones as FormArray;
+    this.secciones = secciones.controls;
+
+    const valor = e.target.value || 0;
+    if (secciones.length < valor) {
+      for (let i = secciones.length; i < valor; i++) {
+        secciones.push(this.formBuilder.group({
           nombreSeccion: ['', Validators.required],
           numeroPropiedades: ['', Validators.required],
-          propiedades: new FormArray([])
+          propiedades: new FormArray([]),
+          secc: [i]
         }));
       }
     } else {
-      for (let i = this.t.length; i >= secciones; i--) {
-          this.t.removeAt(i);
+      for (let i = secciones.length; i >= valor; i--) {
+        secciones.removeAt(i);
       }
     }
   }
 
-  // Subsecciones
-  a(seccion) { return this.t.controls[seccion].controls; }
-  b(seccion) { return this.a(seccion).propiedades as FormArray }
+  trust(seccion) {
+    return this.secciones[seccion]['controls']['propiedades'] as FormArray;
+  }
 
   totalPropiedades(e, seccion){
-    const propiedades = e.target.value || 0;
+    let controles = this.secciones[seccion]['controls'];
+    let propiedades = controles.propiedades as FormArray;
+    this.propiedades = propiedades.controls;
 
-    if(this.b(seccion).length < propiedades){
-      for (let i = this.b(seccion).length; i < propiedades; i++) {
-        console.log("Tst");
-        this.b(seccion).push(this.formBuilder.group({
+    const valor = e.target.value || 0;
+
+    if(propiedades.length < valor){
+      for (let i = propiedades.length; i < valor; i++) {
+        propiedades.push(this.formBuilder.group({
           nombre: ['', Validators.required],
-          tipoValor: ['', Validators.required]
+          tipoValor: ['', Validators.required],
+          test: [i]
         }));
       }
     }else {
-      for(let i = this.b(seccion).length; i >= propiedades; i--){
-        this.b(seccion).removeAt(i);
+      for(let i = propiedades.length; i >= valor; i--){
+        propiedades.removeAt(i);
       }
     }
+
+    console.log(this.secciones[seccion]['controls']['propiedades']['controls']);
+
   }
 
   onSubmit() {

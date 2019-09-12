@@ -9,7 +9,7 @@
               <option *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]">{{i}}</option>
           </select>
         </div>
-        <div *ngFor="let seccion of t.controls; let i = index">
+        <div *ngFor="let seccion of secciones; let i = index">
           <div class="card">
             <div [formGroup]="seccion" class="form-row">
               <p class="card-title">Seccion {{i + 1}}</p>
@@ -24,7 +24,7 @@
                 </div>
               </div>
               <div class="" style="margin: 10px; border: 1px solid blue;">
-                <div class="" *ngFor="let propiedad of b(i).controls; let j = index">
+                <div class="" *ngFor="let propiedad of trust(i).controls; let j = index">
                   <div class="" [formGroup]="propiedad">
                     <div class="row">
                       <div class="col s12">
