@@ -7,7 +7,7 @@
           <a id="alogo"><img class="responsive-img" id="logosemovi" src="assets/banner.png" ></a>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li>
-              <a class="dropdown-supervisor" data-target="dropdown1">
+              <a class="dropdown-trigger" data-target="dropdown1">
                 <label class="nombreusuario">{{user.nombre}} {{user.primer_apellido}} {{user.segundo_apellido}}</label>
                 <i class="material-icons right">arrow_drop_down</i>
               </a>
@@ -19,8 +19,7 @@
 
     <!-- dropdown -->
     <ul id="dropdown1" class="dropdown-content">
-
-      <li><a><i class="material-icons left">exit_to_app</i><label>Generar plantilla - cromatica</label></a></li>
+      <li *ngIf="user.rol.nombre === 'SUPERVISOR'"><a [routerLink]="['/plantillas']"><i class="material-icons left">exit_to_app</i><label class="nombreusuario">Generar plantillas</label></a></li>
       <li><a (click)="logout()"><i class="material-icons left">exit_to_app</i><label class="nombreusuario">Cerrar sesión</label></a></li>
     </ul>
 

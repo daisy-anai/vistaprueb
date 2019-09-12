@@ -1,0 +1,51 @@
+<div class="">
+  <div class="row">
+    <div class="col s6 offset-s3">
+      <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
+        <div class="" style="border: 1px solid blue">
+          <label>Total de secciones</label>
+          <select formControlName="numeroSecciones" class="browser-default" (change)="totalSecciones($event)">
+              <option value=""></option>
+              <option *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]">{{i}}</option>
+          </select>
+        </div>
+        <div *ngFor="let seccion of t.controls; let i = index">
+          <div class="card">
+            <div [formGroup]="seccion" class="form-row">
+              <p class="card-title">Seccion {{i + 1}}</p>
+              <input type="text" name="" value="" placeholder="Nombre de seccion" formControlName="nombreSeccion">
+              <label>Total de propiedades de secciones</label>
+              <div class="row">
+                <div class="col s6 offset-3">
+                  <select formControlName="numeroPropiedades" class="browser-default" (change)="totalPropiedades($event, i)">
+                    <option value=""></option>
+                    <option *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]">{{i}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="" style="margin: 10px; border: 1px solid blue;">
+                <div class="" *ngFor="let propiedad of b(i).controls; let j = index">
+                  <div class="" [formGroup]="propiedad">
+                    <div class="row">
+                      <div class="col s12">
+                        <div class="input-field">
+                          <input  id="S[{{i}}]-P[{{j}}]-nombre" formControlName="nombre" type="text" class="validate">
+                          <label for="S[{{i}}]-P[{{j}}]-nombre">Nombre de la propiedad</label>
+                        </div>
+                        <label for="">Valor a asignar</label>
+                        <select  class="browser-default" formControlName="tipoValor">
+                          <option value="texto">Texto</option>
+                          <option value="color">Color  </option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

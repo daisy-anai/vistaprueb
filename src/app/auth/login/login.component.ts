@@ -95,9 +95,6 @@ export class LoginComponent implements OnInit {
   }
 
   redirect(user: User){
-    if(user.rol.nombre == 'SUPERVISOR')
-      this.router.navigate(['/supervisor']);
-    else if(user.rol.nombre == 'CAPTURISTA')
-      this.router.navigate(['/capturista']);
+    this.router.navigate(['/aplicacion']);
   }
 }
