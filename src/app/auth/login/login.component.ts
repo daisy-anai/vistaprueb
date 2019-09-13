@@ -10,9 +10,9 @@ import { AuthService } from '../auth.service';
 import { StorageService } from "../../shared/services/storage.service";
 
 // Modelos
-import { Session } from "../../shared/models/session.model";
-import { User } from "../../shared/models/user.model";
-import { Rol } from "../../shared/models/rol.model";
+import { Session } from "../../shared/models/session";
+import { User } from "../../shared/models/user";
+import { Rol } from "../../shared/models/rol";
 
 declare var M: any;
 
@@ -67,18 +67,18 @@ export class LoginComponent implements OnInit {
 
   /* Parseo del objeto que me regresa el mandar los parametros del login*/
   correctlogincheck(objlogin: any){
-    let newseccion = new Session();
+    let newseccion: Session;
     newseccion.token = objlogin.login.token;
     let dialogeo = new Date();
     let finsession = new Date();
     finsession.setMinutes(dialogeo.getMinutes() + 120);
     newseccion.expire = finsession;
 
-    let rol = new Rol();
+    let rol: Rol;
     rol.id = objlogin.login.role.id;
     rol.nombre = objlogin.login.role.nombre;
 
-    let user = new User();
+    let user: User;
     user.id = objlogin.login.user.id
     user.nombre = objlogin.login.user.nombre;
     user.primer_apellido = objlogin.login.user.primer_apellido;

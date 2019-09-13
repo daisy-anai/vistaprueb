@@ -3,8 +3,8 @@ import { Observable } from 'rxjs';
 
 import { VehiculoService } from '../vehiculo.service';
 
-import { Concesion } from '../../models/concesion';
-import { Vehiculo } from '../../models/vehiculo';
+import { Concesion } from '../../shared/models/concesion';
+import { Vehiculo } from '../../shared/models/vehiculo';
 
 @Component({
   selector: 'buscar-vehiculo',
@@ -23,7 +23,7 @@ export class BuscarVehiculoComponent implements OnInit {
 
   ngOnInit() {
   }
-  
+
   buscar(): void {
     this.loading = true;
     this.service.getVehiculo(this.concesion.id, this.filtro).subscribe(result => {

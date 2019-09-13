@@ -1,8 +1,4 @@
-export class Sitio {
-  public id: string;
-  public nombre: string;
-
-  constructor() {
-    
-  }
+export interface Sitio {
+  id: string;
+  nombre: string;
 }
