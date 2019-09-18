@@ -1,6 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
-
 import { ConcesionService } from '../concesion.service';
 import { Concesion } from '../../models/concesion';
 
@@ -34,7 +33,7 @@ export class BuscarConcesionComponent implements OnInit {
       });
     }
   }
-
+  
   puente(result: any):void {
     this.concesiones = result.concesiones;
   }

@@ -27,5 +27,12 @@ export class GraphQLModule {
       }),
       cache: new InMemoryCache()
     });
+
+    apollo.createNamed('backrevista', {
+      link: httpLink.create({
+        uri: environment.URIBackRevista
+      }),
+      cache: new InMemoryCache()
+    });
   }
 }

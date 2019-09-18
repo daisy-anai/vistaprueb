@@ -1,5 +1,40 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { Apollo} from 'apollo-angular';
+import gql from 'graphql-tag';
+
+const mutacion= gql`
+    mutation CreateCatalogo($id_modalidad:ID!, $nombre:String!, $plantilla:[SeccionesInput!]!){
+      catalogo(id_modalidad:$id_modalidad, nombre:$nombre, plantilla:$plantilla){
+        id
+        nombre
+        estatus
+        createdAt
+        modalidad {
+          id
+          nombre
+          descripcion
+          estatus
+          abreviatura
+        }
+        secciones {
+          id
+          nombre
+          propiedades {
+            id
+            nombre
+            tipo {
+              id
+              nombre
+              estatus
+              createdAt
+            }
+          }
+          estatus
+          createdAt
+        }
+      }
+    }`;
 
 @Component({
   selector: 'app-plantillas-cromatica',
@@ -9,21 +44,46 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 export class PlantillasCromaticaComponent implements OnInit {
   public dynamicForm: FormGroup;
   public secciones: any;
+  public variableacambiar: boolean = false;
+  public modalidades : Array<any>;
+  public moda: any; 
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private apollo:Apollo) { }
 
+  
   ngOnInit() {
     this.dynamicForm = this.formBuilder.group({
+      id_modalidad: ['', Validators.required],
       numeroSecciones: ['', Validators.required],
       secciones: new FormArray([])
     });
-  }
 
-  // Secciones
-  get form() { return this.dynamicForm.controls; }
-  get t() { return this.form.secciones as FormArray; }
+    //query modalidades
+    this.apollo.use('sicac').watchQuery({
+      query: gql`
+      query modalidades {
+        modalidades {
+          id
+          nombre
+        }
+      }
+      `
+    }).valueChanges.subscribe(result => {
+     this.mostrarModalidades(result.data);
+    });
+  }
+  mostrarModalidades(data: any){
+    this.modalidades=data.modalidades;
+    console.log(this.modalidades);
+   
+  }
+  asignarPlantilla(data:any){
+    console.log(data);
+  }
+  
 
   totalSecciones(e) {
+
     let controles = this.dynamicForm.controls;
     let secciones = controles.secciones as FormArray;
     this.secciones = secciones.controls;
@@ -69,10 +129,37 @@ export class PlantillasCromaticaComponent implements OnInit {
       }
     }
   }
-
   onSubmit() {
-    if (this.dynamicForm.invalid) {
-      return;
-    }
+
+    // console.log(this.dynamicForm.controls['secciones']['controls'][0]);
+    // if (this.dynamicForm.invalid) {
+    //   return  console.log( this.secciones) ;
+    // } 
+    this.apollo.use('backrevista').mutate({
+      mutation: mutacion,
+      variables:{
+        id_modalidad:'MD0004',
+        nombre:'TAXI tipo x',
+        plantilla:[{ 
+          nombre:"PINTURA DE LA UNIIDAD",
+          propiedades: [
+            {
+              nombre: "Toldo",
+              tipo: 2
+            }
+          ]
+        }
+        ]
+      }
+    }).subscribe(({data})=>{
+      this.asignarPlantilla(data);   
+    },(error) =>{
+      console.log("error",error);     
+    });
   }
+
+  previsualizar(){  
+   console.log(this.dynamicForm);  
+  }
+
 }
