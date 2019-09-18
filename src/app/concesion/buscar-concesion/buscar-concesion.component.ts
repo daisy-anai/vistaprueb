@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ConcesionService } from '../concesion.service';
-import { Concesion } from '../../models/concesion';
+import { Concesion } from '../../shared/models/concesion';
 
 @Component({
   selector: 'buscar-concesion',

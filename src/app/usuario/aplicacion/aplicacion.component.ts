@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { StorageService } from "../../shared/services/storage.service";
 import { MediumDataService } from '../../shared/services/medium.data.service';
 
-import { User } from "../../shared/models/user.model";
+import { User } from "../../shared/models/user";
 import { Concesion } from '../../shared/models/concesion';
 import { Vehiculo } from '../../shared/models/vehiculo';
 declare var M: any;
@@ -55,7 +55,7 @@ export class AplicacionComponent implements OnInit {
     console.log($event);
   }
 
-  // REPORTES 
+  // REPORTES
   archivo(file: File) {
     var reader = new FileReader();
     reader.onload = () => {

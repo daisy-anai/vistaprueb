@@ -1,7 +1,8 @@
 import {Injectable} from "@angular/core";
 import { Router } from '@angular/router';
-import {Session} from "../models/session.model";
-import {User} from "../models/user.model";
+
+import {Session} from "../models/session";
+import {User} from "../models/user";
 
 @Injectable({
   providedIn: 'root'

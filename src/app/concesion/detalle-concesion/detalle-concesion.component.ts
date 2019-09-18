@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Concesion } from '../../models/concesion';
+import { Concesion } from '../../shared/models/concesion';
 
 @Component({
   selector: 'detalle-concesion',

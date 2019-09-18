@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
 
-import { User } from "../shared/models/user.model";
+import { User } from "../shared/models/user";
 import { StorageService } from "../shared/services/storage.service";
 
 @Injectable({

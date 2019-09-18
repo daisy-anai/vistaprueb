@@ -1,8 +1,4 @@
-export class Modalidad {
-  public id: string;
-  public nombre: string;
-
-  constructor() {
-    
-  }
+export interface Modalidad {
+  id: string;
+  nombre: string;
 }
