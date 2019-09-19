@@ -7,7 +7,14 @@ import { PlantillasCromaticaComponent } from './plantillas-cromatica/plantillas-
 const routes: Routes = [
   {
     path: 'aplicacion',
-    component: AplicacionComponent
+    component: AplicacionComponent,
+
+    children: [
+      {
+        path:'plantilla-croma',
+        component:PlantillasCromaticaComponent
+      }
+    ]
   },
   {
     path: 'plantillas',
