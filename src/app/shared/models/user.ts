@@ -1,6 +1,6 @@
 import { Rol } from "./rol";
 
-export interface User {
+export class User {
   id: Number
   nombre: String;
   primer_apellido: String;

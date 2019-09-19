@@ -1,6 +1,6 @@
 import { User } from "./user";
 
-export interface Session {
+export class Session {
   token: String;
   user: User;
   expire: Date;

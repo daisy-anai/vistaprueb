@@ -47,6 +47,7 @@ export class PlantillasCromaticaComponent implements OnInit {
   public variableacambiar: boolean = false;
   public modalidades : Array<any>;
   public moda: any; 
+  modalidad: any;
 
   constructor(private formBuilder: FormBuilder, private apollo:Apollo) { }
 
@@ -138,7 +139,7 @@ export class PlantillasCromaticaComponent implements OnInit {
     this.apollo.use('backrevista').mutate({
       mutation: mutacion,
       variables:{
-        id_modalidad:'MD0004',
+        id_modalidad: this.modalidad,
         nombre:'TAXI tipo x',
         plantilla:[{ 
           nombre:"PINTURA DE LA UNIIDAD",
@@ -160,6 +161,17 @@ export class PlantillasCromaticaComponent implements OnInit {
 
   previsualizar(){  
    console.log(this.dynamicForm);  
+  }
+
+  asignarmodalidad(modalidad: any){
+    console.log(modalidad);
+  }
+
+
+  vermodalidad(){
+    console.log(this.modalidad); 
+
+
   }
 
 }

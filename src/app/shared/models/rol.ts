@@ -1,4 +1,4 @@
-export interface Rol {
+export class Rol {
   id: Number;
   nombre: String;
 }

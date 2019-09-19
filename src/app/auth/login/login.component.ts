@@ -66,19 +66,20 @@ export class LoginComponent implements OnInit {
  }
 
   /* Parseo del objeto que me regresa el mandar los parametros del login*/
-  correctlogincheck(objlogin: any){
-    let newseccion: Session;
+  correctlogincheck(objlogin: any){    
+    let newseccion: Session = new Session(); 
+    
     newseccion.token = objlogin.login.token;
     let dialogeo = new Date();
     let finsession = new Date();
     finsession.setMinutes(dialogeo.getMinutes() + 120);
     newseccion.expire = finsession;
 
-    let rol: Rol;
+    let rol: Rol = new Rol();
     rol.id = objlogin.login.role.id;
     rol.nombre = objlogin.login.role.nombre;
 
-    let user: User;
+    let user: User = new User(); 
     user.id = objlogin.login.user.id
     user.nombre = objlogin.login.user.nombre;
     user.primer_apellido = objlogin.login.user.primer_apellido;

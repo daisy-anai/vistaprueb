@@ -1,13 +1,48 @@
-
-<div>   
+<!-- ejemplo ver modalidad-->
+<div class="container">
+  <div class="truncate">
+    <a class="waves-effect" >Agregar Plantilla</a>
+  <div>
+</div> 
+<a class="waves-effect" (click)="vermodalidad()">Ver Modalidad</a>
+<!--lista de plantillas -->
+<div class="row">
+  <div class="row">
+    <table class="striped borde">
+      <thead>
+        <tr>
+          <th>
+            <label for="">PLANTILLAS</label>
+          </th>
+          <th class="left">
+              <a class="btn-floating btn-large waves-effect waves-light btn-small red"><i class="material-icons">add</i></a>    
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+             Ejemplo- Taxi Tipo A
+          </td>
+          <td>
+            <a class="btn-floating btn-large waves-effect waves-light btn-small "><i class="material-icons">remove</i></a>    
+          </td>
+        </tr>
+        <tr>
+          <td>Taxi tipo B</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
   <div class="">
     <div class="row">
       <div class="col s6 offset-s3">
         <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit() ">
             <div class="" style="border: 1px solid lightslategray">
                 <label>Tipo de Modalidad</label>
-                <select  class="browser-default" formControlName="id_modalidad" >
-                  <option *ngFor=" let modalidad of modalidades" value="{{modalidad.id}}"> {{modalidad.nombre}}</option>           
+                <select [(ngModel)]="modalidad"  class="browser-default" formControlName="id_modalidad" >
+                  <option   *ngFor=" let modalidad of modalidades" value="{{modalidad.id}}"> {{modalidad.nombre}}</option>           
                 </select>
               </div>
             <br>
@@ -60,12 +95,11 @@
             </div>
           </div>
           <div class="row">
-              <button class="waves-effect waves-light btn  btn-small right " type="submit">GenerarPlantilla</button>
+              <button class="waves-effect waves-light btn-small right " type="submit">GenerarPlantilla</button>
           </div>
         </form>
       </div>
     </div>
   </div>
 </div>
-
 
