@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { StorageService } from "../../shared/services/storage.service";
@@ -7,6 +7,8 @@ import { MediumDataService } from '../../shared/services/medium.data.service';
 import { User } from "../../shared/models/user";
 import { Concesion } from '../../shared/models/concesion';
 import { Vehiculo } from '../../shared/models/vehiculo';
+import { ListarPlantillaComponent } from  '../listarPlantilla/listarPlantilla.component';
+
 declare var M: any;
 
 @Component({
@@ -18,7 +20,8 @@ export class AplicacionComponent implements OnInit {
   public user: User;
   public concesion: Concesion;
   public vehiculo: Vehiculo;
-
+  cambio: boolean=true;
+  public ListarPlantillaComponent:ListarPlantillaComponent;
   constructor(
     private router?: Router,
     private session?: StorageService,
@@ -54,7 +57,13 @@ export class AplicacionComponent implements OnInit {
     this.medium.setVehiculo($event);
     console.log($event);
   }
-
+  //cambia al componente lista
+  listacambio(){
+    this.cambio=false;
+    ListarPlantillaComponent;
+    this.ListarPlantillaComponent;
+    console.log(ListarPlantillaComponent);
+  }
   // REPORTES
   archivo(file: File) {
     var reader = new FileReader();

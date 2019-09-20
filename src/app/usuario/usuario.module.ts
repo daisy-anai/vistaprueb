@@ -10,13 +10,17 @@ import { AplicacionComponent } from './aplicacion/aplicacion.component';
 import { PlantillasCromaticaComponent } from './plantillas-cromatica/plantillas-cromatica.component';
 import { ReporteCromaticaComponent } from './reporte-cromatica/reporte-cromatica.component';
 import { ReporteFinalCromaticaComponent } from './reporte-final-cromatica/reporte-final-cromatica.component';
+import { CrearPlantillaComponent } from './crear-plantilla/crear-plantilla.component';
+import { ListarPlantillaComponent } from './listarPlantilla/listarPlantilla.component';
 
 @NgModule({
   declarations: [
     AplicacionComponent,
     PlantillasCromaticaComponent,
     ReporteCromaticaComponent,
-    ReporteFinalCromaticaComponent
+    ReporteFinalCromaticaComponent,
+    CrearPlantillaComponent,
+    ListarPlantillaComponent
   ],
   imports: [
     CommonModule,

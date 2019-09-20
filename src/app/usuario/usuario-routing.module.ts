@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AplicacionComponent } from './aplicacion/aplicacion.component';
 import { PlantillasCromaticaComponent } from './plantillas-cromatica/plantillas-cromatica.component';
+import { ListarPlantillaComponent } from './listarPlantilla/listarPlantilla.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,11 @@ const routes: Routes = [
   {
     path: 'plantillas',
     component: PlantillasCromaticaComponent
+  },
+  {
+    path:'listarPlantillas',
+    component:ListarPlantillaComponent,
+
   }
 ];
 
