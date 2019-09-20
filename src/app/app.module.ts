@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // Modulos
 import { AuthModule } from "./auth/auth.module";
 import { UsuarioModule } from './usuario/usuario.module';
+import { CatalogoModule } from './catalogo/catalogo.module'; 
 
 // Componentes
 import { AppRoutingModule } from './app-routing.module';
@@ -27,6 +28,7 @@ import * as $ from 'jquery';
     BrowserAnimationsModule,
     UsuarioModule,
     AuthModule,
+    CatalogoModule,
     AppRoutingModule
   ],
   providers: [],

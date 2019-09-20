@@ -20,8 +20,7 @@
 
     <!-- dropdown -->
     <ul id="dropdown1" class="dropdown-content">
-      <li *ngIf="user.rol.nombre === 'SUPERVISOR'"><a [routerLink]="['/listarPlantillas']"><i class="material-icons left">exit_to_app</i><label class="nombreusuario">Generar plantillas</label></a></li>
-      <li><a (click)="listacambio()"><i class="material-icons left">exit_to_app</i><label class="listarplantillas">Listar Plantillas</label></a></li>
+      <li *ngIf="user.rol.nombre === 'SUPERVISOR'"><a [routerLink]="['/aplicacion/catalogo']"><i class="material-icons left">exit_to_app</i><label class="nombreusuario">Catalogos</label></a></li>
       <li><a (click)="logout()"><i class="material-icons left">exit_to_app</i><label class="nombreusuario">Cerrar sesión</label></a></li>
     </ul>
 
@@ -34,36 +33,34 @@
       <li><a class="waves-effect" (click)="logout()"><i class="material-icons left">exit_to_app</i>Cerrar sesión</a></li>
     </ul>
   </div>
-  <!--visualizar-->
- <div *ngIf="cambio">
-  <div class="">
-    <section class="row" style="margin-top: 5em;">
-      <div class="col s6 offset-s3">
-        <buscar-concesion (out)="recibirConcesion($event)"></buscar-concesion>
-      </div>
-    </section>
-    <div class="row" *ngIf="concesion">
-      <div class="col s6 offset-s3">
-        <div class="row">
-          <div class="col s12">
-            <detalle-concesion [concesion]="concesion"></detalle-concesion>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col s12">
-            <buscar-vehiculo [concesion]="concesion" (out)="recibirVehiculo($event)"></buscar-vehiculo>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
- </div>
-</div>
-<!--visualizacion de los pdf-->
-<app-crear-plantilla></app-crear-plantilla>
-<router-outlet></router-outlet>
-
-<div class="">
   
+  <!--visualizar-->
+ 
 </div>
+
+<router-outlet>
+    <div *ngIf="cambio">
+        <div class="">
+          <section class="row" style="margin-top: 5em;">
+            <div class="col s6 offset-s3">
+              <buscar-concesion (out)="recibirConcesion($event)"></buscar-concesion>
+            </div>
+          </section>
+          <div class="row" *ngIf="concesion">
+            <div class="col s6 offset-s3">
+              <div class="row">
+                <div class="col s12">
+                  <detalle-concesion [concesion]="concesion"></detalle-concesion>
+                </div>
+              </div>
+      
+              <div class="row">
+                <div class="col s12">
+                  <buscar-vehiculo [concesion]="concesion" (out)="recibirVehiculo($event)"></buscar-vehiculo>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+       </div>
+</router-outlet>

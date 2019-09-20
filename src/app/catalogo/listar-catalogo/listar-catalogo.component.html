@@ -1,0 +1,15 @@
+<div>
+    <div class="row">
+        <div class="col s12">
+            <h4>Lista de catalogos</h4>
+        </div>
+    </div>
+    <div>
+        <ul>
+            <li *ngFor="let catalogo of catalogos" style="border: 1px solid blue; ">
+                <p>Nombre: {{catalogo.nombre}}</p>
+                <p> {{catalogo | json}} </p>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ConcesionModule } from '../concesion/concesion.module';
 import { VehiculoModule } from '../vehiculo/vehiculo.module';
+import { CatalogoModule } from '../catalogo/catalogo.module'; 
 
 import { UsuarioRoutingModule } from './usuario-routing.module';
 import { AplicacionComponent } from './aplicacion/aplicacion.component';
@@ -28,7 +29,8 @@ import { ListarPlantillaComponent } from './listarPlantilla/listarPlantilla.comp
     ReactiveFormsModule,
     UsuarioRoutingModule,
     ConcesionModule,
-    VehiculoModule
+    VehiculoModule,
+    CatalogoModule
   ]
 })
 export class UsuarioModule { }
