@@ -1,15 +1,46 @@
 <div>
     <div class="row">
         <div class="col s12">
-            <h4>Lista de catalogos</h4>
+            <span>Falta un buscador para filtrar los catalogos de acuerdo a una modalidad</span>
+            <br>
+            <span>Falta un mostrar la información completa de una catalogo</span>
+            <br>
+            <span>Falta la operación de eliminar un catalogo</span>
+            <br>
+            <span>Falta la operación de editar un catalogo</span>
         </div>
     </div>
-    <div>
-        <ul>
-            <li *ngFor="let catalogo of catalogos" style="border: 1px solid blue; ">
-                <p>Nombre: {{catalogo.nombre}}</p>
-                <p> {{catalogo | json}} </p>
-            </li>
-        </ul>
+    <div class="row">
+        <div class="" style=" margin: 2em; border: solid 1px blue">
+            <h6 for="">Catalogo</h6>
+            <table class="highlight">
+                <thead>
+                    <tr>
+                        <th>
+                            <h6 for="">CATALOGO</h6>
+                        </th>
+                        <th></th>
+                        <th></th>                  
+                        <th>
+                            <a class=" btnagregar btn-floating btn-large waves-effect waves-light btn-small #d32f2f red darken-2"id="crear"[routerLink]="['/aplicacion/catalogo/crear']" ><i class="material-icons">add</i></a>    
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let catalogo of catalogos">
+                        <td> {{catalogo.nombre}} </td>
+                        <td>
+                            <a class="btn-floating btn-large waves-effect waves-light btn-small cadetblue" id="edit" ><i class="material-icons" [routerLink]="['/aplicacion/catalogo/editar']">edit</i></a>
+                        </td>
+                        <td> 
+                            <a class="btn-floating btn-large waves-effect waves-light btn-small cadetblue" id=""><i class="material-icons">keyboard_arrow_down</i></a>    
+                        </td>
+                        <td>
+                            <a class="btn-floating btn-large waves-effect waves-light btn-small cadetblue"><i class="material-icons">close</i></a>    
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

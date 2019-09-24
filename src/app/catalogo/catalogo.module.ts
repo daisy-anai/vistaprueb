@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CatalogoRoutingModule } from './catalogo-routing.module';
 import { CrearCatalogoComponent } from './crear-catalogo/crear-catalogo.component';
@@ -17,7 +18,9 @@ import { ListarCatalogoComponent } from './listar-catalogo/listar-catalogo.compo
   ],
   imports: [
     CommonModule,
-    CatalogoRoutingModule
+    CatalogoRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     CrearCatalogoComponent, 

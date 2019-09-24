@@ -33,34 +33,6 @@
       <li><a class="waves-effect" (click)="logout()"><i class="material-icons left">exit_to_app</i>Cerrar sesión</a></li>
     </ul>
   </div>
-  
-  <!--visualizar-->
- 
 </div>
 
-<router-outlet>
-    <div *ngIf="cambio">
-        <div class="">
-          <section class="row" style="margin-top: 5em;">
-            <div class="col s6 offset-s3">
-              <buscar-concesion (out)="recibirConcesion($event)"></buscar-concesion>
-            </div>
-          </section>
-          <div class="row" *ngIf="concesion">
-            <div class="col s6 offset-s3">
-              <div class="row">
-                <div class="col s12">
-                  <detalle-concesion [concesion]="concesion"></detalle-concesion>
-                </div>
-              </div>
-      
-              <div class="row">
-                <div class="col s12">
-                  <buscar-vehiculo [concesion]="concesion" (out)="recibirVehiculo($event)"></buscar-vehiculo>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-       </div>
-</router-outlet>
+<router-outlet></router-outlet>

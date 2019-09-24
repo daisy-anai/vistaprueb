@@ -3,6 +3,7 @@ import { Validators, FormGroup , FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 
+
 // Servicios
 import { CatalogoService } from '../catalogo.service'; 
 
@@ -12,6 +13,7 @@ import { CatalogoService } from '../catalogo.service';
   styleUrls: ['./listar-catalogo.component.css']
 })
 export class ListarCatalogoComponent implements OnInit {
+
   public catalogos: Array<any>; 
   constructor(
     private apollo?: Apollo,

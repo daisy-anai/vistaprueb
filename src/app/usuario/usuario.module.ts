@@ -13,6 +13,7 @@ import { ReporteCromaticaComponent } from './reporte-cromatica/reporte-cromatica
 import { ReporteFinalCromaticaComponent } from './reporte-final-cromatica/reporte-final-cromatica.component';
 import { CrearPlantillaComponent } from './crear-plantilla/crear-plantilla.component';
 import { ListarPlantillaComponent } from './listarPlantilla/listarPlantilla.component';
+import { ConcesionVehiculoComponent } from './concesion-vehiculo/concesion-vehiculo.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ListarPlantillaComponent } from './listarPlantilla/listarPlantilla.comp
     ReporteCromaticaComponent,
     ReporteFinalCromaticaComponent,
     CrearPlantillaComponent,
-    ListarPlantillaComponent
+    ListarPlantillaComponent,
+    ConcesionVehiculoComponent
   ],
   imports: [
     CommonModule,

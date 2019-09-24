@@ -38,8 +38,7 @@ export class CatalogoService {
               secciones {
                 id
                 nombre
-                propiedades {
-                  id
+                propiedades {              
                   nombre
                   tipoPropiedad {
                     id
@@ -104,5 +103,53 @@ export class CatalogoService {
           id: id
         }
     }).valueChanges; 
+  }
+
+  getCatalogoModalidad(){
+    return this.apollo.use('sicac').watchQuery({
+      query: gql`
+      query modalidades {
+        modalidades {
+          id
+          nombre
+        }
+      }`
+    }).valueChanges;
+  }
+
+  getSecciones(){
+    return this.apollo.use('backrevista').watchQuery({
+      query: gql`
+      query secciones {
+        secciones {
+          id
+          nombre
+        }
+      }`
+    }).valueChanges;
+  }
+
+  getPropiedades(){
+    return this.apollo.use('backrevista').watchQuery({
+      query: gql`
+      query propiedades{
+        propiedades{
+          id
+          nombre
+        }
+      }`
+    }).valueChanges;
+  }
+
+  getTipoPropiedad(){
+    return this.apollo.use('backrevista').watchQuery({
+      query: gql`
+      query tiposPropiedad{
+        tiposPropiedad{
+        id
+        nombre
+        }
+      }`
+    }).valueChanges;
   }
 }

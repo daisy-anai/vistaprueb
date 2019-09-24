@@ -6,17 +6,23 @@ import { ListarCatalogoComponent } from '../catalogo/listar-catalogo/listar-cata
 import { CrearCatalogoComponent } from '../catalogo/crear-catalogo/crear-catalogo.component'; 
 import { EditarCatalogoComponent } from '../catalogo/editar-catalogo/editar-catalogo.component';
 import { DetalleCatalogoComponent } from '../catalogo/detalle-catalogo/detalle-catalogo.component';
+import { ConcesionVehiculoComponent } from './concesion-vehiculo/concesion-vehiculo.component';
 
 const routes: Routes = [
+  
   {
     path: 'aplicacion',
     component: AplicacionComponent,
     children: [
       {
+        path: 'inicio',
+        component: ConcesionVehiculoComponent
+      },
+      {
         path: 'catalogo',
         children: [
           {
-            path: 'listar',
+            path: 'listar',  
             component: ListarCatalogoComponent
           },
           {
@@ -37,7 +43,10 @@ const routes: Routes = [
           }
         ]
       },
-      
+      {
+        path: '**',
+        redirectTo: 'inicio'
+      }
     ]
   } 
 ];
