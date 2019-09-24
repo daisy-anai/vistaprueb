@@ -5,6 +5,7 @@ import { Apollo} from 'apollo-angular';
 
 //servicios
 import {CatalogoService} from '../catalogo.service';
+import { runInThisContext } from 'vm';
 
 @Component({
   selector: 'app-crear-catalogo',
@@ -15,7 +16,6 @@ export class CrearCatalogoComponent implements OnInit {
   public dynamicForm: FormGroup;
   public secciones: any;
   public countSecciones: number = 0; 
-  public agregarPropiedad: number = 0;
 
   constructor(
     private apollo?: Apollo,
@@ -35,22 +35,17 @@ export class CrearCatalogoComponent implements OnInit {
     this.countSecciones += 1; 
     this.totalSecciones(null); 
   }
-
+ 
   removeSeccion(){
      this.countSecciones -= 1;
      this.totalSecciones(null);
   }
 
-  agregarPropiedades(){
-    this.agregarPropiedad+=1;
-      this.totalPropiedades(null,null);
-  }
   
   totalSecciones(e) {
     let controles = this.dynamicForm.controls;
     let secciones = controles.secciones as FormArray;
-    this.secciones = secciones.controls;
-    
+    this.secciones = secciones.controls; 
     if (secciones.length < this.countSecciones) {
       for (let i = secciones.length; i < this.countSecciones; i++) {
         secciones.push(this.formBuilder.group({
@@ -71,12 +66,25 @@ export class CrearCatalogoComponent implements OnInit {
     return this.secciones[seccion]['controls']['propiedades'] as FormArray;
   }
 
-  
+  agregarPropiedades(seccion){
+    this.totalPropiedades(1, seccion);
+  }
+  removePropiedades(seccion){
+    let controles = this.secciones[seccion]['controls'];
+    let propiedades = controles.propiedades as FormArray;
+    let remove = propiedades.length;
+    remove -= 1;
+    console.log("elimianr propiedades "+remove);
+    this.totalPropiedades(remove,seccion);    
+  }
+
   totalPropiedades(e, seccion){
     let controles = this.secciones[seccion]['controls'];
     let propiedades = controles.propiedades as FormArray;
-    if(propiedades.length < this.agregarPropiedad){
-      for (let i = propiedades.length; i < this.agregarPropiedad; i++) {
+    let valor = propiedades.length; 
+    valor += 1; 
+    if(propiedades.length <  valor){
+      for (let i = propiedades.length; i < valor; i++) {
         propiedades.push(this.formBuilder.group({
           nombre: ['', Validators.required],
           tipoValor: ['', Validators.required],
@@ -84,7 +92,7 @@ export class CrearCatalogoComponent implements OnInit {
         }));
       }
     }else {
-      for(let i = propiedades.length; i >= this.agregarPropiedad; i--){
+      for(let i = propiedades.length; i >= valor; i--){
         propiedades.removeAt(i);
       }
     }

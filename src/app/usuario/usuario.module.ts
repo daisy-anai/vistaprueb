@@ -8,21 +8,15 @@ import { CatalogoModule } from '../catalogo/catalogo.module';
 
 import { UsuarioRoutingModule } from './usuario-routing.module';
 import { AplicacionComponent } from './aplicacion/aplicacion.component';
-import { PlantillasCromaticaComponent } from './plantillas-cromatica/plantillas-cromatica.component';
 import { ReporteCromaticaComponent } from './reporte-cromatica/reporte-cromatica.component';
 import { ReporteFinalCromaticaComponent } from './reporte-final-cromatica/reporte-final-cromatica.component';
-import { CrearPlantillaComponent } from './crear-plantilla/crear-plantilla.component';
-import { ListarPlantillaComponent } from './listarPlantilla/listarPlantilla.component';
 import { ConcesionVehiculoComponent } from './concesion-vehiculo/concesion-vehiculo.component';
 
 @NgModule({
   declarations: [
     AplicacionComponent,
-    PlantillasCromaticaComponent,
     ReporteCromaticaComponent,
     ReporteFinalCromaticaComponent,
-    CrearPlantillaComponent,
-    ListarPlantillaComponent,
     ConcesionVehiculoComponent
   ],
   imports: [

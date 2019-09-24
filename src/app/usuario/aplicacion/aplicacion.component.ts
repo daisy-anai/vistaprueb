@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 
 import { StorageService } from "../../shared/services/storage.service";
 import { User } from "../../shared/models/user";
-import { ListarPlantillaComponent } from  '../listarPlantilla/listarPlantilla.component';
 
 declare var M: any;
 
@@ -14,8 +13,7 @@ declare var M: any;
 })
 export class AplicacionComponent implements OnInit {
   public user: User;
-  cambio: boolean=true;
-  public ListarPlantillaComponent:ListarPlantillaComponent;
+
   constructor(
     private router?: Router,
     private session?: StorageService
@@ -37,24 +35,5 @@ export class AplicacionComponent implements OnInit {
   logout(): void{
     this.session.logout();
     this.router.navigate(['/login']);
-  }
-
-  
-
-  
-  //cambia al componente lista
-  listacambio(){
-    this.cambio=false;
-    ListarPlantillaComponent;
-    this.ListarPlantillaComponent;
-    console.log(ListarPlantillaComponent);
-  }
-  // REPORTES
-  archivo(file: File) {
-    var reader = new FileReader();
-    reader.onload = () => {
-      //  console.log(reader.result);
-    };
-    reader.readAsText(file);
   }
 }

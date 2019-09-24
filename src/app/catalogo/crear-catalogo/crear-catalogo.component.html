@@ -35,8 +35,6 @@
             <div class="" style="border: 1px solid blue">
               <label>Total de secciones</label>
               <a class=" btnagregar btn-floating btn-large waves-effect waves-light btn-small #d32f2f red darken-2"id="crear" (click)="incSeccion()"><i class="material-icons">add</i></a>    
-              
-
               <select formControlName="numeroSecciones" class="browser-default" (change)="totalSecciones($event)">
                   <option value=""></option>
                   <option *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]">{{i}}</option>
@@ -51,11 +49,13 @@
                   <label>Total de propiedades de secciones</label>
                   <div class="row">
                     <div class="col s6 offset-3">
-                        <a class=" btnagregar btn-floating btn-large waves-effect waves-light btn-small #bdbdbd grey lighten-1 darken-2"id="crear" (click)="agregarPropiedades()"><i class="material-icons">add</i></a>    
+                      <a class=" btnagregar btn-floating btn-large waves-effect waves-light btn-small #bdbdbd grey lighten-1 darken-2"id="crear" (click)="agregarPropiedades(i)"><i class="material-icons">add</i></a>    
                       <select formControlName="numeroPropiedades" class="browser-default" (change)="totalPropiedades($event, i)">
                         <option value=""></option>
                         <option *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]">{{i}}</option>
                       </select>
+                      <a class=" btnagregar btn-floating btn-large waves-effect waves-light btn-small #bdbdbd grey lighten-1 darken-2"id="crear" (click)="removePropiedades(i)"><i class="material-icons">remove</i></a>    
+
                     </div>
                   </div>
                   <div class="" style="margin: 10px; border: 1px solid blue;">
