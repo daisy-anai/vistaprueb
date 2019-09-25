@@ -1,4 +1,10 @@
-.btnagrega33{
-  position: absolute;
-  left: 700px;
+.buscadorConcesion::content{ 
+  border: #0097a7 1px solid; 
+}
+.busca:hover div i{
+  width:500px;
+  margin:0 auto;
+}
+.busca:hover input[ẗype=tex]{
+  color:#bcbcbc;
 }

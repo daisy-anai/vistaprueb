@@ -59,6 +59,8 @@ export class CatalogoService {
   }
 
   getCatalogoByID(id:Number){
+    console.log(id);
+    
     return this.apollo.use('backrevista').watchQuery({
         query: gql`
           query getCatalogo($id:ID!) {
