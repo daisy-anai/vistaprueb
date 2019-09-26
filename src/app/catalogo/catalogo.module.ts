@@ -8,24 +8,26 @@ import { DetalleCatalogoComponent } from './detalle-catalogo/detalle-catalogo.co
 import { EditarCatalogoComponent } from './editar-catalogo/editar-catalogo.component';
 import { ListarCatalogoComponent } from './listar-catalogo/listar-catalogo.component';
 
+import { ValidoDirective } from '../shared/directives/valido.directive';
 
 @NgModule({
   declarations: [
-    CrearCatalogoComponent, 
-    DetalleCatalogoComponent, 
-    EditarCatalogoComponent, 
-    ListarCatalogoComponent
+    CrearCatalogoComponent,
+    DetalleCatalogoComponent,
+    EditarCatalogoComponent,
+    ListarCatalogoComponent,
+    ValidoDirective
   ],
   imports: [
     CommonModule,
     CatalogoRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   exports: [
-    CrearCatalogoComponent, 
-    DetalleCatalogoComponent, 
-    EditarCatalogoComponent, 
+    CrearCatalogoComponent,
+    DetalleCatalogoComponent,
+    EditarCatalogoComponent,
     ListarCatalogoComponent
   ]
 })
