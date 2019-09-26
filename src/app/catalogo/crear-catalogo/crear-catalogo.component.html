@@ -16,8 +16,11 @@
       </div>
 
       <form [formGroup]="catalogoForm" (ngSubmit)="onSubmit()">
-        <div class="input-field">
-          <input id="nombre_catalogo" type="text" class="validate" formControlName="nombre" autocomplete="off">
+        <div class="input-field" >
+          <input id="nombre_catalogo" type="text" class="validate"
+            valido [estatus]="watchCatalogoNombre()"
+            formControlName="nombre"
+            autocomplete="off">
           <label for="nombre_catalogo">Nombre del catalogo</label>
         </div>
 

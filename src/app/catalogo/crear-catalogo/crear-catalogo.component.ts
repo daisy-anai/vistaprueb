@@ -8,6 +8,7 @@ import { TipoCatalogo } from '../../shared/models/tipoCatalogo';
 import { TipoPropiedad } from '../../shared/models/tipoPropiedad';
 import { Seccion } from '../../shared/models/seccion';
 import { Propiedad } from '../../shared/models/propiedad';
+import { Catalogo } from '../../shared/models/catalogo';
 
 //servicios
 import {CatalogoService} from '../catalogo.service';
@@ -26,6 +27,7 @@ export class CrearCatalogoComponent implements OnInit {
   public tiposPropiedad: Array<TipoPropiedad>;
   public secciones: Array<Seccion>;
   public propiedades: Array<Propiedad>;
+  public catalogos: Array<Catalogo>;
   public seccionesForm: any;
 
   public totalSecciones: number = 0;
@@ -37,6 +39,10 @@ export class CrearCatalogoComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.service.getCatalogos().subscribe(result => {
+      this.catalogos = result.data.catalogos;
+    });
+
     this.service.getSecciones().subscribe(result => {
       this.secciones = result.data['secciones'];
     });
@@ -68,6 +74,15 @@ export class CrearCatalogoComponent implements OnInit {
   // HELPERS
   test(seccion:number, e) {
     console.log(e);
+  }
+  // Watchers
+  watchCatalogoNombre():boolean {
+    let value = this.catalogoForm.get('nombre').value.toLowerCase().trim();
+    if(this.catalogos){
+      const result = this.catalogos.filter(word => word.nombre.toLowerCase().trim() === value);
+      return result.length >= 1 ? true : false;
+    }
+    return false;
   }
 
   // Control de las secciones
