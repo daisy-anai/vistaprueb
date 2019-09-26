@@ -75,8 +75,8 @@
                     <input type="text" id="S[{{i}}]-nombre" class="autocomplete"
                     autocomplete="off"
                     formControlName="nombre"
-                    (change)="test(i, $event)"
-                    (ngModelChange)="autocompleteSecciones($event)">
+                    (change)="watchSeccionNombre(i)"
+                    (ngModelChange)="autocompleteSecciones($event, i)">
                     <label for="S[{{i}}]-nombre">Titulo de sección</label>
                   </div>
                 </div>

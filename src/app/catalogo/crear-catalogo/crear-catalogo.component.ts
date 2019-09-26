@@ -40,7 +40,7 @@ export class CrearCatalogoComponent implements OnInit {
 
   ngOnInit() {
     this.service.getCatalogos().subscribe(result => {
-      this.catalogos = result.data.catalogos;
+      this.catalogos = result.data['catalogos'];
     });
 
     this.service.getSecciones().subscribe(result => {
@@ -76,7 +76,18 @@ export class CrearCatalogoComponent implements OnInit {
     console.log(e);
   }
   // Watchers
-  watchCatalogoNombre():boolean {
+  watchSeccionNombre(seccion: Number):Boolean {
+    let value = (<HTMLInputElement>document.getElementById(`S[${seccion}]-nombre`)).value;
+    console.log(value);
+    if(this.secciones){
+      let result = this.secciones.filter(word => word.nombre.toLowerCase().trim() === value)
+      this.catalogoForm.controls.secciones.controls[seccion].controls.nombre.setValue(value);
+      return result.length >= 1 ? true : false;
+    }
+    return false;
+  }
+
+  watchCatalogoNombre(): Boolean {
     let value = this.catalogoForm.get('nombre').value.toLowerCase().trim();
     if(this.catalogos){
       const result = this.catalogos.filter(word => word.nombre.toLowerCase().trim() === value);
@@ -116,7 +127,8 @@ export class CrearCatalogoComponent implements OnInit {
     }
   }
 
-  autocompleteSecciones(e){
+  autocompleteSecciones(e, seccion){
+    this.watchSeccionNombre(seccion);
     let datos = {};
     for(let seccion of this.secciones){
       datos[seccion.nombre] = null;
