@@ -17,7 +17,8 @@ declare var M: any;
 @Component({
   selector: 'app-crear-catalogo',
   templateUrl: './crear-catalogo.component.html',
-  styleUrls: ['./crear-catalogo.component.css']
+  styleUrls: ['./crear-catalogo.component.css'],
+
 })
 export class CrearCatalogoComponent implements OnInit {
   public catalogoForm: FormGroup;
@@ -110,7 +111,9 @@ export class CrearCatalogoComponent implements OnInit {
     var elems = document.querySelectorAll('input.autocomplete');
     var [instances] = M.Autocomplete.init(elems, {
       data: datos
-    });
+      
+    }); 
+     
   }
 
   addPropiedad(seccion: number) {
