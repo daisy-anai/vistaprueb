@@ -83,9 +83,9 @@ export class CrearCatalogoComponent implements OnInit {
       console.log(result)
 
       if(result.length == 0){
-        this.catalogoForm.controls.secciones.controls[seccion].controls.nombre.setValue(value);
+        this.catalogoForm.controls.secciones['controls'][seccion].controls.nombre.setValue(value);
       }else{
-        this.catalogoForm.controls.secciones.controls[seccion].controls.id_seccion.setValue(result[0].id);
+        this.catalogoForm.controls.secciones['controls'][seccion].controls.id_seccion.setValue(result[0].id);
       }
     }
   }
