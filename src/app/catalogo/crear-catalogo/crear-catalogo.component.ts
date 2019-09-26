@@ -1,4 +1,4 @@
-import { Component, OnInit, TestabilityRegistry } from '@angular/core';
+import { Component, OnInit, TestabilityRegistry, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Apollo} from 'apollo-angular';
 
@@ -41,7 +41,7 @@ export class CrearCatalogoComponent implements OnInit {
 
   ngOnInit() {
     this.service.getCatalogos().subscribe(result => {
-      this.catalogos = result.data.catalogos;
+      this.catalogos = result.data['catalogos'];
     });
 
     this.service.getSecciones().subscribe(result => {
@@ -75,6 +75,7 @@ export class CrearCatalogoComponent implements OnInit {
   // HELPERS
   test(seccion:number, e) {
     console.log(e);
+   
   }
   // Watchers
   watchCatalogoNombre():boolean {
@@ -122,13 +123,11 @@ export class CrearCatalogoComponent implements OnInit {
     for(let seccion of this.secciones){
       datos[seccion.nombre] = null;
     }
-
-    var elems = document.querySelectorAll('input.autocomplete');
+  
+    var elems = document.querySelectorAll('input.autocomplete');  
     var [instances] = M.Autocomplete.init(elems, {
       data: datos
-      
-    }); 
-     
+    });    
   }
 
   addPropiedad(seccion: number) {
