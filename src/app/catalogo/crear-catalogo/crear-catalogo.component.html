@@ -84,6 +84,7 @@
             <!-- End Secciones -->
 
               <!-- Propiedades -->
+ 
               <div class="row">
                 <div class="col s10 offset-s1">
                   <div class="row valign-wrapper">
@@ -102,6 +103,7 @@
               <div class="row">
                 <div class="col s10 offset-s1">
                   <div *ngFor="let propiedad of propiedadesControls(i).controls; let j = index">
+                    <p>{{catalogoForm.value | json}}</p>
                     <div [formGroup]="propiedad">
                       <div class="row valign-wrapper">
                         <div class="col s6">
@@ -121,11 +123,12 @@
                             <input type="text" id="S[{{i}}]-P[{{j}}]-nombre" class="autocomplete"
                             autocomplete="off"
                             formControlName="nombre"
+                            (change)="watchPropiedadNombre(i,j)"
                             (ngModelChange)="autocompletePropiedades($event)">
                             <label for="S[{{i}}]-P[{{j}}]-nombre">Nombre de la propiedad</label>
                           </div>
                         </div>
-
+                   
                         <div class="col s12">
                           <label for="">Tipo de propiedad</label>
                           <select  class="browser-default" formControlName="tipoPropiedad">

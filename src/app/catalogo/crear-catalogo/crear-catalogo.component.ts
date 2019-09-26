@@ -85,13 +85,25 @@ export class CrearCatalogoComponent implements OnInit {
       console.log(result)
 
       if(result.length == 0){
-        this.catalogoForm.controls.secciones.controls[seccion].controls.nombre.setValue(value);
+        this.catalogoForm.controls.secciones['controls'][seccion].controls.nombre.setValue(value);
       }else{
-        this.catalogoForm.controls.secciones.controls[seccion].controls.id_seccion.setValue(result[0].id);
+        this.catalogoForm.controls.secciones['controls'][seccion].controls.id_seccion.setValue(result[0].id);
       }
     }
   }
-
+  watchPropiedadNombre(seccion: number,propiedad: number): void{
+    let value = (<HTMLInputElement>document.getElementById(`S[${seccion}]-P[${propiedad}]-nombre`)).value.toLowerCase().trim();
+    if(this.propiedades){
+      let result = this.propiedades.filter(word => word.nombre.toLowerCase().trim() === value)
+      console.log(this.catalogoForm.controls.secciones['controls'][seccion].controls.propiedades.controls[propiedad].controls);
+      if(result.length == 0){       
+        this.catalogoForm.controls.secciones['controls'][seccion].controls.propiedades.controls[propiedad].controls.nombre.setValue(value); 
+      }else{
+        // this.catalogoForm.controls.secciones[propiedades].controls[propiedad].controls.id_propiedad.setValue(result[0].id);
+        this.catalogoForm.controls.secciones['controls'][seccion].controls.propiedades.controls[propiedad].controls.id_propiedad.setValue(result[0].id); 
+      }  
+    }
+  }
   watchCatalogoNombre(): Boolean {
     let value = this.catalogoForm.get('nombre').value.toLowerCase().trim();
     if(this.catalogos){
@@ -165,6 +177,7 @@ export class CrearCatalogoComponent implements OnInit {
     if(propiedades.length < valor){
       for (let i = propiedades.length; i < valor; i++) {
         propiedades.push(this.formBuilder.group({
+          id_propiedad: ['', Validators.required],
           nombre: ['', Validators.required],
           tipoPropiedad: ['', Validators.required]
         }));
