@@ -38,7 +38,7 @@ export class CatalogoService {
               secciones {
                 id
                 nombre
-                propiedades {              
+                propiedades {
                   nombre
                   tipoPropiedad {
                     id
@@ -55,7 +55,7 @@ export class CatalogoService {
         `,
         variables: {
         }
-    }).valueChanges; 
+    }).valueChanges;
   }
 
   getCatalogoByID(id:Number){
@@ -104,10 +104,10 @@ export class CatalogoService {
         variables: {
           id: id
         }
-    }).valueChanges; 
+    }).valueChanges;
   }
 
-  getCatalogoModalidad(){
+  getModalidades(){
     return this.apollo.use('sicac').watchQuery({
       query: gql`
       query modalidades {
@@ -134,8 +134,20 @@ export class CatalogoService {
   getPropiedades(){
     return this.apollo.use('backrevista').watchQuery({
       query: gql`
-      query propiedades{
+      query propiedades {
         propiedades{
+          id
+          nombre
+        }
+      }`
+    }).valueChanges;
+  }
+
+  getTiposCatalogo() {
+    return this.apollo.use('backrevista').watchQuery({
+      query: gql`
+      query tiposCatalogo {
+        tiposCatalogo {
           id
           nombre
         }
@@ -146,10 +158,10 @@ export class CatalogoService {
   getTipoPropiedad(){
     return this.apollo.use('backrevista').watchQuery({
       query: gql`
-      query tiposPropiedad{
-        tiposPropiedad{
-        id
-        nombre
+      query tiposPropiedad {
+        tiposPropiedad {
+          id
+          nombre
         }
       }`
     }).valueChanges;

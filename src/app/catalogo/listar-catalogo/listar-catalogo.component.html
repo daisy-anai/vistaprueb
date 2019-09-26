@@ -1,67 +1,37 @@
 
 <div>
   <div class="row">
-    <div class="col s12">
-      <span>Falta un buscador para filtrar los catalogos de acuerdo a una modalidad</span>
-      <br>
-      <span>Falta un mostrar la información completa de una catalogo</span>
-      <br>
-      <span>Falta la operación de eliminar un catalogo</span>
-      <br>
-      <span>Falta la operación de editar un catalogo</span>
-    </div>
-  </div>
-
-  <div class="row">
-    <div>
-      <div class="input-field col s12 ">
-        <i class="material-icons prefix buca">search</i>
-          <input id="buscar_concesion" type="text" class="validate" autofocus placeholder="Buscar"specialOnly autocomplete="off"  >
-          <label for="buscar_concesion"> Buscar catalogo por modalidad</label>
-          </div>
-    </div>
-    <div class="" style=" margin: 2em;">
+    <div class="col s8">
       <table class="highlight">
-          <thead>
-            <tr>
-              <th><h6 for="">CATALOGO</h6></th>
-              <th></th>
-              <th></th>                  
-              <th>
-                <a class=" btnagregar btn-floating btn-large waves-effect waves-light btn-small #d32f2f red darken-2"id="crear"[routerLink]="['/aplicacion/catalogo/crear']" ><i class="material-icons">add</i></a>  
-              </th>
-            </tr>
-          </thead>
+        <thead>
+          <tr>
+            <th>
+              <h6 for="">CATALOGO</h6>
+            </th>
+            <th></th>
+            <th></th>
+            <th>
+              <a class="btn-floating btn-small red darken-2" [routerLink]="['/aplicacion/catalogo/crear']">
+                <i class="material-icons">add</i>
+              </a>
+            </th>
+          </tr>
+        </thead>
           <tbody>
             <tr *ngFor="let catalogo of catalogos">
               <td> {{catalogo.nombre}} </td>
               <td>
-                <a class="btn-floating btn-large waves-effect waves-light btn-small cadetblue" id="edit" [routerLink]="['/aplicacion/catalogo/editar']"><i class="material-icons" >edit</i></a>
-              </td>
-              <td> 
-                <a class="btn-floating btn-large waves-effect waves-light btn-small cadetblue" id="" [routerLink]="['/aplicacion/catalogo/detalle/'+catalogo.id]" ><i class="material-icons">keyboard_arrow_down</i></a>    
+                <a class="btn-floating btn-large waves-effect waves-light btn-small cadetblue" id="edit" ><i class="material-icons" [routerLink]="['/aplicacion/catalogo/editar']">edit</i></a>
               </td>
               <td>
-                <a class="btn-floating btn-large waves-effect waves-light btn-small cadetblue"><i class="material-icons">close</i></a>    
+                <a class="btn-floating btn-large waves-effect waves-light btn-small cadetblue" id=""><i class="material-icons">keyboard_arrow_down</i></a>
+              </td>
+              <td>
+                <a class="btn-floating btn-large waves-effect waves-light btn-small cadetblue"><i class="material-icons">close</i></a>
               </td>
             </tr>
           </tbody>
-        </table>
+      </table>
     </div>
   </div>
 </div>
-<div>
-<div class="row">
-  <div>
-      <ul class="collapsible" *ngFor= "let catalogo of catalogos">
-          <li>
-            <div class="collapsible-header">
-                {{catalogo.nombre}}
-             </div>
-            <div class="collapsible-body"><p> contenido</p></div>
-          </li>
-        </ul>
-  </div>
-</div>
-
-  

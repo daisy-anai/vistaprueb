@@ -1,7 +1,6 @@
-import  {Propiedad } from './propiedad';
-
-export interface Seccion{
-  id: String;
-   nombre: String;
-   propiedad: Propiedad;
+export interface Seccion {
+  id: string;
+  nombre: string;
+  estatus: Boolean;
+  create: Date;
 }

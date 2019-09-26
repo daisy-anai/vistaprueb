@@ -1,4 +1,6 @@
-export interface TipoPropiedad{
-  id:String;
-  nombre: String;
+export interface TipoPropiedad {
+  id: string;
+  nombre: string;
+  estatus: Boolean;
+  create: Date;
 }

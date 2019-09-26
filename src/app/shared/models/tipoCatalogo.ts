@@ -1,4 +1,6 @@
-export interface TipoCatalogo{
-  id: String;
-   nombre: String;
+export interface TipoCatalogo {
+  id: string;
+  nombre: string;
+  estatus: Boolean;
+  create: Date;
 }

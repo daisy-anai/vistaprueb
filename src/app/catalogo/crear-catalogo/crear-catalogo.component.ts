@@ -2,10 +2,17 @@ import { Component, OnInit, TestabilityRegistry } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Apollo} from 'apollo-angular';
 
+// Modelos
+import { Modalidad } from '../../shared/models/modalidad';
+import { TipoCatalogo } from '../../shared/models/tipoCatalogo';
+import { TipoPropiedad } from '../../shared/models/tipoPropiedad';
+import { Seccion } from '../../shared/models/seccion';
+import { Propiedad } from '../../shared/models/propiedad';
 
 //servicios
 import {CatalogoService} from '../catalogo.service';
-import { runInThisContext } from 'vm';
+
+declare var M: any;
 
 @Component({
   selector: 'app-crear-catalogo',
@@ -13,82 +20,121 @@ import { runInThisContext } from 'vm';
   styleUrls: ['./crear-catalogo.component.css']
 })
 export class CrearCatalogoComponent implements OnInit {
-  public dynamicForm: FormGroup;
-  public secciones: any;
-  public countSecciones: number = 0; 
+  public catalogoForm: FormGroup;
+  public modalidades: Array<Modalidad>;
+  public tiposCatalago: Array<TipoCatalogo>;
+  public tiposPropiedad: Array<TipoPropiedad>;
+  public secciones: Array<Seccion>;
+  public propiedades: Array<Propiedad>;
+  public seccionesForm: any;
+
+  public totalSecciones: number = 0;
 
   constructor(
     private apollo?: Apollo,
     private service?: CatalogoService,
     private formBuilder?: FormBuilder
-  ) { }
+  ) {}
 
   ngOnInit() {
-    this.dynamicForm = this.formBuilder.group({
+    this.service.getSecciones().subscribe(result => {
+      this.secciones = result.data['secciones'];
+    });
+
+    this.service.getModalidades().subscribe(result => {
+      this.modalidades = result.data['modalidades'];
+    });
+
+    this.service.getTiposCatalogo().subscribe(result => {
+      this.tiposCatalago = result.data['tiposCatalogo'];
+    });
+
+    this.service.getTipoPropiedad().subscribe(result => {
+      this.tiposPropiedad = result.data['tiposPropiedad'];
+    });
+
+    this.service.getPropiedades().subscribe(result => {
+      this.propiedades = result.data['propiedades'];
+    })
+
+    this.catalogoForm = this.formBuilder.group({
       id_modalidad: ['', Validators.required],
-      numeroSecciones: ['', Validators.required],
-      secciones: new FormArray([])
+      id_tipo_catalogo: ['', Validators.required],
+      nombre: ['', Validators.required],
+      secciones: new FormArray([], Validators.required)
     });
   }
 
-  incSeccion(){
-    this.countSecciones += 1; 
-    this.totalSecciones(null); 
-  }
- 
-  removeSeccion(){
-     this.countSecciones -= 1;
-     this.totalSecciones(null);
+  // HELPERS
+  test(seccion:number, e) {
+    console.log(e);
   }
 
-  
-  totalSecciones(e) {
-    let controles = this.dynamicForm.controls;
+  // Control de las secciones
+  addSeccion() {
+    this.totalSecciones += 1;
+    this.seccionesController();
+  }
+
+  removeSeccion() {
+    this.totalSecciones -= 1;
+    this.seccionesController();
+  }
+
+  seccionesController() {
+    let controles = this.catalogoForm.controls;
     let secciones = controles.secciones as FormArray;
-    this.secciones = secciones.controls; 
-    if (secciones.length < this.countSecciones) {
-      for (let i = secciones.length; i < this.countSecciones; i++) {
+    this.seccionesForm = secciones.controls;
+
+    if (secciones.length < this.totalSecciones) {
+      for (let i = secciones.length; i < this.totalSecciones; i++) {
         secciones.push(this.formBuilder.group({
-          nombreSeccion: ['', Validators.required],
-          numeroPropiedades: ['', Validators.required],
-          propiedades: new FormArray([]),
-          secc: [i]
+          id_seccion: [''],
+          nombre: ['', Validators.required],
+          propiedades: new FormArray([], Validators.required)
         }));
       }
     } else {
-      for (let i = secciones.length; i >= this.countSecciones; i--) {
+      for (let i = secciones.length; i >= this.totalSecciones; i--) {
         secciones.removeAt(i);
       }
     }
   }
 
-  propiedades(seccion) {        
-    return this.secciones[seccion]['controls']['propiedades'] as FormArray;
+  autocompleteSecciones(e){
+    let datos = {};
+    for(let seccion of this.secciones){
+      datos[seccion.nombre] = null;
+    }
+
+    var elems = document.querySelectorAll('input.autocomplete');
+    var [instances] = M.Autocomplete.init(elems, {
+      data: datos
+    });
   }
 
-  agregarPropiedades(seccion){
-    this.totalPropiedades(1, seccion);
-  }
-  removePropiedades(seccion){
-    let controles = this.secciones[seccion]['controls'];
-    let propiedades = controles.propiedades as FormArray;
-    let remove = propiedades.length;
-    remove -= 1;
-    console.log("elimianr propiedades "+remove);
-    this.totalPropiedades(remove,seccion);    
+  addPropiedad(seccion: number) {
+    let valor = this.propiedadesControls(seccion).length;
+    this.propiedadesForm(seccion, valor+=1);
   }
 
-  totalPropiedades(e, seccion){
-    let controles = this.secciones[seccion]['controls'];
-    let propiedades = controles.propiedades as FormArray;
-    let valor = propiedades.length; 
-    valor += 1; 
-    if(propiedades.length <  valor){
+  removePropiedad(seccion: number) {
+    let valor = this.propiedadesControls(seccion).length;
+    this.propiedadesForm(seccion, valor-=1);
+  }
+
+  propiedadesControls(seccion) {
+    return this.seccionesForm[seccion]['controls']['propiedades'] as FormArray;
+  }
+
+  propiedadesForm(seccion: number, valor: number) {
+    let propiedades = this.propiedadesControls(seccion);
+
+    if(propiedades.length < valor){
       for (let i = propiedades.length; i < valor; i++) {
         propiedades.push(this.formBuilder.group({
           nombre: ['', Validators.required],
-          tipoValor: ['', Validators.required],
-          test: [i]
+          tipoPropiedad: ['', Validators.required]
         }));
       }
     }else {
@@ -97,5 +143,16 @@ export class CrearCatalogoComponent implements OnInit {
       }
     }
   }
-}
 
+  autocompletePropiedades(e){
+    let datos = {};
+    for(let propiedad of this.propiedades){
+      datos[propiedad.nombre] = null;
+    }
+
+    var elems = document.querySelectorAll('input.autocomplete');
+    var [instances] = M.Autocomplete.init(elems, {
+      data: datos
+    });
+  }
+}
