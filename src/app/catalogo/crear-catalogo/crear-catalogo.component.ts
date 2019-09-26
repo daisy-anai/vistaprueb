@@ -76,15 +76,18 @@ export class CrearCatalogoComponent implements OnInit {
     console.log(e);
   }
   // Watchers
-  watchSeccionNombre(seccion: Number):Boolean {
-    let value = (<HTMLInputElement>document.getElementById(`S[${seccion}]-nombre`)).value;
-    console.log(value);
+  watchSeccionNombre(seccion: Number):void {
+    let value = (<HTMLInputElement>document.getElementById(`S[${seccion}]-nombre`)).value.toLowerCase().trim();
     if(this.secciones){
       let result = this.secciones.filter(word => word.nombre.toLowerCase().trim() === value)
-      this.catalogoForm.controls.secciones.controls[seccion].controls.nombre.setValue(value);
-      return result.length >= 1 ? true : false;
+      console.log(result)
+
+      if(result.length == 0){
+        this.catalogoForm.controls.secciones.controls[seccion].controls.nombre.setValue(value);
+      }else{
+        this.catalogoForm.controls.secciones.controls[seccion].controls.id_seccion.setValue(result[0].id);
+      }
     }
-    return false;
   }
 
   watchCatalogoNombre(): Boolean {
@@ -128,7 +131,7 @@ export class CrearCatalogoComponent implements OnInit {
   }
 
   autocompleteSecciones(e, seccion){
-    this.watchSeccionNombre(seccion);
+    // this.watchSeccionNombre(seccion);
     let datos = {};
     for(let seccion of this.secciones){
       datos[seccion.nombre] = null;
