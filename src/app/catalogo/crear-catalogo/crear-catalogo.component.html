@@ -1,78 +1,133 @@
 <!--Crear Catalogo -->
-<div>
+<div class="">
   <div class="row">
-    <div class="col s12">
-      <label for="">Nombre del catalogo</label>
-      <input type="text" name="" id="">
-    </div>
-  </div>
-
-    <div class="row">
-      <div class="col s12">
-          <label for="">Modalidad</label>
-          <select name="" class="browser-default">
-            <option  *ngFor="let modalidad of modalidades" value="text">{{modalidad.nombre}}</option>
-          </select>    
+    <div class="col s8 offset-s2">
+      <!-- Catalogo -->
+      <div class="row valign-wrapper">
+        <div class="col s6">
+          <h5 class="" >Creación de catalogos</h5>
+        </div>
+        <div class="col s6 right-align">
+          <a class="btn-floating btn-large waves-effect waves-light red btn-small red darken-2 "
+            [routerLink]="['/aplicacion/catalogo/listar']">
+            <i class="material-icons">arrow_back</i>
+          </a>
+        </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="col s12">
-          <div class="row">
-            <div class="col s6">
-              <h5>Secciones</h5>
-            </div>
-            <div class="col s6">
-              </div>
+      <form [formGroup]="catalogoForm" (ngSubmit)="onSubmit()">
+        <div class="input-field">
+          <input id="nombre_catalogo" type="text" class="validate" formControlName="nombre" autocomplete="off">
+          <label for="nombre_catalogo">Nombre del catalogo</label>
+        </div>
+
+        <div class="">
+          <label for="id_modalidad">Tipo de modalidad</label>
+          <select formControlName="id_modalidad" class="browser-default">
+            <option value="" disabled selected>Choose your option</option>
+            <option *ngFor="let modalidad of modalidades" value="{{modalidad.id}}"> {{ modalidad.nombre }} </option>
+          </select>
+        </div>
+
+        <div class="">
+          <label for="id_tipo_catalogo">Tipo de catalogo</label>
+          <select formControlName="id_tipo_catalogo" class="browser-default">
+            <option value="" disabled selected>Choose your option</option>
+            <option *ngFor="let tipoCatalogo of tiposCatalago" value="{{tipoCatalogo.id}}"> {{ tipoCatalogo.nombre }} </option>
+          </select>
+        </div>
+        <!-- End Catalogo -->
+
+        <div class="row valign-wrapper">
+          <div class="col s6">
+            <p>Secciones</p>
           </div>
+          <div class="col s6 right-align">
+            <a class="btn-floating btn-large waves-effect waves-light red btn-small red darken-2 " (click)="addSeccion()">
+              <i class="material-icons">add</i>
+            </a>
+          </div>
+        </div>
 
-      </div>
-    </div>
-
-    <div class="row">
-        <div class="col s6 offset-s3">
-          <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit() ">
-            <div class="" style="border: 1px solid blue">
-              <label>Total de secciones</label>
-              <a class=" btnagregar btn-floating btn-large waves-effect waves-light btn-small #d32f2f red darken-2"id="crear" (click)="incSeccion()"><i class="material-icons">add</i></a>    
-              <select formControlName="numeroSecciones" class="browser-default" (change)="totalSecciones($event)">
-                  <option value=""></option>
-                  <option *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]">{{i}}</option>
-              </select>
-            </div>
-            <div *ngFor="let seccion of secciones; let i = index">
-              <div class="card">
-                <div [formGroup]="seccion" class="form-row">
+        <div class="row" *ngFor="let seccion of seccionesForm; let i = index">
+          <div class="card col s10 offset-s1">
+            <!-- Secciones -->
+            <p>{{catalogoForm.value | json}}</p>
+            <div [formGroup]="seccion">
+              <div class="row valign-wrapper">
+                <div class="col s6">
                   <p class="card-title">Seccion {{i + 1}}</p>
-                  <span><a class=" btnagregar btn-floating btn-large waves-effect waves-light btn-small #d32f2f red darken-2" id="remove" (click)="removeSeccion()"><i class="material-icons">remove</i></a> </span>
-                  <input type="text" name="nameseccion" id="nameseccion" value="" placeholder="Nombre de seccion" formControlName="nombreSeccion">
-                  <label>Total de propiedades de secciones</label>
-                  <div class="row">
-                    <div class="col s6 offset-3">
-                      <a class=" btnagregar btn-floating btn-large waves-effect waves-light btn-small #bdbdbd grey lighten-1 darken-2"id="crear" (click)="agregarPropiedades(i)"><i class="material-icons">add</i></a>    
-                      <select formControlName="numeroPropiedades" class="browser-default" (change)="totalPropiedades($event, i)">
-                        <option value=""></option>
-                        <option *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]">{{i}}</option>
-                      </select>
-                      <a class=" btnagregar btn-floating btn-large waves-effect waves-light btn-small #bdbdbd grey lighten-1 darken-2"id="crear" (click)="removePropiedades(i)"><i class="material-icons">remove</i></a>    
+                </div>
+                <div class="col s6 right-align">
+                  <a class="btn-floating btn-large waves-effect waves-light red btn-small red darken-2 " (click)="removeSeccion()">
+                    <i class="material-icons">remove</i>
+                  </a>
+                </div>
+              </div>
 
+              <div class="row">
+                <div class="col s12">
+                  <div class="input-field col s12">
+                    <i class="material-icons prefix">textsms</i>
+                    <input type="text" id="S[{{i}}]-nombre" class="autocomplete"
+                    autocomplete="off"
+                    formControlName="nombre"
+                    (change)="test(i, $event)"
+                    (ngModelChange)="autocompleteSecciones($event)">
+                    <label for="S[{{i}}]-nombre">Titulo de sección</label>
+                  </div>
+                </div>
+              </div>
+            <!-- End Secciones -->
+
+              <!-- Propiedades -->
+              <div class="row">
+                <div class="col s10 offset-s1">
+                  <div class="row valign-wrapper">
+                    <div class="col s6">
+                      <p>Propiedades</p>
+                    </div>
+                    <div class="col s6 right-align">
+                      <a class="btn-floating btn-large waves-effect waves-light red btn-small red darken-2 " (click)="addPropiedad(i)">
+                        <i class="material-icons">add</i>
+                      </a>
                     </div>
                   </div>
-                  <div class="" style="margin: 10px; border: 1px solid blue;">
-                    <div class="" *ngFor="let propiedad of propiedades(i).controls; let j = index">
-                      <div class="" [formGroup]="propiedad">
-                        <div class="row">
-                          <div class="col s12">
-                            <div class="input-field">
-                              <input  id="S[{{i}}]-P[{{j}}]-nombre" formControlName="nombre" name="nombrePropiedad" type="text" class="validate">
-                              <label for="S[{{i}}]-P[{{j}}]-nombre" >Nombre de la propiedad</label>
-                            </div>
-                            <label for="">Valor a asignar</label>
-                            <select  class="browser-default" formControlName="tipoValor">
-                              <option value="texto">Texto</option>
-                              <option value="color">Color  </option>
-                            </select>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col s10 offset-s1">
+                  <div *ngFor="let propiedad of propiedadesControls(i).controls; let j = index">
+                    <div [formGroup]="propiedad">
+                      <div class="row valign-wrapper">
+                        <div class="col s6">
+                          <p class="card-title">Propiedad {{j + 1}}</p>
+                        </div>
+                        <div class="col s6 right-align">
+                          <a class="btn-floating btn-large waves-effect waves-light red btn-small red darken-2 " (click)="removePropiedad(i)">
+                            <i class="material-icons">remove</i>
+                          </a>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col s12">
+                          <div class="input-field col s12">
+                            <i class="material-icons prefix">textsms</i>
+                            <input type="text" id="S[{{i}}]-P[{{j}}]-nombre" class="autocomplete"
+                            autocomplete="off"
+                            formControlName="nombre"
+                            (ngModelChange)="autocompletePropiedades($event)">
+                            <label for="S[{{i}}]-P[{{j}}]-nombre">Nombre de la propiedad</label>
                           </div>
+                        </div>
+
+                        <div class="col s12">
+                          <label for="">Tipo de propiedad</label>
+                          <select  class="browser-default" formControlName="tipoPropiedad">
+                            <option *ngFor="let tipoPropiedad of tiposPropiedad" value="{{tipoPropiedad.id}}"> {{ tipoPropiedad.nombre }} </option>
+                          </select>
                         </div>
                       </div>
                     </div>
@@ -80,43 +135,17 @@
                 </div>
               </div>
             </div>
-            <div class="row" >
-              <div class="col s6 offset-3">
-                <a class="waves-effect waves-light btn-small left" (click)="previsualizar()">Previsualizar</a>      
-              </div>
-            </div>
-            <div class="row">
-                <button class="waves-effect waves-light btn-small right " type="submit">GenerarPlantilla</button>
-            </div>
-          </form>
+          </div>
         </div>
-      </div>
-
-    <!-- <div class="row">
-        <div class="">
-                <form id="crearCatalogo">
-                    <div class="">
-                           
-                        <h6>Secciones</h6>
-                       <select name="seccion" id="" class="browser-default">                          
-                            <option value="text" *ngFor="let seccion of secciones"> {{seccion.nombre}}</option>
-                            <option value="text" (click)="agregarSeccion()" >Agregar nuevo</option>                                                                       
-                        </select>
-                       
-                        <h6>Propiedades</h6>
-                        <select name="" class="browser-default">
-                            <option value="text" *ngFor="let propiedad of propiedades"> {{propiedad.nombre}} </option>
-                            <option value="text">Agregar Nuevo</option>
-                        </select>
-                        <h6>Tipo de propiedad</h6>
-                        <select name="tipoProp" class="browser-default">
-                            <option value="text" *ngFor="let tipoPropiedad of tiposPropiedad"> {{tipoPropiedad.nombre}} </option>
-                            <option value="text">Agregar Nuevo</option>
-                        </select>
-                    </div>
-                </form>
+        <div class="row">
+          <div class="col s12">
+            <a href="#" class="waves-effect waves-light btn-small left">Previsualizar</a>
+            <button type="submit" class="waves-effect waves-light btn-small right"
+              [disabled]="!catalogoForm.valid">Registrar catalogo</button>
+          </div>
         </div>
-    </div> -->
+      </form>
+    </div>
+  </div>
 </div>
-
-<button (click)="agregarSeccion()">Agregar</button>  
+<div>

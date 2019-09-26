@@ -20,7 +20,7 @@
 
     <!-- dropdown -->
     <ul id="dropdown1" class="dropdown-content">
-      <li *ngIf="user.rol.nombre === 'SUPERVISOR'"><a [routerLink]="['/aplicacion/catalogo']"><i class="material-icons left">exit_to_app</i><label class="nombreusuario">Catalogos</label></a></li>
+      <li><a [routerLink]="['/aplicacion/catalogo']"><i class="material-icons left">exit_to_app</i><label class="nombreusuario">Catalogos</label></a></li>
       <li><a (click)="logout()"><i class="material-icons left">exit_to_app</i><label class="nombreusuario">Cerrar sesión</label></a></li>
     </ul>
 
