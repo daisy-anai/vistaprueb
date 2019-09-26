@@ -3,7 +3,6 @@ import { Validators, FormGroup , FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 
-
 // Servicios
 import { CatalogoService } from '../catalogo.service'; 
 
@@ -28,7 +27,5 @@ export class ListarCatalogoComponent implements OnInit {
       console.log(error);
     });
   }
-
-
-
+ 
 }

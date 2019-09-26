@@ -2,8 +2,7 @@
     <div class="col s8 offset-s2">
       <div class="card">
         <div class="card-content">
-          <span class="card-title">Catalogo:  {{catalogo.nombre}} - para: {{catalogo.tipoCatalogo.nombre}}</span>
-          
+          <span class="card-title">Catalogo:  {{catalogo.nombre}} - para: {{catalogo.tipoCatalogo.nombre}}</span>     
           <p for="">Modalidad: {{catalogo.modalidad.nombre}} </p>
           <div *ngFor="let seccion of catalogo.secciones">
               <h5 class="card-title">Sección:  {{seccion.nombre}}</h5>
