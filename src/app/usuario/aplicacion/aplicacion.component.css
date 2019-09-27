@@ -1,65 +1,15 @@
-nav {
-    background-color: #FFFFFF;
-       height: 60px;
+.logo-semovi{
+  max-width: 200px;
+  padding-top: 10px;
+  padding-left: 10px;
 }
 
-
-.linklogout{
-  font-size: 18px;
-  color: #000000;
+.container-app {
+  margin-top: 3em;
+  border-radius: 10px;
+  padding: 20px;
 }
 
-.linklogin{
-  font-size: 18px;
-  color: #000000;
-}
-
-.dropdown-trigger{
-  font-size: 18px;
-  color: #000000;
-}
-
-.white-text {
-    color: #000 !important;
-}
-
-nav ul a {
-    color: #000;
-}
-#labeltitulo{
-  font-size: 20px;
-  color: #e91e63;
-}
-
-.nombreusuario{
-  font-size: 18px;
-  color: #000000;
-}
- .listarplantillas{
-   font-size: 18px;
-   color:black;
- }
-
-
-#logosemovi{
-  width: 270px;
-   padding: 0 .0rem;
-   height: 60px;
-
-}
-
-
-
-@media screen and (max-width: 750px) {
-  nav {
-    height: 60px;
-  }
-
-  nav a {
-    color: #000;
-  }
-
-  .br {
-      background-color: #FFF;
-  }
+nav ul li a, nav a, ul li a, label{
+  color: black;
 }

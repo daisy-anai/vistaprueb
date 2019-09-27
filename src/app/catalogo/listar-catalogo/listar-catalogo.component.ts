@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 
 // Servicios
-import { CatalogoService } from '../catalogo.service'; 
+import { CatalogoService } from '../catalogo.service';
+declare var M:any;
 
 @Component({
   selector: 'app-listar-catalogo',
@@ -12,8 +13,8 @@ import { CatalogoService } from '../catalogo.service';
   styleUrls: ['./listar-catalogo.component.css']
 })
 export class ListarCatalogoComponent implements OnInit {
+  public catalogos: Array<any>;
 
-  public catalogos: Array<any>; 
   constructor(
     private apollo?: Apollo,
     private service?: CatalogoService
@@ -21,11 +22,10 @@ export class ListarCatalogoComponent implements OnInit {
 
   ngOnInit() {
     this.service.getCatalogos().subscribe(result => {
-      this.catalogos = result.data['catalogos']; 
-      console.log(this.catalogos);
+      this.catalogos = result.data['catalogos'];
     }, error => {
       console.log(error);
     });
   }
- 
+
 }
