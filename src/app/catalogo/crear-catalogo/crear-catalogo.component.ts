@@ -78,6 +78,7 @@ export class CrearCatalogoComponent implements OnInit {
    
   }
   // Watchers
+  //seleccion de la secciones
   watchSeccionNombre(seccion: Number):void {
     let value = (<HTMLInputElement>document.getElementById(`S[${seccion}]-nombre`)).value.toLowerCase().trim();
     if(this.secciones){
@@ -91,6 +92,7 @@ export class CrearCatalogoComponent implements OnInit {
       }
     }
   }
+  //seleccion de propiedades
   watchPropiedadNombre(seccion: number,propiedad: number): void{
     let value = (<HTMLInputElement>document.getElementById(`S[${seccion}]-P[${propiedad}]-nombre`)).value.toLowerCase().trim();
     if(this.propiedades){

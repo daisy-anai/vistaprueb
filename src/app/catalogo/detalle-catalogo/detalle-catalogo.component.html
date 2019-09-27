@@ -12,8 +12,8 @@
           </div>
         </div>
         <div class="card-action">
-          <a href="#">Editar</a>
-          <a href="#">Eliminar</a>
+          <a [routerLink]="['/aplicacion/catalogo/editar',catalogo.id]" >Modificar</a>
+          <a [routerLink]="['/aplicacion/catalogo/lista']" (click)="eliminarCatalogo(catalogo.id)">Eliminar</a>
         </div>
       </div>
     </div>

@@ -166,4 +166,27 @@ export class CatalogoService {
       }`
     }).valueChanges;
   }
+  //incompleto
+  getEditCatalogo(id:Number){
+    return this.apollo.use('backrevista').watchQuery({
+      query:gql`
+      query ---
+      
+      `,
+      variables: {
+        id: id
+      }
+    }).valueChanges;
+
+  }
+  getEliminarCatalogo(id: Number){
+    return this.apollo.use('backrevista').watchQuery({
+      query:gql`
+
+      `,
+      variables:{
+        id:id
+      }
+    }).valueChanges;
+  }
 }

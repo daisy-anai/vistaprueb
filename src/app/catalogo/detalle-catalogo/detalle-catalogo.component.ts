@@ -12,7 +12,7 @@ import { DetalleCatalogo } from '../../shared/models/detalleCatalogo'
 })
 export class DetalleCatalogoComponent implements OnInit {
   public catalogo :DetalleCatalogo;
-
+  public catalogos: Array<any>;
   constructor(
     private route: ActivatedRoute,
     private service?: CatalogoService
@@ -26,11 +26,22 @@ export class DetalleCatalogoComponent implements OnInit {
     }, error => {
       console.log(error);     
     }); 
-    
+    //Eliminar
+    //this.eliminarCatalogo(parseInt(this.route.snapshot.paramMap.get("id")));
+
   }
    asignarVari(catalogo:any){
      this.catalogo =catalogo.catalogo;
-     console.log(this.catalogo);
-     
+     console.log(this.catalogo); 
    }
+   
+   eliminarCatalogo(id: number){
+   this.service.getEliminarCatalogo(id).subscribe(result =>{
+      
+    }, error => {
+      console.log(error);   
+    });
+  }
+    
+
 }

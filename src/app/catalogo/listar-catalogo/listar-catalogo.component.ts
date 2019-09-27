@@ -20,6 +20,7 @@ export class ListarCatalogoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    
     this.service.getCatalogos().subscribe(result => {
       this.catalogos = result.data['catalogos']; 
       console.log(this.catalogos);
