@@ -1,1 +1,41 @@
-/* You can add global styles to this file, and also import other style files */
+/* Fonts */
+@font-face {
+  font-family: "UniviaPro-Light";
+  src: url(./assets/fonts/UniviaPro-Light.ttf);
+  color: black;
+}
+
+@font-face{
+  font-family: "UniviaPro-Bold";
+  src: url(./assets/fonts/UniviaPro-Bold.ttf);
+}
+
+@font-face {
+  font-family: "UniviaPro-Black";
+  src: url(./assets/fonts/UniviaPro-Black.ttf);
+}
+
+@font-face {
+  font-family: "UniviaPro-Ultra";
+  src: url(./assets/fonts/UniviaPro-Ultra.ttf);
+}
+
+/* General  */
+body {
+  font-family: "UniviaPro-Light";
+  background: #F1F1F0;
+}
+
+nav ul li a, nav a, ul li a{
+  color: black;
+}
+
+/* Components General */
+.title-component {
+  font-size: 20px;
+  letter-spacing: 2px;
+}
+
+.item {
+  border-radius: 6px;
+}

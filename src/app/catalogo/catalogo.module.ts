@@ -9,6 +9,7 @@ import { EditarCatalogoComponent } from './editar-catalogo/editar-catalogo.compo
 import { ListarCatalogoComponent } from './listar-catalogo/listar-catalogo.component';
 
 import { ValidoDirective } from '../shared/directives/valido.directive';
+import { CardDirective } from '../shared/directives/card.directive';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ValidoDirective } from '../shared/directives/valido.directive';
     DetalleCatalogoComponent,
     EditarCatalogoComponent,
     ListarCatalogoComponent,
-    ValidoDirective
+    ValidoDirective,
+    CardDirective
   ],
   imports: [
     CommonModule,

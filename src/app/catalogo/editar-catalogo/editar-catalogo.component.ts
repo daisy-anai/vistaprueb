@@ -32,6 +32,13 @@ export class EditarCatalogoComponent implements OnInit {
    }
    //modificar catalogo
    modificarCatalogo(id: number){
-
+    this.service.getEditCatalogo(id).subscribe(result => {
+      console.log(this.service.getEditCatalogo(id));      
+      console.log("eliminado");    
+    }, error =>{
+      console.log(error);     
+    });
+     
    }
+  
 }

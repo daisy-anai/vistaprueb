@@ -59,8 +59,6 @@ export class CatalogoService {
   }
 
   getCatalogoByID(id:Number){
-    console.log(id);
-    
     return this.apollo.use('backrevista').watchQuery({
         query: gql`
           query getCatalogo($id:ID!) {
@@ -170,7 +168,6 @@ export class CatalogoService {
   getEditCatalogo(id:Number){
     return this.apollo.use('backrevista').watchQuery({
       query:gql`
-      query ---
       
       `,
       variables: {
@@ -179,14 +176,5 @@ export class CatalogoService {
     }).valueChanges;
 
   }
-  getEliminarCatalogo(id: Number){
-    return this.apollo.use('backrevista').watchQuery({
-      query:gql`
-
-      `,
-      variables:{
-        id:id
-      }
-    }).valueChanges;
-  }
+  
 }

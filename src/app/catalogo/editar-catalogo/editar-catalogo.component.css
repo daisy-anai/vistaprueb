@@ -1,6 +1,3 @@
-.tipo{
-  position: relative;
-  left: 50px;
-  top: 0      px;
-  width: 100px
+.contenido input{
+  text-align: center;
 }

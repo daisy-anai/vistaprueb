@@ -1,13 +1,13 @@
 <div class="row" *ngIf= "catalogo!=undefined">
     <div class="col s8 offset-s2">
       <div class="card">
-        <div class="card-content contenido">
+        <div class="card-content ">
           <h5>Modificar Catalogo</h5>
-          <form>
+          <form class="contenido">
             <div class="col s12">
               Nombre del catalogo:
               <div class="input-field inline ">
-                <input id="nombre_catalogo" type="text" value="{{catalogo.nombre}}">                 
+                <input id="nombreCatalogo" type="text" value="{{catalogo.nombre}}">                 
               </div>
             </div>
             <div class="col s12">
@@ -17,23 +17,27 @@
               </div>
             </div>
             <div class="col s12">
-              Modaliad:
+              Modalidad:
               <div class="input-field inline">
                 <input type="text" name="" id="modalidad" value="{{catalogo.modalidad.nombre}}">
               </div>
             </div>
             <div *ngFor="let seccion of catalogo.secciones" class="seccion">
-              <label for="">Secciones del Catalogo: </label>
-              <input type="text" name="" id="" value="{{seccion.nombre}}">
+              <div class="col s12">
+                Sección:
+                <div class="input-field inline ">
+                  <input type="text" name="" id="" value="{{seccion.nombre}}">        
+                </div>
+              </div>
             <div *ngFor="let propiedad of seccion.propiedades">
               <div class="col s12">
                 Propiedad:
                 <div class="propiedad  input-field inline"> 
                   <input type="text" name="" id="propiedad" value="{{propiedad.nombre}}">
                 </div> 
-                <div class="col s12 tipo">
-                  Tipo propiedad:
-                    <div class="tipoProp input-field inline " >
+                <div class=" col s12 ">
+                  Tipo de propiedad:
+                    <div class=" input-field inline " >
                       <input type="text" name="" id="tipoPropiedad" value="{{propiedad.tipoPropiedad.nombre}}">  
                     </div>
                 </div>
@@ -43,10 +47,10 @@
          </form>
         </div>
         <div class="row">
-            <div class="col s12">
-              <button type="submit" class="waves-effect waves-light btn-small right" (click)="ModificarCatalogo(catalogo.id)">Actualizar Catalogo</button>
-            </div>
+          <div class="col s12">
+            <button type="submit" class="waves-effect waves-light btn-small right" (click)="ModificarCatalogo(catalogo.id)">Actualizar Catalogo</button>
           </div>
+        </div>
       </div>
     </div>
   </div>
