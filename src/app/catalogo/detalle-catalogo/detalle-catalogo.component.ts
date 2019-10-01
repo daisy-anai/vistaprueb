@@ -51,9 +51,8 @@ export class DetalleCatalogoComponent implements OnInit {
       id: id
       }
     })
-    .subscribe((result) => {   
-      console.log(result.data['catalogo']);
-      
+    .subscribe((result)  => {   
+      console.log(result.data['catalogo']);  
       }, (error) => {
         console.log('error');    
     });

@@ -1,5 +1,6 @@
 import { Component, OnInit, TestabilityRegistry, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Apollo} from 'apollo-angular';
 import gql from 'graphql-tag';
 // Modelos
@@ -33,14 +34,21 @@ export class CrearCatalogoComponent implements OnInit {
   public seccionesForm: any;
 
   public totalSecciones: number = 0;
+ 
 
   constructor(
     private apollo?: Apollo,
     private service?: CatalogoService,
-    private formBuilder?: FormBuilder
+    private formBuilder?: FormBuilder,
+    private router ?: Router
   ) {}
 
   ngOnInit() {
+    
+    $(document).ready(function(){
+      $('.modal').modal();
+    });
+
     this.service.getCatalogos().subscribe(result => {
       this.catalogos = result.data['catalogos'];
     });
@@ -217,7 +225,7 @@ export class CrearCatalogoComponent implements OnInit {
     @description mutación para crear catalogo
     @param createdCatalogo
   */
-  CrearCatalogo(){
+  crearCatalogo(){
    console.log(this.catalogoForm.value);
    const id_modalidad = this.catalogoForm.value.id_modalidad;
    const id_tipo_catalogo= this.catalogoForm.value.id_tipo_catalogo;
@@ -275,6 +283,8 @@ export class CrearCatalogoComponent implements OnInit {
     })
     .subscribe((result) => {
       console.log(result.data['catalogo']);    
+        this.router.navigateByUrl('/aplicacion/catalogo/listar',{skipLocationChange: true}).then(()=>
+        this.router.navigate(["/aplicacion/catalogo/listar"])); 
       }, (error) => {
         console.log(error);    
     });

@@ -15,7 +15,7 @@
         </div>
       </div>
       
-      <form [formGroup]="catalogoForm" (ngSubmit)="CrearCatalogo()">
+      <form [formGroup]="catalogoForm" (ngSubmit)="crearCatalogo()">
         <div class="input-field" >
           <input id="nombre_catalogo" type="text" class="validate"
             valido [estatus]="watchCatalogoNombre()"
@@ -145,8 +145,8 @@
         </div>
         <div class="row">
           <div class="col s12">
-            <a href="#" class="waves-effect waves-light btn-small left">Previsualizar</a>
-            <button type="submit" class="waves-effect waves-light btn-small right">Registrar catalogo</button>
+           <!--<a class="waves-effect waves-light btn-small left" >Previsualizar</a>-->
+            <button type="submit" class="waves-effect waves-light btn-small right"> Registrar catalogo</button>
           </div>
         </div>
       </form>
@@ -154,3 +154,4 @@
   </div>
 </div>
 <div>
+ 

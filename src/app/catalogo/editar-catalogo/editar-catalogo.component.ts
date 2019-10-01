@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CatalogoService } from '../catalogo.service';
 import { ActivatedRoute } from "@angular/router";
+import { FormGroup } from '@angular/forms';
 
 
 @Component({
@@ -10,7 +11,7 @@ import { ActivatedRoute } from "@angular/router";
 })
 export class EditarCatalogoComponent implements OnInit {
    public catalogo: Array<any>;
-
+   public catalogoForm: FormGroup;
   constructor(
     private route: ActivatedRoute,
     private service?: CatalogoService) { }
@@ -32,12 +33,7 @@ export class EditarCatalogoComponent implements OnInit {
    }
    //modificar catalogo
    modificarCatalogo(id: number){
-    this.service.getEditCatalogo(id).subscribe(result => {
-      console.log(this.service.getEditCatalogo(id));      
-      console.log("eliminado");    
-    }, error =>{
-      console.log(error);     
-    });
+     console.log("modificar");
      
    }
   
