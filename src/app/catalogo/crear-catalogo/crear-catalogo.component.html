@@ -35,7 +35,7 @@
         <div class="">
           <label for="id_tipo_catalogo">Tipo de catalogo</label>
           <select formControlName="id_tipo_catalogo" class="browser-default">
-            <option value="" disabled selected>Choose your option</option>
+            <option value="" disabled selected>Elige una opción</option>
             <option *ngFor="let tipoCatalogo of tiposCatalago" value="{{tipoCatalogo.id}}"> {{ tipoCatalogo.nombre }} </option>
           </select>
         </div>

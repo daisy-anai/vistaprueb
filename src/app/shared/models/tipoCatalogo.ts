@@ -1,4 +1,5 @@
-export interface TipoCatalogo {
+
+ export interface TipoCatalogo {
   id: string;
   nombre: string;
   estatus: Boolean;

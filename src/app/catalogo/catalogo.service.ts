@@ -10,8 +10,9 @@ import { environment } from '../../environments/environment';
 })
 export class CatalogoService {
   constructor(private apollo?: Apollo){
-
   }
+
+  //getBuscarCatalogo
 
   getCatalogos(){
     return this.apollo.use('backrevista').watchQuery({

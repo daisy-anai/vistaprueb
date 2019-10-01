@@ -1,4 +1,4 @@
-import { Component, OnInit, TestabilityRegistry, Input } from '@angular/core';
+import { Component, OnInit, TestabilityRegistry, Input, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Apollo} from 'apollo-angular';
@@ -23,7 +23,7 @@ declare var M: any;
   styleUrls: ['./crear-catalogo.component.css'],
 
 })
-export class CrearCatalogoComponent implements OnInit {
+export class CrearCatalogoComponent implements OnInit, OnDestroy {
   public catalogoForm: FormGroup;
   public modalidades: Array<Modalidad>;
   public tiposCatalago: Array<TipoCatalogo>;
@@ -35,13 +35,15 @@ export class CrearCatalogoComponent implements OnInit {
 
   public totalSecciones: number = 0;
  
-
   constructor(
     private apollo?: Apollo,
     private service?: CatalogoService,
     private formBuilder?: FormBuilder,
     private router ?: Router
   ) {}
+  ngOnDestroy(){
+    console.log("aaa")
+  }
 
   ngOnInit() {
     
@@ -130,10 +132,12 @@ export class CrearCatalogoComponent implements OnInit {
     seccionew.nombre= propiedad.value.nombre;
     seccionew.estatus =true;
     seccionew.create = new Date();
-     this.secciones.push(seccionew);
-     this.totalSecciones -= 1;
+    this.secciones.push(seccionew);
+    this.totalSecciones -= 1;
     //this.seccionesController();
-    this.newseccionesController(indice);
+    this.newseccionesController(indice);    
+    console.log(propiedad.value.nombre);
+    
   }
   newseccionesController(indice: any){
     let controles = this.catalogoForm.controls;
