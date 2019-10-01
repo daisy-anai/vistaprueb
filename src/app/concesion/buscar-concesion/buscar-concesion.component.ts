@@ -22,6 +22,13 @@ export class BuscarConcesionComponent implements OnInit {
   ngOnInit() {
   }
 
+  cambiarModo(tipo: number): void {
+    this.filtro = "";
+    this.tipo = tipo;
+    this.concesiones = null;
+    document.getElementById('buscar_concesion').focus();
+  }
+
   buscar(event): void{
     if(!this.filtro){
       this.concesiones = null;
@@ -33,7 +40,7 @@ export class BuscarConcesionComponent implements OnInit {
       });
     }
   }
-  
+
   puente(result: any):void {
     this.concesiones = result.concesiones;
   }
