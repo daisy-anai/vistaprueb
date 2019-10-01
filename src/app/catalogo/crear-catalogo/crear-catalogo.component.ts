@@ -1,7 +1,8 @@
 import { Component, OnInit, TestabilityRegistry, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Apollo} from 'apollo-angular';
-
+import gql from 'graphql-tag';
 // Modelos
 import { Modalidad } from '../../shared/models/modalidad';
 import { TipoCatalogo } from '../../shared/models/tipoCatalogo';
@@ -9,10 +10,11 @@ import { TipoPropiedad } from '../../shared/models/tipoPropiedad';
 import { Seccion } from '../../shared/models/seccion';
 import { Propiedad } from '../../shared/models/propiedad';
 import { Catalogo } from '../../shared/models/catalogo';
-
+import { DetalleCatalogo} from '../../shared/models/detalleCatalogo';
+import { SeccionVO} from '../../shared/models/seccion.vo';
 //servicios
 import {CatalogoService} from '../catalogo.service';
-
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 declare var M: any;
 
 @Component({
@@ -26,20 +28,27 @@ export class CrearCatalogoComponent implements OnInit {
   public modalidades: Array<Modalidad>;
   public tiposCatalago: Array<TipoCatalogo>;
   public tiposPropiedad: Array<TipoPropiedad>;
-  public secciones: Array<Seccion>;
+  public secciones: Array<SeccionVO>;
   public propiedades: Array<Propiedad>;
   public catalogos: Array<Catalogo>;
   public seccionesForm: any;
 
   public totalSecciones: number = 0;
+ 
 
   constructor(
     private apollo?: Apollo,
     private service?: CatalogoService,
-    private formBuilder?: FormBuilder
+    private formBuilder?: FormBuilder,
+    private router ?: Router
   ) {}
 
   ngOnInit() {
+    
+    $(document).ready(function(){
+      $('.modal').modal();
+    });
+
     this.service.getCatalogos().subscribe(result => {
       this.catalogos = result.data['catalogos'];
     });
@@ -72,36 +81,32 @@ export class CrearCatalogoComponent implements OnInit {
     });
   }
 
-  // HELPERS
-  test(seccion:number, e) {
-    console.log(e);
-   
-  }
-  // Watchers
+  /** 
+    @description Seleccion de secciones
+    @param seccion
+  */
   watchSeccionNombre(seccion: Number):void {
     let value = (<HTMLInputElement>document.getElementById(`S[${seccion}]-nombre`)).value.toLowerCase().trim();
-    if(this.secciones){
-      let result = this.secciones.filter(word => word.nombre.toLowerCase().trim() === value)
-      console.log(result)
-
-      if(result.length == 0){
-        this.catalogoForm.controls.secciones['controls'][seccion].controls.nombre.setValue(value);
-      }else{
-        this.catalogoForm.controls.secciones['controls'][seccion].controls.id_seccion.setValue(result[0].id);
-      }
+    for(var i = 0; i < this.secciones.length; i++){
+    if(this.secciones[i].nombre.toLowerCase() == value.toLowerCase()){
+      this.catalogoForm.controls.secciones['controls'][seccion].controls.nombre.setValue(this.secciones[i].nombre);
+      this.catalogoForm.controls.secciones['controls'][seccion].controls.id_seccion.setValue(parseInt(this.secciones[i].id));
+      this.secciones.splice(i,1);
     }
+   }
   }
+
+  //seleccion de propiedades
   watchPropiedadNombre(seccion: number,propiedad: number): void{
     let value = (<HTMLInputElement>document.getElementById(`S[${seccion}]-P[${propiedad}]-nombre`)).value.toLowerCase().trim();
     if(this.propiedades){
       let result = this.propiedades.filter(word => word.nombre.toLowerCase().trim() === value)
-      console.log(this.catalogoForm.controls.secciones['controls'][seccion].controls.propiedades.controls[propiedad].controls);
-      if(result.length == 0){       
-        this.catalogoForm.controls.secciones['controls'][seccion].controls.propiedades.controls[propiedad].controls.nombre.setValue(value); 
+      if(result.length == 0){
+        this.catalogoForm.controls.secciones['controls'][seccion].controls.propiedades.controls[propiedad].controls.nombre.setValue(value);
       }else{
         // this.catalogoForm.controls.secciones[propiedades].controls[propiedad].controls.id_propiedad.setValue(result[0].id);
-        this.catalogoForm.controls.secciones['controls'][seccion].controls.propiedades.controls[propiedad].controls.id_propiedad.setValue(result[0].id); 
-      }  
+        this.catalogoForm.controls.secciones['controls'][seccion].controls.propiedades.controls[propiedad].controls.id_propiedad.setValue(result[0].id);
+      }
     }
   }
   watchCatalogoNombre(): Boolean {
@@ -119,17 +124,30 @@ export class CrearCatalogoComponent implements OnInit {
     this.seccionesController();
   }
 
-  removeSeccion() {
-    this.totalSecciones -= 1;
-    this.seccionesController();
+  removeSeccion(indice: any, propiedad: any) {
+    let seccionew = new SeccionVO;
+    seccionew.id = propiedad.value.id_seccion;
+    seccionew.nombre= propiedad.value.nombre;
+    seccionew.estatus =true;
+    seccionew.create = new Date();
+     this.secciones.push(seccionew);
+     this.totalSecciones -= 1;
+    //this.seccionesController();
+    this.newseccionesController(indice);
   }
+  newseccionesController(indice: any){
+    let controles = this.catalogoForm.controls;
+    let secciones = controles.secciones as FormArray;
+    //secciones.controls.removeAt(indice);
+    secciones.controls.splice(indice,1);
+    this.seccionesController();
 
+  }
   seccionesController() {
     let controles = this.catalogoForm.controls;
     let secciones = controles.secciones as FormArray;
     this.seccionesForm = secciones.controls;
-
-    if (secciones.length < this.totalSecciones) {
+     if (secciones.length < this.totalSecciones) {
       for (let i = secciones.length; i < this.totalSecciones; i++) {
         secciones.push(this.formBuilder.group({
           id_seccion: [''],
@@ -145,16 +163,16 @@ export class CrearCatalogoComponent implements OnInit {
   }
 
   autocompleteSecciones(e, seccion){
-    // this.watchSeccionNombre(seccion);
+  // this.watchSeccionNombre(seccion);
     let datos = {};
     for(let seccion of this.secciones){
       datos[seccion.nombre] = null;
     }
-  
-    var elems = document.querySelectorAll('input.autocomplete');  
+    var elems = document.querySelectorAll('input.autocomplete');
     var [instances] = M.Autocomplete.init(elems, {
       data: datos
-    });    
+    });
+ 
   }
 
   addPropiedad(seccion: number) {
@@ -179,7 +197,7 @@ export class CrearCatalogoComponent implements OnInit {
         propiedades.push(this.formBuilder.group({
           id_propiedad: ['', Validators.required],
           nombre: ['', Validators.required],
-          tipoPropiedad: ['', Validators.required]
+          id_tipo_propiedad: ['', Validators.required]
         }));
       }
     }else {
@@ -190,6 +208,7 @@ export class CrearCatalogoComponent implements OnInit {
   }
 
   autocompletePropiedades(e){
+ /*
     let datos = {};
     for(let propiedad of this.propiedades){
       datos[propiedad.nombre] = null;
@@ -199,5 +218,76 @@ export class CrearCatalogoComponent implements OnInit {
     var [instances] = M.Autocomplete.init(elems, {
       data: datos
     });
+
+    */
+  }
+/** 
+    @description mutación para crear catalogo
+    @param createdCatalogo
+  */
+  crearCatalogo(){
+   console.log(this.catalogoForm.value);
+   const id_modalidad = this.catalogoForm.value.id_modalidad;
+   const id_tipo_catalogo= this.catalogoForm.value.id_tipo_catalogo;
+   const nombre= this.catalogoForm.value.nombre;
+   const seccion = this.catalogoForm.value.secciones;
+
+   const createdCatalogo= gql`
+   mutation crear($id_modalidad:ID!, $id_tipo_catalogo:ID!, $nombre:String!, $secciones:[SeccionesInput!]!){
+    catalogo (id_modalidad:$id_modalidad,id_tipo_catalogo:$id_tipo_catalogo, nombre:$nombre,secciones:$secciones){
+      id
+      nombre
+      estatus
+      createdAt
+      tipoCatalogo {
+        id
+        nombre
+        estatus
+        createdAt
+      }
+      modalidad {
+        id
+        nombre
+        descripcion
+        estatus
+        abreviatura
+      }
+      secciones {
+        id
+      	nombre
+        propiedades {
+          id
+          nombre
+          tipoPropiedad {
+            id
+            nombre
+            estatus
+            createdAt
+          }
+        }
+        estatus
+        createdAt
+      }
+    }
+  }`;
+
+    this.apollo.use('backrevista')
+    .mutate({
+      mutation: createdCatalogo,
+      variables: {
+      id_modalidad: id_modalidad,
+      id_tipo_catalogo: id_tipo_catalogo,
+      nombre: nombre,
+      secciones: seccion
+      }
+    })
+    .subscribe((result) => {
+      console.log(result.data['catalogo']);    
+        this.router.navigateByUrl('/aplicacion/catalogo/listar',{skipLocationChange: true}).then(()=>
+        this.router.navigate(["/aplicacion/catalogo/listar"])); 
+      }, (error) => {
+        console.log(error);    
+    });
+    
   }
 }

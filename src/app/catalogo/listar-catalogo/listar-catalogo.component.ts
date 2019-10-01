@@ -21,11 +21,17 @@ export class ListarCatalogoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    
+    $(document).ready(function(){
+      $('.modal').modal();
+    });
+  
     this.service.getCatalogos().subscribe(result => {
       this.catalogos = result.data['catalogos'];
     }, error => {
       console.log(error);
     });
   }
+
 
 }

@@ -8,16 +8,16 @@ export class DetalleCatalogo{
   nombre: String;
   tipoCatalogo: TipoCatalogo;
   modalidad: Modalidad;  
-  seccion: Seccion;
-  propiedad: Propiedad;
+  seccion: Array<Seccion>;
+  propiedad: Array<Propiedad>;
 
   constructor(
     id?: number,
     nombre?: String,
     tipoCatalogo?: TipoCatalogo,
     modalidad?: Modalidad,  
-    seccion?: Seccion,
-    propiedad?: Propiedad
+    seccion?: Array<Seccion>,
+    propiedad?: Array<Propiedad>
   ) {}
 
 }
