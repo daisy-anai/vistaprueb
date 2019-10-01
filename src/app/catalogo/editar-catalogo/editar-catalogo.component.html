@@ -7,11 +7,11 @@
             <div class="col s6">
                 <b>Nombre del catalogo:</b>
               <div class="input-field inline" >
-                <input  id="nombreCatalogo" type="text" value="{{catalogo.nombre}}">                
+                <input  id="nombreCatalogo" type="text" value="{{catalogo.nombre}}">
               </div>
             </div>
             <div class="col s6">
-              Tipo de catalogo:    
+              Tipo de catalogo:
               <div class="catalogotipo input-field inline">
                 <input  type="text" id="tipoCatalogo" value="{{catalogo.tipoCatalogo.nombre}}">
               </div>
@@ -26,24 +26,24 @@
               <div class="col s8">
                 Sección:
                 <div class="input-field inline ">
-                  <input type="text" name="" id="" value="{{seccion.nombre}}">        
+                  <input type="text" name="" id="" value="{{seccion.nombre}}">
                 </div>
               </div>
             <div *ngFor="let propiedad of seccion.propiedades">
               <div class="col s9">
                 Propiedad:
-                <div class="propiedad  input-field inline"> 
+                <div class="propiedad  input-field inline">
                   <input type="text" name="" id="propiedad" value="{{propiedad.nombre}}">
-                </div> 
+                </div>
                 <div class=" col s16">
                   Tipo de propiedad:
                     <div class=" input-field inline " >
-                      <input type="text" name="" id="tipoPropiedad" value="{{propiedad.tipoPropiedad.nombre}}">  
+                      <input type="text" name="" id="tipoPropiedad" value="{{propiedad.tipoPropiedad.nombre}}">
                     </div>
                 </div>
               </div>
             </div>
-          </div>         
+          </div>
          </form>
         </div>
         <div class="row">

@@ -22,19 +22,19 @@ export class EditarCatalogoComponent implements OnInit {
       console.log(result.data);
       this.asignarVariable(result.data);
     }, error => {
-      console.log(error);     
-    }); 
-    
+      console.log(error);
+    });
+
   }
    asignarVariable(catalogo:any){
      this.catalogo =catalogo.catalogo;
      console.log(this.catalogo);
-     
+
    }
    //modificar catalogo
    modificarCatalogo(id: number){
      console.log("modificar");
-     
+
    }
-  
+
 }
