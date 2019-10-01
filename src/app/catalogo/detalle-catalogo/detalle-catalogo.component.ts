@@ -6,14 +6,6 @@ import gql from 'graphql-tag'
 //modelo
 import { DetalleCatalogo } from '../../shared/models/detalleCatalogo'
 
- /** 
-    @description mutación de eliminar catalogo
-    @param eliminarC
-  */
-const eliminarC = gql`
-  mutation eliminarCatalogo($id:ID!){
-    downCatalogo(id: $id)
-  }`;
 
 @Component({
   selector: 'app-detalle-catalogo',
@@ -42,8 +34,16 @@ export class DetalleCatalogoComponent implements OnInit {
       console.log(error);     
     }); 
   }
-
+ /** 
+    @description mutación de eliminar catalogo
+    @param eliminarC
+    */
   eliminarCatalogo(id: Number){
+    const eliminarC = gql`
+    mutation eliminarCatalogo($id:ID!){
+    downCatalogo(id: $id)
+    }`;
+
     this.apollo.use('backrevista')
     .mutate({
       mutation: eliminarC,
@@ -51,9 +51,9 @@ export class DetalleCatalogoComponent implements OnInit {
       id: id
       }
     })
-    .subscribe(({ data }) => {
-      console.log("Eliminado."+data);    
-    //this.deleteCatalogo(data);
+    .subscribe((result) => {   
+      console.log(result.data['catalogo']);
+      
       }, (error) => {
         console.log('error');    
     });

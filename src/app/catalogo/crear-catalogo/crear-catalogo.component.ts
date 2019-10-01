@@ -13,6 +13,7 @@ import { DetalleCatalogo} from '../../shared/models/detalleCatalogo';
 import { SeccionVO} from '../../shared/models/seccion.vo';
 //servicios
 import {CatalogoService} from '../catalogo.service';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 declare var M: any;
 
 @Component({
@@ -188,7 +189,7 @@ export class CrearCatalogoComponent implements OnInit {
         propiedades.push(this.formBuilder.group({
           id_propiedad: ['', Validators.required],
           nombre: ['', Validators.required],
-          tipoPropiedad: ['', Validators.required]
+          id_tipo_propiedad: ['', Validators.required]
         }));
       }
     }else {
@@ -212,43 +213,56 @@ export class CrearCatalogoComponent implements OnInit {
 
     */
   }
-
+/** 
+    @description mutación para crear catalogo
+    @param createdCatalogo
+  */
   CrearCatalogo(){
    console.log(this.catalogoForm.value);
    const id_modalidad = this.catalogoForm.value.id_modalidad;
    const id_tipo_catalogo= this.catalogoForm.value.id_tipo_catalogo;
    const nombre= this.catalogoForm.value.nombre;
-   const seccion = this.catalogoForm.value.secciones[0].nombre;
+   const seccion = this.catalogoForm.value.secciones;
 
-console.log(seccion);
-
-   const propiedad = this.catalogoForm.value.propiedad;
-   const tipoPropiedad= this.catalogoForm.value.tipoPropiedad;
-  
    const createdCatalogo= gql`
    mutation crear($id_modalidad:ID!, $id_tipo_catalogo:ID!, $nombre:String!, $secciones:[SeccionesInput!]!){
     catalogo (id_modalidad:$id_modalidad,id_tipo_catalogo:$id_tipo_catalogo, nombre:$nombre,secciones:$secciones){
+      id
+      nombre
+      estatus
+      createdAt
+      tipoCatalogo {
+        id
+        nombre
+        estatus
+        createdAt
+      }
       modalidad {
         id
         nombre
+        descripcion
+        estatus
+        abreviatura
       }
-      tipoCatalogo{
+      secciones {
         id
-        nombre
-      }
-      nombre
-      secciones{
-        nombre
-        propiedades{
+      	nombre
+        propiedades {
+          id
           nombre
-          tipoPropiedad{
+          tipoPropiedad {
+            id
             nombre
+            estatus
+            createdAt
           }
         }
+        estatus
+        createdAt
       }
     }
   }`;
-   
+
     this.apollo.use('backrevista')
     .mutate({
       mutation: createdCatalogo,
@@ -256,20 +270,14 @@ console.log(seccion);
       id_modalidad: id_modalidad,
       id_tipo_catalogo: id_tipo_catalogo,
       nombre: nombre,
-      secciones:[{
-        nombre: seccion,
-        propiedades: [{
-          nombre: propiedad,
-          id_tipo_propiedad: tipoPropiedad
-        }]
-      }]
+      secciones: seccion
       }
     })
-    .subscribe((data) => {
-      console.log(data);    
+    .subscribe((result) => {
+      console.log(result.data['catalogo']);    
       }, (error) => {
-        console.log('error en crear catalogo');    
+        console.log(error);    
     });
-
+    
   }
 }
