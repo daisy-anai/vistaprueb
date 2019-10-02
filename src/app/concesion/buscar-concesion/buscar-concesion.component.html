@@ -1,41 +1,28 @@
 <div>
-  <div class="buscadorConcesion">
-  <!-- caja de concesion-->
-  <div class="row  ">
-    <div class="col s12 ">
-      <div class="input-field">
-        <div class="input-field col s12 ">
-          <i class="material-icons prefix buca">search</i>
-          <input id="buscar_concesion" type="text" class="validate"
-            autofocus
-            style="text-transform: uppercase"
-            specialOnly autocomplete="off"
-            [(ngModel)]="filtro"
-            (ngModelChange)="buscar($event)" name="filtro">
-          <label for="buscar_concesion"> Buscar concesión</label>
-          </div>
-        </div>
+  <div class="search-card">
+    <div class="row search">
+      <div class="col s12">
+        <input name="filtro" id="filtro" class="browser-default placeholder-fix"
+        placeholder="Buscar concesión" type="search" autofocus
+        autocomplete="off" [(ngModel)]="filtro"
+        (ngModelChange)="buscar($event)" >
       </div>
     </div>
 
-    <div class="row center">
-      <div class="col s6">
-        <p>
-          <label>
-            <input class="with-gap" name="group1" type="radio"
-              (click)="cambiarModo(1)" checked/>
-              <span class="buscadores">Nombre/Razón social</span>
-          </label>
-        </p>
+    <div class="row options">
+      <div class="col s6 left-align">
+        <label>
+          <input class="with-gap" name="group1" type="radio"
+          (click)="cambiarModo(1)" checked/>
+          <span class="buscadores">Nombre/Razón social</span>
+        </label>
       </div>
-      <div class="col s6">
-        <p>
-          <label>
-            <input class="with-gap" name="group1" type="radio"
-              (click)="cambiarModo(2)"/>
-            <span class="buscadores"><label class="buscadores">NUC</label></span>
-          </label>
-        </p>
+      <div class="col s6 right-align">
+        <label>
+          <input class="with-gap" name="group1" type="radio"
+          (click)="cambiarModo(2)"/>
+          <span class="buscadores"><label class="buscadores">NUC</label></span>
+        </label>
       </div>
     </div>
   </div>
@@ -72,7 +59,7 @@
           <div class="col s12">
             <b><label class="">Modalidad:</label></b>
             <label class="" [ngClass]="{
-              'greenLabel': concesion.modalidad.nombre === 'TAXI'||'ACARREO DE AGUA'  
+              'greenLabel': concesion.modalidad.nombre === 'TAXI'||'ACARREO DE AGUA'
             }"> {{concesion.modalidad.nombre}}</label>
           </div>
           <div class="col s12">

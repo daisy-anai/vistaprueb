@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ConcesionService } from '../concesion.service';
 import { Concesion } from '../../shared/models/concesion';
@@ -8,7 +8,7 @@ import { Concesion } from '../../shared/models/concesion';
   templateUrl: './buscar-concesion.component.html',
   styleUrls: ['./buscar-concesion.component.css']
 })
-export class BuscarConcesionComponent implements OnInit {
+export class BuscarConcesionComponent {
   @Output() out = new EventEmitter<Concesion>();
   public loading: boolean = false;
   public tipo: number = 1;
@@ -19,14 +19,11 @@ export class BuscarConcesionComponent implements OnInit {
     private service?: ConcesionService
   ) { }
 
-  ngOnInit() {
-  }
-
   cambiarModo(tipo: number): void {
     this.filtro = "";
     this.tipo = tipo;
     this.concesiones = null;
-    document.getElementById('buscar_concesion').focus();
+    document.getElementById('filtro').focus();
   }
 
   buscar(event): void{
