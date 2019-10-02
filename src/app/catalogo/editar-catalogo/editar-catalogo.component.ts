@@ -119,4 +119,10 @@ export class EditarCatalogoComponent implements OnInit {
     }
   }*/
 
+  
+   asignarVariable(catalogo:any){
+     this.catalogo =catalogo.catalogo;
+     console.log(this.catalogo);
+
+   }
 }

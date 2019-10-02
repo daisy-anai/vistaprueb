@@ -20,50 +20,21 @@ export class DetalleCatalogoComponent implements OnInit {
     private route: ActivatedRoute,
     private service?: CatalogoService,
     private apollo?: Apollo
- ) { }
+  ){}
 
   ngOnInit() {
-    $(document).ready(function(){
-      $('.modal').modal({dismissible: false});
-    });
-
-    
     this.service.getCatalogoByID(parseInt(this.route.snapshot.paramMap.get("id"))).subscribe(result => {
-      console.log(result.data);
-      this.asignarVari(result.data);
+      this.catalogo = result.data['catalogo'];
     }, error => {
-      console.log(error);     
-    }); 
-  }
- /** 
-    @description mutación de eliminar catalogo
-    @param eliminarC
-    */
-  eliminarCatalogo(id: Number){
-    const eliminarC = gql`
-    mutation eliminarCatalogo($id:ID!){
-    downCatalogo(id: $id)
-    }`;
-
-    this.apollo.use('backrevista')
-    .mutate({
-      mutation: eliminarC,
-      variables: {
-      id: id
-      }
-    })
-    .subscribe((result)  => {   
-      console.log(result.data['downCatalogo']);  
-      this.router.navigate(['aplicacion/catalogo/listar'])
-      }, (error) => {
-        console.log('error');    
+      console.log(error);
     });
   }
 
-   asignarVari(catalogo:any){
-     this.catalogo =catalogo.catalogo;
-     console.log(this.catalogo); 
-   }
-   
-   
+  eliminarCatalogo(id: Number){
+    this.service.deleteCatalogo(id).subscribe((result)  => {
+      this.router.navigate(['aplicacion/catalogo/listar'])
+    }, (error) => {
+        console.log('error');
+    });
+  }
 }

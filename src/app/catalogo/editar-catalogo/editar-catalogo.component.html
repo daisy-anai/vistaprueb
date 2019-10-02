@@ -3,7 +3,6 @@
   <div class="row">
     <div class="col s8 offset-s2">
       <!-- Catalogo -->
-      
       <div class="row valign-wrapper">
         <div class="col s6">
           <h5 class="" >Creación de catalogos</h5>
@@ -23,7 +22,6 @@
             formControlName="nombre"
             autocomplete="off">        
         </div>
-
         <div class="">
           <label for="id_modalidad">Tipo de modalidad</label>
           <select formControlName="id_modalidad" class="browser-default">
@@ -39,54 +37,23 @@
         </div>
         <!-- End Catalogo --> 
         <!--secciones datos-->
-        <div class="row valign-wrapper">
-          <div class="col s12">  
-              <b>Secciones</b>   
-            <div class="col s12 right-align">
-                <a class="btn-floating btn-large waves-effect waves-light red btn-small red darken-2 " (click)="addSeccion()">
-                  <i class="material-icons">add</i>
-                </a>
-            </div>
-           
-            <div class="input-field col s6"  *ngFor="let seccion of catalogo.secciones">
-                <input type="text"  class="autocomplete"
-                autocomplete="off"
-                value="{{seccion.nombre}}">
-            
+      <!--secciones datos-->
+      <div class="row valign-wrapper">
+        <div class="col s12">  
+          <b>Secciones</b>   
+          <div class="col s12 right-align">
+            <a class="btn-floating btn-large waves-effect waves-light red btn-small red darken-2 " (click)="addSeccion()">
+              <i class="material-icons">add</i>
+            </a>
+          </div>
+          <div class="input-field col s6" *ngFor="let seccion of catalogo.secciones">
+            <input type="text"  class="autocomplete"
+              autocomplete="off"
+              value="{{seccion.nombre}}"> 
           </div>
         </div>
-        <!---->
-         <div class="card col s10 offset-s1">
-              <!-- Secciones -->      
-            <div [formGroup]="seccion">
-              <div class="row valign-wrapper">
-                <div class="col s6">
-                  <p class="card-title">Seccion {{i + 1}}</p>
-                </div>
-                <div class="col s6 right-align">
-                  <a class="btn-floating btn-large waves-effect waves-light red btn-small red darken-2 " (click)="removeSeccion()">
-                    <i class="material-icons">remove</i>
-                  </a>
-                </div>            
-              </div>
-                <div class="row">
-                  <div class="col s12">
-                    <div class="input-field col s12">
-                      <i class="material-icons prefix">textsms</i>
-                      <input type="text" id="S[{{i}}]-nombre" class="autocomplete"
-                      autocomplete="off"
-                      formControlName="nombre"
-                      (change)="watchSeccionNombre(i)"
-                      (ngModelChange)="autocompleteSecciones($event, i)">
-                      <label for="S[{{i}}]-nombre">Titulo de sección</label>
-                    </div>
-                  </div>
-                </div>
-              <!-- End Secciones -->       
-              </div>
-            </div>    
+        <!---->     
         </div>
-      
         <!--fin de secciones y propiedades-->
         <div class="row">
           <div class="col s12">
@@ -98,4 +65,3 @@
     </div>
   </div>
 </div>
-<div>

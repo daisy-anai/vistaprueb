@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Validators, FormGroup , FormControl } from '@angular/forms';
 import { Apollo } from 'apollo-angular';
 import {Observable} from 'rxjs';
@@ -15,9 +15,6 @@ import { CatalogoService } from '../catalogo.service';
   styleUrls: ['./listar-catalogo.component.css']
 })
 export class ListarCatalogoComponent implements OnInit {
-  // recibe pasarle datos
-  @Output() outCatalogo= new EventEmitter<DatosCatalogo>();
-
   public catalogos: Array<any>;
   //variables de busqueda
   public buscador: boolean = false;
@@ -25,20 +22,11 @@ export class ListarCatalogoComponent implements OnInit {
   public datos : number;
   public datosCatalogos : Observable<any>;
 
-  constructor(
-    private apollo?: Apollo,
-    private service?: CatalogoService
-  ) { }
+  constructor(private apollo: Apollo, private service?: CatalogoService) {}
 
   ngOnInit() {
-    this.service.getCatalogos().subscribe(result => {
-      this.catalogos = result.data['catalogos'];
-    }, error => {
-      console.log(error);
+    this.service.getCatalogos().subscribe(({data, loading}) => {
+      this.catalogos = data['catalogos'];
     });
-  }
-  //buscar catalogos
-  buscarCatalogo(){
-
   }
 }
