@@ -43,9 +43,6 @@ export class CrearCatalogoComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    $(document).ready(function(){
-      $('.modal').modal();
-    });
 
     this.service.getCatalogos().subscribe(result => {
       this.catalogos = result.data['catalogos'];

@@ -2,8 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { CatalogoService } from '../catalogo.service';
 import { ActivatedRoute } from "@angular/router";
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+//modelos
 import { Modalidad } from '../../shared/models/modalidad';
 import { TipoCatalogo } from '../../shared/models/tipoCatalogo';
+import { SeccionVO} from '../../shared/models/seccion.vo';
+import { Propiedad } from '../../shared/models/propiedad';
+import { Catalogo } from '../../shared/models/catalogo';
+declare var M: any;
+
 
 @Component({
   selector: 'app-editar-catalogo',
@@ -17,6 +23,9 @@ export class EditarCatalogoComponent implements OnInit {
   public tiposCatalago: Array<TipoCatalogo>;
   public totalSecciones: number = 0;
   public seccionesForm: any;
+  public secciones: Array<SeccionVO>;
+  public propiedades: Array<Propiedad>;
+  public catalogos: Array<Catalogo>;
 
   constructor(
     private route: ActivatedRoute,
@@ -36,29 +45,82 @@ export class EditarCatalogoComponent implements OnInit {
     this.service.getCatalogoByID(parseInt(this.route.snapshot.paramMap.get("id"))).subscribe(result => {
       this.catalogo = result.data['catalogo'];
       console.log(this.catalogo);
-
+      
       this.catalogoForm = this.formBuilder.group({
         id_modalidad: [this.catalogo.modalidad.id, Validators.required],
         id_tipo_catalogo: [this.catalogo.tipoCatalogo.id, Validators.required],
         nombre: [this.catalogo['nombre'], Validators.required],
-        secciones: new FormArray([], Validators.required)
+        secciones: new FormArray([], Validators.required)  
       });  
+      console.log(this.catalogoForm.controls);
+      
+      
+      for (const seccion of this.catalogo['secciones']) {
+       /* this.catalogoForm.controls.secciones.push(this.formBuilder.group({
+          id_seccion: [this],
+          nombre: ['', Validators.required],
+          propiedades: new FormArray([], Validators.required)
+        }));*/
+      }
+
     }, error => {
       console.log(error);     
     }); 
+  
+
+  }
+  watchSeccionNombre(seccion: Number):void {
+    let value = (<HTMLInputElement>document.getElementById(`S[${seccion}]-nombre`)).value.toLowerCase().trim();
+    for(var i = 0; i < this.secciones.length; i++){
+    if(this.secciones[i].nombre.toLowerCase() == value.toLowerCase()){
+      this.catalogoForm.controls.secciones['controls'][seccion].controls.nombre.setValue(this.secciones[i].nombre);
+      this.catalogoForm.controls.secciones['controls'][seccion].controls.id_seccion.setValue(parseInt(this.secciones[i].id));
+      this.secciones.splice(i,1);
+    }
+   }
   }
 
-  //modificar catalogo
-  modificarCatalogo(){
-    console.log(this.catalogoForm.value);
-    const seccion = this.catalogoForm.value.secciones;
-   // console.log(seccion);
-    
+  //seleccion de propiedades
+  watchPropiedadNombre(seccion: number,propiedad: number): void{
+    let value = (<HTMLInputElement>document.getElementById(`S[${seccion}]-P[${propiedad}]-nombre`)).value.toLowerCase().trim();
+    if(this.propiedades){
+      let result = this.propiedades.filter(word => word.nombre.toLowerCase().trim() === value)
+      if(result.length == 0){
+        this.catalogoForm.controls.secciones['controls'][seccion].controls.propiedades.controls[propiedad].controls.nombre.setValue(value);
+      }else{
+        // this.catalogoForm.controls.secciones[propiedades].controls[propiedad].controls.id_propiedad.setValue(result[0].id);
+        this.catalogoForm.controls.secciones['controls'][seccion].controls.propiedades.controls[propiedad].controls.id_propiedad.setValue(result[0].id);
+      }
+    }
   }
-   // Control de las secciones
-   addSeccion() {
+
+  watchCatalogoNombre(): Boolean {
+    let value = this.catalogoForm.get('nombre').value.toLowerCase().trim();
+    if(this.catalogos){
+      const result = this.catalogos.filter(word => word.nombre.toLowerCase().trim() === value);
+      return result.length >= 1 ? true : false;
+    }
+    return false;
+  }
+
+  // Control de las secciones
+  addSeccion() {
     this.totalSecciones += 1;
     this.seccionesController();
+  }
+
+  removeSeccion(indice: any, propiedad: any) {
+    let seccionew = new SeccionVO;
+    seccionew.id = propiedad.value.id_seccion;
+    seccionew.nombre= propiedad.value.nombre;
+    seccionew.estatus =true;
+    seccionew.create = new Date();
+    this.secciones.push(seccionew);
+    this.totalSecciones -= 1;
+    //this.seccionesController();
+    this.newseccionesController(indice);    
+    console.log(propiedad.value.nombre);
+    
   }
 
   newseccionesController(indice: any){
@@ -69,6 +131,7 @@ export class EditarCatalogoComponent implements OnInit {
     this.seccionesController();
 
   }
+
   seccionesController() {
     let controles = this.catalogoForm.controls;
     let secciones = controles.secciones as FormArray;
@@ -87,7 +150,21 @@ export class EditarCatalogoComponent implements OnInit {
       }
     }
   }
- /* addPropiedad(seccion: number) {
+
+  autocompleteSecciones(e, seccion){
+  // this.watchSeccionNombre(seccion);
+    let datos = {};
+    for(let seccion of this.secciones){
+      datos[seccion.nombre] = null;
+    }
+    var elems = document.querySelectorAll('input.autocomplete');
+    var [instances] = M.Autocomplete.init(elems, {
+      data: datos
+    });
+ 
+  }
+
+  addPropiedad(seccion: number) {
     let valor = this.propiedadesControls(seccion).length;
     this.propiedadesForm(seccion, valor+=1);
   }
@@ -110,6 +187,7 @@ export class EditarCatalogoComponent implements OnInit {
           id_propiedad: ['', Validators.required],
           nombre: ['', Validators.required],
           id_tipo_propiedad: ['', Validators.required]
+        
         }));
       }
     }else {
@@ -117,9 +195,30 @@ export class EditarCatalogoComponent implements OnInit {
         propiedades.removeAt(i);
       }
     }
-  }*/
+  }
 
-  
+  autocompletePropiedades(e){
+ /*
+    let datos = {};
+    for(let propiedad of this.propiedades){
+      datos[propiedad.nombre] = null;
+    }
+
+    var elems = document.querySelectorAll('input.autocomplete');
+    var [instances] = M.Autocomplete.init(elems, {
+      data: datos
+    });
+
+    */
+  }
+
+  //modificar catalogo
+  modificarCatalogo(){
+    console.log(this.catalogoForm.value);
+    const seccion = this.catalogoForm.value.secciones;
+   // console.log(seccion);
+    
+  }
    asignarVariable(catalogo:any){
      this.catalogo =catalogo.catalogo;
      console.log(this.catalogo);
