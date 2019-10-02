@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { CatalogoService } from '../catalogo.service';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag'
@@ -16,6 +16,7 @@ export class DetalleCatalogoComponent implements OnInit {
   public catalogo :DetalleCatalogo;
   public catalogos: Array<any>;
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private service?: CatalogoService,
     private apollo?: Apollo
@@ -52,7 +53,8 @@ export class DetalleCatalogoComponent implements OnInit {
       }
     })
     .subscribe((result)  => {   
-      console.log(result.data['catalogo']);  
+      console.log(result.data['downCatalogo']);  
+      this.router.navigate(['aplicacion/catalogo/listar'])
       }, (error) => {
         console.log('error');    
     });

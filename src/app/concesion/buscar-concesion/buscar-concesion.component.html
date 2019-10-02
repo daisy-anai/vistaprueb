@@ -52,35 +52,35 @@
             [ngClass]="{'concesionPointerNotAllowed': !permitido(concesion)}"
             (click)="redirect(concesion)">
             <div class="col s12">
-              <label class="" *ngIf="concesion.concesionario.tipoPersona=='F'">Nombre: </label>
-              <label class="" *ngIf="concesion.concesionario.tipoPersona=='M'">Razón Social:  </label>
+              <b><label class="" *ngIf="concesion.concesionario.tipoPersona=='F'">Nombre: </label></b>
+              <b><label class="" *ngIf="concesion.concesionario.tipoPersona=='M'">Razón Social:  </label></b>
               <label class="" *ngIf="concesion.concesionario.tipoPersona=='F'">{{concesion.concesionario.nombre}} {{concesion.concesionario.primerApellido	}} {{concesion.concesionario.segundoApellido}}</label>
               <label class="" *ngIf="concesion.concesionario.tipoPersona=='M'">{{concesion.concesionario.razonSocial}} </label>
         </div>
           <div class="col s12">
-            <label class="">NUC:</label>
+            <b><label class="">NUC:</label></b>
             <label class=""> {{concesion.nuc}}</label>
           </div><br>
           <div class="col s12">
-            <label class="">Localidad:</label>
+            <b><label class="">Localidad:</label> </b>
             <label class=""> {{concesion.concesionario.localidad.nombre}}</label>
           </div><br>
           <div class="col s12">
-            <label class="">Municipio:</label>
+            <b><label class="">Municipio:</label></b>
             <label class=""> {{concesion.concesionario.localidad.municipio.nombre}}</label>
           </div><br>
           <div class="col s12">
-            <label class="">Modalidad:</label>
+            <b><label class="">Modalidad:</label></b>
             <label class="" [ngClass]="{
-              'greenLabel': concesion.modalidad.nombre === 'TAXI'
+              'greenLabel': concesion.modalidad.nombre === 'TAXI'||'ACARREO DE AGUA'  
             }"> {{concesion.modalidad.nombre}}</label>
           </div>
           <div class="col s12">
-            <label>Estado de concesión: </label>
-            <label [ngClass]="{
+            <b><label>Estado de concesión: </label></b>
+           <b> <label [ngClass]="{
               'redLabel': !concesion.condiciones.vigente,
               'greenLabel': concesion.condiciones.vigente
-            }"> {{concesion.condiciones.vigente ? 'Vigente' : 'Vencida'}} </label>
+            }"> {{concesion.condiciones.vigente ? 'Vigente' : 'Vencida'}} </label></b>
           </div>
         </div>
       </div>

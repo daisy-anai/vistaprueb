@@ -15,7 +15,7 @@ import { CatalogoService } from '../catalogo.service';
   styleUrls: ['./listar-catalogo.component.css']
 })
 export class ListarCatalogoComponent implements OnInit {
-  //@output recibe pasarle datos
+  // recibe pasarle datos
   @Output() outCatalogo= new EventEmitter<DatosCatalogo>();
 
   public catalogos: Array<any>;
@@ -31,7 +31,6 @@ export class ListarCatalogoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
     this.service.getCatalogos().subscribe(result => {
       this.catalogos = result.data['catalogos'];
     }, error => {
@@ -41,6 +40,5 @@ export class ListarCatalogoComponent implements OnInit {
   //buscar catalogos
   buscarCatalogo(){
 
- }
-
+  }
 }

@@ -32,7 +32,13 @@ export class GraphQLModule {
       link: httpLink.create({
         uri: environment.URIBackRevista
       }),
-      cache: new InMemoryCache()
+      cache: new InMemoryCache(),
+      defaultOptions: {
+        watchQuery: {
+          fetchPolicy: 'no-cache',
+          errorPolicy: 'ignore'
+        }
+      }
     });
   }
 }

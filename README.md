@@ -14,3 +14,4 @@ Versión de projecto 0.0.0
 ~~~
   $ ng build --aot
 ~~~
+###### Destalles crear Catalogo- no repetir el mismo nombre de SECCIONES y PROPIEDADES, validar propiedades y secciones.

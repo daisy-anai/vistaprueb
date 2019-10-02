@@ -1,56 +1,101 @@
-<div class="row" *ngIf= "catalogo!=undefined">
-    <div class="col 20">
-      <div class="card">
-        <div class="card-content ">
-          <h5 >Modificar Catalogo</h5>
-          <form class="contenido" >
-            <div class="col s6">
-                <b>Nombre del catalogo:</b>
-              <div class="input-field inline" >
-                <input  id="nombreCatalogo" type="text" value="{{catalogo.nombre}}">                
-              </div>
-            </div>
-            <div class="col s6">
-              Tipo de catalogo:    
-              <div class="catalogotipo input-field inline">
-                <input  type="text" id="tipoCatalogo" value="{{catalogo.tipoCatalogo.nombre}}">
-              </div>
-            </div>
-            <div class="col s20">
-              Modalidad:
-              <div class="input-field inline">
-                <input type="text" name="" id="modalidad" value="{{catalogo.modalidad.nombre}}">
-              </div>
-            </div>
-            <div *ngFor="let seccion of catalogo.secciones" class="seccion">
-              <div class="col s8">
-                Sección:
-                <div class="input-field inline ">
-                  <input type="text" name="" id="" value="{{seccion.nombre}}">        
-                </div>
-              </div>
-            <div *ngFor="let propiedad of seccion.propiedades">
-              <div class="col s9">
-                Propiedad:
-                <div class="propiedad  input-field inline"> 
-                  <input type="text" name="" id="propiedad" value="{{propiedad.nombre}}">
-                </div> 
-                <div class=" col s16">
-                  Tipo de propiedad:
-                    <div class=" input-field inline " >
-                      <input type="text" name="" id="tipoPropiedad" value="{{propiedad.tipoPropiedad.nombre}}">  
-                    </div>
-                </div>
-              </div>
-            </div>
-          </div>         
-         </form>
+<!--Crear Catalogo -->
+<div class="" *ngIf="catalogo">
+  <div class="row">
+    <div class="col s8 offset-s2">
+      <!-- Catalogo -->
+      
+      <div class="row valign-wrapper">
+        <div class="col s6">
+          <h5 class="" >Creación de catalogos</h5>
         </div>
-        <div class="row">
-          <div class="col s12">
-            <button type="submit" class="waves-effect waves-light btn-small right" (click)="ModificarCatalogo(catalogo.id)">Actualizar Catalogo</button>
-          </div>
+        <div class="col s6 right-align">
+          <a class="btn-floating btn-large waves-effect waves-light red btn-small red darken-2 "
+            [routerLink]="['/aplicacion/catalogo/listar']">
+            <i class="material-icons">arrow_back</i>
+          </a>
         </div>
       </div>
+      <form [formGroup]="catalogoForm" (ngSubmit)="modificarCatalogo()">
+        <label for="">Nombre del Catalogo</label>
+        <div class="input-field" >
+          <input id="nombre_catalogo" type="text" class="validate"
+            valido 
+            formControlName="nombre"
+            autocomplete="off">        
+        </div>
+
+        <div class="">
+          <label for="id_modalidad">Tipo de modalidad</label>
+          <select formControlName="id_modalidad" class="browser-default">
+            <option *ngFor="let modalidad of modalidades" value="{{modalidad.id}}"> {{ modalidad.nombre }} </option>
+          </select>
+        </div>
+
+        <div class="">
+          <label for="id_tipo_catalogo">Tipo de catalogo</label>
+          <select formControlName="id_tipo_catalogo" class="browser-default">
+            <option *ngFor="let tipoCatalogo of tiposCatalago" value="{{tipoCatalogo.id}}"> {{ tipoCatalogo.nombre }} </option>
+          </select>
+        </div>
+        <!-- End Catalogo --> 
+        <!--secciones datos-->
+        <div class="row valign-wrapper">
+          <div class="col s12">  
+              <b>Secciones</b>   
+            <div class="col s12 right-align">
+                <a class="btn-floating btn-large waves-effect waves-light red btn-small red darken-2 " (click)="addSeccion()">
+                  <i class="material-icons">add</i>
+                </a>
+            </div>
+           
+            <div class="input-field col s6"  *ngFor="let seccion of catalogo.secciones">
+                <input type="text"  class="autocomplete"
+                autocomplete="off"
+                value="{{seccion.nombre}}">
+            
+          </div>
+        </div>
+        <!---->
+         <div class="card col s10 offset-s1">
+              <!-- Secciones -->      
+            <div [formGroup]="seccion">
+              <div class="row valign-wrapper">
+                <div class="col s6">
+                  <p class="card-title">Seccion {{i + 1}}</p>
+                </div>
+                <div class="col s6 right-align">
+                  <a class="btn-floating btn-large waves-effect waves-light red btn-small red darken-2 " (click)="removeSeccion()">
+                    <i class="material-icons">remove</i>
+                  </a>
+                </div>            
+              </div>
+                <div class="row">
+                  <div class="col s12">
+                    <div class="input-field col s12">
+                      <i class="material-icons prefix">textsms</i>
+                      <input type="text" id="S[{{i}}]-nombre" class="autocomplete"
+                      autocomplete="off"
+                      formControlName="nombre"
+                      (change)="watchSeccionNombre(i)"
+                      (ngModelChange)="autocompleteSecciones($event, i)">
+                      <label for="S[{{i}}]-nombre">Titulo de sección</label>
+                    </div>
+                  </div>
+                </div>
+              <!-- End Secciones -->       
+              </div>
+            </div>    
+        </div>
+      
+        <!--fin de secciones y propiedades-->
+        <div class="row">
+          <div class="col s12">
+           <!--<a class="waves-effect waves-light btn-small left" >Previsualizar</a>-->
+            <button type="submit" class="waves-effect waves-light btn-small right"> Registrar catalogo</button>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
+</div>
+<div>

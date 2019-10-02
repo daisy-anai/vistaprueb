@@ -23,7 +23,7 @@ declare var M: any;
   styleUrls: ['./crear-catalogo.component.css'],
 
 })
-export class CrearCatalogoComponent implements OnInit, OnDestroy {
+export class CrearCatalogoComponent implements OnInit {
   public catalogoForm: FormGroup;
   public modalidades: Array<Modalidad>;
   public tiposCatalago: Array<TipoCatalogo>;
@@ -41,12 +41,8 @@ export class CrearCatalogoComponent implements OnInit, OnDestroy {
     private formBuilder?: FormBuilder,
     private router ?: Router
   ) {}
-  ngOnDestroy(){
-    console.log("aaa")
-  }
 
   ngOnInit() {
-    
     $(document).ready(function(){
       $('.modal').modal();
     });
@@ -287,8 +283,7 @@ export class CrearCatalogoComponent implements OnInit, OnDestroy {
     })
     .subscribe((result) => {
       console.log(result.data['catalogo']);    
-        this.router.navigateByUrl('/aplicacion/catalogo/listar',{skipLocationChange: true}).then(()=>
-        this.router.navigate(["/aplicacion/catalogo/listar"])); 
+      this.router.navigateByUrl('aplicacion/catalogo/listar')
       }, (error) => {
         console.log(error);    
     });
