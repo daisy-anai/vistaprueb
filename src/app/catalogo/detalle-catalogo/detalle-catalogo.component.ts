@@ -31,21 +31,8 @@ export class DetalleCatalogoComponent implements OnInit {
   }
 
   eliminarCatalogo(id: Number){
-    const eliminarC = gql`
-    mutation eliminarCatalogo($id:ID!){
-      downCatalogo(id: $id)
-    }`;
-
-    this.apollo.use('backrevista')
-    .mutate({
-      mutation: eliminarC,
-      variables: {
-        id: id
-        }
-    })
-    .subscribe((result)  => {
-      console.log(result.data['downCatalogo']);
-      this.router.navigate(['/aplicacion/catalogo/listar'])
+    this.service.deleteCatalogo(id).subscribe((result)  => {
+      this.router.navigate(['aplicacion/catalogo/listar'])
     }, (error) => {
         console.log('error');
     });

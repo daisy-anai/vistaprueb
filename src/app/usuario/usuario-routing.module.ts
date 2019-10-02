@@ -9,15 +9,13 @@ import { DetalleCatalogoComponent } from '../catalogo/detalle-catalogo/detalle-c
 import { ConcesionVehiculoComponent } from './concesion-vehiculo/concesion-vehiculo.component';
 
 const routes: Routes = [
-
   {
     path: 'aplicacion',
     component: AplicacionComponent,
     children: [
       {
         path: 'inicio',
-        component: ConcesionVehiculoComponent,
-        runGuardsAndResolvers: 'always'
+        component: ConcesionVehiculoComponent
       },
       {
         path: 'catalogo',
@@ -42,20 +40,18 @@ const routes: Routes = [
             path: '**',
             redirectTo: 'listar'
           }
-        ],
-        runGuardsAndResolvers: 'always'
+        ]
       },
       {
         path: '**',
         redirectTo: 'inicio'
       }
-    ],
-    runGuardsAndResolvers: 'always',
+    ]
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes, {onSameUrlNavigation: 'reload'})],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
 export class UsuarioRoutingModule { }

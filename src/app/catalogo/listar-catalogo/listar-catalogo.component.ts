@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Validators, FormGroup , FormControl } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { Router, NavigationEnd } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 
 // Servicios
@@ -15,19 +13,12 @@ declare var M:any;
 })
 export class ListarCatalogoComponent implements OnInit {
   public catalogos: Array<any>;
-  subscription: Subscription;
 
-  constructor(private apollo?: Apollo, private service?: CatalogoService) {}
+  constructor(private apollo: Apollo, private service?: CatalogoService) {}
 
   ngOnInit() {
-    $(document).ready(function(){
-      $('.modal').modal();
-    });
-
-    this.service.getCatalogos().subscribe(result => {
-      this.catalogos = result.data['catalogos'];
-    }, error => {
-      console.log(error);
+    this.service.getCatalogos().subscribe(({data, loading}) => {
+      this.catalogos = data['catalogos'];
     });
   }
 }

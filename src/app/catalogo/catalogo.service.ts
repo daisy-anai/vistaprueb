@@ -1,5 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
-import { Observable, Subject} from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 
@@ -9,9 +9,9 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class CatalogoService {
-  constructor(private apollo?: Apollo){}
+  constructor(private apollo: Apollo){}
 
-  getCatalogos(){
+  getCatalogos(): Observable<any> {
     return this.apollo.use('backrevista').watchQuery({
         query: gql`
           query getCatalogos {
@@ -162,6 +162,7 @@ export class CatalogoService {
       }`
     }).valueChanges;
   }
+
   //incompleto
   getEditCatalogo(id:Number){
     return this.apollo.use('backrevista').watchQuery({
@@ -172,7 +173,18 @@ export class CatalogoService {
         id: id
       }
     }).valueChanges;
+  }
 
+  deleteCatalogo(id: Number) {
+    return this.apollo.use('backrevista').mutate({
+      mutation: gql`
+      mutation eliminarCatalogo($id:ID!){
+        downCatalogo(id: $id)
+      }`,
+      variables: {
+        id: id
+      }
+    });
   }
 
 }
