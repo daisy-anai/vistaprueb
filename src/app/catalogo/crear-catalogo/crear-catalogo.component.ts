@@ -119,7 +119,11 @@ export class CrearCatalogoComponent implements OnInit {
     this.seccionesController();
   }
 
-  removeSeccion(indice: any, propiedad: any) {
+
+ /**
+  *  removeSeccion(indice: any, propiedad: any) {
+    this.totalSecciones -= 1;
+    this.seccionesController(); 
     let seccionew = new SeccionVO;
     seccionew.id = propiedad.value.id_seccion;
     seccionew.nombre= propiedad.value.nombre;
@@ -132,6 +136,13 @@ export class CrearCatalogoComponent implements OnInit {
     console.log(propiedad.value.nombre);
     
   }
+  */
+ 
+  removeSeccion() {
+    this.totalSecciones -= 1;
+    this.seccionesController();
+  }
+
   newseccionesController(indice: any){
     let controles = this.catalogoForm.controls;
     let secciones = controles.secciones as FormArray;
@@ -143,6 +154,7 @@ export class CrearCatalogoComponent implements OnInit {
   seccionesController() {
     let controles = this.catalogoForm.controls;
     let secciones = controles.secciones as FormArray;
+    
     this.seccionesForm = secciones.controls;
      if (secciones.length < this.totalSecciones) {
       for (let i = secciones.length; i < this.totalSecciones; i++) {
