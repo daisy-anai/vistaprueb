@@ -21,13 +21,10 @@
 }
 
 .search-card .search input[type=search]:focus {
-  width: 100%;
   -webkit-box-shadow: 0px 0px 5px 2px rgba(219,219,219,1);
   -moz-box-shadow: 0px 0px 5px 2px rgba(219,219,219,1);
   box-shadow: 0px 0px 5px 2px rgba(219,219,219,1);
 }
-
-
 
 .redLabel {
   color: #F00;
@@ -37,10 +34,27 @@
   color: #E96;
 }
 
-.concesionCard:hover {
-  -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-  -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+.concesion-card {
+}
+
+.concesion-card ul {
+
+}
+
+.concesion-card ul li {
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.concesion-card ul li:hover {
+  transform: scale(1.05);
+  -webkit-box-shadow: 0px 0px 5px 2px rgba(219,219,219,1);
+  -moz-box-shadow: 0px 0px 5px 2px rgba(219,219,219,1);
+  box-shadow: 0px 0px 5px 2px rgba(219,219,219,1);
+}
+
+.concesion-card ul li .title {
+  font-weight: bold;
 }
 
 .concesionPointerAllowed:hover, .concesionPointerAllowed div label {
@@ -49,9 +63,4 @@
 
 .concesionPointerNotAllowed:hover, .concesionPointerNotAllowed div label{
   cursor: not-allowed
-}
-
-.busca:hover div i{
-  width:500px;
-  margin:0 auto;
 }
