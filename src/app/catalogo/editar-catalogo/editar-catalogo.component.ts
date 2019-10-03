@@ -8,8 +8,8 @@ import { TipoCatalogo } from '../../shared/models/tipoCatalogo';
 import { SeccionVO} from '../../shared/models/seccion.vo';
 import { Propiedad } from '../../shared/models/propiedad';
 import { Catalogo } from '../../shared/models/catalogo';
+import { TipoPropiedad } from '../../shared/models/tipoPropiedad';
 declare var M: any;
-
 
 @Component({
   selector: 'app-editar-catalogo',
@@ -26,6 +26,7 @@ export class EditarCatalogoComponent implements OnInit {
   public secciones: Array<SeccionVO>;
   public propiedades: Array<Propiedad>;
   public catalogos: Array<Catalogo>;
+  public tiposPropiedad:Array<TipoPropiedad>;
 
   constructor(
     private route: ActivatedRoute,
@@ -42,9 +43,14 @@ export class EditarCatalogoComponent implements OnInit {
       this.tiposCatalago = result.data['tiposCatalogo'];
     });
 
+    this.service.getTipoPropiedad().subscribe(result => {
+      this.tiposPropiedad = result.data['tiposPropiedad'];
+      
+    });
+
     this.service.getCatalogoByID(parseInt(this.route.snapshot.paramMap.get("id"))).subscribe(result => {
       this.catalogo = result.data['catalogo'];
-      console.log(this.catalogo);
+     // console.log(this.catalogo);
       
       this.catalogoForm = this.formBuilder.group({
         id_modalidad: [this.catalogo.modalidad.id, Validators.required],
@@ -52,17 +58,31 @@ export class EditarCatalogoComponent implements OnInit {
         nombre: [this.catalogo['nombre'], Validators.required],
         secciones: new FormArray([], Validators.required)  
       });  
-      console.log(this.catalogoForm.controls);
       
-      
-      for (const seccion of this.catalogo['secciones']) {
-       /* this.catalogoForm.controls.secciones.push(this.formBuilder.group({
-          id_seccion: [this],
-          nombre: ['', Validators.required],
-          propiedades: new FormArray([], Validators.required)
-        }));*/
-      }
+      let controls = this.catalogoForm.controls;     
+      let secciones = controls.secciones as FormArray; 
+      this.seccionesForm = secciones.controls; 
 
+      for (const seccion of this.catalogo['secciones']) {
+        let seccionGroup = this.formBuilder.group({
+          id_seccion: [seccion.id],
+          nombre: [seccion.nombre, Validators.required],
+          propiedades: new FormArray([], Validators.required)
+        });
+        
+        let propiedadGroup = seccionGroup.controls.propiedades as FormArray;
+        for(const propiedad of seccion['propiedades']){          
+          propiedadGroup.push(this.formBuilder.group({
+            id_propiedad: [propiedad.id],
+            nombre: [propiedad.nombre],
+            id_tipo_propiedad: [propiedad.tipoPropiedad.id, Validators.required]
+          }));          
+        } 
+        secciones.push(seccionGroup);
+      }
+      
+      this.seccionesForm = secciones.controls;
+     // console.log(this.seccionesForm)  
     }, error => {
       console.log(error);     
     }); 
@@ -109,28 +129,11 @@ export class EditarCatalogoComponent implements OnInit {
     this.seccionesController();
   }
 
-  removeSeccion(indice: any, propiedad: any) {
-    let seccionew = new SeccionVO;
-    seccionew.id = propiedad.value.id_seccion;
-    seccionew.nombre= propiedad.value.nombre;
-    seccionew.estatus =true;
-    seccionew.create = new Date();
-    this.secciones.push(seccionew);
+  removeSeccion() {
     this.totalSecciones -= 1;
-    //this.seccionesController();
-    this.newseccionesController(indice);    
-    console.log(propiedad.value.nombre);
-    
-  }
-
-  newseccionesController(indice: any){
-    let controles = this.catalogoForm.controls;
-    let secciones = controles.secciones as FormArray;
-    //secciones.controls.removeAt(indice);
-    secciones.controls.splice(indice,1);
     this.seccionesController();
-
   }
+
 
   seccionesController() {
     let controles = this.catalogoForm.controls;
@@ -198,7 +201,6 @@ export class EditarCatalogoComponent implements OnInit {
   }
 
   autocompletePropiedades(e){
- /*
     let datos = {};
     for(let propiedad of this.propiedades){
       datos[propiedad.nombre] = null;
@@ -209,7 +211,7 @@ export class EditarCatalogoComponent implements OnInit {
       data: datos
     });
 
-    */
+    
   }
 
   //modificar catalogo
