@@ -24,15 +24,15 @@
 /* General  */
 body {
   font-family: "UniviaPro-Light";
-  /* background-image: url("./assets/fondo.png");
-  background-position: center;
+  background-image: url("./assets/al80porcent.png");
+  /* background-position: center; */
   background-size: cover;
-  background-color: #F1F1F0; */
+  /* background-color: #F1F1F0; */
   /* background: #F1F1F0; */
   /* background: #8e9eab;
   background: -webkit-linear-gradient(to left, #eef2f3, #eef2f0);
   background: linear-gradient(to left, #eef2f3, #eef2f0); */
-  background: white;
+  /* background: white; */
 }
 
 nav ul li a, nav a, ul li a, label{
