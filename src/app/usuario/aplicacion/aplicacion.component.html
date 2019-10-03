@@ -2,7 +2,7 @@
   <nav class="z-depth-2">
     <div class="nav-wrapper white">
       <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-      <a id=""><img class="responsive-img logo-semovi" id="" src="assets/banner.png"></a>
+      <a [routerLink]="['/aplicacion/inicio']"><img class="responsive-img logo-semovi" src="assets/banner.png"></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li>
           <a class="dropdown-trigger" data-target="dropdown1">
@@ -37,7 +37,7 @@
 </header>
 
 <section class="row">
-  <div class="col s12 m8 offset-m2 z-depth-3 white center container-app">
+  <div class="col s12 m8 offset-m2 z-depth-2 white container-app">
     <router-outlet> </router-outlet>
   </div>
 </section>
