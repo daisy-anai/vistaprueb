@@ -1,22 +1,16 @@
-<div> 
-  <div class="">
-    <section class="row">
-      <div class="col s6 offset-s3">
-        <buscar-concesion (out)="recibirConcesion($event)"></buscar-concesion>
-      </div>
-    </section>
+<div>
+  <buscar-concesion (out)="recibirConcesion($event)"></buscar-concesion>
 
-    <div class="row" *ngIf="concesion">
-      <div class="col s6 offset-s3">
-        <div class="row">
-          <div class="col s12">
-            <detalle-concesion [concesion]="concesion"></detalle-concesion>
-          </div>
+  <div class="row" *ngIf="concesion">
+    <div class="col s6 offset-s3">
+      <div class="row">
+        <div class="col s12">
+          <detalle-concesion [concesion]="concesion"></detalle-concesion>
         </div>
-        <div class="row">
-          <div class="col s12">
-            <buscar-vehiculo [concesion]="concesion" (out)="recibirVehiculo($event)"></buscar-vehiculo>
-          </div>
+      </div>
+      <div class="row">
+        <div class="col s12">
+          <buscar-vehiculo [concesion]="concesion" (out)="recibirVehiculo($event)"></buscar-vehiculo>
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 <ng-container>
   <div class="search-card">
     <div class="row search">
-      <div class="col s12">
+      <div class="col s12 m10 offset-m1">
         <input name="filtro" id="filtro" class="browser-default placeholder-fix"
         placeholder="Buscar concesión" type="search" autofocus
         autocomplete="off" [(ngModel)]="filtro"
@@ -10,31 +10,42 @@
     </div>
 
     <div class="row options">
-      <div class="col s6 left-align">
-        <label>
-          <input class="with-gap" name="group1" type="radio"
-          (click)="cambiarModo(1)" checked/>
-          <span class="buscadores">Nombre/Razón social</span>
-        </label>
-      </div>
-      <div class="col s6 right-align">
-        <label>
-          <input class="with-gap" name="group1" type="radio"
-          (click)="cambiarModo(2)"/>
-          <span class="buscadores"><label class="buscadores">NUC</label></span>
-        </label>
+      <div class="col s12 m10 offset-m1">
+        <div class="row">
+          <div class="col s8 m8 left-align">
+            <label>
+              <input class="with-gap" name="group1" type="radio"
+              (click)="cambiarModo(1)" checked/>
+              <span class="buscadores">Nombre/Razón social</span>
+            </label>
+          </div>
+          <div class="col s4 m4 right-align">
+            <label>
+              <input class="with-gap" name="group1" type="radio"
+              (click)="cambiarModo(2)"/>
+              <span class="buscadores"><label class="buscadores">NUC</label></span>
+            </label>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="progress" *ngIf="loading">
-      <div class="indeterminate"></div>
+  <div class="row" *ngIf="loading">
+    <div class="col s8 offset-s2">
+      <div class="progress">
+        <div class="indeterminate"></div>
+      </div>
+    </div>
   </div>
 
-  <div *ngIf="concesiones" class="concesion-card">
-    <ul>
-      <li *ngFor="let concesion  of concesiones" class="row z-depth-2" [ngClass]="{'concesionPointerNotAllowed': !permitido(concesion)}" (click)="redirect(concesion)">
-        <div class="col s12">
+  <div *ngIf="concesiones" class="concesion-card row">
+    <ul class="col s12 m10 offset-m1">
+      <li *ngFor="let concesion  of concesiones"
+        class="row z-depth-2"
+        [ngClass]="{'concesionPointerNotAllowed': !permitido(concesion), 'concesionPointerAllowed': permitido(concesion)}"
+        (click)="redirect(concesion)">
+        <div class="col s12 m6">
           <div class="">
             <label class="title"> {{concesion.concesionario.tipoPersona == "F" ? "Nombre: " : "Razón social: "}} </label>
             <label class="" *ngIf="concesion.concesionario.tipoPersona=='F'">{{concesion.concesionario.nombre}} {{concesion.concesionario.primerApellido	}} {{concesion.concesionario.segundoApellido}}</label>
@@ -70,7 +81,6 @@
               'greenLabel': concesion.condiciones.vigente
             }"> {{concesion.condiciones.vigente ? 'Vigente' : 'Vencida'}} </label>
           </div>
-
         </div>
       </li>
     </ul>

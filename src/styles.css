@@ -1,3 +1,4 @@
+@import "../node_modules/ng2-slim-loading-bar/style.css";
 /* Fonts */
 @font-face {
   font-family: "UniviaPro-Light";
@@ -28,15 +29,13 @@ body {
   background-size: cover;
   background-color: #F1F1F0; */
   /* background: #F1F1F0; */
-  /* background: white; */
-  background: #8e9eab;
+  /* background: #8e9eab;
   background: -webkit-linear-gradient(to left, #eef2f3, #eef2f0);
-  background: linear-gradient(to left, #eef2f3, #eef2f0);
-
-
+  background: linear-gradient(to left, #eef2f3, #eef2f0); */
+  background: white;
 }
 
-nav ul li a, nav a, ul li a{
+nav ul li a, nav a, ul li a, label{
   color: black;
 }
 
