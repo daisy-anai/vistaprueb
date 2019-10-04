@@ -5,7 +5,12 @@ import { LoginComponent } from './login/login.component';
 import { AuthorizatedAfterLoginGuard } from './authorizatedafterlogin.guard';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent, canActivate: [ AuthorizatedAfterLoginGuard ] }
+  {
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [ AuthorizatedAfterLoginGuard ],
+    data: { animation: 'Login' }
+  }
 ];
 
 @NgModule({

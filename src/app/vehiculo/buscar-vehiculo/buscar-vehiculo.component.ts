@@ -19,8 +19,9 @@ export class BuscarVehiculoComponent implements OnInit {
   @Output() out = new EventEmitter<Vehiculo>();
 
   public loading: Boolean = false;
-  public filtro: String;
+  public filtro: String = 'KMHAG51G44U340853';
   public vehiculo: any;
+<<<<<<< HEAD
   public concesion: Concesion; 
 
   constructor(
@@ -34,13 +35,37 @@ export class BuscarVehiculoComponent implements OnInit {
     if(!this.concesion){
       this.router.navigate(['/aplicacion/concesion/busqueda']); 
     }
+=======
+  public concesion:Concesion;
+
+  constructor(
+    private service?: VehiculoService,
+    private shared?: MediumDataService,
+    private router?: Router
+  ) { }
+
+  ngOnInit() {
+    this.concesion = this.shared.getConcesion();
+    if(!this.concesion){
+      // this.router.navigate(['/aplicacion/concesion/busqueda']);
+    }
+  }
+
+  onKeyDown($event: any){
+    this.buscar();
+>>>>>>> 3a6f469e18097d200fd64e82d34062882812e45b
   }
 
   buscar(): void {
     let concesion: Concesion = this.shared.getConcesion(); 
     this.loading = true;
+<<<<<<< HEAD
     this.service.getVehiculo(concesion.id, this.filtro).subscribe(result => {
       this.puente(result.data);
+=======
+    this.service.getVehiculo(this.concesion.id, this.filtro).subscribe(result => {
+      this.vehiculo = result.data['vehiculoActivo'];
+>>>>>>> 3a6f469e18097d200fd64e82d34062882812e45b
       this.loading = false;
     }, error => {
       this.loading = false;
@@ -48,19 +73,23 @@ export class BuscarVehiculoComponent implements OnInit {
     });
   }
 
-  puente(result: any):void {
-    this.vehiculo = result.vehiculoActivo;
-    this.redirect();
-  }
-
   permitido(vehiculo: Vehiculo): Boolean {
-    if(vehiculo.estatus == 'A')
-      return true;
-    return false;
+    let errores: Array<String> = [];
+    let status: Boolean = true;
+
+    if(vehiculo.estatus != 'A'){
+      errores.push('Vehiculo bloqueado');
+      status = false;
+    }
+
+    return status;
   }
 
-  redirect(): void {
-    if(this.permitido(this.vehiculo))
-      this.out.emit(this.vehiculo);
+  redirect(vehiculo: Vehiculo): void {
+    if(this.permitido(vehiculo)){
+      this.out.emit(vehiculo);
+      this.shared.setVehiculo(vehiculo);
+      // this.router.navigate([''])
+    }
   }
 }

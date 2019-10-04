@@ -19,7 +19,7 @@ export class BuscarConcesionComponent {
   public concesiones: Array<Concesion>;
   public loading: boolean = false;
   public tipo: number = 1;
-  public filtro: string;
+  public filtro: string = 'candido gallegos';
 
   constructor(
     private service?: ConcesionService,

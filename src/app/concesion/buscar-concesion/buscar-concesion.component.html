@@ -39,11 +39,11 @@
     </div>
   </div>
 
-  <div *ngIf="concesiones" class="concesion-card row">
+  <div *ngIf="concesiones" class="result-card row">
     <ul class="col s12 m8 offset-m2">
       <li *ngFor="let concesion  of concesiones"
         class="row z-depth-2"
-        [ngClass]="{'concesionPointerNotAllowed': !permitido(concesion), 'concesionPointerAllowed': permitido(concesion)}"
+        [ngClass]="{'resultPointerNotAllowed': !permitido(concesion), 'resultPointerAllowed': permitido(concesion)}"
         (click)="redirect(concesion)">
         <div class="">
           <div class="">
@@ -69,9 +69,7 @@
 
           <div class="">
             <label class="title">Modalidad:</label>
-            <label class="info" [ngClass]="{
-              'greenLabel': concesion.modalidad.nombre === 'TAXI'||'ACARREO DE AGUA'
-            }"> {{concesion.modalidad.nombre}}</label>
+            <label class="info"> {{concesion.modalidad.nombre}}</label>
           </div>
 
           <div class="">
@@ -80,7 +78,7 @@
               <label class="info" [ngClass]="{
                 'redLabel': !concesion.condiciones.vigente,
                 'greenLabel': concesion.condiciones.vigente
-              }"> {{concesion.condiciones.vigente ? 'Vigente' : 'Vencida'}} </label>
+              }"> {{concesion.condiciones.vigente ? 'Vigente' : 'Vencida' }} </label>
             </div>
             <div class="">
               <a *ngIf="permitido(concesion)"

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Resolve } from '@angular/router';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 
