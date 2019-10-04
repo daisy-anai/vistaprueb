@@ -16,6 +16,7 @@ import { Concesion } from '../../shared/models/concesion';
 })
 export class BuscarConcesionComponent {
   @Output() out = new EventEmitter<Concesion>();
+  public concesiones: Array<Concesion>;
   public loading: boolean = false;
   public tipo: number = 1;
   public filtro: string;
@@ -23,7 +24,7 @@ export class BuscarConcesionComponent {
   constructor(
     private service?: ConcesionService,
     private shared?: MediumDataService,
-    private router: Router
+    private router?: Router
   ) { }
 
   cambiarModo(tipo: number): void {
