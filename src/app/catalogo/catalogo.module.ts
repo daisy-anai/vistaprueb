@@ -10,6 +10,7 @@ import { ListarCatalogoComponent } from './listar-catalogo/listar-catalogo.compo
 
 import { ValidoDirective } from '../shared/directives/valido.directive';
 import { CardDirective } from '../shared/directives/card.directive';
+import { ListaCatatalogoModalidadComponent } from './lista-catatalogo-modalidad/lista-catatalogo-modalidad.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { CardDirective } from '../shared/directives/card.directive';
     EditarCatalogoComponent,
     ListarCatalogoComponent,
     ValidoDirective,
-    CardDirective
+    CardDirective,
+    ListaCatatalogoModalidadComponent
   ],
   imports: [
     CommonModule,
@@ -30,7 +32,8 @@ import { CardDirective } from '../shared/directives/card.directive';
     CrearCatalogoComponent,
     DetalleCatalogoComponent,
     EditarCatalogoComponent,
-    ListarCatalogoComponent
+    ListarCatalogoComponent,
+    ListaCatatalogoModalidadComponent
   ]
 })
 export class CatalogoModule { }

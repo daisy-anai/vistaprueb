@@ -75,7 +75,7 @@ export class BuscarConcesionComponent {
     if(this.permitido(concesion)){
       this.out.emit(concesion);
       this.shared.setConcesion(concesion);
-      this.router.navigate(['/aplicacion/concesion/detalle']);
+      this.router.navigate(['/aplicacion/vehiculo/busqueda']);
     }
   }
 }

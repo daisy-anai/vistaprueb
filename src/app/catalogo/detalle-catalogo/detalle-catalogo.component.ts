@@ -5,6 +5,7 @@ import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag'
 //modelo
 import { DetalleCatalogo } from '../../shared/models/detalleCatalogo'
+import { Catalogo } from 'src/app/shared/models/catalogo';
 
 
 @Component({
@@ -14,7 +15,8 @@ import { DetalleCatalogo } from '../../shared/models/detalleCatalogo'
 })
 export class DetalleCatalogoComponent implements OnInit {
   public catalogo :DetalleCatalogo;
-  public catalogos: Array<any>;
+  //public catalogos: Array<any>;
+  public catalgos : Catalogo;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -23,8 +25,9 @@ export class DetalleCatalogoComponent implements OnInit {
   ){}
 
   ngOnInit() {
+
     this.service.getCatalogoByID(parseInt(this.route.snapshot.paramMap.get("id"))).subscribe(result => {
-      this.catalogo = result.data['catalogo'];
+      this.catalogo = result.data['catalogo']; 
     }, error => {
       console.log(error);
     });
