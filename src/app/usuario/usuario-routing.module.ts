@@ -12,10 +12,11 @@ const routes: Routes = [
   {
     path: 'aplicacion',
     component: AplicacionComponent,
+    data: { num: 0 },
     children: [
       {
         path: 'inicio',
-        component: ConcesionVehiculoComponent
+        component: ConcesionVehiculoComponent,
       },
       {
         path: 'catalogo',
