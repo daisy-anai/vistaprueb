@@ -14,7 +14,7 @@ const routes: Routes = [
   {
     path: 'aplicacion',
     component: AplicacionComponent,
-    data: { num: 1 },
+    data: { animation: 'Aplicacion' },
     children: [
       {
         path: 'concesion/busqueda',

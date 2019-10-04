@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 import { NavigationCancel, Event, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
-import { routerTransition } from './transition';
+import { slideAnimation } from './transition';
 import { NavigationService } from './navigation.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { NavigationService } from './navigation.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   animations: [
-    routerTransition()
+    slideAnimation
   ]
 })
 export class AppComponent{
