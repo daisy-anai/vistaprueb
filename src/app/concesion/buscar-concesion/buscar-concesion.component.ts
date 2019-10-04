@@ -1,6 +1,12 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+
+// Services
 import { ConcesionService } from '../concesion.service';
+import { MediumDataService } from '../../shared/services/medium.data.service';
+
+// Interfaces
 import { Concesion } from '../../shared/models/concesion';
 
 @Component({
@@ -13,10 +19,11 @@ export class BuscarConcesionComponent {
   public loading: boolean = false;
   public tipo: number = 1;
   public filtro: string;
-  public concesiones: Observable<any>;
 
   constructor(
-    private service?: ConcesionService
+    private service?: ConcesionService,
+    private shared?: MediumDataService,
+    private router: Router
   ) { }
 
   cambiarModo(tipo: number): void {
@@ -66,6 +73,8 @@ export class BuscarConcesionComponent {
   redirect(concesion: Concesion): void {
     if(this.permitido(concesion)){
       this.out.emit(concesion);
+      this.shared.setConcesion(concesion);
+      this.router.navigate(['/aplicacion/concesion/detalle']);
     }
   }
 }

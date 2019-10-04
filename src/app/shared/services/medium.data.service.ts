@@ -31,4 +31,8 @@ export class MediumDataService {
     return this.vehiculo;
   }
 
+  deleteConcesion(): void {
+    this.concesion = null; 
+  }
+
 }

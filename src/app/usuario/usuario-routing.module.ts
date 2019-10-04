@@ -7,6 +7,8 @@ import { CrearCatalogoComponent } from '../catalogo/crear-catalogo/crear-catalog
 import { EditarCatalogoComponent } from '../catalogo/editar-catalogo/editar-catalogo.component';
 import { DetalleCatalogoComponent } from '../catalogo/detalle-catalogo/detalle-catalogo.component';
 import { ConcesionVehiculoComponent } from './concesion-vehiculo/concesion-vehiculo.component';
+import { BuscarConcesionComponent } from '../concesion/buscar-concesion/buscar-concesion.component';
+import { DetalleConcesionComponent } from '../concesion/detalle-concesion/detalle-concesion.component';
 
 const routes: Routes = [
   {
@@ -15,8 +17,12 @@ const routes: Routes = [
     data: { num: 0 },
     children: [
       {
-        path: 'inicio',
-        component: ConcesionVehiculoComponent,
+        path: 'concesion/busqueda',
+        component: BuscarConcesionComponent
+      },
+      {
+        path: 'concesion/detalle',
+        component: DetalleConcesionComponent
       },
       {
         path: 'catalogo',
@@ -45,7 +51,7 @@ const routes: Routes = [
       },
       {
         path: '**',
-        redirectTo: 'inicio'
+        redirectTo: 'concesion/busqueda'
       }
     ]
   }

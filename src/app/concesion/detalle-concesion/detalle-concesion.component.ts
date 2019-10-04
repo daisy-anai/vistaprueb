@@ -1,5 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
+// services
+import { MediumDataService } from '../../shared/services/medium.data.service';
+
+// Interfaces
 import { Concesion } from '../../shared/models/concesion';
 
 @Component({
@@ -8,11 +13,18 @@ import { Concesion } from '../../shared/models/concesion';
   styleUrls: ['./detalle-concesion.component.css']
 })
 export class DetalleConcesionComponent implements OnInit {
-  @Input() concesion: Concesion;
+  private concesion: Concesion;
 
-  constructor() { }
+  constructor(
+    private shared?: MediumDataService,
+    private router?: Router
+  ) { }
 
   ngOnInit() {
+    this.concesion = this.shared.getConcesion();
+    if(!this.concesion){
+      this.router.navigate(['/aplicacion/concesion/busqueda']);
+    }
   }
 
 }

@@ -1,5 +1,7 @@
 <div>
-  <buscar-concesion (out)="recibirConcesion($event)"></buscar-concesion>
+  <div *ngIf="!concesion">
+    <buscar-concesion (out)="recibirConcesion($event)"></buscar-concesion>
+  </div>
 
   <div class="row" *ngIf="concesion">
     <div class="col s6 offset-s3">
