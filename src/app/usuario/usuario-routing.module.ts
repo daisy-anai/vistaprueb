@@ -8,6 +8,7 @@ import { EditarCatalogoComponent } from '../catalogo/editar-catalogo/editar-cata
 import { DetalleCatalogoComponent } from '../catalogo/detalle-catalogo/detalle-catalogo.component';
 import { BuscarConcesionComponent } from '../concesion/buscar-concesion/buscar-concesion.component';
 import { DetalleConcesionComponent } from '../concesion/detalle-concesion/detalle-concesion.component';
+import { BuscarVehiculoComponent } from '../vehiculo/buscar-vehiculo/buscar-vehiculo.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
       {
         path: 'concesion/detalle',
         component: DetalleConcesionComponent
+      },
+      {
+        path: 'vehiculo/busqueda',
+        component: BuscarVehiculoComponent
       },
       {
         path: 'catalogo',

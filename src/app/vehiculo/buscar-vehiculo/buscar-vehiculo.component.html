@@ -1,55 +1,81 @@
-<div class="row">
-  <div class="col s6 offset-s3" style="margin-top: 5em; border: 1px solid black">
-    <div class="row">
-      <div class="col s12">
-        <div class="input-field col s12">
-          <i class="material-icons prefix">search</i>
-          <input id="buscar_vehiculo" type="text" class="validate"
-          autofocus
-          style="text-transform: uppercase"
-          specialOnly autocomplete="off"
-          [(ngModel)]="filtro" name="filtro">
-          <label for="buscar_vehiculo">Buscar vehículo</label>
+<ng-container>
+  <div class="search-card">
+    <div class="row search">
+      <div class="col s12 m10 offset-m1">
+        <input name="filtro" id="filtro" class="browser-default placeholder-fix"
+        (keydown.enter)="onKeyDown($event)"
+        placeholder="Buscar vehículo" type="search" autofocus
+        autocomplete="off" [(ngModel)]="filtro">
+      </div>
+    </div>
+
+    <div class="row options">
+      <div class="col s12 m10 offset-m1">
+        <div class="row">
+          <div class="col s6 left-align">
+            <a class="waves-effect waves-light btn-flat left">Regresar</a>
+          </div>
+          <div class="col s6 right-align">
+            <a class="waves-effect waves-light grey btn-small grey lighten-4 black-text" (click)="buscar()">
+              <i class="material-icons right">search</i> Buscar
+            </a>
+          </div>
         </div>
       </div>
-      <div class="col s12">
-        <a class="waves-effect waves-light btn-flat left" routerLink="/application" routerLinkActive="active">Regresar</a>
-        <a class="waves-effect waves-light btn-small right" (click)="buscar()">Buscar</a>
-      </div>
-    </div>
-    <div class="progress" *ngIf="loading">
-      <div class="indeterminate"></div>
     </div>
   </div>
-</div>
 
-<div class="row" *ngIf="vehiculo">
-  <div class="col s6 offset-s3" style="margin-top: 1em; border: 1px solid black">
-    <div class="row">
-      <div class="col s12">
-        <label class="">Número de Serie:</label>
-        <label class=""> {{vehiculo.serie}} </label>
+  <div class="row" *ngIf="loading">
+    <div class="col s8 offset-s2">
+      <div class="progress">
+        <div class="indeterminate"></div>
       </div>
-      <div class="col s12">
-        <label class="">Número de motor:</label>
-        <label class=""> {{vehiculo.id}} </label>
-      </div>
-      <div class="col s12">
-        <label class="">Año modelo:</label>
-        <label class=""> {{vehiculo.anioModelo}} </label>
-      </div>
-      <div class="col s12">
-        <label class="">Número economico:</label>
-        <label class=""> {{vehiculo.numeroEconomico}} </label>
-      </div>
-      <div class="col s12">
-        <label class="">Tipo:</label>
-        <label class=""> {{vehiculo.tipo.nombre}} - {{vehiculo.marca.nombre}} </label>
-      </div>
-      <div class="col s12">
-        <label class="">Estado del vehiculo:</label>
-        <label class=""> {{vehiculo.estatus}} </label>
-      </div><br><br>
     </div>
   </div>
-</div>
+
+  <div *ngIf="vehiculo" class="result-card row">
+    <ul class="col s12 m8 offset-m2">
+      <li class="row z-depth-2"
+      [ngClass]="{'resultPointerNotAllowed': !permitido(vehiculo), 'resultPointerAllowed': permitido(vehiculo)}"
+      (click)="redirect(vehiculo)">
+        <div class="">
+          <div class="">
+            <label class="title">Número de serie</label>
+            <label class="info"> {{vehiculo.serie}} </label>
+          </div>
+          <div class="">
+            <label class="title">Número de motor:</label>
+            <label class="info"> {{vehiculo.id}} </label>
+          </div>
+          <div class="">
+            <label class="title">Año modelo:</label>
+            <label class="info"> {{vehiculo.anioModelo}} </label>
+          </div>
+          <div class="" *ngIf="vehiculo.numeroEconomico">
+            <label class="title">Número economico:</label>
+            <label class="info"> {{vehiculo.numeroEconomico}} </label>
+          </div>
+          <div class="">
+            <label class="title">Tipo:</label>
+            <label class="info"> {{vehiculo.tipo.nombre}} - {{vehiculo.marca.nombre}} </label>
+          </div>
+          <div class="">
+            <div class="">
+              <label class="title">Estado del vehiculo:</label>
+              <label class="info" [ngClass]="{
+                'redLabel': vehiculo.estatus != 'A',
+                'greenLabel': vehiculo.estatus == 'A'
+              }"> {{vehiculo.estatus == 'A' ? 'Activo' : 'Bloqueado'}} </label>
+            </div>
+            <div class="">
+              <a *ngIf="permitido(vehiculo)"
+                class="btn-floating btn-small waves-effect waves-light pink right">
+                <i class="material-icons">arrow_forward</i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</ng-container>

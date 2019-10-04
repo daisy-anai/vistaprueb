@@ -1,7 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
+// services
 import { VehiculoService } from '../vehiculo.service';
+import { MediumDataService } from '../../shared/services/medium.data.service';
 
 import { Concesion } from '../../shared/models/concesion';
 import { Vehiculo } from '../../shared/models/vehiculo';
@@ -12,22 +15,35 @@ import { Vehiculo } from '../../shared/models/vehiculo';
   styleUrls: ['./buscar-vehiculo.component.css']
 })
 export class BuscarVehiculoComponent implements OnInit {
-  @Input() concesion: Concesion;
+  @Input() in: Concesion;
   @Output() out = new EventEmitter<Vehiculo>();
 
   public loading: Boolean = false;
-  public filtro: String;
+  public filtro: String = 'KMHAG51G44U340853';
   public vehiculo: any;
+  public concesion:Concesion;
 
-  constructor(private service?: VehiculoService) { }
+  constructor(
+    private service?: VehiculoService,
+    private shared?: MediumDataService,
+    private router?: Router
+  ) { }
 
   ngOnInit() {
+    this.concesion = this.shared.getConcesion();
+    if(!this.concesion){
+      // this.router.navigate(['/aplicacion/concesion/busqueda']);
+    }
+  }
+
+  onKeyDown($event: any){
+    this.buscar();
   }
 
   buscar(): void {
     this.loading = true;
     this.service.getVehiculo(this.concesion.id, this.filtro).subscribe(result => {
-      this.puente(result.data);
+      this.vehiculo = result.data['vehiculoActivo'];
       this.loading = false;
     }, error => {
       this.loading = false;
@@ -35,19 +51,23 @@ export class BuscarVehiculoComponent implements OnInit {
     });
   }
 
-  puente(result: any):void {
-    this.vehiculo = result.vehiculoActivo;
-    this.redirect();
-  }
-
   permitido(vehiculo: Vehiculo): Boolean {
-    if(vehiculo.estatus == 'A')
-      return true;
-    return false;
+    let errores: Array<String> = [];
+    let status: Boolean = true;
+
+    if(vehiculo.estatus != 'A'){
+      errores.push('Vehiculo bloqueado');
+      status = false;
+    }
+
+    return status;
   }
 
-  redirect(): void {
-    if(this.permitido(this.vehiculo))
-      this.out.emit(this.vehiculo);
+  redirect(vehiculo: Vehiculo): void {
+    if(this.permitido(vehiculo)){
+      this.out.emit(vehiculo);
+      this.shared.setVehiculo(vehiculo);
+      // this.router.navigate([''])
+    }
   }
 }

@@ -19,7 +19,7 @@ export class BuscarConcesionComponent {
   public concesiones: Array<Concesion>;
   public loading: boolean = false;
   public tipo: number = 1;
-  public filtro: string;
+  public filtro: string = 'candido gallegos';
 
   constructor(
     private service?: ConcesionService,
@@ -75,7 +75,7 @@ export class BuscarConcesionComponent {
     if(this.permitido(concesion)){
       this.out.emit(concesion);
       this.shared.setConcesion(concesion);
-      this.router.navigate(['/aplicacion/concesion/detalle']);
+      this.router.navigate(['/aplicacion/vehiculo/busqueda']);
     }
   }
 }
