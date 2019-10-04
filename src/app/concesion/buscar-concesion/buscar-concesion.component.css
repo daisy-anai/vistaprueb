@@ -1,3 +1,12 @@
+.redLabel {
+  color: #F00;
+}
+
+.greenLabel {
+  color: #E96;
+}
+
+/* Search concesion */
 .search-card .search input[type=search] {
   outline:none !important;
   outline-width: 0 !important;
@@ -25,14 +34,9 @@
   box-shadow: 0px 0px 5px 2px rgba(219,219,219,1);
 }
 
-.redLabel {
-  color: #F00;
-}
 
-.greenLabel {
-  color: #E96;
-}
 
+/* Concesion card */
 .concesion-card {
 }
 
@@ -42,7 +46,8 @@
 
 .concesion-card ul li {
   padding: 20px;
-  border-radius: 5px;
+  border-radius: 10px;
+  background-color: #f7f7f7;
 }
 
 .concesion-card ul li:hover {
@@ -51,8 +56,23 @@
 
 .concesion-card ul li .title {
   font-weight: bold;
+  margin-right: 4px;
 }
 
+.concesion-card ul li .info {
+  text-transform: uppercase;
+}
+
+.invalid-div {
+  transform: rotateX(90deg);
+}
+
+.invalid-message {
+  text-transform: uppercase;
+  font-size: 14px;
+  opacity: 1;
+  color: red;
+}
 
 .concesionPointerAllowed:hover, .concesionPointerAllowed div label {
   cursor: pointer;

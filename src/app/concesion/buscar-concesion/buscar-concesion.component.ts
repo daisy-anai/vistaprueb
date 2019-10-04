@@ -46,6 +46,11 @@ export class BuscarConcesionComponent {
     let errores: Array<String> = [];
     let status: Boolean = true;
 
+    if(concesion.condiciones.bloqueado){
+      errores.push("Concesión bloqueada");
+      status = false;
+    }
+
     if(!concesion.condiciones.vigente){
       errores.push("Concesión vencida");
       status = false;
