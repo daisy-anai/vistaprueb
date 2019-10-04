@@ -6,7 +6,6 @@ import { ListarCatalogoComponent } from '../catalogo/listar-catalogo/listar-cata
 import { CrearCatalogoComponent } from '../catalogo/crear-catalogo/crear-catalogo.component';
 import { EditarCatalogoComponent } from '../catalogo/editar-catalogo/editar-catalogo.component';
 import { DetalleCatalogoComponent } from '../catalogo/detalle-catalogo/detalle-catalogo.component';
-import { ConcesionVehiculoComponent } from './concesion-vehiculo/concesion-vehiculo.component';
 import { BuscarConcesionComponent } from '../concesion/buscar-concesion/buscar-concesion.component';
 import { DetalleConcesionComponent } from '../concesion/detalle-concesion/detalle-concesion.component';
 
@@ -14,7 +13,7 @@ const routes: Routes = [
   {
     path: 'aplicacion',
     component: AplicacionComponent,
-    data: { num: 0 },
+    data: { num: 1 },
     children: [
       {
         path: 'concesion/busqueda',
