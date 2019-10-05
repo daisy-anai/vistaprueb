@@ -21,21 +21,6 @@ export class BuscarVehiculoComponent implements OnInit {
   public loading: Boolean = false;
   public filtro: String = 'KMHAG51G44U340853';
   public vehiculo: any;
-<<<<<<< HEAD
-  public concesion: Concesion; 
-
-  constructor(
-    private router?:Router,
-    private service?: VehiculoService,
-    private shared?: MediumDataService
-  ) { }
-
-  ngOnInit() {
-    this.concesion = this.shared.getConcesion(); 
-    if(!this.concesion){
-      this.router.navigate(['/aplicacion/concesion/busqueda']); 
-    }
-=======
   public concesion:Concesion;
 
   constructor(
@@ -53,19 +38,12 @@ export class BuscarVehiculoComponent implements OnInit {
 
   onKeyDown($event: any){
     this.buscar();
->>>>>>> 3a6f469e18097d200fd64e82d34062882812e45b
   }
 
   buscar(): void {
-    let concesion: Concesion = this.shared.getConcesion(); 
     this.loading = true;
-<<<<<<< HEAD
-    this.service.getVehiculo(concesion.id, this.filtro).subscribe(result => {
-      this.puente(result.data);
-=======
     this.service.getVehiculo(this.concesion.id, this.filtro).subscribe(result => {
       this.vehiculo = result.data['vehiculoActivo'];
->>>>>>> 3a6f469e18097d200fd64e82d34062882812e45b
       this.loading = false;
     }, error => {
       this.loading = false;

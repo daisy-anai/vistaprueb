@@ -28,7 +28,7 @@
 /* GENERAL STYLE  */
 body {
   font-family: "UniviaPro-Light";
-  background-image: url("./assets/fondoal80.png");
+  background-image: url("./assets/images/background-80.png");
   background-color: #B1AFAF;
 }
 
@@ -57,7 +57,7 @@ nav ul li a, nav a, ul li a, label{
   width: 100%;
   background-color: white;
 
-  background-image: url('./assets/search-icon.png');
+  background-image: url('./assets/images/search-icon.png');
   background-position: 10px 10px;
   background-repeat: no-repeat;
   background-size: 16px 16px;

@@ -9,10 +9,7 @@ import { DetalleCatalogoComponent } from '../catalogo/detalle-catalogo/detalle-c
 import { BuscarConcesionComponent } from '../concesion/buscar-concesion/buscar-concesion.component';
 import { DetalleConcesionComponent } from '../concesion/detalle-concesion/detalle-concesion.component';
 import { BuscarVehiculoComponent } from '../vehiculo/buscar-vehiculo/buscar-vehiculo.component';
-<<<<<<< HEAD
 import { ListaCatatalogoModalidadComponent } from '../catalogo/lista-catatalogo-modalidad/lista-catatalogo-modalidad.component';
-=======
->>>>>>> 3a6f469e18097d200fd64e82d34062882812e45b
 
 const routes: Routes = [
   {

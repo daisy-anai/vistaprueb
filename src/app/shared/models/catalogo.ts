@@ -1,6 +1,6 @@
 export interface Catalogo {
-  id: number;
-  nombre: string;
+  id: Number;
+  nombre: String;
   estatus: Boolean;
   create: Date;
 }
