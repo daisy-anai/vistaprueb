@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+// Services
+import { CatalogoService } from '../catalogo/catalogo.service';
+
 import { AplicacionComponent } from './aplicacion/aplicacion.component';
 import { ListarCatalogoComponent } from '../catalogo/listar-catalogo/listar-catalogo.component';
 import { CrearCatalogoComponent } from '../catalogo/crear-catalogo/crear-catalogo.component';

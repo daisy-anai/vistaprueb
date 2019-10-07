@@ -1,47 +1,44 @@
-<div>
- <div class="row">
-    <div class="input-field col s12">
-      <i class="material-icons prefix">search</i>
-      <input id="buscar_catalogo" type="text" class="buscar"
-      autofocus
-      style="text-transform: uppercase"
-      specialOnly autocomplete="off"
-      [(ngModel)]="modelBuscar"
-      (ngModelChange)="buscarCatalogo()" name="modelBuscar">
-      <label>Buscar Catalogo</label>
-    </div>
- </div>
-
-  <div class="row valign-wrapper">
-    <div class="col s6">
-      <p class="title-component">Cátalogos</p>
-    </div>
-    <div class="col s6">
-      <a class="btn-floating btn-small red darken-2" [routerLink]="['/aplicacion/catalogo/crear']">
-        <i class="material-icons">add</i>
-      </a>
-    </div>
-  </div>
-
-  <div>
-    <div class="row" *ngFor="let catalogo of catalogos">
-      <div class="col s8 offset-s2">
-        <div class="row valign-wrapper z-depth-1 item" >
-          <div class="col s6">
-            <p>{{catalogo.nombre}}</p>
-          </div>
-          <div class="col s6">
-            <a class="btn-floating btn-small"
-            [routerLink]="['/aplicacion/catalogo/detalle', catalogo.id ]">
-            <i class="material-icons">info</i>
+<ng-container>
+  <div class="row">
+    <div class="col s12 m10 offset-m1">
+      <div class="row valign-wrapper">
+        <div class="col s6 left-align valign-wrapper">
+          <a class="" [routerLink]="['/aplicacion/inicio']" style="margin-right: 15px; margin-top: 5px">
+            <i class="material-icons">arrow_back</i>
+          </a>
+          <label class="title-component">Catálogos</label>
+        </div>
+        <div class="col s6 right-align">
+          <a class="btn-floating btn-small red" [routerLink]="['/aplicacion/catalogo/crear']">
+            <i class="material-icons">add</i>
           </a>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div class="search-card" style="margin-top: -1em; margin-bottom: 3em">
+    <div class="row search">
+      <div class="col s12 m8 offset-m2">
+        <input name="filtro" id="filtro" class="browser-default placeholder-fix"
+        placeholder="Buscar" type="search" autofocus
+        autocomplete="off" [(ngModel)]="filtro">
       </div>
     </div>
+  </div>
 
-  <div class="row">
-    <div class="col s12">
-      <a [routerLink]="['/aplicacion/inicio']">Regresar</a>
-    </div>
-</div>
+  <div *ngIf="catalogos" class="result-card row">
+    <ul class="col s12 m8 offset-m2">
+      <li *ngFor="let catalogo of catalogos" class="row z-depth-2 valign-wrapper">
+        <div class="col s6">
+          <p>{{catalogo.nombre}}</p>
+        </div>
+        <div class="col s6 right-align">
+          <a class="btn-floating btn-small"
+          [routerLink]="['/aplicacion/catalogo/detalle', catalogo.id ]">
+          <i class="material-icons">info</i></a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</ng-container>
