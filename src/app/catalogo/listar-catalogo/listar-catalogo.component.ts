@@ -14,6 +14,7 @@ import { CatalogoService } from '../catalogo.service';
 })
 export class ListarCatalogoComponent implements OnInit {
   public catalogos: Array<any>;
+  public filtro: string;
 
   constructor (
     private service?: CatalogoService

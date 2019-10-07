@@ -2,10 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+// Modules
 import { ConcesionModule } from '../concesion/concesion.module';
 import { VehiculoModule } from '../vehiculo/vehiculo.module';
 import { CatalogoModule } from '../catalogo/catalogo.module';
 
+// Components
 import { UsuarioRoutingModule } from './usuario-routing.module';
 import { AplicacionComponent } from './aplicacion/aplicacion.component';
 import { ReporteCromaticaComponent } from './reporte-cromatica/reporte-cromatica.component';

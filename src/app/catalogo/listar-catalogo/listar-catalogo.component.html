@@ -29,7 +29,7 @@
 
   <div *ngIf="catalogos" class="result-card row">
     <ul class="col s12 m8 offset-m2">
-      <li *ngFor="let catalogo of catalogos" class="row z-depth-2 valign-wrapper">
+      <li *ngFor="let catalogo of catalogos | search: filtro" class="row z-depth-2 valign-wrapper">
         <div class="col s6">
           <p>{{catalogo.nombre}}</p>
         </div>
