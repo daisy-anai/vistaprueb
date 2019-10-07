@@ -2,6 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+// Modules
+import { ComponentsModule } from '../shared/components/components.module';
+
+// Components
 import { BuscarConcesionComponent } from './buscar-concesion/buscar-concesion.component';
 import { DetalleConcesionComponent } from './detalle-concesion/detalle-concesion.component';
 
@@ -13,11 +17,8 @@ import { DetalleConcesionComponent } from './detalle-concesion/detalle-concesion
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
-  ],
-  exports: [
-    BuscarConcesionComponent,
-    DetalleConcesionComponent
+    ReactiveFormsModule,
+    ComponentsModule
   ]
 })
 export class ConcesionModule { }
