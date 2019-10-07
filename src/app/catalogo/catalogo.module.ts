@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+// Components
 import { CatalogoRoutingModule } from './catalogo-routing.module';
 import { CrearCatalogoComponent } from './crear-catalogo/crear-catalogo.component';
 import { DetalleCatalogoComponent } from './detalle-catalogo/detalle-catalogo.component';
@@ -12,6 +13,9 @@ import { ValidoDirective } from '../shared/directives/valido.directive';
 import { CardDirective } from '../shared/directives/card.directive';
 import { ListaCatatalogoModalidadComponent } from './lista-catatalogo-modalidad/lista-catatalogo-modalidad.component';
 
+// Pipes
+import { SearchPipe } from '../shared/filters/search.pipe';
+
 @NgModule({
   declarations: [
     CrearCatalogoComponent,
@@ -20,7 +24,8 @@ import { ListaCatatalogoModalidadComponent } from './lista-catatalogo-modalidad/
     ListarCatalogoComponent,
     ValidoDirective,
     CardDirective,
-    ListaCatatalogoModalidadComponent
+    ListaCatatalogoModalidadComponent,
+    SearchPipe
   ],
   imports: [
     CommonModule,
