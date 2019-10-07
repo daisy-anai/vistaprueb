@@ -40,7 +40,7 @@ export class BuscarConcesionComponent {
       this.concesiones = null;
     }else{
       this.loading = true;
-      this.service.getConcesiones(this.filtro, this.tipo, 1).subscribe(result => {
+      this.service.getConcesiones(this.filtro.trim(), this.tipo, 1).subscribe(result => {
         this.puente(result.data);
         this.loading = false;
       });
