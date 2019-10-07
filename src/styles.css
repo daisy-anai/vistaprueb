@@ -113,8 +113,9 @@ nav ul li a, nav a, ul li a, label{
 
 /* Components General */
 .title-component {
-  font-size: 20px;
+  font-size: 18px;
   letter-spacing: 2px;
+  font-weight: bold;
 }
 
 .item {

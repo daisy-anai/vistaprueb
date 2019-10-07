@@ -14,6 +14,7 @@ import { DetalleConcesionComponent } from '../concesion/detalle-concesion/detall
 import { BuscarVehiculoComponent } from '../vehiculo/buscar-vehiculo/buscar-vehiculo.component';
 import { ListaCatatalogoModalidadComponent } from '../catalogo/lista-catatalogo-modalidad/lista-catatalogo-modalidad.component';
 import { RevisionVehiculoComponent } from '../revision-cromatica/revision-vehiculo/revision-vehiculo.component';
+import { CrearVigenciasComponent } from '../vigencias/crear-vigencias/crear-vigencias.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,15 @@ const routes: Routes = [
     component: AplicacionComponent,
     data: { animation: 'Aplicacion' },
     children: [
+      {
+        path: 'vigencias',
+        children: [
+          {
+            path: 'crear',
+            component: CrearVigenciasComponent
+          }
+        ]
+      },
       {
         path: 'concesion',
         children: [

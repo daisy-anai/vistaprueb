@@ -25,7 +25,7 @@ export class BuscarVehiculoComponent implements OnInit {
   public filtro: String = 'KMHAG51G44U340853';
   public vehiculo: any;
   public concesion:Concesion;
- 
+
   constructor(
     private service?: VehiculoService,
     private shared?: MediumDataService,
@@ -38,6 +38,7 @@ export class BuscarVehiculoComponent implements OnInit {
     if(!this.concesion){
       this.router.navigate(['/aplicacion/concesion/busqueda']);
     }
+
    
   }
 
@@ -82,5 +83,9 @@ export class BuscarVehiculoComponent implements OnInit {
 
   goToSearchConcesion() {
     this.router.navigate(['/aplicacion/inicio']); 
+  }
+
+  vigenciaVehiculo(){
+
   }
 }
