@@ -57,6 +57,7 @@ nav ul li a, nav a, ul li a, label{
 
   width: 100%;
   background-color: white;
+  color: #8a8a8a;
 
   background-image: url('./assets/images/search-icon.png');
   background-position: 10px 10px;

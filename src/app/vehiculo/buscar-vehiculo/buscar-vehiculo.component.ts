@@ -32,7 +32,7 @@ export class BuscarVehiculoComponent implements OnInit {
   ngOnInit() {
     this.concesion = this.shared.getConcesion();
     if(!this.concesion){
-      // this.router.navigate(['/aplicacion/concesion/busqueda']);
+      this.router.navigate(['/aplicacion/concesion/busqueda']);
     }
   }
 
@@ -69,5 +69,9 @@ export class BuscarVehiculoComponent implements OnInit {
       this.shared.setVehiculo(vehiculo);
       // this.router.navigate([''])
     }
+  }
+
+  goToSearchConcesion() {
+    this.router.navigate(['/aplicacion/inicio']); 
   }
 }

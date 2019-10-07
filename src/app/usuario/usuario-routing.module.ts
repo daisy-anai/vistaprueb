@@ -38,8 +38,13 @@ const routes: Routes = [
         ],
       },
       {
-        path: 'vehiculo/busqueda',
-        component: BuscarVehiculoComponent
+        path: 'vehiculo',
+        children: [
+          {
+            path: 'busqueda',
+            component: BuscarVehiculoComponent
+          }
+        ]
       },
       {
         path: 'catalogo',
