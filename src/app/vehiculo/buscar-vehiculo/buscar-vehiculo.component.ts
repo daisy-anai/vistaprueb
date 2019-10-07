@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -8,6 +8,9 @@ import { MediumDataService } from '../../shared/services/medium.data.service';
 
 import { Concesion } from '../../shared/models/concesion';
 import { Vehiculo } from '../../shared/models/vehiculo';
+import { ConcesionModule } from 'src/app/concesion/concesion.module';
+import { IfStmt } from '@angular/compiler';
+declare var M: any;
 
 @Component({
   selector: 'buscar-vehiculo',
@@ -22,7 +25,7 @@ export class BuscarVehiculoComponent implements OnInit {
   public filtro: String = 'KMHAG51G44U340853';
   public vehiculo: any;
   public concesion:Concesion;
-
+ 
   constructor(
     private service?: VehiculoService,
     private shared?: MediumDataService,
@@ -30,10 +33,13 @@ export class BuscarVehiculoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.concesion = this.shared.getConcesion();
+    this.concesion = this.shared.getConcesion();  
+    console.log(this.concesion);
+    
     if(!this.concesion){
       // this.router.navigate(['/aplicacion/concesion/busqueda']);
     }
+   
   }
 
   onKeyDown($event: any){
@@ -45,23 +51,37 @@ export class BuscarVehiculoComponent implements OnInit {
     this.service.getVehiculo(this.concesion.id, this.filtro).subscribe(result => {
       this.vehiculo = result.data['vehiculoActivo'];
       this.loading = false;
-    }, error => {
-      this.loading = false;
-      console.log(error);
+    },(error) => {
+      var errores = error.message.split(":");
+      var toastHTML = '<span> <div class="valign-wrapper"><i class="material-icons">error_outline</i>  &nbsp;&nbsp;'+errores[1]+'</div></span>';
+      M.toast({html: toastHTML});
+      this.loading=false
     });
+
   }
 
   permitido(vehiculo: Vehiculo): Boolean {
+    let  year= new Date();
     let errores: Array<String> = [];
     let status: Boolean = true;
+    let anio = new Date().getFullYear();
+    let a= vehiculo.anioModelo;
+     let  anioe = anio-a;
 
     if(vehiculo.estatus != 'A'){
       errores.push('Vehiculo bloqueado');
       status = false;
     }
+    // if (this.concesion.modalidad.nombre == "TAXI"&& vehiculo.anioModelo < 2005   ) {
+    //   errores.push('año del vehiculo invalido');  
+    //   status = false;
+    
+    // }
 
     return status;
   }
+
+
 
   redirect(vehiculo: Vehiculo): void {
     if(this.permitido(vehiculo)){

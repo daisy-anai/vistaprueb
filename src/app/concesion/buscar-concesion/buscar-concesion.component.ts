@@ -8,6 +8,7 @@ import { MediumDataService } from '../../shared/services/medium.data.service';
 
 // Interfaces
 import { Concesion } from '../../shared/models/concesion';
+declare var M: any;
 
 @Component({
   selector: 'buscar-concesion',
@@ -56,11 +57,15 @@ export class BuscarConcesionComponent {
 
     if(concesion.condiciones.bloqueado){
       errores.push("Concesión bloqueada");
+  
       status = false;
     }
 
     if(!concesion.condiciones.vigente){
-      errores.push("Concesión vencida");
+      errores.push("Concesión vencida");   
+      // var toastHTML = '<span> <div class="valign-wrapper"><i class="material-icons">error_outline</i>  &nbsp;&nbsp;'+errores[0]+'</div></span>';
+      // M.toast({html: toastHTML});
+
       status = false;
     }
     if(!concesion.modalidad.estatus){
@@ -68,7 +73,13 @@ export class BuscarConcesionComponent {
       status = false;
     }
 
-    return status;
+    if(concesion.nuc.status == "" ){
+      errores.push("Sin Nuc");
+      status=false;
+    }
+
+    return status;  
+    
   }
 
   redirect(concesion: Concesion): void {

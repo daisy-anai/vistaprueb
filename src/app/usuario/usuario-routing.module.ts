@@ -10,6 +10,7 @@ import { BuscarConcesionComponent } from '../concesion/buscar-concesion/buscar-c
 import { DetalleConcesionComponent } from '../concesion/detalle-concesion/detalle-concesion.component';
 import { BuscarVehiculoComponent } from '../vehiculo/buscar-vehiculo/buscar-vehiculo.component';
 import { ListaCatatalogoModalidadComponent } from '../catalogo/lista-catatalogo-modalidad/lista-catatalogo-modalidad.component';
+import { RevisionVehiculoComponent } from '../revision-cromatica/revision-vehiculo/revision-vehiculo.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,10 @@ const routes: Routes = [
       {
         path: 'vehiculo/busqueda',
         component: BuscarVehiculoComponent
+      },
+      {
+        path:'revision/vehiculo',
+        component:RevisionVehiculoComponent
       },
       {
         path: 'catalogo',
