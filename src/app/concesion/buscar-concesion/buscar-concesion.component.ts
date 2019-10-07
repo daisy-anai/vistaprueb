@@ -8,6 +8,7 @@ import { MediumDataService } from '../../shared/services/medium.data.service';
 
 // Interfaces
 import { Concesion } from '../../shared/models/concesion';
+declare var M: any;
 
 @Component({
   selector: 'buscar-concesion',
@@ -60,15 +61,27 @@ export class BuscarConcesionComponent {
     }
 
     if(!concesion.condiciones.vigente){
-      errores.push("Concesión vencida");
-      status = false;
+
+      errores.push("Concesión vencida");   
+      //  var toastHTML = '<span> <div class="valign-wrapper"><i class="material-icons">error_outline</i >'+errores[0]+'</div></span>';
+      //   M.toast({html: toastHTML});  
+       status = false;  
     }
+    
     if(!concesion.modalidad.estatus){
       errores.push("Modalidad invalida");
       status = false;
     }
 
-    return status;
+    if(concesion.nuc.status == "" ){
+      errores.push("No cuenta con NUC");
+     
+      status=false;
+      
+    }
+    
+    return status;  
+   
   }
 
   redirect(concesion: Concesion): void {

@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConcesionModule } from '../concesion/concesion.module';
 import { VehiculoModule } from '../vehiculo/vehiculo.module';
 import { CatalogoModule } from '../catalogo/catalogo.module';
+import { VigenciasModule } from '../vigencias/vigencias.module';
 
 // Components
 import { UsuarioRoutingModule } from './usuario-routing.module';
@@ -26,7 +27,8 @@ import { ReporteFinalCromaticaComponent } from './reporte-final-cromatica/report
     UsuarioRoutingModule,
     ConcesionModule,
     VehiculoModule,
-    CatalogoModule
+    CatalogoModule,
+    VigenciasModule
   ]
 })
 export class UsuarioModule { }
