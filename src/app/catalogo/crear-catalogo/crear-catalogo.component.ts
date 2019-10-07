@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Apollo} from 'apollo-angular';
 import gql from 'graphql-tag';
-// Modelos
+
+// Models
 import { Modalidad } from '../../shared/models/modalidad';
 import { TipoCatalogo } from '../../shared/models/tipoCatalogo';
 import { TipoPropiedad } from '../../shared/models/tipoPropiedad';
@@ -12,9 +13,9 @@ import { Propiedad } from '../../shared/models/propiedad';
 import { Catalogo } from '../../shared/models/catalogo';
 import { DetalleCatalogo} from '../../shared/models/detalleCatalogo';
 import { SeccionVO} from '../../shared/models/seccion.vo';
-//servicios
+
+// Services
 import {CatalogoService} from '../catalogo.service';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
 declare var M: any;
 
 @Component({
@@ -34,7 +35,7 @@ export class CrearCatalogoComponent implements OnInit {
   public seccionesForm: any;
 
   public totalSecciones: number = 0;
- 
+
   constructor(
     private apollo?: Apollo,
     private service?: CatalogoService,
@@ -76,7 +77,7 @@ export class CrearCatalogoComponent implements OnInit {
     });
   }
 
-  /** 
+  /**
     @description Seleccion de secciones
     @param seccion
   */
@@ -123,7 +124,7 @@ export class CrearCatalogoComponent implements OnInit {
  /**
   *  removeSeccion(indice: any, propiedad: any) {
     this.totalSecciones -= 1;
-    this.seccionesController(); 
+    this.seccionesController();
     let seccionew = new SeccionVO;
     seccionew.id = propiedad.value.id_seccion;
     seccionew.nombre= propiedad.value.nombre;
@@ -132,12 +133,12 @@ export class CrearCatalogoComponent implements OnInit {
     this.secciones.push(seccionew);
     this.totalSecciones -= 1;
     //this.seccionesController();
-    this.newseccionesController(indice);    
+    this.newseccionesController(indice);
     console.log(propiedad.value.nombre);
-    
+
   }
   */
- 
+
   removeSeccion() {
     this.totalSecciones -= 1;
     this.seccionesController();
@@ -154,7 +155,7 @@ export class CrearCatalogoComponent implements OnInit {
   seccionesController() {
     let controles = this.catalogoForm.controls;
     let secciones = controles.secciones as FormArray;
-    
+
     this.seccionesForm = secciones.controls;
      if (secciones.length < this.totalSecciones) {
       for (let i = secciones.length; i < this.totalSecciones; i++) {
@@ -181,7 +182,7 @@ export class CrearCatalogoComponent implements OnInit {
     var [instances] = M.Autocomplete.init(elems, {
       data: datos
     });
- 
+
   }
 
   addPropiedad(seccion: number) {
@@ -230,7 +231,7 @@ export class CrearCatalogoComponent implements OnInit {
 
     */
   }
-/** 
+/**
     @description mutación para crear catalogo
     @param createdCatalogo
   */
@@ -291,11 +292,11 @@ export class CrearCatalogoComponent implements OnInit {
       }
     })
     .subscribe((result) => {
-      console.log(result.data['catalogo']);    
+      console.log(result.data['catalogo']);
       this.router.navigateByUrl('aplicacion/catalogo/listar')
       }, (error) => {
-        console.log(error);    
+        console.log(error);
     });
-    
+
   }
 }

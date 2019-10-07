@@ -2,12 +2,10 @@ import { TipoCatalogo } from './tipoCatalogo';
 import { Modalidad } from './modalidad';
 import { Seccion } from './seccion';
 
-export interface DatosCatalogo{
-
+export interface DatosCatalogo {
   id: number;
   nombre: String;
   tipoCatalogo: TipoCatalogo;
-  modalidad: Modalidad;  
+  modalidad: Modalidad;
   seccion: Array<Seccion>
-
 }

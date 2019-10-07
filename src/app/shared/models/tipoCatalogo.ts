@@ -1,7 +1,5 @@
+import { Default } from './default';
 
- export interface TipoCatalogo {
-  id: string;
-  nombre: string;
-  estatus: Boolean;
-  create: Date;
+export interface TipoCatalogo extends Default{
+  nombre: String;
 }

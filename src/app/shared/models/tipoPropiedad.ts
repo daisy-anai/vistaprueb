@@ -1,8 +1,5 @@
-export interface TipoPropiedad {
-  id: string;
+import { Default } from './default';
+
+export interface TipoPropiedad extends Default {
   nombre: string;
-  estatus: Boolean;
-  create: Date;
-
 }
-

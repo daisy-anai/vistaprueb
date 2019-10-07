@@ -1,10 +1,7 @@
+import { Default } from './default';
 import { Propiedad } from './propiedad';
 
-export  interface Seccion {
-  id: string;
+export interface Seccion extends Default{
   nombre: string;
-  estatus: Boolean;
-  create: Date;
-  propiedad:Array<Propiedad>;
-
+  propiedades: Array<Propiedad>;
 }

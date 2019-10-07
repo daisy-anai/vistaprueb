@@ -1,10 +1,7 @@
+import { Default } from './default';
 import { TipoPropiedad } from './tipoPropiedad';
 
-export interface Propiedad {
-  id: number;
+export interface Propiedad extends Default {
   nombre: string;
-  estatus: Boolean;
-  create: Date;
   tipoPropiedad: TipoPropiedad;
-
 }
