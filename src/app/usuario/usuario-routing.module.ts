@@ -18,12 +18,21 @@ const routes: Routes = [
     data: { animation: 'Aplicacion' },
     children: [
       {
-        path: 'concesion/busqueda',
-        component: BuscarConcesionComponent
-      },
-      {
-        path: 'concesion/detalle',
-        component: DetalleConcesionComponent
+        path: 'concesion',
+        children: [
+          {
+            path: 'busqueda',
+            component: BuscarConcesionComponent
+          },
+          {
+            path: 'detalle',
+            component: DetalleConcesionComponent
+          },
+          {
+            path: '**',
+            redirectTo: 'busqueda'
+          }
+        ],
       },
       {
         path: 'vehiculo/busqueda',

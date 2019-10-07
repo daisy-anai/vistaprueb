@@ -21,7 +21,7 @@
   </ul>
 
   <!-- sidenav -->
-  <ul id="slide-out" class="sidenav">
+  <ul id="slide-out" class="sidenav hide-on-large-only">
     <li>
       <div class="user-view">
         <p class="test">
@@ -32,12 +32,14 @@
     </li>
     <li class="divider"></li>
     <li><a [routerLink]="['/aplicacion/catalogo']"><i class="material-icons left">list_alt</i>Catalogos</a></li>
-    <li><a class="waves-effect" (click)="logout()"><i class="material-icons left">exit_to_app</i>Cerrar sesión</a></li>
+    <li><a [routerLink]="['/aplicacion/catalogo']" class="waves-effect" (click)="logout()"><i class="material-icons left">exit_to_app</i>Cerrar sesión</a></li>
   </ul>
 </header>
 
 <section class="row">
   <div class="col s12 m10 l8 xl6 offset-m1 offset-l2 offset-xl3 z-depth-3 white container-app">
-    <router-outlet> </router-outlet>
+    <div [@routeAnimations]="o && o.activatedRouteData && o.activatedRouteData['animation']">
+      <router-outlet #o="outlet"></router-outlet>
+    </div>
   </div>
 </section>

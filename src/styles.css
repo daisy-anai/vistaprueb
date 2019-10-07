@@ -46,6 +46,7 @@ nav ul li a, nav a, ul li a, label{
 
 
 
+
 /* SEARCH CARD */
 .search-card .search input[type=search] {
   outline:none !important;
@@ -117,4 +118,17 @@ nav ul li a, nav a, ul li a, label{
 
 .item {
   border-radius: 6px;
+}
+
+/* Sidenav Component*/
+.sidenav-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  height: 120vh;
+  background-color: rgba(0,0,0,0);
+  z-index: 997;
+  display: none;
 }
