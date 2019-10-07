@@ -34,7 +34,6 @@ export class BuscarVehiculoComponent implements OnInit {
 
   ngOnInit() {
     this.concesion = this.shared.getConcesion();  
-    console.log(this.concesion);
     
     if(!this.concesion){
       // this.router.navigate(['/aplicacion/concesion/busqueda']);
@@ -55,32 +54,22 @@ export class BuscarVehiculoComponent implements OnInit {
       var errores = error.message.split(":");
       var toastHTML = '<span> <div class="valign-wrapper"><i class="material-icons">error_outline</i>  &nbsp;&nbsp;'+errores[1]+'</div></span>';
       M.toast({html: toastHTML});
-      this.loading=false
+      this.loading=false;
     });
 
   }
 
   permitido(vehiculo: Vehiculo): Boolean {
-    let  year= new Date();
+
     let errores: Array<String> = [];
     let status: Boolean = true;
-    let anio = new Date().getFullYear();
-    let a= vehiculo.anioModelo;
-     let  anioe = anio-a;
 
     if(vehiculo.estatus != 'A'){
       errores.push('Vehiculo bloqueado');
       status = false;
-    }
-    // if (this.concesion.modalidad.nombre == "TAXI"&& vehiculo.anioModelo < 2005   ) {
-    //   errores.push('año del vehiculo invalido');  
-    //   status = false;
-    
-    // }
-
+    } 
     return status;
   }
-
 
 
   redirect(vehiculo: Vehiculo): void {
