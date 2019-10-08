@@ -110,14 +110,6 @@ nav ul li a, nav a, ul li a, label{
   cursor: not-allowed
 }
 
-
-/* Components General */
-.title-component {
-  font-size: 18px;
-  letter-spacing: 2px;
-  font-weight: bold;
-}
-
 .item {
   border-radius: 6px;
 }

@@ -12,16 +12,16 @@
           </a>
         </div>
       </div>
-      
+
       <!-- Catalogo form -->
       <form [formGroup]="catalogoForm" (ngSubmit)="modificarCatalogo()">
-        <!-- Catalogo --> 
+        <!-- Catalogo -->
         <div class="input-field" >
           <input id="nombre_catalogo" type="text" class="validate"
-            valido formControlName="nombre" autocomplete="off">    
-          <label for="nombre_catalogo">Nombre del Catalogo</label>    
+            valido formControlName="nombre" autocomplete="off">
+          <label for="nombre_catalogo">Nombre del Catalogo</label>
         </div>
-     
+
         <div class="">
           <label for="id_modalidad">Tipo de modalidad</label>
           <select formControlName="id_modalidad" class="browser-default">
@@ -35,26 +35,26 @@
             <option *ngFor="let tipoCatalogo of tiposCatalago" value="{{tipoCatalogo.id}}"> {{ tipoCatalogo.nombre }} </option>
           </select>
         </div>
-        <!-- End Catalogo -->         
+        <!-- End Catalogo -->
 
       <!--secciones datos-->
         <div class="row valign-wrapper">
           <div class="col s6">
             <p>Secciones</p>
           </div>
-     
+
           <div class="col s6 right-align">
             <a class="btn-floating btn-large waves-effect waves-light red btn-small red darken-2 " (click)="addSeccion()">
               <i class="material-icons">add</i>
             </a>
           </div>
-        </div>  
+        </div>
         <!--Secciones existentes-->
         <div class="row" *ngFor="let seccion of seccionesForm; let i = index">
           <p>{{seccion.id_propiedad | json}}</p>
           <div class="card col s10 offset-s1">
             <form [formGroup]="seccion">
-              <div class="row">      
+              <div class="row">
                 <div class="col s12">
                   <div class="input-field col s12">
                     <i class="material-icons prefix">textsms</i>
@@ -66,9 +66,9 @@
                 </div>
               </div>
 
-        
+
               <div class="row">
-                <div class="col s10 offset-s1">                   
+                <div class="col s10 offset-s1">
                   <div *ngFor="let propiedad of propiedadesControls(i).controls; let j = index" >
                     <form [formGroup]="propiedad">
                       <div class="col s12">
@@ -89,7 +89,7 @@
                       </div>
 
                     </form>
-                  </div>      
+                  </div>
                 </div>
               </div>
             </form>

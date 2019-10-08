@@ -45,23 +45,23 @@ export class EditarCatalogoComponent implements OnInit {
 
     this.service.getTipoPropiedad().subscribe(result => {
       this.tiposPropiedad = result.data['tiposPropiedad'];
-      
+
     });
 
     this.service.getCatalogoByID(parseInt(this.route.snapshot.paramMap.get("id"))).subscribe(result => {
       this.catalogo = result.data['catalogo'];
      // console.log(this.catalogo);
-      
+
       this.catalogoForm = this.formBuilder.group({
         id_modalidad: [this.catalogo.modalidad.id, Validators.required],
         id_tipo_catalogo: [this.catalogo.tipoCatalogo.id, Validators.required],
         nombre: [this.catalogo['nombre'], Validators.required],
-        secciones: new FormArray([], Validators.required)  
-      });  
-      
-      let controls = this.catalogoForm.controls;     
-      let secciones = controls.secciones as FormArray; 
-      this.seccionesForm = secciones.controls; 
+        secciones: new FormArray([], Validators.required)
+      });
+
+      let controls = this.catalogoForm.controls;
+      let secciones = controls.secciones as FormArray;
+      this.seccionesForm = secciones.controls;
 
       for (const seccion of this.catalogo['secciones']) {
         let seccionGroup = this.formBuilder.group({
@@ -69,24 +69,24 @@ export class EditarCatalogoComponent implements OnInit {
           nombre: [seccion.nombre, Validators.required],
           propiedades: new FormArray([], Validators.required)
         });
-        
+
         let propiedadGroup = seccionGroup.controls.propiedades as FormArray;
-        for(const propiedad of seccion['propiedades']){          
+        for(const propiedad of seccion['propiedades']){
           propiedadGroup.push(this.formBuilder.group({
             id_propiedad: [propiedad.id],
             nombre: [propiedad.nombre],
             id_tipo_propiedad: [propiedad.tipoPropiedad.id, Validators.required]
-          }));          
-        } 
+          }));
+        }
         secciones.push(seccionGroup);
       }
-      
+
       this.seccionesForm = secciones.controls;
-     // console.log(this.seccionesForm)  
+     // console.log(this.seccionesForm)
     }, error => {
-      console.log(error);     
-    }); 
-  
+      console.log(error);
+    });
+
 
   }
   watchSeccionNombre(seccion: Number):void {
@@ -164,7 +164,7 @@ export class EditarCatalogoComponent implements OnInit {
     var [instances] = M.Autocomplete.init(elems, {
       data: datos
     });
- 
+
   }
 
   addPropiedad(seccion: number) {
@@ -190,7 +190,7 @@ export class EditarCatalogoComponent implements OnInit {
           id_propiedad: ['', Validators.required],
           nombre: ['', Validators.required],
           id_tipo_propiedad: ['', Validators.required]
-        
+
         }));
       }
     }else {
@@ -211,7 +211,7 @@ export class EditarCatalogoComponent implements OnInit {
       data: datos
     });
 
-    
+
   }
 
   //modificar catalogo
@@ -219,7 +219,7 @@ export class EditarCatalogoComponent implements OnInit {
     console.log(this.catalogoForm.value);
     const seccion = this.catalogoForm.value.secciones;
    // console.log(seccion);
-    
+
   }
    asignarVariable(catalogo:any){
      this.catalogo =catalogo.catalogo;
