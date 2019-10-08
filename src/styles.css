@@ -44,9 +44,6 @@ nav ul li a, nav a, ul li a, label{
   color: #55ab54;
 }
 
-
-
-
 /* SEARCH CARD */
 .search-card .search input[type=search] {
   outline:none !important;
@@ -110,10 +107,6 @@ nav ul li a, nav a, ul li a, label{
   cursor: not-allowed
 }
 
-.item {
-  border-radius: 6px;
-}
-
 /* Sidenav Component*/
 .sidenav-overlay {
   position: fixed;
@@ -125,4 +118,10 @@ nav ul li a, nav a, ul li a, label{
   background-color: rgba(0,0,0,0);
   z-index: 997;
   display: none;
+}
+
+.container-component {
+  background-color: white;
+  margin: 4em 0 4em 0;
+  border-radius: 10px;
 }
