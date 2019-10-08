@@ -2,15 +2,15 @@
 <div class="row" *ngFor="let catalogo of catalogos">
     <h5 class="card-title" > Modalidad tipo:  {{catalogo.modalidad.nombre}}</h5>
   <div class="col s8 offset-s2">
-      <div class="row valign-wrapper z-depth-1 item" >
-        <div class="col s6">
-          <p>{{catalogo.nombre}}</p>
-        </div>
-        <div class="col s6">
-          <a class="btn-floating btn-small  modal-trigger" href="#modal1">
-            <i class="material-icons">info</i>
-          </a>
-        </div>
+    <div class="row valign-wrapper z-depth-1 item" >
+      <div class="col s6">
+        <p>{{catalogo.nombre}}</p>
+      </div>
+      <div class="col s6">
+        <a class="btn-floating btn-small  modal-trigger" href="#modal1">
+          <i class="material-icons">info</i>
+        </a>
+      </div>
     </div>
   </div> 
 </div>

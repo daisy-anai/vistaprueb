@@ -2,7 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+// Modules
 import { VehiculoRoutingModule } from './vehiculo-routing.module';
+import { ComponentsModule } from '../shared/components/components.module';
+
+// Components
 import { BuscarVehiculoComponent } from './buscar-vehiculo/buscar-vehiculo.component';
 
 @NgModule({
@@ -13,7 +17,8 @@ import { BuscarVehiculoComponent } from './buscar-vehiculo/buscar-vehiculo.compo
     CommonModule,
     VehiculoRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ComponentsModule
   ],
   exports: [
     BuscarVehiculoComponent

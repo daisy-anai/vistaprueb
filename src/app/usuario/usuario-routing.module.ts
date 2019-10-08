@@ -15,7 +15,9 @@ import { BuscarVehiculoComponent } from '../vehiculo/buscar-vehiculo/buscar-vehi
 import { ListaCatatalogoModalidadComponent } from '../catalogo/lista-catatalogo-modalidad/lista-catatalogo-modalidad.component';
 import { RevisionVehiculoComponent } from '../revision-cromatica/revision-vehiculo/revision-vehiculo.component';
 import { CrearVigenciasComponent } from '../vigencias/crear-vigencias/crear-vigencias.component';
-       
+import { ModificarVigenciasComponent } from  '../vigencias/modificar-vigencias/modificar-vigencias.component';
+import { ListarVigenciasComponent } from  '../vigencias/listar-vigencias/listar-vigencias.component';
+
 const routes: Routes = [
   {
     path: 'aplicacion',
@@ -28,6 +30,18 @@ const routes: Routes = [
           {
             path: 'crear',
             component: CrearVigenciasComponent
+          },
+          {
+            path:'listar',
+            component: ListarVigenciasComponent
+          },
+          {
+            path:'modificar',
+            component: ModificarVigenciasComponent
+          },
+          {
+            path: '**',
+            redirectTo: 'listar'
           }
         ]
       },
@@ -77,7 +91,7 @@ const routes: Routes = [
             component: CrearCatalogoComponent
           },
           {
-            path: 'editar/:id',
+            path: 'modificar/:id',
             component: EditarCatalogoComponent
           },
           {

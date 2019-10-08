@@ -31,6 +31,35 @@ export class VigenciasService {
         anios_prorroga: anios_prorroga
       }
     });
-
   }
+
+  getVigencias(){
+    return this.apollo.use('backrevista').watchQuery({
+      query: gql`
+      query vigencias{
+        vigencias{
+          id
+          anios_legales
+          anios_prorroga
+        }
+      }`,
+    }).valueChanges;
+  }
+  
+  getVigenciasModalidadByID(id : string){
+    return this.apollo.use('backrevista').watchQuery({
+      query: gql`
+      query query($id_modalidad: ID!){
+        vigenciaByModalidad(id_modalidad:$id_modalidad){
+           id
+          anios_legales
+          anios_prorroga
+        }
+      }`,
+      variables:{
+        id_modalidad: id
+      }
+    }).valueChanges
+  }
+
 }
