@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+// Components 
 import { CrearVigenciasComponent } from './crear-vigencias/crear-vigencias.component';
 
 @NgModule({
@@ -7,7 +10,9 @@ import { CrearVigenciasComponent } from './crear-vigencias/crear-vigencias.compo
     CrearVigenciasComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class VigenciasModule { }

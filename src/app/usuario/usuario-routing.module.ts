@@ -15,7 +15,7 @@ import { BuscarVehiculoComponent } from '../vehiculo/buscar-vehiculo/buscar-vehi
 import { ListaCatatalogoModalidadComponent } from '../catalogo/lista-catatalogo-modalidad/lista-catatalogo-modalidad.component';
 import { RevisionVehiculoComponent } from '../revision-cromatica/revision-vehiculo/revision-vehiculo.component';
 import { CrearVigenciasComponent } from '../vigencias/crear-vigencias/crear-vigencias.component';
-
+       
 const routes: Routes = [
   {
     path: 'aplicacion',
