@@ -3,10 +3,9 @@ import { NgModule } from '@angular/core';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
 
 // Modulos
+import { ComponentsModule } from './shared/components/components.module';
 import { AuthModule } from "./auth/auth.module";
 import { UsuarioModule } from './usuario/usuario.module';
 
@@ -25,10 +24,9 @@ import * as $ from 'jquery';
     HttpClientModule,
     GraphQLModule,
     FormsModule,
-    BrowserAnimationsModule,
+    ComponentsModule,
     AuthModule,
     UsuarioModule,
-    SlimLoadingBarModule,
     AppRoutingModule
   ],
   providers: [],

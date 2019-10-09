@@ -1,0 +1,21 @@
+.semovi-item {
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #f7f7f7;
+}
+
+.semovi-item:hover {
+  transform: scale(1.05);
+}
+
+.allowed:hover, .allowed  ::ng-deep div label {
+  cursor: pointer;
+}
+
+.unallowable:hover, .unallowable ::ng-deep div label {
+  cursor: not-allowed
+}
+
+.highlight ::ng-deep semovi-label label #{
+  
+}

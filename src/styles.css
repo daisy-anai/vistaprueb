@@ -44,8 +44,7 @@ nav ul li a, nav a, ul li a, label{
   color: #55ab54;
 }
 
-/* SEARCH CARD */
-.search-card .search input[type=search] {
+input[type=search] {
   outline:none !important;
   outline-width: 0 !important;
   box-shadow: none;
@@ -56,7 +55,7 @@ nav ul li a, nav a, ul li a, label{
   background-color: white;
   color: #8a8a8a;
 
-  background-image: url('./assets/images/search-icon.png');
+  background-image: url('/assets/images/search-icon.png');
   background-position: 10px 10px;
   background-repeat: no-repeat;
   background-size: 16px 16px;
@@ -67,17 +66,10 @@ nav ul li a, nav a, ul li a, label{
   text-transform: uppercase;
 }
 
-.search-card .search input[type=search]:focus {
+input[type=search]:focus {
   -webkit-box-shadow: 0px 0px 5px 2px rgba(219,219,219,1);
   -moz-box-shadow: 0px 0px 5px 2px rgba(219,219,219,1);
   box-shadow: 0px 0px 5px 2px rgba(219,219,219,1);
-}
-
-.result-card {
-}
-
-.result-card ul {
-
 }
 
 .result-card ul li {
@@ -99,14 +91,6 @@ nav ul li a, nav a, ul li a, label{
   text-transform: uppercase;
 }
 
-.resultPointerAllowed:hover, .resultPointerAllowed div label {
-  cursor: pointer;
-}
-
-.resultPointerNotAllowed:hover, .resultPointerNotAllowed div label{
-  cursor: not-allowed
-}
-
 /* Sidenav Component*/
 .sidenav-overlay {
   position: fixed;
@@ -118,10 +102,4 @@ nav ul li a, nav a, ul li a, label{
   background-color: rgba(0,0,0,0);
   z-index: 997;
   display: none;
-}
-
-.container-component {
-  background-color: white;
-  margin: 4em 0 4em 0;
-  border-radius: 10px;
 }
