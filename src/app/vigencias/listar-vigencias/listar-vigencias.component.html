@@ -18,9 +18,18 @@
   <div  class="result-card row">
     <ul class="col s12 m8 offset-m2">
       <li *ngFor="let modalidad of modalidades" class="row z-depth-2">
-        <div class="col s12">
-          <p> {{ modalidad | json }} </p>
+        <div class="col s6">
+          <label > {{ modalidad.nombre }} </label>
+          <div *ngIf="modalidad.vigencia">
+            <label>Años vigencia: {{ modalidad.vigencia.anios_legales }}</label>
+            <label>Años prorroga: {{ modalidad.vigencia.anios_prorroga }}</label>
+          </div>
         </div>             
+        <div class="s6 right-align" *ngIf="modalidad.vigencia">
+          <a class="btn-floating btn-small"
+          [routerLink]="['/aplicacion/vigencias/modificar', modalidad.vigencia.id ]">
+          <i class="material-icons">info</i></a>
+        </div>
       </li>
     </ul>
   </div>

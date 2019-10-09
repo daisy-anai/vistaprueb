@@ -1,10 +1,9 @@
-import { Default } from './default';
-
+import { Vigencia } from './vigencia';
 
 export interface Modalidad {
-  id: string;
+  id: String;
   nombre: String;
   descripcion: String; 
   abreviatura: String;
- 
+  vigencia: Vigencia;
 }

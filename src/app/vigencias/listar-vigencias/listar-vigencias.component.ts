@@ -7,7 +7,6 @@ import { Component, OnInit } from '@angular/core';
 
 // Models
 import { Modalidad } from '../../shared/models/modalidad';
-import { Vigencias } from '../../shared/models/vigencias';
 
 
 @Component({
@@ -21,25 +20,18 @@ export class ListarVigenciasComponent implements OnInit {
   constructor(
     private service ?: VigenciasService,
     private serviceCatalogo ?: CatalogoService
- 
   ) {}
 
   ngOnInit() {
-
     this.serviceCatalogo.getModalidades().subscribe(result => {
       this.modalidades = result.data['modalidades'];
       for (let modalidad of this.modalidades) {
         this.service.getVigenciasModalidadByID(modalidad.id).subscribe(result =>{
-          console.log("Modalidad", modalidad.nombre, "vigencia", result.data['vigenciaByModalidad']);  
-          modalidad.vigencia = result.data['vigenciaByModalidad'];
-        
-          
+          modalidad.vigencia = result.data['vigenciaByModalidad'];   
 
         });
-      }
-    });
-
-    
+      }      
+    });   
   
   }
 }

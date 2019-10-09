@@ -142,6 +142,21 @@ export class CatalogoService {
     }).valueChanges;
   }
 
+  getModalidad(id: String){
+    return this.apollo.use('sicac').watchQuery({
+      query: gql`
+      query modalidad($id:ID) {
+        modalidad(id:$id) {
+          id
+          nombre
+        }
+      }`,
+      variables: {
+        id: id
+      }
+    }).valueChanges;
+  }
+
   getSecciones(){
     return this.apollo.use('backrevista').watchQuery({
       query: gql`

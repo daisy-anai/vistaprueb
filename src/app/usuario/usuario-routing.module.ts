@@ -36,7 +36,7 @@ const routes: Routes = [
             component: ListarVigenciasComponent
           },
           {
-            path:'modificar',
+            path:'modificar/:id',
             component: ModificarVigenciasComponent
           },
           {

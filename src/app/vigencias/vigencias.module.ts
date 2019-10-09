@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Components 
@@ -16,7 +17,8 @@ import { ModificarVigenciasComponent } from './modificar-vigencias/modificar-vig
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule
   ], 
   exports: [
     CrearVigenciasComponent,
