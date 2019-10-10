@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { BuscarVehiculoComponent } from './buscar-vehiculo/buscar-vehiculo.component';
+import { ListarModalidadComponent } from './listar-modalidad/listar-modalidad.component';
 
 const routes: Routes = [
-  { path: '', component: BuscarVehiculoComponent },
+  { path: '', component: ListarModalidadComponent },
   { path: '**', redirectTo: '' }
 ];
 
@@ -12,4 +12,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class VehiculoRoutingModule { }
+export class ModalidadRoutingModule { }

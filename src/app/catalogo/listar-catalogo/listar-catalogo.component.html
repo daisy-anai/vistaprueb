@@ -1,6 +1,11 @@
 <ng-container>
   <semovi-card>
-    <semovi-card-header title="Catálogos" icon="arrow_back" urn="/aplicacion/concesion/busqueda"></semovi-card-header>
+    <semovi-card-header title="Catálogos" icon="arrow_back" urn="/aplicacion/concesion/busqueda" [options]="[
+      {
+        urn: '/aplicacion/catalogo/crear',
+        icon: 'add'
+      }
+    ]"></semovi-card-header>
 
     <semovi-card-body>
       <semovi-input-search>
