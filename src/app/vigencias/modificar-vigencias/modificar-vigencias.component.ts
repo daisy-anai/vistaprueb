@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 // Service
 import { VigenciasService } from '../vigencias.service';
@@ -23,7 +23,8 @@ export class ModificarVigenciasComponent implements OnInit {
   constructor(
     private service?:VigenciasService,
     private formBuilder?: FormBuilder,
-    private route ?: ActivatedRoute
+    private route?: ActivatedRoute,
+    private router?: Router
   ){}
 
   ngOnInit() {
@@ -33,7 +34,6 @@ export class ModificarVigenciasComponent implements OnInit {
       this.service.getModalidad(this.vigencia.id_modalidad).subscribe((result)=>{
         this.modalidad = result.data['modalidad']; 
         this.modalidad.vigencia = this.vigencia;   
-
         this.vigenciaForm = this.formBuilder.group({
           id_modalidad: [this.modalidad.id, Validators.required],
           anios_legales: [this.modalidad.vigencia.anios_legales, Validators.required],
@@ -43,7 +43,8 @@ export class ModificarVigenciasComponent implements OnInit {
     });
 
     this.service.getModalidades().subscribe(result => {
-      this.modalidades = result.data['modalidades'];     
+      this.modalidades = result.data['modalidades'];   
+      
     });
         
     
@@ -57,7 +58,7 @@ export class ModificarVigenciasComponent implements OnInit {
     let anios_prorroga = this.vigenciaForm.value.anios_prorroga;
 
     this.service.modificarVigencias(id,id_modalidad,anios_legales,anios_prorroga).subscribe(result =>{
-      
+      this.router.navigate(['/aplicacion/vigencias/listar']);
      });
   }
 }
