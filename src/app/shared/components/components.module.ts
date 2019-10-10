@@ -14,7 +14,8 @@ import { SemoviInputSearchComponent } from './input/semovi-input-search/semovi-i
 import { SemoviInputOptionsComponent } from './input/semovi-input-options/semovi-input-options.component';
 import { SemoviListComponent } from './list/semovi-list/semovi-list.component';
 import { SemoviItemComponent } from './item/semovi-item/semovi-item.component';
-import { SemoviLabelComponent } from './item/semovi-label/semovi-label.component';
+import { SemoviLabelGroupComponent } from './labels/semovi-label-group/semovi-label-group.component';
+import { SemoviLabelComponent } from './labels/semovi-label/semovi-label.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { SemoviLabelComponent } from './item/semovi-label/semovi-label.component
     SemoviInputOptionsComponent,
     SemoviListComponent,
     SemoviItemComponent,
-    SemoviLabelComponent
+    SemoviLabelComponent,
+    SemoviLabelGroupComponent,
   ],
   imports: [
     CommonModule,
@@ -45,7 +47,8 @@ import { SemoviLabelComponent } from './item/semovi-label/semovi-label.component
     SemoviInputOptionsComponent,
     SemoviListComponent,
     SemoviItemComponent,
-    SemoviLabelComponent
+    SemoviLabelComponent,
+    SemoviLabelGroupComponent,
   ]
 })
 export class ComponentsModule { }

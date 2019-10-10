@@ -1,0 +1,16 @@
+:host /deep/ .highlight label  {
+  font-weight: bold;
+  margin-right: 4px;
+}
+
+:host /deep/ .uppercase label  {
+  text-transform: uppercase;
+}
+
+:host /deep/ .greenLabel label {
+  color: #55ab54;
+}
+
+:host /deep/ .redLabel label {
+  color: #F00;
+}

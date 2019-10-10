@@ -2,3 +2,11 @@
   margin-top: 3.5em;
   margin-bottom: 0em;
 }
+
+:host /deep/ .allowed div, :host /deep/ .allowed div label {
+  cursor: pointer;
+}
+
+:host /deep/ .not-allowed div, :host /deep/ .not-allowed div label {
+  cursor: not-allowed;
+}

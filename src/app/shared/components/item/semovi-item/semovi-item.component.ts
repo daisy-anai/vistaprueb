@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,8 +7,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./semovi-item.component.css']
 })
 export class SemoviItemComponent implements OnInit {
-  @Input() allowed: Boolean;
-  
   constructor(private router: Router) { }
 
   ngOnInit() {
