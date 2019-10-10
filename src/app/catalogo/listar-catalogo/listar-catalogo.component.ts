@@ -15,7 +15,6 @@ import { CatalogoService } from '../catalogo.service';
 export class ListarCatalogoComponent implements OnInit {
   public catalogos: Array<any>;
   public filtro: string;
-
   constructor (
     private service?: CatalogoService
   ) {}
@@ -24,5 +23,6 @@ export class ListarCatalogoComponent implements OnInit {
     this.service.getCatalogos().subscribe(({data, loading}) => {
       this.catalogos = data['catalogos'];
     });
+
   }
 }

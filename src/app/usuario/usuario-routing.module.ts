@@ -38,7 +38,7 @@ const routes: Routes = [
           {
             path:'modificar/:id',
             component: ModificarVigenciasComponent
-          },
+          }, 
           {
             path: '**',
             redirectTo: 'listar'

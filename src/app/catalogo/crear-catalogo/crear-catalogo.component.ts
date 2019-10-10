@@ -84,15 +84,29 @@ export class CrearCatalogoComponent implements OnInit {
     @description Seleccion de secciones
     @param seccion
   */
-  watchSeccionNombre(seccion: Number):void {
+  watchSeccionNombre(seccion: Number) : void {
     let value = (<HTMLInputElement>document.getElementById(`S[${seccion}]-nombre`)).value.toLowerCase().trim();
-    for(var i = 0; i < this.secciones.length; i++){
-      if(this.secciones[i].nombre.toLowerCase() == value.toLowerCase()){
-        this.catalogoForm.controls.secciones['controls'][seccion].controls.nombre.setValue(this.secciones[i].nombre);
-        this.catalogoForm.controls.secciones['controls'][seccion].controls.id_seccion.setValue(parseInt(this.secciones[i].id));
-        this.secciones.splice(i,1);    
-      }
-    }
+      for (let i = 0; i < this.secciones.length; i++) {      
+        if(this.secciones[i].nombre.toLowerCase() == value.toLowerCase().trim()){
+          this.catalogoForm.controls.secciones['controls'][seccion].controls.nombre.setValue(this.secciones[i].nombre);
+          console.log(this.catalogoForm);
+          
+          console.log("-->",this.catalogoForm.controls.secciones['controls'][seccion] );
+          
+          // if( this.secciones[i].nombre){
+          //   console.log("hola",this.secciones[i].nombre);
+            
+          // }else{
+          //   console.log("errorrrrere");
+            
+          // }
+          this.catalogoForm.controls.secciones['controls'][seccion].controls.id_seccion.setValue(parseInt(this.secciones[i].id));
+          console.log(parseInt(this.secciones[i].id));
+          this.secciones.splice(i,1); 
+          
+     
+        }
+      } 
   }
 
   //seleccion de propiedades
