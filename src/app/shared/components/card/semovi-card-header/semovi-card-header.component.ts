@@ -2,18 +2,17 @@ import { Component, Input } from '@angular/core';
 
 interface Option {
   [index: number]: {
-    key: String,
     urn: String,
     icon: String
   }
 }
 
 @Component({
-  selector: 'title-area',
-  templateUrl: './title-area.component.html',
-  styleUrls: ['./title-area.component.css']
+  selector: 'semovi-card-header',
+  templateUrl: './semovi-card-header.component.html',
+  styleUrls: ['./semovi-card-header.component.css'],
 })
-export class TitleAreaComponent {
+export class SemoviCardHeaderComponent {
   @Input() title: String;
   @Input() icon: String;
   @Input() urn: String;

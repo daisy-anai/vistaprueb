@@ -1,0 +1,9 @@
+.semovi-item {
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #f7f7f7;
+}
+
+.semovi-item:hover {
+  transform: scale(1.05);
+}
