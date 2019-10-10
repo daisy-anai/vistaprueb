@@ -1,33 +1,24 @@
 <ng-container>
-  <title-area
-    title="Catálogos"
-    urn="/aplicacion/concesion/busqueda"
-    icon="arrow_back"
-    [options]="[{ urn: '/aplicacion/catalogo/crear', icon: 'add'}]">
-  </title-area>
+  <semovi-card>
+    <semovi-card-header title="Catálogos" icon="arrow_back" urn="/aplicacion/concesion/busqueda"></semovi-card-header>
 
-  <div class="search-card" style="margin-top: -1em; margin-bottom: 3em">
-    <div class="row search">
-      <div class="col s12 m8 offset-m2">
+    <semovi-card-body>
+      <semovi-input-search>
         <input name="filtro" id="filtro" class="browser-default placeholder-fix"
         placeholder="Buscar" type="search" autofocus
         autocomplete="off" [(ngModel)]="filtro">
-      </div>
-    </div>
-  </div>
+      </semovi-input-search>
 
-  <div *ngIf="catalogos" class="result-card row">
-    <ul class="col s12 m8 offset-m2">
-      <li *ngFor="let catalogo of catalogos | search: filtro" class="row z-depth-2 valign-wrapper">
-        <div class="col s6">
-          <p>{{catalogo.nombre}}</p>
-        </div>
-        <div class="col s6 right-align">
-          <a class="btn-floating btn-small"
-          [routerLink]="['/aplicacion/catalogo/detalle', catalogo.id ]">
-          <i class="material-icons">info</i></a>
-        </div>
-      </li>
-    </ul>
-  </div>
+      <semovi-list *ngIf="catalogos">
+        <semovi-item *ngFor="let catalogo of catalogos | search: filtro">
+          <semovi-label> {{catalogo.nombre}} </semovi-label>
+          <semovi-label>
+            <a class="btn-floating btn-small right"
+            [routerLink]="['/aplicacion/catalogo/detalle', catalogo.id ]">
+            <i class="material-icons">info</i></a>
+          </semovi-label>
+        </semovi-item>
+      </semovi-list>
+    </semovi-card-body>
+  </semovi-card>
 </ng-container>
