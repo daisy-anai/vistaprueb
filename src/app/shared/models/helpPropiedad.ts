@@ -1,8 +1,9 @@
-import { Default } from './default';
 import { TipoPropiedad } from './tipoPropiedad';
+export class HelpPropiedad   {
 
-export interface Propiedad extends Default {
   nombre: string;
   tipoPropiedad: TipoPropiedad;
+  id: Number;
   estatus: Boolean;
+  createAt: Date;
 }

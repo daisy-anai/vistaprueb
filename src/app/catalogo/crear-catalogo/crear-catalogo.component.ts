@@ -13,6 +13,9 @@ import { Propiedad } from '../../shared/models/propiedad';
 import { Catalogo } from '../../shared/models/catalogo';
 import { DetalleCatalogo} from '../../shared/models/detalleCatalogo';
 import { SeccionVO} from '../../shared/models/seccion.vo';
+import { HelpSeccion } from '../../shared/models/helpSeccion';
+import { HelpPropiedad } from 'src/app/shared/models/helpPropiedad';
+
 
 // Services
 import {CatalogoService} from '../catalogo.service';
@@ -84,12 +87,12 @@ export class CrearCatalogoComponent implements OnInit {
   watchSeccionNombre(seccion: Number):void {
     let value = (<HTMLInputElement>document.getElementById(`S[${seccion}]-nombre`)).value.toLowerCase().trim();
     for(var i = 0; i < this.secciones.length; i++){
-    if(this.secciones[i].nombre.toLowerCase() == value.toLowerCase()){
-      this.catalogoForm.controls.secciones['controls'][seccion].controls.nombre.setValue(this.secciones[i].nombre);
-      this.catalogoForm.controls.secciones['controls'][seccion].controls.id_seccion.setValue(parseInt(this.secciones[i].id));
-      this.secciones.splice(i,1);
+      if(this.secciones[i].nombre.toLowerCase() == value.toLowerCase()){
+        this.catalogoForm.controls.secciones['controls'][seccion].controls.nombre.setValue(this.secciones[i].nombre);
+        this.catalogoForm.controls.secciones['controls'][seccion].controls.id_seccion.setValue(parseInt(this.secciones[i].id));
+        this.secciones.splice(i,1);    
+      }
     }
-   }
   }
 
   //seleccion de propiedades
@@ -114,35 +117,28 @@ export class CrearCatalogoComponent implements OnInit {
     return false;
   }
 
-  // Control de las secciones
+  /**
+    @description control  de secciones
+    @param addSeccion
+    @param removeSeccion
+  */
+
   addSeccion() {
     this.totalSecciones += 1;
     this.seccionesController();
   }
 
 
- /**
-  *  removeSeccion(indice: any, propiedad: any) {
+ removeSeccion(indice: any, seccionRemove: any) {
+  let seccionNew = new HelpSeccion;
+    seccionNew.id = seccionRemove.value.id_seccion;
+    seccionNew.nombre= seccionRemove.value.nombre;
+    seccionNew.estatus =true;
+    this.secciones.push(seccionNew);
     this.totalSecciones -= 1;
-    this.seccionesController();
-    let seccionew = new SeccionVO;
-    seccionew.id = propiedad.value.id_seccion;
-    seccionew.nombre= propiedad.value.nombre;
-    seccionew.estatus =true;
-    seccionew.create = new Date();
-    this.secciones.push(seccionew);
-    this.totalSecciones -= 1;
-    //this.seccionesController();
     this.newseccionesController(indice);
-    console.log(propiedad.value.nombre);
 
-  }
-  */
-
-  removeSeccion() {
-    this.totalSecciones -= 1;
-    this.seccionesController();
-  }
+  } 
 
   newseccionesController(indice: any){
     let controles = this.catalogoForm.controls;
@@ -190,9 +186,17 @@ export class CrearCatalogoComponent implements OnInit {
     this.propiedadesForm(seccion, valor+=1);
   }
 
-  removePropiedad(seccion: number) {
+  removePropiedad(seccion: number, propiedad : any) { 
+
+    // let propiedadesNew= new HelpPropiedad;
+    // propiedadesNew.id= propiedad.value.nombre;
+    // propiedadesNew.nombre= propiedad.value.nombre;
+    // propiedadesNew.estatus = true;
+    // propiedadesNew.tipoPropiedad=propiedad.value.tipoPropiedad;
+    // this.propiedades.push(propiedadesNew);
+
     let valor = this.propiedadesControls(seccion).length;
-    this.propiedadesForm(seccion, valor-=1);
+    this.propiedadesForm(seccion, valor-=1);     
   }
 
   propiedadesControls(seccion) {
@@ -218,7 +222,7 @@ export class CrearCatalogoComponent implements OnInit {
   }
 
   autocompletePropiedades(e){
- /*
+ 
     let datos = {};
     for(let propiedad of this.propiedades){
       datos[propiedad.nombre] = null;
@@ -229,14 +233,13 @@ export class CrearCatalogoComponent implements OnInit {
       data: datos
     });
 
-    */
+    
   }
 /**
     @description mutación para crear catalogo
     @param createdCatalogo
   */
   crearCatalogo(){
-   console.log(this.catalogoForm.value);
    const id_modalidad = this.catalogoForm.value.id_modalidad;
    const id_tipo_catalogo= this.catalogoForm.value.id_tipo_catalogo;
    const nombre= this.catalogoForm.value.nombre;

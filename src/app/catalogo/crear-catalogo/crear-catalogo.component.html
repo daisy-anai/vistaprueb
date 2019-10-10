@@ -57,7 +57,7 @@
                   <p class="card-title">Seccion {{i + 1}}</p>
                 </div>
                 <div class="col s6 right-align">
-                  <a class="btn-floating btn-large waves-effect waves-light red btn-small red darken-2 " (click)="removeSeccion()">
+                  <a class="btn-floating btn-large waves-effect waves-light red btn-small red darken-2 " (click)="removeSeccion(i,seccion)">
                     <i class="material-icons">remove</i>
                   </a>
                 </div>
@@ -70,6 +70,7 @@
                     <input type="text" id="S[{{i}}]-nombre" class="autocomplete"
                     autocomplete="off"
                     formControlName="nombre"
+                   
                     (change)="watchSeccionNombre(i)"
                     (ngModelChange)="autocompleteSecciones($event, i)">
                     <label for="S[{{i}}]-nombre">Titulo de sección</label>
@@ -105,7 +106,7 @@
                           <p class="card-title">Propiedad {{j + 1}}</p>
                         </div>
                         <div class="col s6 right-align">
-                          <a class="btn-floating btn-large waves-effect waves-light red btn-small red darken-2 " (click)="removePropiedad(i)">
+                          <a class="btn-floating btn-large waves-effect waves-light red btn-small red darken-2 " (click)="removePropiedad(i, propiedad)">
                             <i class="material-icons">remove</i>
                           </a>
                         </div>
