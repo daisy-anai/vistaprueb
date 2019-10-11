@@ -28,6 +28,7 @@ import { ListaCatatalogoModalidadComponent } from './lista-catatalogo-modalidad/
     FormsModule,
     ReactiveFormsModule,
     ComponentsModule,
+    FiltersModule
   ]
 })
 export class CatalogoModule { }
