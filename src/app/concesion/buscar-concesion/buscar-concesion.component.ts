@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -16,7 +16,6 @@ declare var M: any;
   styleUrls: ['./buscar-concesion.component.css']
 })
 export class BuscarConcesionComponent {
-  @Output() out = new EventEmitter<Concesion>();
   public concesiones: Array<Concesion>;
   public loading: boolean = false;
   public tipo: number = 1;
@@ -41,14 +40,10 @@ export class BuscarConcesionComponent {
     }else{
       this.loading = true;
       this.service.getConcesiones(this.filtro.trim(), this.tipo, 1).subscribe(result => {
-        this.puente(result.data);
+        this.concesiones = result.data['concesiones'];
         this.loading = false;
       });
     }
-  }
-
-  puente(result: any):void {
-    this.concesiones = result.concesiones;
   }
 
   permitido(concesion: any): Boolean {
@@ -61,32 +56,25 @@ export class BuscarConcesionComponent {
     }
 
     if(!concesion.condiciones.vigente){
-
-      errores.push("Concesión vencida");   
-      //  var toastHTML = '<span> <div class="valign-wrapper"><i class="material-icons">error_outline</i >'+errores[0]+'</div></span>';
-      //   M.toast({html: toastHTML});  
-       status = false;  
+      errores.push("Concesión vencida");
+       status = false;
     }
-    
+
     if(!concesion.modalidad.estatus){
-      errores.push("Modalidad invalida");
+      errores.push("Modalidad invalida o inactiva");
       status = false;
     }
 
-    if(concesion.nuc.status == "" ){
+    if(concesion.nuc.status == "/"){
       errores.push("No cuenta con NUC");
-     
       status=false;
-      
     }
-    
-    return status;  
-   
+
+    return status;
   }
 
   redirect(concesion: Concesion): void {
     if(this.permitido(concesion)){
-      this.out.emit(concesion);
       this.shared.setConcesion(concesion);
       this.router.navigate(['/aplicacion/vehiculo/busqueda']);
     }

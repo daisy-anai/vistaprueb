@@ -25,7 +25,10 @@ export class AplicacionComponent implements OnInit {
 
     var elems = document.querySelectorAll('.dropdown-trigger');
     var instances = M.Dropdown.init(elems, {
-      coverTrigger: false
+      alignment: 'left',
+      constrainWidth: true,
+      coverTrigger: false,
+      closeOnClick: true
     });
 
     $('.sidenav').sidenav({

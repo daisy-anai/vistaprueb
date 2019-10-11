@@ -24,14 +24,7 @@
         </label>
       </semovi-input-options>
 
-      <div class="row" *ngIf="loading">
-        <div class="col s8 offset-s2">
-          <div class="progress">
-            <div class="indeterminate"></div>
-          </div>
-        </div>
-      </div>
-
+      <semovi-preloading *ngIf="loading"> </semovi-preloading>
 
       <semovi-list *ngIf="concesiones">
         <semovi-item *ngFor="let concesion  of concesiones" [ngClass]="{'allowed': permitido(concesion), 'not-allowed': !permitido(concesion)}" (click)="redirect(concesion)">

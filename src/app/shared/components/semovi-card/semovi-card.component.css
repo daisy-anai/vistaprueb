@@ -1,5 +1,21 @@
 .semovi-card {
   background-color: white;
-  margin: 4em 0 4em 0;
+  margin-top: 3em;
   border-radius: 10px;
+
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  top: 50%;
+  margin: 0;
+  position: absolute;
+  /*
+  max-height: 550px;
+  overflow-y: auto; */
+}
+
+@media only screen and (max-width: 600px) {
+  .semovi-card {
+    margin-top: 2em;
+    border-radius: 0px;
+  }
 }

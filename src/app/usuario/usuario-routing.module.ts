@@ -11,7 +11,7 @@ const routes: Routes = [
     data: { animation: 'Aplicacion' },
     children: [
       {
-        path: 'modalidad',
+        path: 'configuracion',
         loadChildren: () => import ('../modalidad/modalidad.module').then(m => m.ModalidadModule )
       },
       {
