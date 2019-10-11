@@ -2,9 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+// Routing
+import { ConcesionRoutingModule } from './concesion-routing.module';
+
 // Modules
 import { ComponentsModule } from '../shared/components/components.module';
-import { DirectivesModule } from '../shared/directives/directives.module';
 
 // Components
 import { BuscarConcesionComponent } from './buscar-concesion/buscar-concesion.component';
@@ -20,7 +22,7 @@ import { DetalleConcesionComponent } from './detalle-concesion/detalle-concesion
     FormsModule,
     ReactiveFormsModule,
     ComponentsModule,
-    DirectivesModule
+    ConcesionRoutingModule
   ]
 })
 export class ConcesionModule { }

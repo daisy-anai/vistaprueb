@@ -3,11 +3,14 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-// Components 
+// Routing
+import { VigenciasRoutingModule } from './vigencias-routing.module';
+
+// Components
 import { CrearVigenciasComponent } from './crear-vigencias/crear-vigencias.component';
 import { ListarVigenciasComponent } from './listar-vigencias/listar-vigencias.component';
 import { ModificarVigenciasComponent } from './modificar-vigencias/modificar-vigencias.component';
-       
+
 @NgModule({
   declarations: [
     CrearVigenciasComponent,
@@ -18,12 +21,8 @@ import { ModificarVigenciasComponent } from './modificar-vigencias/modificar-vig
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
-  ], 
-  exports: [
-    CrearVigenciasComponent,
-    ListarVigenciasComponent,
-    ModificarVigenciasComponent
+    RouterModule,
+    VigenciasRoutingModule
   ]
 })
 export class VigenciasModule { }
