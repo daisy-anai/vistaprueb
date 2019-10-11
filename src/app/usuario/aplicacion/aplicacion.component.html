@@ -37,8 +37,6 @@
   </ul>
 </header>
 
-<section>
-  <div [@routeAnimations]="o && o.activatedRouteData && o.activatedRouteData['animation']">
-    <router-outlet #o="outlet"></router-outlet>
-  </div>
-</section>
+<semovi-app>
+  <semovi-router-outlet> </semovi-router-outlet>
+<semovi-app>
