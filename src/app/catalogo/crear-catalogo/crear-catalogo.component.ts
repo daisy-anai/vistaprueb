@@ -22,6 +22,7 @@ import {CatalogoService} from '../catalogo.service';
 import { IfStmt } from '@angular/compiler';
 import { isFulfilled } from 'q';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { type } from 'os';
 declare var M: any;
 
 @Component({
@@ -50,7 +51,6 @@ export class CrearCatalogoComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-
     this.service.getCatalogos().subscribe(result => {
       this.catalogos = result.data['catalogos'];
     });
@@ -58,6 +58,10 @@ export class CrearCatalogoComponent implements OnInit {
     this.service.getSecciones().subscribe(result => {
       this.secciones = result.data['secciones'];
     });
+
+    this.service.getPropiedades().subscribe(result => {
+      this.propiedades = result.data['propiedades'];
+    })
 
     this.service.getModalidades().subscribe(result => {
       this.modalidades = result.data['modalidades'];
@@ -71,10 +75,6 @@ export class CrearCatalogoComponent implements OnInit {
       this.tiposPropiedad = result.data['tiposPropiedad'];
     });
 
-    this.service.getPropiedades().subscribe(result => {
-      this.propiedades = result.data['propiedades'];
-    })
-
     this.catalogoForm = this.formBuilder.group({
       id_modalidad: ['', Validators.required],
       id_tipo_catalogo: ['', Validators.required],
@@ -84,49 +84,29 @@ export class CrearCatalogoComponent implements OnInit {
   }
 
   /**
-    @description Seleccion de secciones
+    @description Selección de secciones
     @param seccion
   */
-  watchSeccionNombre(seccion: Number) : void {
+  watchSeccionNombre(nombre:string, seccion: Number): Boolean {    
+    var words = this.secciones.filter(seccion => {
+      return seccion.nombre.toLowerCase().trim() == nombre;
+    })
 
-    let value = (<HTMLInputElement>document.getElementById(`S[${seccion}]-nombre`)).value.toLowerCase().trim();
-    console.log(value);
-    // if(this.secciones){
-        for (let i = 0; i < this.secciones.length; i++) {    
-          if(this.secciones[i].nombre.toLowerCase().trim() == value.toLowerCase()){
-            this.catalogoForm.controls.secciones['controls'][seccion].controls.nombre.setValue(this.secciones[i].nombre); 
-            console.log("-->",this.catalogoForm.controls.secciones['controls'][seccion].controls.nombre.value);
-            this.catalogoForm.controls.secciones['controls'][seccion].controls.id_seccion.setValue(parseInt(this.secciones[i].id));
-            console.log(parseInt(this.secciones[i].id));
-            this.secciones.splice(i,1); 
-            console.log(this.catalogoForm.value);
-   
-          }
-         //    console.log("nombre secciones",this.secciones[i].nombre);
+    if(words.length > 0)
+      return true; 
 
-        
-
-        }
-       
-  
-  //  }
-       
-  
-  }
-
-  //seleccion de propiedades
-  watchPropiedadNombre(seccion: number,propiedad: number): void{
-    let value = (<HTMLInputElement>document.getElementById(`S[${seccion}]-P[${propiedad}]-nombre`)).value.toLowerCase().trim();
-    if(this.propiedades){
-      let result = this.propiedades.filter(word => word.nombre.toLowerCase().trim() === value)
-      if(result.length == 0){
-        this.catalogoForm.controls.secciones['controls'][seccion].controls.propiedades.controls[propiedad].controls.nombre.setValue(value);
-      }else{
-        // this.catalogoForm.controls.secciones[propiedades].controls[propiedad].controls.id_propiedad.setValue(result[0].id);
-        this.catalogoForm.controls.secciones['controls'][seccion].controls.propiedades.controls[propiedad].controls.id_propiedad.setValue(result[0].id);
+    let help = this.catalogoForm.get('secciones').value;
+    for (let i = 0; i < help.length && i != seccion; i++) {      
+      if(help[i].nombre.toLowerCase().trim() == nombre.toLowerCase().trim()){
+       return true;
       }
     }
+    return false;
   }
+    
+ 
+
+
   watchCatalogoNombre(): Boolean {
     let value = this.catalogoForm.get('nombre').value.toLowerCase().trim();
     if(this.catalogos){
@@ -141,22 +121,19 @@ export class CrearCatalogoComponent implements OnInit {
     @param addSeccion
     @param removeSeccion
   */
-
   addSeccion() {
     this.totalSecciones += 1;
     this.seccionesController();
   }
 
-
- removeSeccion(indice: any, seccionRemove: any) {
-  let seccionNew = new HelpSeccion;
+  removeSeccion(indice: any, seccionRemove: any) {
+    let seccionNew = new HelpSeccion;
     seccionNew.id = seccionRemove.value.id_seccion;
     seccionNew.nombre= seccionRemove.value.nombre;
     seccionNew.estatus =true;
     this.secciones.push(seccionNew);
     this.totalSecciones -= 1;
     this.newseccionesController(indice);
-
   } 
 
   newseccionesController(indice: any){
@@ -165,17 +142,13 @@ export class CrearCatalogoComponent implements OnInit {
     //secciones.controls.removeAt(indice);
     secciones.controls.splice(indice,1);
     this.seccionesController();
-
   }
   
   seccionesController() {
     let controles = this.catalogoForm.controls;
-    let secciones = controles.secciones as FormArray;
-    
+    let secciones = controles.secciones as FormArray;    
     this.seccionesForm = secciones.controls;
-    console.log("secciones controler",this.seccionesForm);
-
-     if (secciones.length < this.totalSecciones) {
+     if (secciones.length < this.totalSecciones) {       
       for (let i = secciones.length; i < this.totalSecciones; i++) {
         secciones.push(this.formBuilder.group({
           id_seccion: [''],
@@ -185,22 +158,52 @@ export class CrearCatalogoComponent implements OnInit {
       }
     } else {
       for (let i = secciones.length; i >= this.totalSecciones; i--) {
-        secciones.removeAt(i);
+        secciones.removeAt(i);       
       }
     }
   }
 
-  autocompleteSecciones(e, seccion){
-  // this.watchSeccionNombre(seccion);
+  autocompleteSecciones(e:any, seccion:number){
+    if(this.watchSeccionNombre(e, seccion)){
+      console.log("Nombre repetido");
+    }
+
     let datos = {};
     for(let seccion of this.secciones){
       datos[seccion.nombre] = null;
     }
+
     var elems = document.querySelectorAll('input.autocomplete');
     var [instances] = M.Autocomplete.init(elems, {
       data: datos
-    });
+    }); 
+  }
 
+  // S E C C I O N E S 
+   //seleccion de propiedades
+  watchPropiedadNombre(nombre: string, seccion: number, propiedad: number): Boolean {   
+    let words = this.propiedades.filter(it => {
+      return it.nombre.toLocaleLowerCase().trim() == nombre.toLowerCase().trim();    
+    })
+
+    if(words.length > 0)
+      return true; 
+      
+    let secc = this.catalogoForm.get('secciones').value; 
+    for (let index = 0; index < secc.length; index++) {
+      console.log(index, "--", secc);      
+      let help = secc[index].propiedades; 
+      // 
+      for (let i = 0; i < help.length; i++) {      
+        console.log(nombre.toLowerCase().trim(), "--", nombre.toLowerCase().trim())
+        // if(help[i].nombre.toLowerCase().trim() == nombre.toLowerCase().trim()){
+        //   console.log("Nombre repetido");
+        //   return true;
+        // }
+      }      
+    }
+
+    return false; 
   }
 
   addPropiedad(seccion: number) {
@@ -243,8 +246,8 @@ export class CrearCatalogoComponent implements OnInit {
     }
   }
 
-  autocompletePropiedades(e){
- 
+  autocompletePropiedades(nombre: any, seccion: number, propiedad: number){
+    this.watchPropiedadNombre(nombre, seccion, propiedad); 
     let datos = {};
     for(let propiedad of this.propiedades){
       datos[propiedad.nombre] = null;
@@ -254,10 +257,9 @@ export class CrearCatalogoComponent implements OnInit {
     var [instances] = M.Autocomplete.init(elems, {
       data: datos
     });
-
-    
   }
-/**
+
+  /**
     @description mutación para crear catalogo
     @param createdCatalogo
   */

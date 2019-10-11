@@ -2,5 +2,6 @@
   "editor.tabSize": 2,
   "editor.wordWrapColumn": 200,
   "workbench.tree.indent": 23,
-  "workbench.tree.renderIndentGuides": "always"
+  "workbench.tree.renderIndentGuides": "always",
+  "editor.minimap.enabled": false
 }

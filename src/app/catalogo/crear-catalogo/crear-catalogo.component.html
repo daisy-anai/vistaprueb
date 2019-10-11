@@ -70,8 +70,6 @@
                     <input type="text" id="S[{{i}}]-nombre" class="autocomplete"
                     autocomplete="off"
                     formControlName="nombre"
-                   
-                    (change)="watchSeccionNombre(i)"
                     (ngModelChange)="autocompleteSecciones($event, i)">
                     <label for="S[{{i}}]-nombre">Titulo de sección</label>
                   </div>
@@ -119,8 +117,7 @@
                             <input type="text" id="S[{{i}}]-P[{{j}}]-nombre" class="autocomplete"
                             autocomplete="off"
                             formControlName="nombre"
-                            (change)="watchPropiedadNombre(i,j)"
-                            (ngModelChange)="autocompletePropiedades($event)">
+                            (ngModelChange)="autocompletePropiedades($event, i, j)">
                             <label for="S[{{i}}]-P[{{j}}]-nombre">Nombre de la propiedad</label>
                           </div>
                         </div>
