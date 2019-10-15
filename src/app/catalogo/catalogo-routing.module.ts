@@ -6,14 +6,13 @@ import { CrearCatalogoComponent } from './crear-catalogo/crear-catalogo.componen
 import { DetalleCatalogoComponent } from './detalle-catalogo/detalle-catalogo.component';
 import { EditarCatalogoComponent } from './editar-catalogo/editar-catalogo.component';
 import { ListarCatalogoComponent } from './listar-catalogo/listar-catalogo.component';
-import { ListaCatatalogoModalidadComponent } from './lista-catatalogo-modalidad/lista-catatalogo-modalidad.component';
 
 const routes: Routes = [
   { path: '', component: ListarCatalogoComponent },
   { path: 'detalle/:id', component: DetalleCatalogoComponent },
   { path: 'crear', component: CrearCatalogoComponent },
   { path: 'modificar/:id', component: EditarCatalogoComponent },
-  { path: 'listamodalidad/:id', component: ListaCatatalogoModalidadComponent },
+  { path: 'modalidad/:id', component: ListarCatalogoComponent },
   { path: '**', redirectTo: '' }
 ];
 

@@ -2,15 +2,6 @@
   background-color: white;
   margin-top: 3em;
   border-radius: 10px;
-
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-  top: 50%;
-  margin: 0;
-  position: absolute;
-  /*
-  max-height: 550px;
-  overflow-y: auto; */
 }
 
 @media only screen and (max-width: 600px) {
