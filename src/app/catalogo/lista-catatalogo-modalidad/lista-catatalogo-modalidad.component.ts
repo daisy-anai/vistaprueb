@@ -29,6 +29,11 @@ export class ListaCatatalogoModalidadComponent implements OnInit {
       $('.modal').modal();
     });
 
+  /**
+    @description Catalogo por Modalidad
+    @param modalidad
+  */
+ 
     this.service.getCatalogoByModalidad(this.route.snapshot.paramMap.get("id")).subscribe(result => {
       this.catalogos = result.data['catalogos']; 
       console.log(this.catalogos);

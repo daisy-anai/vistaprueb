@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AplicacionComponent } from './aplicacion/aplicacion.component';
-import { RevisionVehiculoComponent } from '../revision-cromatica/revision-vehiculo/revision-vehiculo.component';
 
 const routes: Routes = [
   {
@@ -25,10 +24,6 @@ const routes: Routes = [
       {
         path: 'vehiculo',
         loadChildren: () => import ('../vehiculo/vehiculo.module').then(m => m.VehiculoModule )
-      },
-      {
-        path:'revision/vehiculo',
-        component:RevisionVehiculoComponent
       },
       {
         path: 'catalogo',

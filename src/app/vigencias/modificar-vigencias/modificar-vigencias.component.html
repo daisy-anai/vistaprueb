@@ -1,36 +1,34 @@
-<div class="row">
-  <div class="col s12 m10 offset-m1">
-    <div class="row valign-wrapper">
-      <div class="col s12 left-align valign-wrapper">
-        <label class="title-component">Modificar Vigecia de vehículos</label>
-    </div>
+<ng-container>
+  <title-area
+  title="Modificar vigencias vehículo"
+  urn="/aplicacion/vigencias"
+  icon="arrow_back">
+  </title-area>
+
+  <div class="col  offset-s2" *ngIf="modalidad" >
+    <form [formGroup]="vigenciaForm" (ngSubmit)="modificarVigencia()">
+      <div class="input-field" >
+        <select formControlName="id_modalidad" class="browser-default">
+          <option *ngFor="let modalidad of modalidades" value="{{ modalidad.id }}"> {{ modalidad.nombre }} </option>
+        </select>
+      </div>
+
+      <div class="input-field  col s6">
+        <input  formControlName="anios_legales" type="number" min="1" class="validate">
+        <label for="first_name">Años Validos: </label>
+      </div>
+      
+      <div class="input-field col s6">
+        <input formControlName="anios_prorroga" type="number" min="0">
+        <label for="first_name">Años Prorroga:</label>
+      </div> 
+  
+      <div class="row">
+        <div class="input-field col s12  offset-m1">
+          <button type="submit" class="waves-effect waves-light btn-small right"> Modificar Vigencias</button>
+        </div>
+      </div>
+    </form>
   </div>
-</div>
-</div>
- 
 
-    <div class="col  offset-s2" *ngIf="modalidad" >
-      <form [formGroup]="vigenciaForm" (ngSubmit)="modificarVigencia()">
-        <div class="input-field" >
-          <select formControlName="id_modalidad" class="browser-default">
-            <option *ngFor="let modalidad of modalidades" value="{{ modalidad.id }}"> {{ modalidad.nombre }} </option>
-          </select>
-       </div>
-
-        <div class="input-field  col s6">
-          <input  formControlName="anios_legales" type="number" min="1" class="validate">
-          <label for="first_name">Años Validos: </label>
-        </div>
-        
-        <div class="input-field col s6">
-          <input formControlName="anios_prorroga" type="number" min="0">
-          <label for="first_name">Años Prorroga:</label>
-        </div> 
-    
-        <div class="row">
-          <div class="input-field col s12  offset-m1">
-            <button type="submit" class="waves-effect waves-light btn-small right"> Modificar Vigencias</button>
-          </div>
-        </div>
-      </form>
-    </div>
+</ng-container>

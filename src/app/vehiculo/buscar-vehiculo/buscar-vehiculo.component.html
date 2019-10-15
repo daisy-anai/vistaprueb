@@ -1,84 +1,80 @@
 <ng-container>
-  <title-area
-    title="Validación de vehículo"
-    urn="/aplicacion/concesion/busqueda"
-    icon="arrow_back">
-  </title-area>
-
-  <div class="search-card">
-    <div class="row search">
-      <div class="col s12 m10 offset-m1">
-        <input name="filtro" id="filtro" class="browser-default placeholder-fix"
-        (keydown.enter)="onKeyDown($event)"
-        placeholder="Buscar vehículo" type="search" autofocus
-        autocomplete="off" [(ngModel)]="filtro">
-      </div>
-    </div>
-
-    <div class="row options">
-      <div class="col s12 m10 offset-m1">
-        <div class="row">
-          <div class="col s12 right-align">
-            <a class="waves-effect waves-light grey btn-small grey lighten-4 black-text" (click)="buscar()">
-              <i class="material-icons right">search</i> Buscar
-            </a>
+  <semovi-card>
+    <title-area
+      title="Validación de vehículo"
+      urn="/aplicacion/concesion/busqueda"
+      icon="arrow_back">
+    </title-area>
+    <semovi-card-body>
+      <semovi-input-search>
+          <input name="filtro" id="filtro" class="browser-default placeholder-fix"
+          (keydown.enter)="onKeyDown($event)"
+          placeholder="Buscar vehículo" type="search" autofocus
+          autocomplete="off" [(ngModel)]="filtro">
+      </semovi-input-search>
+      <div class="search-card">
+        <div class="row options">
+          <div class="col s12 m10 offset-m1">
+            <div class="row">
+              <div class="col s12 right-align">
+                <a class="waves-effect waves-light grey btn-small grey lighten-4 black-text" (click)="buscar()">
+                  <i class="material-icons right">search</i> Buscar
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <div class="row" *ngIf="loading">
-    <div class="col s8 offset-s2">
-      <div class="progress">
-        <div class="indeterminate"></div>
+      <div class="row" *ngIf="loading">
+        <div class="col s8 offset-s2">
+          <div class="progress">
+            <div class="indeterminate"></div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-
-  <div *ngIf="vehiculo" class="result-card row">
-    <ul class="col s12 m8 offset-m2">
-      <li class="row z-depth-2"
-      [ngClass]="{'resultPointerNotAllowed': !permitido(vehiculo), 'resultPointerAllowed': permitido(vehiculo)}"
-      (click)="redirect(vehiculo)">
-        <div class="">
-          <div class="">
-            <label class="title">Número de serie</label>
-            <label class="info"> {{vehiculo.serie}} </label>
-          </div>
-          <div class="">
-            <label class="title">Número de motor:</label>
-            <label class="info"> {{vehiculo.id}} </label>
-          </div>
-          <div class="">
-            <label class="title">Año modelo:</label>
-            <label class="info"> {{vehiculo.anioModelo}} </label>
-          </div>
-          <div class="" *ngIf="vehiculo.numeroEconomico">
-            <label class="title">Número economico:</label>
-            <label class="info"> {{vehiculo.numeroEconomico}} </label>
-          </div>
-          <div class="">
-            <label class="title">Tipo:</label>
-            <label class="info"> {{vehiculo.tipo.nombre}} - {{vehiculo.marca.nombre}} </label>
-          </div>
-          <div class="">
-            <div class="">
-              <label class="title">Estado del vehiculo:</label>
-              <label class="info" [ngClass]="{
+      <semovi-list *ngIf="vehiculo" class="result-card row">
+        <ul class="col s12 m8 offset-m2">
+          <semovi-item class="row z-depth-2"
+            [ngClass]="{'resultPointerNotAllowed': !permitido(vehiculo), 'resultPointerAllowed': permitido(vehiculo)}"
+            (click)="redirect(vehiculo)">
+            <semovi-label-group>
+              <semovi-label class="title">Número de serie</semovi-label>
+              <semovi-label class="info"> {{vehiculo.serie}} </semovi-label>
+            </semovi-label-group>
+            <semovi-label-group>
+              <semovi-label class="title">Número de motor:</semovi-label>
+              <semovi-label class="info"> {{vehiculo.id}} </semovi-label>
+              </semovi-label-group>
+            <semovi-label-group>
+              <semovi-label class="title">Año modelo:</semovi-label>
+              <semovi-label class="info"> {{vehiculo.anioModelo}} </semovi-label>
+            </semovi-label-group>
+    
+            <semovi-list *ngIf="vehiculo.numeroEconomico">
+              <semovi-label class="title">Número economico:</semovi-label>
+              <semovi-label class="info"> {{vehiculo.numeroEconomico}} </semovi-label>
+              </semovi-list>
+            <semovi-label-group>
+              <semovi-label class="title">Tipo:</semovi-label>
+              <semovi-label class="info"> {{vehiculo.tipo.nombre}} - {{vehiculo.marca.nombre}} </semovi-label>
+            </semovi-label-group>
+              <semovi-label-group>
+                <semovi-label class="title">Estado del vehiculo:</semovi-label>
+                <semovi-label class="info" [ngClass]="{
                 'redLabel': vehiculo.estatus != 'A',
                 'greenLabel': vehiculo.estatus == 'A'
-              }"> {{vehiculo.estatus == 'A' ? 'Activo' : 'Bloqueado'}} </label>
-            </div>
-            <div class="">
-              <a *ngIf="permitido(vehiculo)"
-                class="btn-floating btn-small waves-effect waves-light pink right">
-                <i class="material-icons">arrow_forward</i>
-              </a>
-            </div>
-          </div>
-        </div>
-      </li>
-    </ul>
-  </div>
+                }"> {{vehiculo.estatus == 'A' ? 'Activo' : 'Bloqueado'}} </semovi-label>
+            </semovi-label-group>
+              <semovi-label>
+                <a *ngIf="permitido(vehiculo)"
+                  class="btn-floating btn-small waves-effect waves-light pink right">
+                  <i class="material-icons">arrow_forward</i>
+                </a>
+              </semovi-label>
+          </semovi-item>
+        </ul>       
+      </semovi-list>
+    </semovi-card-body>
+  </semovi-card>
 </ng-container>

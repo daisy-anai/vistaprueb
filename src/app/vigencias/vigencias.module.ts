@@ -10,6 +10,7 @@ import { VigenciasRoutingModule } from './vigencias-routing.module';
 import { CrearVigenciasComponent } from './crear-vigencias/crear-vigencias.component';
 import { ListarVigenciasComponent } from './listar-vigencias/listar-vigencias.component';
 import { ModificarVigenciasComponent } from './modificar-vigencias/modificar-vigencias.component';
+import { ComponentsModule } from '../shared/components/components.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ModificarVigenciasComponent } from './modificar-vigencias/modificar-vig
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    VigenciasRoutingModule
+    VigenciasRoutingModule,
+    ComponentsModule
   ]
 })
 export class VigenciasModule { }

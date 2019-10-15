@@ -86,44 +86,36 @@ export class EditarCatalogoComponent implements OnInit {
     }, error => {
       console.log(error);
     });
-
-
   }
+
+  /**
+    @description Nombre Catalogo
+    @param catalogo
+  */
+  watchCatalogoNombre(): Boolean {
+    let value = this.catalogoForm.get('nombre').value.toLowerCase().trim();
+      if(this.catalogos){
+        const result = this.catalogos.filter(word => word.nombre.toLowerCase().trim() === value);
+        return result.length >= 1 ? true : false;
+      }
+        return false;
+  }
+
+  /**
+    @description Seleccion de secciones
+    @param seccion
+  */
   watchSeccionNombre(seccion: Number):void {
     let value = (<HTMLInputElement>document.getElementById(`S[${seccion}]-nombre`)).value.toLowerCase().trim();
     for(var i = 0; i < this.secciones.length; i++){
-    if(this.secciones[i].nombre.toLowerCase() == value.toLowerCase()){
-      this.catalogoForm.controls.secciones['controls'][seccion].controls.nombre.setValue(this.secciones[i].nombre);
-      this.catalogoForm.controls.secciones['controls'][seccion].controls.id_seccion.setValue(parseInt(this.secciones[i].id));
-      this.secciones.splice(i,1);
-    }
-   }
-  }
-
-  //seleccion de propiedades
-  watchPropiedadNombre(seccion: number,propiedad: number): void{
-    let value = (<HTMLInputElement>document.getElementById(`S[${seccion}]-P[${propiedad}]-nombre`)).value.toLowerCase().trim();
-    if(this.propiedades){
-      let result = this.propiedades.filter(word => word.nombre.toLowerCase().trim() === value)
-      if(result.length == 0){
-        this.catalogoForm.controls.secciones['controls'][seccion].controls.propiedades.controls[propiedad].controls.nombre.setValue(value);
-      }else{
-        // this.catalogoForm.controls.secciones[propiedades].controls[propiedad].controls.id_propiedad.setValue(result[0].id);
-        this.catalogoForm.controls.secciones['controls'][seccion].controls.propiedades.controls[propiedad].controls.id_propiedad.setValue(result[0].id);
+      if(this.secciones[i].nombre.toLowerCase() == value.toLowerCase()){
+        this.catalogoForm.controls.secciones['controls'][seccion].controls.nombre.setValue(this.secciones[i].nombre);
+        this.catalogoForm.controls.secciones['controls'][seccion].controls.id_seccion.setValue(parseInt(this.secciones[i].id));
+        this.secciones.splice(i,1);
       }
     }
   }
 
-  watchCatalogoNombre(): Boolean {
-    let value = this.catalogoForm.get('nombre').value.toLowerCase().trim();
-    if(this.catalogos){
-      const result = this.catalogos.filter(word => word.nombre.toLowerCase().trim() === value);
-      return result.length >= 1 ? true : false;
-    }
-    return false;
-  }
-
-  // Control de las secciones
   addSeccion() {
     this.totalSecciones += 1;
     this.seccionesController();
@@ -165,6 +157,23 @@ export class EditarCatalogoComponent implements OnInit {
       data: datos
     });
 
+  }
+
+   /**
+    @description Seleccion de propiedades
+    @param propiedad
+  */
+  watchPropiedadNombre(seccion: number,propiedad: number): void{
+    let value = (<HTMLInputElement>document.getElementById(`S[${seccion}]-P[${propiedad}]-nombre`)).value.toLowerCase().trim();
+    if(this.propiedades){
+      let result = this.propiedades.filter(word => word.nombre.toLowerCase().trim() === value)
+      if(result.length == 0){
+        this.catalogoForm.controls.secciones['controls'][seccion].controls.propiedades.controls[propiedad].controls.nombre.setValue(value);
+      }else{
+        // this.catalogoForm.controls.secciones[propiedades].controls[propiedad].controls.id_propiedad.setValue(result[0].id);
+        this.catalogoForm.controls.secciones['controls'][seccion].controls.propiedades.controls[propiedad].controls.id_propiedad.setValue(result[0].id);
+      }
+    }
   }
 
   addPropiedad(seccion: number) {
@@ -213,17 +222,14 @@ export class EditarCatalogoComponent implements OnInit {
 
 
   }
+ /**
+    @description Modificar Catalogo Mutation
+    @param Modificar
+  */
 
-  //modificar catalogo
   modificarCatalogo(){
     console.log(this.catalogoForm.value);
     const seccion = this.catalogoForm.value.secciones;
-   // console.log(seccion);
 
   }
-   asignarVariable(catalogo:any){
-     this.catalogo =catalogo.catalogo;
-     console.log(this.catalogo);
-
-   }
 }

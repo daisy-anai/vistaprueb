@@ -1,9 +1,10 @@
 <!--Crear Catalogo -->
 <ng-container >
-  <title-area title="Crear catálogo" icon="arrow_back" urn="/aplicacion/catalogo/listar">
   
+  <title-area title="Crear catálogo" icon="arrow_back" urn="/aplicacion/catalogo/listar"> 
   </title-area>
-</ng-container >
+</ng-container>
+
 
 <div class="">
   <div class="row">
@@ -12,9 +13,8 @@
       <form [formGroup]="catalogoForm" (ngSubmit)="crearCatalogo()">
         <div class="input-field" >
           <input id="nombre_catalogo" type="text" class="validate"
-            valido 
-            formControlName="nombre"
-            autocomplete="off">
+            valido formControlName="nombre" autocomplete="off"
+            >
           <label for="nombre_catalogo">Nombre del catalogo</label>
         </div>
 
@@ -68,8 +68,7 @@
                   <div class="input-field col s12">
                     <i class="material-icons prefix">textsms</i>
                     <input type="text" id="S[{{i}}]-nombre" class="autocomplete"
-                    autocomplete="off"
-                    formControlName="nombre"
+                    autocomplete="off" formControlName="nombre"
                     (ngModelChange)="autocompleteSecciones($event, i)">
                     <label for="S[{{i}}]-nombre">Titulo de sección</label>
                   </div>
@@ -104,7 +103,7 @@
                           <p class="card-title">Propiedad {{j + 1}}</p>
                         </div>
                         <div class="col s6 right-align">
-                          <a class="btn-floating btn-large waves-effect waves-light red btn-small red darken-2 " (click)="removePropiedad(i, propiedad)">
+                          <a class="btn-floating btn-large waves-effect waves-light red btn-small red darken-2 " (click)="removePropiedad(i)">
                             <i class="material-icons">remove</i>
                           </a>
                         </div>
@@ -117,6 +116,7 @@
                             <input type="text" id="S[{{i}}]-P[{{j}}]-nombre" class="autocomplete"
                             autocomplete="off"
                             formControlName="nombre"
+                            
                             (ngModelChange)="autocompletePropiedades($event, i, j)">
                             <label for="S[{{i}}]-P[{{j}}]-nombre">Nombre de la propiedad</label>
                           </div>
@@ -134,11 +134,11 @@
                 </div>
               </div>
             </div>
+            <!--End propiedades-->
           </div>
         </div>
         <div class="row">
           <div class="col s12">
-           <!--<a class="waves-effect waves-light btn-small left" >Previsualizar</a>-->
             <button type="submit" class="waves-effect waves-light btn-small right"> Registrar catalogo</button>
           </div>
         </div>
@@ -147,3 +147,4 @@
   </div>
 </div>
 <div>
+

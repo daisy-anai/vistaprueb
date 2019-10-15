@@ -1,40 +1,40 @@
 
-<div class="row">
-    <div class="col s12 m10 offset-m1">
-      <div class="row valign-wrapper">
-        <div class="col s12 left-align valign-wrapper">
-          <label class="title-component">Vigecia de vehículos</label>
-      </div>
-    </div>
-  </div>
-
-<div class="">
-  <div class="row">
-    <div class="col s8 offset-s2">
-      <form [formGroup]="catalogoForm" (ngSubmit)="crearVigencia()">
-        <div class="input-field" >
-          <select formControlName="id_modalidad" class="browser-default">
-            <option value="" disabled selected>Elige una opción</option>
-            <option *ngFor="let modalidad of modalidades" value="{{ modalidad.id }}"> {{ modalidad.nombre }} </option>
-          </select>
-        </div>
-
-        <div class="input-field col s6">
-          <input  formControlName="anios_legales" type="number" min="1" class="validate">
-          <label for="first_name">Años Validos: </label>
-         </div>
-        
-        <div class="input-field col s6">
-          <input formControlName="anios_prorroga" type="number" min="0">
-          <label for="first_name">Años Prorroga:</label>
-        </div> 
-    
+<ng-container>
+  <semovi-card>
+  <semovi-card-header title="Vigencia de Vehículo" icon="directions_car"></semovi-card-header>
+    <semovi-card-body>
+      
+      <div class="">
         <div class="row">
-          <div class="nput-field col s12  offset-m1">
-            <button type="submit" [disabled]="!catalogoForm.valid" class="waves-effect waves-light btn-small right"> Crear Vigencias</button>
+          <div class="col s8 offset-s2">
+            <form [formGroup]="catalogoForm" (ngSubmit)="crearVigencia()">
+              <div class="input-field" >
+                <select formControlName="id_modalidad" class="browser-default">
+                  <option value="" disabled selected>Elige una opción</option>
+                  <option *ngFor="let modalidad of modalidades" value="{{ modalidad.id }}"> {{ modalidad.nombre }} </option>
+                </select>
+              </div>
+
+              <div class=" col s6">
+                <input  formControlName="anios_legales" type="number" min="1" class="validate">
+                <label for="first_name">Años Validos: </label>
+              </div>
+              
+              <div class="col s6">
+                <input formControlName="anios_prorroga" type="number" min="0">
+                <label for="first_name">Años Prorroga:</label>
+              </div> 
+          
+              <div class="row">
+                <div class="nput-field col s12  offset-m1">
+                  <button type="submit" [disabled]="!catalogoForm.valid" class="waves-effect waves-light btn-small right"> Crear Vigencias</button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
-      </form>
-    </div>
-  </div>
-</div>
+      </div>
+
+    </semovi-card-body>
+  </semovi-card>
+</ng-container>

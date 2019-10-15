@@ -16,22 +16,26 @@ import { Modalidad } from '../../shared/models/modalidad';
 })
 export class ListarVigenciasComponent implements OnInit {
   public modalidades: Array<Modalidad>;
-
+  public filtro: string;
   constructor(
     private service ?: VigenciasService,
     private serviceCatalogo ?: CatalogoService
   ) {}
 
   ngOnInit() {
+
+  /**
+    @description Lista vigencia por modalidad
+    @param vigenciaByModalidad
+  */
     this.serviceCatalogo.getModalidades().subscribe(result => {
       this.modalidades = result.data['modalidades'];
       for (let modalidad of this.modalidades) {
         this.service.getVigenciasModalidadByID(modalidad.id).subscribe(result =>{
           modalidad.vigencia = result.data['vigenciaByModalidad'];   
-
         });
       }      
     });   
-  
+ 
   }
 }

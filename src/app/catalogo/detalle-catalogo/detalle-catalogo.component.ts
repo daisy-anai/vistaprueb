@@ -34,11 +34,16 @@ export class DetalleCatalogoComponent implements OnInit {
     });
   }
 
+  /**
+    @description Eliminar Catalogo
+    @param eliminarCatalogo
+  */
+
   eliminarCatalogo(id: Number){
-    this.service.deleteCatalogo(id).subscribe((result)  => {
+    this.service.deleteCatalogo(id).subscribe(result  => {
       this.router.navigate(['aplicacion/catalogo/listar'])
     }, (error) => {
-        console.log('error');
+        console.log(error);
     });
   }
 }

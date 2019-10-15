@@ -2,7 +2,6 @@ import { Component, OnInit, TestabilityRegistry, Input, OnDestroy } from '@angul
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Apollo} from 'apollo-angular';
-import gql from 'graphql-tag';
 
 // Models
 import { Modalidad } from '../../shared/models/modalidad';
@@ -14,8 +13,6 @@ import { Catalogo } from '../../shared/models/catalogo';
 import { DetalleCatalogo} from '../../shared/models/detalleCatalogo';
 import { SeccionVO} from '../../shared/models/seccion.vo';
 import { HelpSeccion } from '../../shared/models/helpSeccion';
-import { HelpPropiedad } from 'src/app/shared/models/helpPropiedad';
-
 
 // Services
 import {CatalogoService} from '../catalogo.service';
@@ -23,6 +20,8 @@ import { IfStmt } from '@angular/compiler';
 import { isFulfilled } from 'q';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { type } from 'os';
+import { format } from 'path';
+
 declare var M: any;
 
 @Component({
@@ -42,7 +41,7 @@ export class CrearCatalogoComponent implements OnInit {
   public seccionesForm: any;
 
   public totalSecciones: number = 0;
-
+  public totalPropiedades: number=0;
   constructor(
     private apollo?: Apollo,
     private service?: CatalogoService,
@@ -51,6 +50,7 @@ export class CrearCatalogoComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+ 
     this.service.getCatalogos().subscribe(result => {
       this.catalogos = result.data['catalogos'];
     });
@@ -82,6 +82,19 @@ export class CrearCatalogoComponent implements OnInit {
       secciones: new FormArray([], Validators.required)
     });
   }
+  /**
+    @description Nombre del catalogo
+    @param catalogo
+  */
+
+   watchCatalogoNombre(): Boolean {
+    let value = this.catalogoForm.get('nombre').value.toLowerCase().trim();
+    if(this.catalogos){
+      const result = this.catalogos.filter(word => word.nombre.toLowerCase().trim() === value);
+      return result.length >= 1 ? true : false;
+    }
+    return false;
+  }
 
   /**
     @description Selección de secciones
@@ -98,29 +111,12 @@ export class CrearCatalogoComponent implements OnInit {
     let help = this.catalogoForm.get('secciones').value;
     for (let i = 0; i < help.length && i != seccion; i++) {      
       if(help[i].nombre.toLowerCase().trim() == nombre.toLowerCase().trim()){
-       return true;
+        return true;
       }
     }
     return false;
   }
     
- 
-
-
-  watchCatalogoNombre(): Boolean {
-    let value = this.catalogoForm.get('nombre').value.toLowerCase().trim();
-    if(this.catalogos){
-      const result = this.catalogos.filter(word => word.nombre.toLowerCase().trim() === value);
-      return result.length >= 1 ? true : false;
-    }
-    return false;
-  }
-
-  /**
-    @description control  de secciones
-    @param addSeccion
-    @param removeSeccion
-  */
   addSeccion() {
     this.totalSecciones += 1;
     this.seccionesController();
@@ -178,9 +174,13 @@ export class CrearCatalogoComponent implements OnInit {
       data: datos
     }); 
   }
+ 
+ 
+ /**
+    @description Selección de propiedades
+    @param propiedad
+  */
 
-  // S E C C I O N E S 
-   //seleccion de propiedades
   watchPropiedadNombre(nombre: string, seccion: number, propiedad: number): Boolean {   
     let words = this.propiedades.filter(it => {
       return it.nombre.toLocaleLowerCase().trim() == nombre.toLowerCase().trim();    
@@ -190,47 +190,54 @@ export class CrearCatalogoComponent implements OnInit {
       return true; 
       
     let secc = this.catalogoForm.get('secciones').value; 
-    for (let index = 0; index < secc.length; index++) {
-      console.log(index, "--", secc);      
-      let help = secc[index].propiedades; 
-      // 
-      for (let i = 0; i < help.length; i++) {      
-        console.log(nombre.toLowerCase().trim(), "--", nombre.toLowerCase().trim())
-        // if(help[i].nombre.toLowerCase().trim() == nombre.toLowerCase().trim()){
-        //   console.log("Nombre repetido");
-        //   return true;
-        // }
-      }      
-    }
-
+    for (let index = 0; index < secc.length; index++) {       
+      let help = secc[index].propiedades;   
+      for (let i = 0; i < help.length ; i++) {                  
+        if(help[i].nombre.toLowerCase().trim() == nombre.toLowerCase().trim())   
+          console.log("Nombre repetido");
+          return true; 
+         }
+      }
     return false; 
   }
 
   addPropiedad(seccion: number) {
     let valor = this.propiedadesControls(seccion).length;
     this.propiedadesForm(seccion, valor+=1);
+    console.log("addvalor",valor);
+    
+  }
+   remove(index : number){
+    let valor = this.propiedadesControls(index).length;
+    this.newpropiedades(index, valor-=1);  
+
+   }
+   newpropiedades(index: any, valor: any){
+    let controles = this.seccionesForm.controls;
+    let secciones = controles.secciones as FormArray;
+    secciones.controls.splice(index,1);
+   }
+ 
+  removePropiedad(index: number, propiedad: any) {
+    // let controles = this.seccionesForm[index]['controls']['propiedades'].value; 
+    // console.log("controles",controles); 
+    console.log("index",index); 
+    let valor = this.propiedadesControls(index).length;
+    console.log("vaLOR",valor); 
+    this.propiedadesForm(index, valor-=1);  
   }
 
-  removePropiedad(seccion: number, propiedad : any) { 
-
-    // let propiedadesNew= new HelpPropiedad;
-    // propiedadesNew.id= propiedad.value.nombre;
-    // propiedadesNew.nombre= propiedad.value.nombre;
-    // propiedadesNew.estatus = true;
-    // propiedadesNew.tipoPropiedad=propiedad.value.tipoPropiedad;
-    // this.propiedades.push(propiedadesNew);
-
-    let valor = this.propiedadesControls(seccion).length;
-    this.propiedadesForm(seccion, valor-=1);     
+  propiedadesControls(index: any) {
+    let controles = this.seccionesForm;
+    let propiedades = controles.propiedades as FormArray;
+   return  this.seccionesForm[index]['controls']['propiedades'] as FormArray; 
+     
   }
-
-  propiedadesControls(seccion) {
-    return this.seccionesForm[seccion]['controls']['propiedades'] as FormArray;
-  }
-
+ 
   propiedadesForm(seccion: number, valor: number) {
-    let propiedades = this.propiedadesControls(seccion);
 
+    let propiedades = this.propiedadesControls(seccion);
+  
     if(propiedades.length < valor){
       for (let i = propiedades.length; i < valor; i++) {
         propiedades.push(this.formBuilder.group({
@@ -260,70 +267,20 @@ export class CrearCatalogoComponent implements OnInit {
   }
 
   /**
-    @description mutación para crear catalogo
+    @description Crear Catalogo Mutation
     @param createdCatalogo
   */
+ 
   crearCatalogo(){
    const id_modalidad = this.catalogoForm.value.id_modalidad;
    const id_tipo_catalogo= this.catalogoForm.value.id_tipo_catalogo;
    const nombre= this.catalogoForm.value.nombre;
    const seccion = this.catalogoForm.value.secciones;
 
-   const createdCatalogo= gql`
-   mutation crear($id_modalidad:ID!, $id_tipo_catalogo:ID!, $nombre:String!, $secciones:[SeccionesInput!]!){
-    catalogo (id_modalidad:$id_modalidad,id_tipo_catalogo:$id_tipo_catalogo, nombre:$nombre,secciones:$secciones){
-      id
-      nombre
-      estatus
-      createdAt
-      tipoCatalogo {
-        id
-        nombre
-        estatus
-        createdAt
-      }
-      modalidad {
-        id
-        nombre
-        descripcion
-        estatus
-        abreviatura
-      }
-      secciones {
-        id
-      	nombre
-        propiedades {
-          id
-          nombre
-          tipoPropiedad {
-            id
-            nombre
-            estatus
-            createdAt
-          }
-        }
-        estatus
-        createdAt
-      }
-    }
-  }`;
-
-    this.apollo.use('backrevista')
-    .mutate({
-      mutation: createdCatalogo,
-      variables: {
-      id_modalidad: id_modalidad,
-      id_tipo_catalogo: id_tipo_catalogo,
-      nombre: nombre,
-      secciones: seccion
-      }
-    })
-    .subscribe((result) => {
-      console.log(result.data['catalogo']);
-      this.router.navigateByUrl('aplicacion/catalogo/listar')
-      }, (error) => {
-        console.log(error);
+   this.service.createCatalogo(id_modalidad,id_tipo_catalogo,nombre,seccion).subscribe(result =>{
+    this.router.navigate(['aplicacion/catalogo/listar'])
+    },error =>{
+      console.log(error);     
     });
-
   }
 }

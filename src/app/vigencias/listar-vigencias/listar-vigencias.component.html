@@ -1,35 +1,36 @@
-<div class="row valign-wrapper">
-    <div class="col">
-      <h5 class="" > Vigencias  </h5>
-    </div>
-</div>
-
-<div class="search-card" style="margin-top: -1em; margin-bottom: 3em">
-    <div class="row search">
-      <div class="col s12 m8 offset-m2">
+<ng-container>
+  <semovi-card>
+    <semovi-card-header title="Vigencias" icon="arrow_back" urn="/aplicacion/concesion/busqueda" [options]="[
+      {
+        urn: '/aplicacion/vigencias/crear',
+        icon: 'add'
+      }
+      ]">
+    </semovi-card-header> 
+    <semovi-card-body>
+      <semovi-input-search>
         <input name="filtro" id="filtro" class="browser-default placeholder-fix"
         placeholder="Buscar" type="search" autofocus
-        >
-      </div>
-    </div>
-  </div>
+        autocomplete="off" [(ngModel)]="filtro">
+      </semovi-input-search>
 
+          <!--let modalidad of modalidades| search: filtro">-->
+   <semovi-item *ngFor="let modalidad of modalidades">
+      <semovi-label> {{ modalidad.nombre }} </semovi-label>
+      
+    <semovi-list *ngIf="modalidad.vigencia" >
+      <semovi-label> Años vigencia: {{ modalidad.vigencia.anios_legales }}</semovi-label>
+      <semovi-label> Años prorroga: {{ modalidad.vigencia.anios_prorroga }} </semovi-label>
+    </semovi-list>
 
-  <div  class="result-card row">
-    <ul class="col s12 m8 offset-m2">
-      <li *ngFor="let modalidad of modalidades" class="row z-depth-2">
-        <div class="col s6">
-          <label > {{ modalidad.nombre }} </label>
-          <div *ngIf="modalidad.vigencia">
-            <label>Años vigencia: {{ modalidad.vigencia.anios_legales }}</label>
-            <label>Años prorroga: {{ modalidad.vigencia.anios_prorroga }}</label>
-          </div>
-        </div>             
-        <div class="s6 right-align" *ngIf="modalidad.vigencia">
-          <a class="btn-floating btn-small"
-          [routerLink]="['/aplicacion/vigencias/modificar', modalidad.vigencia.id ]">
-          <i class="material-icons">info</i></a>
-        </div>
-      </li>
-    </ul>
-  </div>
+    <semovi-list *ngIf="modalidad.vigencia">
+      <semovi-label>
+        <a class="btn-floating btn-small"
+        [routerLink]="['/aplicacion/vigencias/modificar', modalidad.vigencia.id ]">
+        <i class="material-icons">info</i></a>
+      </semovi-label>
+    </semovi-list>         
+      </semovi-item>
+    </semovi-card-body>
+  </semovi-card>  
+</ng-container>

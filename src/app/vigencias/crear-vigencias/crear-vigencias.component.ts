@@ -36,6 +36,11 @@ export class CrearVigenciasComponent implements OnInit {
     });
   }
   
+  /**
+    @description Crear Vigencia Mutation
+    @param crearVigencia
+  */
+ 
   crearVigencia(){
     console.log(this.catalogoForm.value);
     const id_modalidad = this.catalogoForm.value.id_modalidad;

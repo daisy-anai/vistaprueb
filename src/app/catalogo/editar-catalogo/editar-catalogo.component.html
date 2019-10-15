@@ -1,3 +1,13 @@
+<ng-container>
+  <semovi-card>
+      <title-area
+      title="Modificacion de Catalogos"
+      urn="/aplicacion/catalogo/listar"
+      icon="arrow_back">
+      </title-area>
+    </semovi-card>
+</ng-container>
+
 <div class="" *ngIf="catalogo">
   <div class="row">
     <div class="col s8 offset-s2">
@@ -18,7 +28,7 @@
         <!-- Catalogo -->
         <div class="input-field" >
           <input id="nombre_catalogo" type="text" class="validate"
-            valido formControlName="nombre" autocomplete="off">
+            valido formControlName="nombre" autocomplete="off" (change)="watchCatalogoNombre()">
           <label for="nombre_catalogo">Nombre del Catalogo</label>
         </div>
 

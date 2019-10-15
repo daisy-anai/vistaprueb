@@ -43,20 +43,21 @@ export class ModificarVigenciasComponent implements OnInit {
     });
 
     this.service.getModalidades().subscribe(result => {
-      this.modalidades = result.data['modalidades'];   
-      
-    });
-        
-    
+      this.modalidades = result.data['modalidades'];         
+    });         
   }
   
+  /**
+    @description Modificar Vigencia
+    @param modificarVigencia
+  */
+
   modificarVigencia(){
     console.log(this.vigenciaForm.value.id_modalidad);
     let id = parseInt(this.route.snapshot.paramMap.get("id"));
     let id_modalidad = this.vigenciaForm.value.id_modalidad
     let anios_legales= this.vigenciaForm.value.anios_legales;
     let anios_prorroga = this.vigenciaForm.value.anios_prorroga;
-
     this.service.modificarVigencias(id,id_modalidad,anios_legales,anios_prorroga).subscribe(result =>{
       this.router.navigate(['/aplicacion/vigencias/listar']);
      });

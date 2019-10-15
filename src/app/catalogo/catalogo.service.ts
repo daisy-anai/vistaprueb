@@ -3,8 +3,6 @@ import { Observable, Subscription } from 'rxjs';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 
-import { environment } from '../../environments/environment';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -213,6 +211,55 @@ export class CatalogoService {
       }`,
       variables: {
         id: id
+      }
+    });
+  }
+
+  createCatalogo(id_modalidad :String, id_tipo_catalogo: String, nombre: string,seccion: any){
+    return this.apollo.use('backrevista').mutate({
+      mutation: gql`
+      mutation crear($id_modalidad:ID!, $id_tipo_catalogo:ID!, $nombre:String!, $secciones:[SeccionesInput!]!){
+        catalogo (id_modalidad:$id_modalidad,id_tipo_catalogo:$id_tipo_catalogo, nombre:$nombre,secciones:$secciones){
+          id
+          nombre
+          estatus
+          createdAt
+          tipoCatalogo {
+            id
+            nombre
+            estatus
+            createdAt
+          }
+          modalidad {
+            id
+            nombre
+            descripcion
+            estatus
+            abreviatura
+          }
+          secciones {
+            id
+            nombre
+            propiedades {
+              id
+              nombre
+              tipoPropiedad {
+                id
+                nombre
+                estatus
+                createdAt
+              }
+            }
+            estatus
+            createdAt
+          }
+        }
+      }`,
+      variables:{
+      id_modalidad: id_modalidad,
+      id_tipo_catalogo: id_tipo_catalogo,
+      nombre: nombre,
+      secciones: seccion
       }
     });
   }

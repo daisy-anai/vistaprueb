@@ -1,9 +1,8 @@
 import { TipoPropiedad } from './tipoPropiedad';
 export class HelpPropiedad   {
-
+  id: Number;
   nombre: string;
   tipoPropiedad: TipoPropiedad;
-  id: Number;
   estatus: Boolean;
   createAt: Date;
 }
