@@ -13,10 +13,14 @@
 
 .semovi-header-card .icon {
   margin-right: 15px;
-  margin-top: 2px;
+  margin-top: 4px;
 }
 
 @media only screen and (max-width: 600px) {
+  .semovi-header-card {
+    border-radius: 0;
+  }
+
   .semovi-header-card .title {
     font-size: 14px;
     letter-spacing: 1px;

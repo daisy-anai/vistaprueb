@@ -15,6 +15,7 @@ import { SemoviListComponent } from './semovi-list/semovi-list.component';
 import { SemoviItemComponent } from './semovi-item/semovi-item.component';
 import { SemoviLabelGroupComponent } from './semovi-label-group/semovi-label-group.component';
 import { SemoviLabelComponent } from './semovi-label/semovi-label.component';
+import { SemoviPreloadingComponent } from './semovi-preloading/semovi-preloading.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { SemoviLabelComponent } from './semovi-label/semovi-label.component';
     SemoviItemComponent,
     SemoviLabelComponent,
     SemoviLabelGroupComponent,
+    SemoviPreloadingComponent,
   ],
   imports: [
     CommonModule,
@@ -47,6 +49,7 @@ import { SemoviLabelComponent } from './semovi-label/semovi-label.component';
     SemoviItemComponent,
     SemoviLabelComponent,
     SemoviLabelGroupComponent,
+    SemoviPreloadingComponent
   ]
 })
 export class ComponentsModule { }

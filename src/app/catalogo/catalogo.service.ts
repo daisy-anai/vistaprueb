@@ -53,8 +53,9 @@ export class CatalogoService {
         }
     }).valueChanges;
   }
+
 //modalidad del catalogo
-  getCatalogoByModalidad(id:string){
+  getCatalogosByModalidad(id:string){
     return this.apollo.use('backrevista').watchQuery({
       query: gql`
       query($id_modalidad:ID!){
@@ -80,7 +81,7 @@ export class CatalogoService {
       }
     }).valueChanges;
   }
-  
+
   getCatalogoByID(id:Number){
     return this.apollo.use('backrevista').watchQuery({
         query: gql`

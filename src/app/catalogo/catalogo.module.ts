@@ -12,7 +12,6 @@ import { CrearCatalogoComponent } from './crear-catalogo/crear-catalogo.componen
 import { DetalleCatalogoComponent } from './detalle-catalogo/detalle-catalogo.component';
 import { EditarCatalogoComponent } from './editar-catalogo/editar-catalogo.component';
 import { ListarCatalogoComponent } from './listar-catalogo/listar-catalogo.component';
-import { ListaCatatalogoModalidadComponent } from './lista-catatalogo-modalidad/lista-catatalogo-modalidad.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +19,6 @@ import { ListaCatatalogoModalidadComponent } from './lista-catatalogo-modalidad/
     DetalleCatalogoComponent,
     EditarCatalogoComponent,
     ListarCatalogoComponent,
-    ListaCatatalogoModalidadComponent
   ],
   imports: [
     CommonModule,

@@ -1,1 +1,24 @@
-<p>listar-modalidad works!</p>
+<ng-container>
+  <semovi-card>
+    <semovi-card-header title="Configuración" icon="arrow_back" urn="/aplicacion/concesion/busqueda"></semovi-card-header>
+
+    <semovi-card-body>
+      <semovi-input-search>
+        <input name="filtro" id="filtro" class="browser-default placeholder-fix"
+        placeholder="Buscar" type="search" autofocus
+        autocomplete="off" [(ngModel)]="filtro">
+      </semovi-input-search>
+
+      <semovi-list *ngIf="modalidades">
+        <semovi-item *ngFor="let modalidad of modalidades">
+          <semovi-label> {{modalidad.nombre}} </semovi-label>
+          <semovi-label>
+            <a class="btn-floating btn-small right"
+            [routerLink]="['/aplicacion/catalogo/modalidad', modalidad.id]">
+            <i class="material-icons">info</i></a>
+          </semovi-label>
+        </semovi-item>
+      </semovi-list>
+    </semovi-card-body>
+  </semovi-card>
+</ng-container>
