@@ -1,14 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-// Modulos
-import { CoreModule } from "./core/core.module";
+// Modules
+import { ComponentsModule } from './shared/components/components.module';
 import { AuthModule } from "./auth/auth.module";
-import { UserModule } from "./user/user.module";
+import { UsuarioModule } from './usuario/usuario.module';
 
 // Componentes
 import { AppRoutingModule } from './app-routing.module';
@@ -22,13 +22,13 @@ import * as $ from 'jquery';
   ],
   imports: [
     BrowserModule,
-    GraphQLModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
-    BrowserAnimationsModule,
-    CoreModule,
+    GraphQLModule,
+    ComponentsModule,
     AuthModule,
-    UserModule,
+    UsuarioModule,
     AppRoutingModule
   ],
   providers: [],

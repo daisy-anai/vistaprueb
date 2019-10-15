@@ -1,0 +1,36 @@
+<ng-container>
+  <semovi-card>
+    <semovi-card-header title="Vigencias" icon="arrow_back" urn="/aplicacion/concesion/busqueda" [options]="[
+      {
+        urn: '/aplicacion/vigencias/crear',
+        icon: 'add'
+      }
+      ]">
+    </semovi-card-header> 
+    <semovi-card-body>
+      <semovi-input-search>
+        <input name="filtro" id="filtro" class="browser-default placeholder-fix"
+        placeholder="Buscar" type="search" autofocus
+        autocomplete="off" [(ngModel)]="filtro">
+      </semovi-input-search>
+
+          <!--let modalidad of modalidades| search: filtro">-->
+   <semovi-item *ngFor="let modalidad of modalidades">
+      <semovi-label> {{ modalidad.nombre }} </semovi-label>
+      
+    <semovi-list *ngIf="modalidad.vigencia" >
+      <semovi-label> Años vigencia: {{ modalidad.vigencia.anios_legales }}</semovi-label>
+      <semovi-label> Años prorroga: {{ modalidad.vigencia.anios_prorroga }} </semovi-label>
+    </semovi-list>
+
+    <semovi-list *ngIf="modalidad.vigencia">
+      <semovi-label>
+        <a class="btn-floating btn-small"
+        [routerLink]="['/aplicacion/vigencias/modificar', modalidad.vigencia.id ]">
+        <i class="material-icons">info</i></a>
+      </semovi-label>
+    </semovi-list>         
+      </semovi-item>
+    </semovi-card-body>
+  </semovi-card>  
+</ng-container>

@@ -1,0 +1,42 @@
+<header >
+  <nav class="z-depth-2">
+    <div class="nav-wrapper white">
+      <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <a [routerLink]="['/aplicacion/inicio']"><img class="responsive-img logo-semovi" src="assets/images/banner.png"></a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li>
+          <a class="dropdown-trigger" data-target="dropdown1">
+            <label class="">{{user.nombre}} {{user.primer_apellido}} {{user.segundo_apellido}}</label>
+            <i class="material-icons right">arrow_drop_down</i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- dropdown -->
+  <ul id="dropdown1" class="dropdown-content">
+    <li><a [routerLink]="['/aplicacion/concesion']"><i class="material-icons">home</i><label>Inicio</label></a></li>
+    <li><a [routerLink]="['/aplicacion/configuracion']"><i class="material-icons">settings_applitions</i><label>Configuración</label></a></li>
+    <li><a (click)="logout()"><i class="material-icons">exit_to_app</i><label>Cerrar sesión</label></a></li>
+  </ul>
+
+  <!-- sidenav -->
+  <ul id="slide-out" class="sidenav hide-on-large-only">
+    <li>
+      <div class="user-view">
+        <p class="test">
+          {{user.nombre}}
+          {{user.primer_apellido}} {{user.segundo_apellido}}
+        </p>
+      </div>
+    </li>
+    <li class="divider"></li>
+    <li><a [routerLink]="['/aplicacion/catalogo']"><i class="material-icons left">list_alt</i>Catalogos</a></li>
+    <li><a [routerLink]="['/aplicacion/catalogo']" class="waves-effect" (click)="logout()"><i class="material-icons left">exit_to_app</i>Cerrar sesión</a></li>
+  </ul>
+</header>
+
+<semovi-app>
+  <semovi-router-outlet> </semovi-router-outlet>
+<semovi-app>

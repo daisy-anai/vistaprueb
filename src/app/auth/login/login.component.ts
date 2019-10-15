@@ -1,16 +1,18 @@
-import {Component, OnInit} from '@angular/core';
-import { Validators, FormGroup, FormControl} from '@angular/forms';
-import {Router} from '@angular/router';
-
+import { Component, OnInit } from '@angular/core';
+import { Validators, FormGroup, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
-import {Apollo} from 'apollo-angular';
-import {KEY} from "../../core/key/key-api";
-import {ENCRIPT} from "../../core/key/encript";
 
-import {StorageService} from "../../core/services/storage.service";
-import {Session} from "../../core/models/session.model";
-import {User} from "../../core/models/user.model";
-import {Role} from "../../core/models/role.model";
+// Servicios
+import { environment } from '../../../environments/environment';
+import { AuthService } from '../auth.service';
+import { StorageService } from "../../shared/services/storage.service";
+
+// Modelos
+import { Session } from "../../shared/models/session";
+import { User } from "../../shared/models/user";
+import { Rol } from "../../shared/models/rol";
 
 declare var M: any;
 
@@ -21,25 +23,17 @@ declare var M: any;
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  user: User;
-
-  submitted: Boolean = false;
-  error: {code: number, message: string} = null;
-  name: string;
-  apellido: string;
-  loged: boolean = false;
-  validemail: boolean = false;
 
   constructor(
     private apollo?: Apollo,
+    private router?: Router,
     private storageService?: StorageService,
-    private router?: Router
+    private authService?: AuthService
   ){}
 
   ngOnInit() {
     let RegExpEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-    this.user = this.storageService.getCurrentUser();
     this.loginForm = new FormGroup({
       email_inline: new FormControl('', {
         validators: [
@@ -55,73 +49,53 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  /*
-    Funcion que manda el correo y password para que se genere el token y
-    el inicio de sesion, el password se encripta con una llave para que
-    vaya encriptada
-  */
   login(){
+    var CryptoJS = require("crypto-js");
+
     let email = this.loginForm.controls['email_inline'].value;
     let password = this.loginForm.controls['password'].value;
+    password = CryptoJS.AES.encrypt(password, environment.__encrypt).toString();
 
-    let url = KEY.HOME_URL;
-    var CryptoJS = require("crypto-js");
-    let encript = ENCRIPT.HOME_URL;
-
-    password = CryptoJS.AES.encrypt(password, ENCRIPT.HOME_URL).toString();
-
-    this.submitted = true;
-    this.error = null;
-    this.apollo.use('endpoint2').watchQuery({
-      query: gql`
-      query knock_knock($email:String,$passwd:String,$tI:String){
-        login(correo:$email,password:$passwd,tokenId:$tI){
-          user{id,nombre,primer_apellido,segundo_apellido,correo
-            centroTrabajo{id,nombre,
-              region{id,nombre,estatus,createdAt},
-              estatus,createdAt},
-              estatus,createdAt},
-              role{ id, nombre }
-              token
-            }
-          },
-      ` ,
-      variables: {
-        email: email,
-        passwd: password,
-        tI: KEY.HOME_URL
-    }})
-    .valueChanges.subscribe(result => {
+    this.authService.login(email, password).subscribe(result => {
       this.correctlogincheck(result.data);
-     }, (error) => {
-       var divisiones = error.message.split(":", 2);
-       var toastHTML = '<span> <div class="valign-wrapper"><i class="material-icons">error_outline</i>  &nbsp;&nbsp;'+divisiones[1]+'</div></span>';
-       M.toast({html: toastHTML});
-     });
+    }, (error) => {
+      var divisiones = error.message.split(":", 2);
+      var toastHTML = '<span> <div class="valign-wrapper"><i class="material-icons">error_outline</i>  &nbsp;&nbsp;'+divisiones[1]+'</div></span>';
+      M.toast({html: toastHTML});
+    });
  }
 
   /* Parseo del objeto que me regresa el mandar los parametros del login*/
-  correctlogincheck(objlogin: any){
-    let newseccion = new Session();
+  correctlogincheck(objlogin: any){    
+    let newseccion: Session = new Session(); 
+    
     newseccion.token = objlogin.login.token;
     let dialogeo = new Date();
     let finsession = new Date();
     finsession.setMinutes(dialogeo.getMinutes() + 120);
     newseccion.expire = finsession;
 
-    let user = new User();
+    let rol: Rol = new Rol();
+    rol.id = objlogin.login.role.id;
+    rol.nombre = objlogin.login.role.nombre;
+
+    let user: User = new User(); 
     user.id = objlogin.login.user.id
     user.nombre = objlogin.login.user.nombre;
     user.primer_apellido = objlogin.login.user.primer_apellido;
     user.segundo_apellido = objlogin.login.user.segundo_apellido;
     user.correo = objlogin.login.user.correo;
     user.password = objlogin.login.user.password;
-    user.id_rol = objlogin.login.role.id;
+    user.rol = rol;
     user.id_centro_trabajo = objlogin.login.user.centroTrabajo.id;
     user.id_region = objlogin.login.user.centroTrabajo.region.id;
     newseccion.user = user;
 
     this.storageService.setCurrentSession(newseccion);
-    this.router.navigate(['/application']);
+    this.redirect(user);
+  }
+
+  redirect(user: User){
+    this.router.navigate(['/aplicacion']);
   }
 }

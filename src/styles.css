@@ -1,1 +1,61 @@
-/* You can add global styles to this file, and also import other style files */
+/* IMPORTS */
+@import "../node_modules/ng2-slim-loading-bar/style.css";
+
+
+/* FONTS */
+@font-face {
+  font-family: "UniviaPro-Light";
+  src: url(./assets/fonts/UniviaPro-Light.ttf);
+  color: black;
+}
+
+@font-face{
+  font-family: "UniviaPro-Bold";
+  src: url(./assets/fonts/UniviaPro-Bold.ttf);
+}
+
+@font-face {
+  font-family: "UniviaPro-Black";
+  src: url(./assets/fonts/UniviaPro-Black.ttf);
+}
+
+@font-face {
+  font-family: "UniviaPro-Ultra";
+  src: url(./assets/fonts/UniviaPro-Ultra.ttf);
+}
+
+
+/* GENERAL STYLE  */
+body {
+  font-family: "UniviaPro-Light";
+  background-image: url("http://resource.semovioaxaca.gob.mx/assets/images/background-80.png");
+  background-color: #B1AFAF;
+}
+
+label {
+  color: black;
+}
+nav ul li a, nav a, nav ul li a, label{
+  color: black;
+}
+
+.redLabel {
+  color: #F00;
+}
+
+.greenLabel {
+  color: #55ab54;
+}
+
+/* Sidenav Component*/
+.sidenav-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  height: 120vh;
+  background-color: rgba(0,0,0,0);
+  z-index: 997;
+  display: none;
+}

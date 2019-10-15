@@ -1,0 +1,75 @@
+<ng-container>
+  <semovi-card>
+    <semovi-card-header title="Validación de concesión" icon="how_to_reg"></semovi-card-header>
+
+    <semovi-card-body>
+      <semovi-input-search>
+        <input name="filtro" id="filtro" type="search" class="browser-default placeholder-fix"
+        placeholder="Buscar concesión" autofocus
+        autocomplete="off" [(ngModel)]="filtro"
+        (ngModelChange)="buscar($event)">
+      </semovi-input-search>
+
+      <semovi-input-options>
+        <label class="left">
+          <input class="with-gap" name="group1" type="radio"
+          (click)="cambiarModo(1)" checked/>
+          <span class="buscadores">Nombre/Razón social</span>
+        </label>
+
+        <label class="right">
+          <input class="with-gap" name="group1" type="radio"
+          (click)="cambiarModo(2)"/>
+          <span class="buscadores"><label class="buscadores">NUC</label></span>
+        </label>
+      </semovi-input-options>
+
+      <semovi-preloading *ngIf="loading"> </semovi-preloading>
+
+      <semovi-list *ngIf="concesiones">
+        <semovi-item *ngFor="let concesion  of concesiones" [ngClass]="{'allowed': permitido(concesion), 'not-allowed': !permitido(concesion)}" (click)="redirect(concesion)">
+          <semovi-label-group>
+            <semovi-label class="highlight"> {{concesion.concesionario.tipoPersona == "F" ? "Nombre: " : "Razón social: "}} </semovi-label>
+            <semovi-label class="uppercase" *ngIf="concesion.concesionario.tipoPersona === 'F' else M"> {{concesion.concesionario.nombre}} {{concesion.concesionario.primerApellido	}} {{concesion.concesionario.segundoApellido}} </semovi-label>
+            <semovi-label class="uppercase" id="M"> {{concesion.concesionario.razonSocial}} </semovi-label>
+          </semovi-label-group>
+
+          <semovi-label-group>
+            <semovi-label class="highlight">NUC:</semovi-label>
+            <semovi-label class="uppercase"> {{concesion.nuc}}</semovi-label>
+          </semovi-label-group>
+
+          <semovi-label-group>
+            <semovi-label class="highlight">Localidad:</semovi-label>
+            <semovi-label class="uppercase"> {{concesion.concesionario.localidad.nombre}}</semovi-label>
+          </semovi-label-group>
+
+          <semovi-label-group>
+            <semovi-label class="highlight">Municipio:</semovi-label>
+            <semovi-label class="uppercase"> {{concesion.concesionario.localidad.municipio.nombre}}</semovi-label>
+          </semovi-label-group>
+
+          <semovi-label-group>
+            <semovi-label class="highlight">Modalidad:</semovi-label>
+            <semovi-label class="uppercase"> {{concesion.modalidad.nombre}}</semovi-label>
+          </semovi-label-group>
+
+          <semovi-label-group>
+            <semovi-label class="highlight">Estado de concesión: </semovi-label>
+            <semovi-label class="uppercase"  [ngClass]="{
+              'redLabel': !concesion.condiciones.vigente,
+              'greenLabel': concesion.condiciones.vigente
+            }"> {{concesion.condiciones.vigente ? 'Vigente' : 'Vencida' }} </semovi-label>
+
+            <semovi-label>
+              <a *ngIf="permitido(concesion)"
+                class="btn-floating btn-small waves-effect waves-light pink right">
+              <i class="material-icons">arrow_forward</i>
+              </a>
+            </semovi-label>
+          </semovi-label-group>
+        </semovi-item>
+      </semovi-list>
+    </semovi-card-body>
+  </semovi-card>
+</ng-container>

@@ -1,9 +1,10 @@
 {
-  "name": "semovistart",
-  "version": "0.0.0",
+  "name": "ng-revista",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:dev": "ng serve --host 0.0.0.0 --disable-host-check",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -29,7 +30,10 @@
     "graphql": "^14.3.1",
     "graphql-tag": "^2.10.0",
     "materialize-css": "^1.0.0-rc.2",
+    "ng2-slim-loading-bar": "^4.0.0",
+    "pdfmake": "^0.1.58",
     "rxjs": "~6.4.0",
+    "rxjs-compat": "^6.5.3",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
   },

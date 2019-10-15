@@ -1,2 +1,7 @@
+# Editor config 
+.vscode/settings.json 
+
 # dependencies
 node_modules
+
+

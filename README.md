@@ -1,16 +1,17 @@
-# Proyecto frontend
-Versión de projecto 0.0.0
+# ng-revista
+Project version 0.0.1
 
----
-## Detalles de construcción
+--- 
 
+## Description 
+This web application is for the "Revista" process
 
-###### Compilación en modo desarrollo
+## How working? 
+This module run on the two enviroments (development or production). 
+
+##### development mode 
 ~~~
-  $ ng serve
-~~~
-
-###### Compilación en modo producción
-~~~
-  $ ng build --aot
+  $ npm run start:dev // For test on mobile devices (it's not secure)
+  
+  $ npm start 
 ~~~
