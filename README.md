@@ -1,17 +1,17 @@
 # ng-revista
 Project version 0.0.1
 
---- 
+---
 
-## Description 
+## Description
 This web application is for the "Revista" process
 
-## How working? 
-This module run on the two enviroments (development or production). 
+## How working?
+This module run on the two enviroments (development or production).
 
-##### development mode 
+##### development mode
 ~~~
   $ npm run start:dev // For test on mobile devices (it's not secure)
-  
-  $ npm start 
+
+  $ npm start
 ~~~
