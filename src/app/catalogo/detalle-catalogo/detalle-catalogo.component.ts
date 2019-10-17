@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
-import { Apollo } from 'apollo-angular';
-import gql from 'graphql-tag'
 
 // Models
 import { Catalogo } from 'src/app/shared/models/catalogo';
@@ -16,6 +14,7 @@ import { CatalogoService } from '../catalogo.service';
 })
 export class DetalleCatalogoComponent implements OnInit {
   public catalogo: Catalogo;
+  private parameter: string; 
 
   constructor(
     private router: Router,
@@ -26,9 +25,7 @@ export class DetalleCatalogoComponent implements OnInit {
   ngOnInit() {
     this.service.getCatalogoByID(parseInt(this.route.snapshot.paramMap.get("id"))).subscribe(result => {
       this.catalogo = result.data['catalogo'];
-      if(!this.catalogo){
-        this.router.navigate(['/aplicacion/catalogo/listar']);
-      }
+      console.log(this.catalogo);
     }, error => {
       console.log(error);
     });

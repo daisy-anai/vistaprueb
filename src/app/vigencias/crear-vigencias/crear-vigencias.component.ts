@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Apollo } from 'apollo-angular';
 import { VigenciasService } from '../vigencias.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 // Service
 import { CatalogoService } from '../../catalogo/catalogo.service';
@@ -21,7 +21,8 @@ export class CrearVigenciasComponent implements OnInit {
   constructor(
     private service?: VigenciasService,
     private formBuilder?: FormBuilder,
-    private serviceCatalogo ?: CatalogoService
+    private serviceCatalogo ?: CatalogoService,
+    private router ?: Router
   ){}
 
   ngOnInit() {
@@ -48,7 +49,7 @@ export class CrearVigenciasComponent implements OnInit {
     const anios_prorroga= this.catalogoForm.value.anios_prorroga;
    
     this.service.createVigencia(id_modalidad,anios_legales,anios_prorroga).subscribe((result)  => {
-     console.log("vigencia creada ");     
+      this.router.navigate(['aplicacion/vigencias/'])  
     }, (error) => {
         console.log(error);
     });

@@ -5,7 +5,7 @@
       <a [routerLink]="['/aplicacion/inicio']"><img class="responsive-img logo-semovi" src="assets/images/banner.png"></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li>
-          <a class="dropdown-trigger" data-target="dropdown1">
+          <a class="dropdown-menu" data-target="dropdown-menu-options">
             <label class="">{{user.nombre}} {{user.primer_apellido}} {{user.segundo_apellido}}</label>
             <i class="material-icons right">arrow_drop_down</i>
           </a>
@@ -15,10 +15,24 @@
   </nav>
 
   <!-- dropdown -->
-  <ul id="dropdown1" class="dropdown-content">
-    <li><a [routerLink]="['/aplicacion/concesion']"><i class="material-icons">home</i><label>Inicio</label></a></li>
-    <li><a [routerLink]="['/aplicacion/configuracion']"><i class="material-icons">settings_applitions</i><label>Configuración</label></a></li>
-    <li><a (click)="logout()"><i class="material-icons">exit_to_app</i><label>Cerrar sesión</label></a></li>
+  <ul id="dropdown-menu-options" class="dropdown-content">
+    <li>
+      <a [routerLink]="['/aplicacion/concesion']">
+        <i class="material-icons">home</i> Inicio
+      </a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a [routerLink]="['/aplicacion/configuracion']">
+        <i class="material-icons">ballot</i> Configuración
+      </a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a (click)="logout()">
+        <i class="material-icons">exit_to_app</i>Cerrar sesión
+      </a>
+    </li>
   </ul>
 
   <!-- sidenav -->

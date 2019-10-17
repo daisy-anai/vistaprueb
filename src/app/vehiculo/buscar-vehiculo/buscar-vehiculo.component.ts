@@ -6,10 +6,10 @@ import { Observable } from 'rxjs';
 import { VehiculoService } from '../vehiculo.service';
 import { MediumDataService } from '../../shared/services/medium.data.service';
 
+//modules
 import { Concesion } from '../../shared/models/concesion';
 import { Vehiculo } from '../../shared/models/vehiculo';
-import { ConcesionModule } from 'src/app/concesion/concesion.module';
-import { IfStmt } from '@angular/compiler';
+
 declare var M: any;
 
 @Component({

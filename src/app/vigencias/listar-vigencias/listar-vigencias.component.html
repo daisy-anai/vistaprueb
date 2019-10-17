@@ -1,12 +1,20 @@
 <ng-container>
   <semovi-card>
-    <semovi-card-header title="Vigencias" icon="arrow_back" urn="/aplicacion/concesion/busqueda" [options]="[
-      {
-        urn: '/aplicacion/vigencias/crear',
-        icon: 'add'
-      }
-      ]">
-    </semovi-card-header> 
+    <semovi-card-header>
+      <div class="row valign-wrapper">
+        <div class="col s8 valign-wrapper">
+          <semovi-card-header-icon icon="arrow_back"></semovi-card-header-icon>
+          <semovi-card-header-title> Vigencias </semovi-card-header-title>       
+        </div>
+        <div class="col s4">
+          <a [routerLink]="['/aplicacion/vigencias/crear']" class="btn-floating btn-small waves-effect waves-light red right">
+            <i class="material-icons">add</i>
+          </a>
+          
+        </div>
+      </div>
+    </semovi-card-header>
+  
     <semovi-card-body>
       <semovi-input-search>
         <input name="filtro" id="filtro" class="browser-default placeholder-fix"
@@ -14,23 +22,19 @@
         autocomplete="off" [(ngModel)]="filtro">
       </semovi-input-search>
 
-          <!--let modalidad of modalidades| search: filtro">-->
-   <semovi-item *ngFor="let modalidad of modalidades">
-      <semovi-label> {{ modalidad.nombre }} </semovi-label>
-      
-    <semovi-list *ngIf="modalidad.vigencia" >
-      <semovi-label> Años vigencia: {{ modalidad.vigencia.anios_legales }}</semovi-label>
-      <semovi-label> Años prorroga: {{ modalidad.vigencia.anios_prorroga }} </semovi-label>
-    </semovi-list>
+      <!--let modalidad of modalidades| search: filtro">-->
 
-    <semovi-list *ngIf="modalidad.vigencia">
-      <semovi-label>
-        <a class="btn-floating btn-small"
-        [routerLink]="['/aplicacion/vigencias/modificar', modalidad.vigencia.id ]">
-        <i class="material-icons">info</i></a>
-      </semovi-label>
-    </semovi-list>         
-      </semovi-item>
+      <semovi-list >
+        <semovi-item  *ngFor="let vigencia of vigencias">
+          <semovi-label> Años vigencia: {{ vigencia.anios_legales }}</semovi-label>
+          <semovi-label> Años prorroga: {{ vigencia.anios_prorroga }} </semovi-label>
+          <semovi-label>
+            <a class="right" [routerLink]="['/aplicacion/vigencias/modificar', vigencia.id]">
+              <i class="material-icons">edit</i>
+            </a>
+          </semovi-label> 
+        </semovi-item>
+      </semovi-list>
     </semovi-card-body>
   </semovi-card>  
 </ng-container>

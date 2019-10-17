@@ -16,6 +16,9 @@ import { SemoviItemComponent } from './semovi-item/semovi-item.component';
 import { SemoviLabelGroupComponent } from './semovi-label-group/semovi-label-group.component';
 import { SemoviLabelComponent } from './semovi-label/semovi-label.component';
 import { SemoviPreloadingComponent } from './semovi-preloading/semovi-preloading.component';
+import { SemoviCardHeaderIconComponent } from './semovi-card-header-icon/semovi-card-header-icon.component';
+import { SemoviCardHeaderTitleComponent } from './semovi-card-header-title/semovi-card-header-title.component';
+import { SemoviCardHeaderOptionComponent } from './semovi-card-header-option/semovi-card-header-option.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,9 @@ import { SemoviPreloadingComponent } from './semovi-preloading/semovi-preloading
     SemoviLabelComponent,
     SemoviLabelGroupComponent,
     SemoviPreloadingComponent,
+    SemoviCardHeaderIconComponent,
+    SemoviCardHeaderTitleComponent,
+    SemoviCardHeaderOptionComponent,
   ],
   imports: [
     CommonModule,
@@ -49,7 +55,10 @@ import { SemoviPreloadingComponent } from './semovi-preloading/semovi-preloading
     SemoviItemComponent,
     SemoviLabelComponent,
     SemoviLabelGroupComponent,
-    SemoviPreloadingComponent
+    SemoviPreloadingComponent,
+    SemoviCardHeaderIconComponent,
+    SemoviCardHeaderTitleComponent,
+    SemoviCardHeaderOptionComponent
   ]
 })
 export class ComponentsModule { }

@@ -23,7 +23,7 @@ export class AplicacionComponent implements OnInit {
   ngOnInit() {
     this.user = this.session.getCurrentUser();
 
-    var elems = document.querySelectorAll('.dropdown-trigger');
+    var elems = document.querySelectorAll('.dropdown-menu');
     var instances = M.Dropdown.init(elems, {
       alignment: 'left',
       constrainWidth: true,

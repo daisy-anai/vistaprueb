@@ -1,19 +1,24 @@
 <ng-container>
   <semovi-card>
-    <semovi-card-header title="Catálogos" icon="arrow_back" urn="/aplicacion/concesion/busqueda" [options]="[
-      {
-        urn: '/aplicacion/catalogo/crear',
-        icon: 'add'
-      }
-    ]"></semovi-card-header>
-
+    <semovi-card-header>
+      <div class="row valign-wrapper">
+        <div class="col s8 valign-wrapper">
+          <semovi-card-header-icon urn="/aplicacion/configuracion" icon="arrow_back"></semovi-card-header-icon>
+          <semovi-card-header-title> Catálogos </semovi-card-header-title>
+        </div>   
+        <div class="col s4">
+          <semovi-card-header-option [options]="options" ></semovi-card-header-option>
+        </div>
+      </div>
+    </semovi-card-header>
+      
     <semovi-card-body>
       <semovi-input-search>
         <input name="filtro" id="filtro" class="browser-default placeholder-fix"
         placeholder="Buscar" type="search" autofocus
         autocomplete="off" [(ngModel)]="filtro">
       </semovi-input-search>
-
+      
       <semovi-list *ngIf="catalogos">
         <semovi-item *ngFor="let catalogo of catalogos | search: filtro">
           <semovi-label> {{catalogo.nombre}} </semovi-label>
@@ -24,6 +29,7 @@
           </semovi-label>
         </semovi-item>
       </semovi-list>
+        
     </semovi-card-body>
   </semovi-card>
 </ng-container>
