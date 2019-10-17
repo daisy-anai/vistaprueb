@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Modalidad } from '../../shared/models/modalidad';
 
 // Services
-import { ModalidadService } from '../modalidad.service';
+import { CatalogoService} from '../../catalogo/catalogo.service'
 
 @Component({
   selector: 'app-listar-modalidad',
@@ -15,7 +15,7 @@ export class ListarModalidadComponent implements OnInit {
   public filtro: string;
   public modalidades: Array<Modalidad>
 
-  constructor(private service?: ModalidadService) { }
+  constructor(private service?: CatalogoService) { }
 
   ngOnInit() {
     this.service.getModalidades().subscribe(({data}) => {

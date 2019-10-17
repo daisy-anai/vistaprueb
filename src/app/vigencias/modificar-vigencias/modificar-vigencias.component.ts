@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 
 // Service
 import { VigenciasService } from '../vigencias.service';
+import { CatalogoService} from '../../catalogo/catalogo.service'
 
 // Models
 import { Modalidad } from '../../shared/models/modalidad';
@@ -22,6 +23,7 @@ export class ModificarVigenciasComponent implements OnInit {
 
   constructor(
     private service?:VigenciasService,
+    private catalogoService ?: CatalogoService,
     private formBuilder?: FormBuilder,
     private route?: ActivatedRoute,
     private router?: Router
@@ -31,7 +33,7 @@ export class ModificarVigenciasComponent implements OnInit {
     this.service.vigenciasByID(parseInt(this.route.snapshot.paramMap.get("id"))).subscribe(result =>{
       this.vigencia = result.data['vigencia'];        
 
-      this.service.getModalidad(this.vigencia.id_modalidad).subscribe((result)=>{
+      this.catalogoService.getModalidad(this.vigencia.id_modalidad).subscribe((result)=>{
         this.modalidad = result.data['modalidad']; 
         this.modalidad.vigencia = this.vigencia;   
         this.vigenciaForm = this.formBuilder.group({
@@ -42,7 +44,7 @@ export class ModificarVigenciasComponent implements OnInit {
       });
     });
 
-    this.service.getModalidades().subscribe(result => {
+    this.catalogoService.getModalidades().subscribe(result => {
       this.modalidades = result.data['modalidades'];         
     });         
   }

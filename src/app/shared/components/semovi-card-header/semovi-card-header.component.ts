@@ -1,22 +1,11 @@
-import { Component, Input } from '@angular/core';
-
-interface Option {
-  [index: number]: {
-    urn: String,
-    icon: String
-  }
-}
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'semovi-card-header',
   templateUrl: './semovi-card-header.component.html',
   styleUrls: ['./semovi-card-header.component.css'],
 })
-export class SemoviCardHeaderComponent {
-  @Input() title: String;
-  @Input() icon: String;
-  @Input() urn: String;
-  @Input() options: Option[];
+export class SemoviCardHeaderComponent{
 
-  constructor() { }
+  constructor() {}
 }

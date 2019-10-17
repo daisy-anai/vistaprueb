@@ -1,7 +1,14 @@
 
 <ng-container>
   <semovi-card>
-  <semovi-card-header title="Vigencia de Vehículo" icon="directions_car"></semovi-card-header>
+    <semovi-card-header>
+      <div class="row">
+        <div class="col s8 valign-wrapper">
+          <semovi-card-header-icon icon="arrow_back"></semovi-card-header-icon>
+          <semovi-card-header-title> Agregar Vigencia </semovi-card-header-title>      
+        </div>
+      </div>
+    </semovi-card-header>
     <semovi-card-body>
       
       <div class="">
@@ -26,7 +33,7 @@
               </div> 
           
               <div class="row">
-                <div class="nput-field col s12  offset-m1">
+                <div class="input-field col s12  offset-m1">
                   <button type="submit" [disabled]="!catalogoForm.valid" class="waves-effect waves-light btn-small right"> Crear Vigencias</button>
                 </div>
               </div>

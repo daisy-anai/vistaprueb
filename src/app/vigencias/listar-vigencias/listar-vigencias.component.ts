@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-
+import { ActivatedRoute } from "@angular/router";
 //Service
- import {VigenciasService } from '../vigencias.service';
+ import { VigenciasService } from '../vigencias.service';
  import { CatalogoService } from '../../catalogo/catalogo.service';
 
 
 // Models
 import { Modalidad } from '../../shared/models/modalidad';
+import { Vigencia } from 'src/app/shared/models/vigencia';
 
 
 @Component({
@@ -16,26 +17,24 @@ import { Modalidad } from '../../shared/models/modalidad';
 })
 export class ListarVigenciasComponent implements OnInit {
   public modalidades: Array<Modalidad>;
+  private vigencias: Array<Vigencia>; 
   public filtro: string;
+
   constructor(
-    private service ?: VigenciasService,
-    private serviceCatalogo ?: CatalogoService
+    private service?: VigenciasService,
+    private serviceCatalogo?: CatalogoService,
+    private route?: ActivatedRoute
   ) {}
 
-  ngOnInit() {
-
-  /**
-    @description Lista vigencia por modalidad
-    @param vigenciaByModalidad
-  */
-    this.serviceCatalogo.getModalidades().subscribe(result => {
-      this.modalidades = result.data['modalidades'];
-      for (let modalidad of this.modalidades) {
-        this.service.getVigenciasModalidadByID(modalidad.id).subscribe(result =>{
-          modalidad.vigencia = result.data['vigenciaByModalidad'];   
-        });
-      }      
-    });   
- 
+  ngOnInit() {   
+    if(this.route.snapshot.paramMap.get("id")){
+      this.service.getVigenciasModalidadByID(this.route.snapshot.paramMap.get("id")).subscribe(({data}) =>{
+        this.vigencias = data['vigenciaByModalidad']; 
+      });
+     }else{
+      this.service.getVigencias().subscribe(({data})=>{
+        this.vigencias =data['vigencias'];
+      });
+    }  
   }
 }

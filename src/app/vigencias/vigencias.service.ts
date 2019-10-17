@@ -100,31 +100,4 @@ export class VigenciasService {
     }).valueChanges;
   }
 
-  getModalidad(id: String){
-    return this.apollo.use('sicac').watchQuery({
-      query: gql`
-      query modalidad($id:ID) {
-        modalidad(id:$id) {
-          id
-          nombre
-        }
-      }`,
-      variables: {
-        id: id
-      }
-    }).valueChanges;
-  }
-
-  getModalidades(){
-    return this.apollo.use('sicac').watchQuery({
-      query: gql`
-      query modalidades {
-        modalidades {
-          id
-          nombre
-        }
-      }`
-    }).valueChanges;
-  }
-
 }

@@ -10,16 +10,16 @@ const routes: Routes = [
     data: { animation: 'Aplicacion' },
     children: [
       {
+        path: 'concesion',
+        loadChildren: () => import ('../concesion/concesion.module').then(m => m.ConcesionModule )
+      },
+      {
         path: 'configuracion',
         loadChildren: () => import ('../modalidad/modalidad.module').then(m => m.ModalidadModule )
       },
       {
         path: 'vigencias',
         loadChildren: () => import ('../vigencias/vigencias.module').then(m => m.VigenciasModule )
-      },
-      {
-        path: 'concesion',
-        loadChildren: () => import ('../concesion/concesion.module').then(m => m.ConcesionModule )
       },
       {
         path: 'vehiculo',

@@ -1,30 +1,35 @@
 <ng-container>
-  <title-area
-    title="Detalles"
-    icon="arrow_back"
-    urn="/aplicacion/catalogo/listar">
-  </title-area>
-
-  <div class="row">
-    <div class="row" *ngIf= "catalogo!=undefined">
-      <div class="col s8 offset-s2">
-        <div class="card">
-          <div class="card-content">
-            <span class="card-title">Catalogo:  {{catalogo.nombre}} - para: {{catalogo.tipoCatalogo.nombre}}</span>
-            <p for="">Modalidad: {{catalogo.modalidad.nombre}} </p>
-            <div *ngFor="let seccion of catalogo.secciones">
-              <h5 class="card-title">Sección:  {{seccion.nombre}}</h5>
-              <div *ngFor="let propiedad of seccion.propiedades">
-                <p>Propiedad: {{propiedad.nombre}} - {{propiedad.tipoPropiedad.nombre}}</p>
+  <semovi-card>
+    <semovi-card-header>
+      <div class="row">
+        <div class="col s12 valign-wrapper">
+          <semovi-card-header-icon icon="arrow_back"></semovi-card-header-icon>
+          <semovi-card-header-title> Detalle </semovi-card-header-title>
+        </div>
+      </div>
+    </semovi-card-header>
+  
+    <div class="row">
+      <div class="row" *ngIf= "catalogo!=undefined">
+        <div class="col s8 offset-s2">
+          <div class="card">
+            <div class="card-content">
+              <span class="card-title">Catalogo:  {{catalogo.nombre}} - para: {{catalogo.tipoCatalogo.nombre}}</span>
+              <p for="">Modalidad: {{catalogo.modalidad.nombre}} </p>
+              <div *ngFor="let seccion of catalogo.secciones">
+                <h5 class="card-title">Sección:  {{seccion.nombre}}</h5>
+                <div *ngFor="let propiedad of seccion.propiedades">
+                  <p>Propiedad: {{propiedad.nombre}} - {{propiedad.tipoPropiedad.nombre}}</p>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="card-action">
-            <a [routerLink]="['/aplicacion/catalogo/modificar',catalogo.id]" >Modificar</a>
-            <a (click)= "eliminarCatalogo(catalogo.id)" >Eliminar</a>
+            <div class="card-action">
+              <a [routerLink]="['/aplicacion/catalogo/modificar',catalogo.id]" >Modificar</a>
+              <a (click)= "eliminarCatalogo(catalogo.id)" >Eliminar</a>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </semovi-card>
 </ng-container>

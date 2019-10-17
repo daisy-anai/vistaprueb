@@ -7,20 +7,13 @@ import { Apollo} from 'apollo-angular';
 import { Modalidad } from '../../shared/models/modalidad';
 import { TipoCatalogo } from '../../shared/models/tipoCatalogo';
 import { TipoPropiedad } from '../../shared/models/tipoPropiedad';
-import { Seccion } from '../../shared/models/seccion';
 import { Propiedad } from '../../shared/models/propiedad';
 import { Catalogo } from '../../shared/models/catalogo';
-import { DetalleCatalogo} from '../../shared/models/detalleCatalogo';
 import { SeccionVO} from '../../shared/models/seccion.vo';
 import { HelpSeccion } from '../../shared/models/helpSeccion';
 
 // Services
 import {CatalogoService} from '../catalogo.service';
-import { IfStmt } from '@angular/compiler';
-import { isFulfilled } from 'q';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { type } from 'os';
-import { format } from 'path';
 
 declare var M: any;
 
@@ -209,23 +202,9 @@ export class CrearCatalogoComponent implements OnInit {
   }
    remove(index : number){
     let valor = this.propiedadesControls(index).length;
-    this.newpropiedades(index, valor-=1);  
+    this.propiedadesForm(index, valor-=1);  
 
    }
-   newpropiedades(index: any, valor: any){
-    let controles = this.seccionesForm.controls;
-    let secciones = controles.secciones as FormArray;
-    secciones.controls.splice(index,1);
-   }
- 
-  removePropiedad(index: number, propiedad: any) {
-    // let controles = this.seccionesForm[index]['controls']['propiedades'].value; 
-    // console.log("controles",controles); 
-    console.log("index",index); 
-    let valor = this.propiedadesControls(index).length;
-    console.log("vaLOR",valor); 
-    this.propiedadesForm(index, valor-=1);  
-  }
 
   propiedadesControls(index: any) {
     let controles = this.seccionesForm;
