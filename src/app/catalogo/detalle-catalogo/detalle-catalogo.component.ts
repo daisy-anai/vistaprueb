@@ -13,7 +13,7 @@ import { CatalogoService } from '../catalogo.service';
   styleUrls: ['./detalle-catalogo.component.css']
 })
 export class DetalleCatalogoComponent implements OnInit {
-  public catalogo: Catalogo;
+  public catalogo: Array<Catalogo>;
   private parameter: string; 
 
   constructor(

@@ -1,6 +1,6 @@
 import { Component, OnInit, TestabilityRegistry, Input, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute} from '@angular/router';
 import { Apollo} from 'apollo-angular';
 
 // Models
@@ -32,22 +32,30 @@ export class CrearCatalogoComponent implements OnInit {
   public propiedades: Array<Propiedad>;
   public catalogos: Array<Catalogo>;
   public seccionesForm: any;
-
+  
   public totalSecciones: number = 0;
   public totalPropiedades: number=0;
   constructor(
     private apollo?: Apollo,
     private service?: CatalogoService,
     private formBuilder?: FormBuilder,
-    private router ?: Router
-  ) {}
+    private router?: Router,
+    private route?: ActivatedRoute
+  ){}
 
   ngOnInit() {
- 
-    this.service.getCatalogos().subscribe(result => {
-      this.catalogos = result.data['catalogos'];
-    });
+    if(this.route.snapshot.paramMap.get("id")){
+      this.service.getCatalogosByModalidad(this.route.snapshot.paramMap.get("id")).subscribe(({data})=>{
+        this.modalidades = data['catalogos'];
+      });
 
+    }else{
+      
+      this.service.getCatalogos().subscribe(result => {
+        this.catalogos = result.data['catalogos'];
+      });
+  
+    }
     this.service.getSecciones().subscribe(result => {
       this.secciones = result.data['secciones'];
     });
@@ -55,25 +63,23 @@ export class CrearCatalogoComponent implements OnInit {
     this.service.getPropiedades().subscribe(result => {
       this.propiedades = result.data['propiedades'];
     })
-
-    this.service.getModalidades().subscribe(result => {
-      this.modalidades = result.data['modalidades'];
-    });
-
+    
     this.service.getTiposCatalogo().subscribe(result => {
       this.tiposCatalago = result.data['tiposCatalogo'];
     });
 
     this.service.getTipoPropiedad().subscribe(result => {
       this.tiposPropiedad = result.data['tiposPropiedad'];
-    });
+    }); 
 
     this.catalogoForm = this.formBuilder.group({
       id_modalidad: ['', Validators.required],
       id_tipo_catalogo: ['', Validators.required],
       nombre: ['', Validators.required],
       secciones: new FormArray([], Validators.required)
+      
     });
+    
   }
   /**
     @description Nombre del catalogo
@@ -144,12 +150,16 @@ export class CrearCatalogoComponent implements OnInit {
           nombre: ['', Validators.required],
           propiedades: new FormArray([], Validators.required)
         }));
+
       }
+      
     } else {
       for (let i = secciones.length; i >= this.totalSecciones; i--) {
         secciones.removeAt(i);       
       }
     }
+   
+    
   }
 
   autocompleteSecciones(e:any, seccion:number){
@@ -222,9 +232,12 @@ export class CrearCatalogoComponent implements OnInit {
         propiedades.push(this.formBuilder.group({
           id_propiedad: ['', Validators.required],
           nombre: ['', Validators.required],
-          id_tipo_propiedad: ['', Validators.required]
+          nombreProp:['', Validators.required],
+          id_tipo_propiedad: ['', Validators.required]        
         }));
       }
+      console.log(propiedades);
+      
     }else {
       for(let i = propiedades.length; i >= valor; i--){
         propiedades.removeAt(i);
@@ -243,6 +256,12 @@ export class CrearCatalogoComponent implements OnInit {
     var [instances] = M.Autocomplete.init(elems, {
       data: datos
     });
+  }
+
+  propiedadEvaluar(){
+    this.catalogoForm.value
+     
+      
   }
 
   /**

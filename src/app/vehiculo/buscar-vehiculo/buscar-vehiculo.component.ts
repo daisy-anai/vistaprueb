@@ -39,7 +39,6 @@ export class BuscarVehiculoComponent implements OnInit {
       this.router.navigate(['/aplicacion/concesion/busqueda']);
     }
 
-   
   }
 
   onKeyDown($event: any){
@@ -61,6 +60,7 @@ export class BuscarVehiculoComponent implements OnInit {
   }
 
   permitido(vehiculo: Vehiculo): Boolean {
+    console.log(vehiculo);
 
     let errores: Array<String> = [];
     let status: Boolean = true;

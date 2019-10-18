@@ -264,5 +264,7 @@ export class CatalogoService {
       }
     });
   }
-
+  editCatalogo(){
+    return
+  }
 }

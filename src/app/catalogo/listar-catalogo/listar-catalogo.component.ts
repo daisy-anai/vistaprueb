@@ -26,7 +26,7 @@ export class ListarCatalogoComponent implements OnInit {
     this.modalidadID = this.route.snapshot.paramMap.get("id"); 
     
     this.options = [
-      {icon: 'add', description: 'Agregar catálogo', urn: '/aplicacion/catalogo/crear' },
+      {icon: 'add', description: 'Agregar catálogo', urn: `/aplicacion/catalogo/crear/${this.modalidadID}`},
       {icon: 'list', description: 'Vigencias', urn: `/aplicacion/vigencias/modalidad/${this.modalidadID}`}
     ]; 
 

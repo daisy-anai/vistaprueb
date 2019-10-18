@@ -48,7 +48,7 @@
               </div>
               <!--Secciones existentes-->
               <div class="row" *ngFor="let seccion of seccionesForm; let i = index">
-                <p>{{seccion.id_propiedad | json}}</p>
+                
                 <div class="card col s10 offset-s1">
                   <form [formGroup]="seccion">
                     <div class="row">
@@ -75,6 +75,24 @@
                                 autocomplete="off" formControlName="nombre"
                                 (change)="watchPropiedadNombre(i,j)"(ngModelChange)="autocompletePropiedades($event)">
                                 <label for="S[{{i}}]-P[{{j}}]-nombre">Nombre de la propiedad</label>
+                              </div>
+                              <div class="input-field col s12">
+                                <div class="col s4">
+                                  <label><input id="color" type="color" id="color" 
+                                    formControlName="nombreProp"
+                                    (ngModelChange)="propiedadEvaluar()"> <span>Color</span>  
+                                  </label>            
+                                </div>                                                            
+                                <div class="col s4">
+                                  <label><input type="text" id="texto"
+                                    formControlName="nombreProp"><span>Texto</span>
+                                  </label>
+                                </div>
+                                <div class="col s4">
+                                  <label ><input type="checkbox" id="logico"
+                                    formControlName="nombreProp"><span>Lógico</span>
+                                  </label>
+                                </div>  
                               </div>
                             </div>
       

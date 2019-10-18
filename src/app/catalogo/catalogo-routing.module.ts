@@ -10,7 +10,7 @@ import { ListarCatalogoComponent } from './listar-catalogo/listar-catalogo.compo
 const routes: Routes = [
   { path: '', component: ListarCatalogoComponent },
   { path: 'detalle/:id', component: DetalleCatalogoComponent },
-  { path: 'crear', component: CrearCatalogoComponent },
+  { path: 'crear/:id', component: CrearCatalogoComponent },
   { path: 'modificar/:id', component: EditarCatalogoComponent },
   { path: 'modalidad/:id', component: ListarCatalogoComponent },
   { path: '**', redirectTo: '' }

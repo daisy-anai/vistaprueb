@@ -9,6 +9,8 @@ import { SeccionVO} from '../../shared/models/seccion.vo';
 import { Propiedad } from '../../shared/models/propiedad';
 import { Catalogo } from '../../shared/models/catalogo';
 import { TipoPropiedad } from '../../shared/models/tipoPropiedad';
+import { Location } from '@angular/common';
+
 declare var M: any;
 
 @Component({
@@ -31,7 +33,9 @@ export class EditarCatalogoComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private service?: CatalogoService,
-    private formBuilder?: FormBuilder
+    private formBuilder?: FormBuilder,
+    private navigate?: Location
+
   ) {}
 
   ngOnInit() {
@@ -75,6 +79,7 @@ export class EditarCatalogoComponent implements OnInit {
           propiedadGroup.push(this.formBuilder.group({
             id_propiedad: [propiedad.id],
             nombre: [propiedad.nombre],
+            // nombreProp[propiedad.x],
             id_tipo_propiedad: [propiedad.tipoPropiedad.id, Validators.required]
           }));
         }
@@ -93,28 +98,34 @@ export class EditarCatalogoComponent implements OnInit {
     @param catalogo
   */
   watchCatalogoNombre(): Boolean {
-    let value = this.catalogoForm.get('nombre').value.toLowerCase().trim();
-      if(this.catalogos){
-        const result = this.catalogos.filter(word => word.nombre.toLowerCase().trim() === value);
-        return result.length >= 1 ? true : false;
-      }
-        return false;
+  let value = this.catalogoForm.get('nombre').value.toLowerCase().trim();
+  if(this.catalogos){
+    const result = this.catalogos.filter(word => word.nombre.toLowerCase().trim() === value);
+    return result.length >= 1 ? true : false;
+  }
+  return false;
   }
 
   /**
     @description Seleccion de secciones
     @param seccion
   */
-  watchSeccionNombre(seccion: Number):void {
-    let value = (<HTMLInputElement>document.getElementById(`S[${seccion}]-nombre`)).value.toLowerCase().trim();
-    for(var i = 0; i < this.secciones.length; i++){
-      if(this.secciones[i].nombre.toLowerCase() == value.toLowerCase()){
-        this.catalogoForm.controls.secciones['controls'][seccion].controls.nombre.setValue(this.secciones[i].nombre);
-        this.catalogoForm.controls.secciones['controls'][seccion].controls.id_seccion.setValue(parseInt(this.secciones[i].id));
-        this.secciones.splice(i,1);
-      }
+ watchSeccionNombre(nombre:string, seccion: Number): Boolean {    
+  var words = this.secciones.filter(seccion => {
+    return seccion.nombre.toLowerCase().trim() == nombre;
+  })
+
+  if(words.length > 0)
+    return true; 
+
+  let help = this.catalogoForm.get('secciones').value;
+  for (let i = 0; i < help.length && i != seccion; i++) {      
+    if(help[i].nombre.toLowerCase().trim() == nombre.toLowerCase().trim()){
+      return true;
     }
   }
+  return false;
+}
 
   addSeccion() {
     this.totalSecciones += 1;
@@ -198,6 +209,7 @@ export class EditarCatalogoComponent implements OnInit {
         propiedades.push(this.formBuilder.group({
           id_propiedad: ['', Validators.required],
           nombre: ['', Validators.required],
+          nombreProp:['', Validators.required],
           id_tipo_propiedad: ['', Validators.required]
 
         }));
@@ -226,10 +238,13 @@ export class EditarCatalogoComponent implements OnInit {
     @description Modificar Catalogo Mutation
     @param Modificar
   */
-
   modificarCatalogo(){
-    console.log(this.catalogoForm.value);
-    const seccion = this.catalogoForm.value.secciones;
-
+     this.navigate.back()
+    console.log("-->");
+    
+    // this.service.editCatalogo().subscribe(({data})=>{
+    
+    // });
   }
+
 }

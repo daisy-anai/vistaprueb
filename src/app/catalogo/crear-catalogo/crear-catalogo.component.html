@@ -11,13 +11,17 @@
     </semovi-card-header>
     <semovi-body>
     <form [formGroup]="catalogoForm" (ngSubmit)="crearCatalogo()">
+      <div class="" >
+          <span  *ngFor= "let modalidad of modalidades"
+            class="browser-default" >Modalidad:  {{ modalidad.modalidad.nombre }}
+          </span>
+        </div>
+        
         <div class="input-field" >
           <input id="nombre_catalogo" type="text" class="validate"
-            valido formControlName="nombre" autocomplete="off"
-            >
+            valido formControlName="nombre" autocomplete="off">
           <label for="nombre_catalogo">Nombre del catalogo</label>
         </div>
-
         <div class="">
           <label for="id_modalidad">Tipo de modalidad</label>
           <select formControlName="id_modalidad" class="browser-default">
@@ -25,7 +29,6 @@
             <option *ngFor="let modalidad of modalidades" value="{{modalidad.id}}"> {{ modalidad.nombre }} </option>
           </select>
         </div>
-
         <div class="">
           <label for="id_tipo_catalogo">Tipo de catalogo</label>
           <select formControlName="id_tipo_catalogo" class="browser-default">
@@ -50,7 +53,7 @@
         <div class="row" *ngFor="let seccion of seccionesForm; let i = index">
           <div class="card col s10 offset-s1">
             <!-- Secciones -->
-            <p>{{catalogoForm.value | json}}</p>
+           
             <div [formGroup]="seccion">
               <div class="row valign-wrapper">
                 <div class="col s6">
@@ -96,7 +99,7 @@
               <div class="row">
                 <div class="col s10 offset-s1">
                   <div *ngFor="let propiedad of propiedadesControls(i).controls; let j = index">
-                    <p>{{catalogoForm.value | json}}</p>
+                   
                     <div [formGroup]="propiedad">
                       <div class="row valign-wrapper">
                         <div class="col s6">
@@ -115,19 +118,41 @@
                             <i class="material-icons prefix">textsms</i>
                             <input type="text" id="S[{{i}}]-P[{{j}}]-nombre" class="autocomplete"
                             autocomplete="off"
-                            formControlName="nombre"
-                            
+                            formControlName="nombre"                            
                             (ngModelChange)="autocompletePropiedades($event, i, j)">
                             <label for="S[{{i}}]-P[{{j}}]-nombre">Nombre de la propiedad</label>
                           </div>
-                        </div>
+                          <div class="input-field col s12">
+                            <div class="col s4">
+                              <label><input id="color" type="color" id="color" 
+                                formControlName="nombreProp"
+                                (ngModelChange)="propiedadEvaluar()"> <span>Color</span>  
+                              </label>    
+                                   
+                            </div>
+                                                        
+                            <div class="col s4">
+                              <label><input type="text" id="texto"
+                                formControlName="nombreProp"><span>Texto</span>
+                              </label>
+                            </div>
+                            <div class="col s4">
+                              <label ><input type="checkbox" id="logico"
+                                formControlName="nombreProp"><span>Lógico</span>
+                              </label>
+                            </div>  
+                          </div>
 
+                        </div>
+                     
                         <div class="col s12">
                           <label for="">Tipo de propiedad</label>
-                          <select  class="browser-default" formControlName="id_tipo_propiedad">
-                            <option *ngFor="let tipoPropiedad of tiposPropiedad" value="{{tipoPropiedad.id}}"> {{ tipoPropiedad.nombre }} </option>
+                          <select class="browser-default" formControlName="id_tipo_propiedad">
+                            <option *ngFor="let tipoPropiedad of tiposPropiedad" value="{{tipoPropiedad.id}}"> {{ tipoPropiedad.nombre }} </option>           
                           </select>
                         </div>
+                        <!-- <ng-template *ngIf="color; else texto" ></ng-template> -->
+                          <!-- <div *ngIf="color; else texto" ></div> -->  
                       </div>
                     </div>
                   </div>
@@ -139,10 +164,10 @@
         </div>
         <div class="row">
           <div class="col s12">
-            <button type="submit" class="waves-effect waves-light btn-small right"> Registrar catalogo</button>
+            <button type="submit" class="waves-effect waves-light btn-small right" > Registrar catalogo</button>
           </div>
         </div>
-      </form>
+      </form>   
     </semovi-body>
   </semovi-card>
 </ng-container>
