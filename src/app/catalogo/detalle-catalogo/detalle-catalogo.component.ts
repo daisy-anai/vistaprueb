@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 
 // Models
-import { Catalogo } from 'src/app/shared/models/catalogo';
+import { Catalogues } from 'src/app/shared/models/catalogues';
 
 // Service
 import { CatalogoService } from '../catalogo.service';
@@ -13,7 +13,7 @@ import { CatalogoService } from '../catalogo.service';
   styleUrls: ['./detalle-catalogo.component.css']
 })
 export class DetalleCatalogoComponent implements OnInit {
-  public catalogo: Array<Catalogo>;
+  public catalogo: Array<any>;
   private parameter: string; 
 
   constructor(
@@ -23,24 +23,17 @@ export class DetalleCatalogoComponent implements OnInit {
   ){}
 
   ngOnInit() {
-    this.service.getCatalogoByID(parseInt(this.route.snapshot.paramMap.get("id"))).subscribe(result => {
-      this.catalogo = result.data['catalogo'];
-      console.log(this.catalogo);
-    }, error => {
-      console.log(error);
+    this.service.catalogueByID(parseInt(this.route.snapshot.paramMap.get("id"))).subscribe(({ data })=>{
+      this.catalogo = data['catalogue'];
+      
     });
-  }
 
-  /**
-    @description Eliminar Catalogo
-    @param eliminarCatalogo
-  */
-
-  eliminarCatalogo(id: Number){
-    this.service.deleteCatalogo(id).subscribe(result  => {
-      this.router.navigate(['aplicacion/catalogo/listar'])
-    }, (error) => {
-        console.log(error);
-    });
+  // eliminarCatalogo(id: Number){
+  //   this.service.deleteCatalogo(id).subscribe(result  => {
+  //     this.router.navigate(['aplicacion/catalogo/listar'])
+  //   }, (error) => {
+  //       console.log(error);
+  //   });
+  // }
   }
 }

@@ -31,12 +31,12 @@ export class ListarCatalogoComponent implements OnInit {
     ]; 
 
     if(this.route.snapshot.paramMap.get("id")){
-      this.service.getCatalogosByModalidad(this.modalidadID).subscribe(({data}) => {
-        this.catalogos = data['catalogos'];
-      })
-    }else {
-      this.service.getCatalogos().subscribe(({data, loading}) => {
-        this.catalogos = data['catalogos'];
+      this.service.catalogueByModality(this.modalidadID).subscribe(({ data })=>{
+        this.catalogos = data['catalogueByModalidad'];
+      });
+    }else{
+      this.service.getCatalogues().subscribe(({ data })=>{
+        this.catalogos = data['catalogues'];
       });
     }
 

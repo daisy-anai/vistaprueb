@@ -43,54 +43,54 @@ export class EditarCatalogoComponent implements OnInit {
       this.modalidades = result.data['modalidades'];
     });
 
-    this.service.getTiposCatalogo().subscribe(result => {
-      this.tiposCatalago = result.data['tiposCatalogo'];
-    });
+    // this.service.getTiposCatalogo().subscribe(result => {
+    //   this.tiposCatalago = result.data['tiposCatalogo'];
+    // });
 
-    this.service.getTipoPropiedad().subscribe(result => {
-      this.tiposPropiedad = result.data['tiposPropiedad'];
+    // this.service.getTipoPropiedad().subscribe(result => {
+    //   this.tiposPropiedad = result.data['tiposPropiedad'];
 
-    });
+    // });
 
-    this.service.getCatalogoByID(parseInt(this.route.snapshot.paramMap.get("id"))).subscribe(result => {
-      this.catalogo = result.data['catalogo'];
-     // console.log(this.catalogo);
+    // this.service.getCatalogoByID(parseInt(this.route.snapshot.paramMap.get("id"))).subscribe(result => {
+    //   this.catalogo = result.data['catalogo'];
+    //  // console.log(this.catalogo);
 
-      this.catalogoForm = this.formBuilder.group({
-        id_modalidad: [this.catalogo.modalidad.id, Validators.required],
-        id_tipo_catalogo: [this.catalogo.tipoCatalogo.id, Validators.required],
-        nombre: [this.catalogo['nombre'], Validators.required],
-        secciones: new FormArray([], Validators.required)
-      });
+    //   this.catalogoForm = this.formBuilder.group({
+    //     id_modalidad: [this.catalogo.modalidad.id, Validators.required],
+    //     id_tipo_catalogo: [this.catalogo.tipoCatalogo.id, Validators.required],
+    //     nombre: [this.catalogo['nombre'], Validators.required],
+    //     secciones: new FormArray([], Validators.required)
+    //   });
 
-      let controls = this.catalogoForm.controls;
-      let secciones = controls.secciones as FormArray;
-      this.seccionesForm = secciones.controls;
+    //   let controls = this.catalogoForm.controls;
+    //   let secciones = controls.secciones as FormArray;
+    //   this.seccionesForm = secciones.controls;
 
-      for (const seccion of this.catalogo['secciones']) {
-        let seccionGroup = this.formBuilder.group({
-          id_seccion: [seccion.id],
-          nombre: [seccion.nombre, Validators.required],
-          propiedades: new FormArray([], Validators.required)
-        });
+    //   for (const seccion of this.catalogo['secciones']) {
+    //     let seccionGroup = this.formBuilder.group({
+    //       id_seccion: [seccion.id],
+    //       nombre: [seccion.nombre, Validators.required],
+    //       propiedades: new FormArray([], Validators.required)
+    //     });
 
-        let propiedadGroup = seccionGroup.controls.propiedades as FormArray;
-        for(const propiedad of seccion['propiedades']){
-          propiedadGroup.push(this.formBuilder.group({
-            id_propiedad: [propiedad.id],
-            nombre: [propiedad.nombre],
-            // nombreProp[propiedad.x],
-            id_tipo_propiedad: [propiedad.tipoPropiedad.id, Validators.required]
-          }));
-        }
-        secciones.push(seccionGroup);
-      }
+    //     let propiedadGroup = seccionGroup.controls.propiedades as FormArray;
+    //     for(const propiedad of seccion['propiedades']){
+    //       propiedadGroup.push(this.formBuilder.group({
+    //         id_propiedad: [propiedad.id],
+    //         nombre: [propiedad.nombre],
+    //         // nombreProp[propiedad.x],
+    //         id_tipo_propiedad: [propiedad.tipoPropiedad.id, Validators.required]
+    //       }));
+    //     }
+    //     secciones.push(seccionGroup);
+    //   }
 
-      this.seccionesForm = secciones.controls;
-     // console.log(this.seccionesForm)
-    }, error => {
-      console.log(error);
-    });
+    //   this.seccionesForm = secciones.controls;
+    //  // console.log(this.seccionesForm)
+    // }, error => {
+    //   console.log(error);
+    // });
   }
 
   /**
