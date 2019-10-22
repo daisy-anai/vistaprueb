@@ -27,13 +27,11 @@ export class DetalleCatalogoComponent implements OnInit {
       this.catalogo = data['catalogue'];
       
     });
+  }
 
-  // eliminarCatalogo(id: Number){
-  //   this.service.deleteCatalogo(id).subscribe(result  => {
-  //     this.router.navigate(['aplicacion/catalogo/listar'])
-  //   }, (error) => {
-  //       console.log(error);
-  //   });
-  // }
+  catalogueDeprecate(id: Number,reason: String){  
+    this.service.catalogueDeprecate(id,reason).subscribe(result=>{
+      this.router.navigate(['/aplicacion/catalogo/listar']);
+    });
   }
 }

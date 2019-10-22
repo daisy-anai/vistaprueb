@@ -15,12 +15,12 @@
           <div class="card">
             <div class="card-content">
               <p> Id modalidad {{ catalogo.id_modalidad}}</p>
-             <p > Nombre del catalgoso: {{ catalogo.catalogueType.name}} </p>
+             <p > Nombre del catalogo: {{ catalogo.catalogueType.name}} </p>
              <p> configuracion: {{ catalogo.configuration }}</p>
             </div>
             <div class="card-action">
               <a [routerLink]="['/aplicacion/catalogo/modificar',catalogo.id]" >Modificar</a>
-              <a (click)= "eliminarCatalogo(catalogo.id)" >Eliminar</a>
+              <a (click)= "catalogueDeprecate(catalogo.id)" >Eliminar</a>
             </div>
           </div>
         </div>

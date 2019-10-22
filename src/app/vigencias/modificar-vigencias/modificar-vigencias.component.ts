@@ -31,7 +31,7 @@ export class ModificarVigenciasComponent implements OnInit {
 
   ngOnInit() {
     this.service.vigenciasByID(parseInt(this.route.snapshot.paramMap.get("id"))).subscribe(result =>{
-      this.vigencia = result.data['vigencia'];        
+      this.vigencia = result.data['validity'];        
 
       this.catalogoService.getModalidad(this.vigencia.id_modalidad).subscribe((result)=>{
         this.modalidad = result.data['modalidad']; 

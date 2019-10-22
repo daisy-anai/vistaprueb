@@ -29,11 +29,11 @@ export class ListarVigenciasComponent implements OnInit {
   ngOnInit() {   
     if(this.route.snapshot.paramMap.get("id")){
       this.service.getVigenciasModalidadByID(this.route.snapshot.paramMap.get("id")).subscribe(({data}) =>{
-        this.vigencias = data['vigenciaByModalidad']; 
+        this.vigencias = data['validityByModalidad']; 
       });
      }else{
       this.service.getVigencias().subscribe(({data})=>{
-        this.vigencias =data['vigencias'];
+        this.vigencias =data['validities'];
       });
     }  
   }

@@ -11,33 +11,40 @@
     </semovi-card-header>
     <semovi-body>
       <form [formGroup]="catalogueForm" (ngSubmit)="createCatalogue()">
-<!-- 
-        <div>
-          <h6   *ngFor="let modalidad of modalidades" formControlName="modality" > {{ modalidad.nombre }} </h6>
-        </div> -->
-
-        <div class="input-field">
+        <div *ngIf="modalidades" >
+          <p class="card-title"></p>{{ modalidades.nombre }}
+        </div>
+        <div class="input-field ">
           <input id="nombre_catalogo" type="text" class="validate"
-          formControlName="name_Catalogue"
-          valido autocomplete="off">
+          formControlName="name_catalogue"  autocomplete="off">
           <label for="nombre_catalogo">Nombre del catalogo</label>
         </div>
-
+      
         <div class="">
           <label for="id_tipo_catalogo">Tipo de catalogo</label>
-          <select class="browser-default" formControlName="type_Catalogue">
+          <select class="browser-default" formControlName="id_catalogue">
             <option value="" disabled selected>Elige una opción</option>
             <option *ngFor="let catalogo of catalogoTypes" value="{{catalogo.id}}"> {{ catalogo.name }} </option>
           </select>
         </div>
-
+            <!-- (ngModelChange)-->
+           
+        <div>
+          <form [formGroup]="configuration">
+            <div class="row valign-wrapper"> 
+              <input type="text" class="validate" id="seccion" autocomplete="off" 
+             >
+              <label for="seccion"> Nombre sección</label>
+            </div>
+          </form>
+        </div>
+  
         <div class="row">
           <div class="col s12">
             <button type="submit" class="waves-effect waves-light btn-small right" > Registrar catalogo</button>
           </div>
         </div>
       </form>
-      
     </semovi-body>
   </semovi-card>
 </ng-container>

@@ -12,23 +12,24 @@ export class VigenciasService {
 
   }
 
-  createVigencia(id_modalidad: String, anios_legales: Number, anios_prorroga: number){
-    console.log(typeof anios_legales);
-    console.log(id_modalidad,anios_legales, anios_prorroga );
-    
+  createVigencia(id_modalidad: String, legal_years: Number, extension_years: Number){
+
     return this.apollo.use('backrevista').mutate({
       mutation:gql`
-      mutation vigencia($id_modalidad:ID!,$anios_legales:Int,$anios_prorroga:Int){
-        vigencia(id_modalidad:$id_modalidad,anios_legales:$anios_legales,anios_prorroga:$anios_prorroga){
-          id
-          anios_legales
-          anios_prorroga
+      mutation valityVigencia($id_modalidad:ID!,$legal_years:Int, $extension_years:Int){
+        validity(id_modalidad:$id_modalidad,legal_years:$legal_years,extension_years:$extension_years){
+        id
+        id_modalidad  
+        legal_years
+        extension_years
+        created_at
+        deprecated
         }
       }`,
       variables:{
         id_modalidad: id_modalidad,
-        anios_legales: anios_legales,
-        anios_prorroga: anios_prorroga
+        legal_years: legal_years,
+        extension_years: extension_years
       }
     });
   }
@@ -36,11 +37,14 @@ export class VigenciasService {
   getVigencias(){
     return this.apollo.use('backrevista').watchQuery({
       query: gql`
-      query vigencias{
-        vigencias{
+      query validities{
+        validities{
           id
-          anios_legales
-          anios_prorroga
+          id_modalidad
+          legal_years
+          extension_years
+          created_at
+          deprecated
         }
       }`,
     }).valueChanges;
@@ -49,11 +53,14 @@ export class VigenciasService {
   getVigenciasModalidadByID(id_modalidad: String){
     return this.apollo.use('backrevista').watchQuery({
       query: gql`
-      query query($id_modalidad: ID!){
-        vigenciaByModalidad(id_modalidad:$id_modalidad){
+      query validities($id_modalidad:ID!){
+        validityByModalidad(id_modalidad:$id_modalidad){
           id
-          anios_legales
-          anios_prorroga
+          id_modalidad
+          legal_years
+          extension_years
+          created_at
+          deprecated
         }
       }`,
       variables:{
@@ -62,6 +69,25 @@ export class VigenciasService {
     }).valueChanges
   }
 
+  vigenciasByID(id: Number){
+    return this.apollo.use('backrevista').watchQuery({
+      query: gql` 
+      query validities($id:ID!){
+        validity(id:$id){
+          id
+          id_modalidad
+          legal_years
+          extension_years
+          created_at
+          deprecated
+        }
+      }`,
+      variables:{
+        id: id
+      }
+    }).valueChanges;
+  }
+  
   modificarVigencias(id: Number, id_modalidad: String, anios_legales: Number,anios_prorroga:Number){
     return this.apollo.use('backrevista').mutate({
       mutation: gql`
@@ -81,23 +107,6 @@ export class VigenciasService {
         anios_prorroga: anios_prorroga
       }
     });
-  }
-
-  vigenciasByID(id: Number){
-    return this.apollo.use('backrevista').watchQuery({
-      query: gql` 
-      query vigenciaByID($id:ID!){
-        vigencia(id:$id){
-          id
-          anios_legales
-          anios_prorroga
-          id_modalidad
-        }
-      }`,
-      variables:{
-        id: id
-      }
-    }).valueChanges;
   }
 
 }

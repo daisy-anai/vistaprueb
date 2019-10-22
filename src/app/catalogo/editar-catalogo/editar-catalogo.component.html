@@ -9,118 +9,38 @@
       </div>
     </semovi-card-header>
     <semovi-body>
-      <div class="" *ngIf="catalogo">
+      <form [formGroup]="catalogueForm" (ngSubmit)="createCatalogue()">
+        <!-- 
+        <div>
+          <h6   *ngFor="let modalidad of modalidades" formControlName="modality" > {{ modalidad.nombre }} </h6>
+        </div> -->
+
+        <div class="input-field">
+          <input id="nombre_catalogo" type="text" class="validate"
+          formControlName="name_catalogue"
+          valido autocomplete="off">
+          <label for="nombre_catalogo">Nombre del catalogo</label>
+        </div>
+
+        <div class="">
+          <label for="id_tipo_catalogo">Tipo de catalogo</label>
+          <select class="browser-default" formControlName="id_catalogue">
+            <option value="" disabled selected>Elige una opción</option>
+            <option *ngFor="let catalogo of catalogoTypes" value="{{catalogo.id}}"> {{ catalogo.name }} </option>
+          </select>
+        </div>
+        <div class="input-field">
+          <input type="text" formControlName="configuration">
+          <label for=""> configuracion</label>
+        </div>
+
         <div class="row">
-          <div class="col s8 offset-s2">
-            <!-- Catalogo form -->
-            <form [formGroup]="catalogoForm" (ngSubmit)="modificarCatalogo()">
-              <!-- Catalogo -->
-              <div class="input-field" >
-                <input id="nombre_catalogo" type="text" class="validate"
-                  valido formControlName="nombre" autocomplete="off" (change)="watchCatalogoNombre()">
-                <label for="nombre_catalogo">Nombre del Catalogo</label>
-              </div>
-      
-              <div class="">
-                <label for="id_modalidad">Tipo de modalidad</label>
-                <select formControlName="id_modalidad" class="browser-default">
-                  <option *ngFor="let modalidad of modalidades" value="{{modalidad.id}}"> {{ modalidad.nombre }} </option>
-                </select>
-              </div>
-      
-              <div class="">
-                <label for="id_tipo_catalogo">Tipo de catalogo</label>
-                <select formControlName="id_tipo_catalogo" class="browser-default">
-                  <option *ngFor="let tipoCatalogo of tiposCatalago" value="{{tipoCatalogo.id}}"> {{ tipoCatalogo.nombre }} </option>
-                </select>
-              </div>
-              <!-- End Catalogo -->     
-            <!--secciones datos-->
-              <div class="row valign-wrapper">
-                <div class="col s6">
-                  <p>Secciones</p>
-                </div>     
-                <div class="col s6 right-align">
-                  <a class="btn-floating btn-large waves-effect waves-light red btn-small red darken-2 " (click)="addSeccion()">
-                    <i class="material-icons">add</i>
-                  </a>
-                </div>
-              </div>
-              <!--Secciones existentes-->
-              <div class="row" *ngFor="let seccion of seccionesForm; let i = index">
-                
-                <div class="card col s10 offset-s1">
-                  <form [formGroup]="seccion">
-                    <div class="row">
-                      <div class="col s12">
-                        <div class="input-field col s12">
-                          <i class="material-icons prefix">textsms</i>
-                          <input type="text" id="S[{{i}}]-nombre" class="autocomplete"
-                          autocomplete="off"  formControlName="nombre"
-                          (change)="watchSeccionNombre(i)" (ngModelChange)="autocompleteSecciones($event, i)">
-                          <label for="S[{{i}}]-nombre">Titulo de sección</label>
-                        </div>
-                      </div>
-                    </div>
-      
-      
-                    <div class="row">
-                      <div class="col s10 offset-s1">
-                        <div *ngFor="let propiedad of propiedadesControls(i).controls; let j = index" >
-                          <form [formGroup]="propiedad">
-                            <div class="col s12">
-                              <div class="input-field col s12">
-                                <i class="material-icons prefix">textsms</i>
-                                <input type="text" id="S[{{i}}]-P[{{j}}]-nombre" class="autocomplete"
-                                autocomplete="off" formControlName="nombre"
-                                (change)="watchPropiedadNombre(i,j)"(ngModelChange)="autocompletePropiedades($event)">
-                                <label for="S[{{i}}]-P[{{j}}]-nombre">Nombre de la propiedad</label>
-                              </div>
-                              <div class="input-field col s12">
-                                <div class="col s4">
-                                  <label><input id="color" type="color" id="color" 
-                                    formControlName="nombreProp"
-                                    (ngModelChange)="propiedadEvaluar()"> <span>Color</span>  
-                                  </label>            
-                                </div>                                                            
-                                <div class="col s4">
-                                  <label><input type="text" id="texto"
-                                    formControlName="nombreProp"><span>Texto</span>
-                                  </label>
-                                </div>
-                                <div class="col s4">
-                                  <label ><input type="checkbox" id="logico"
-                                    formControlName="nombreProp"><span>Lógico</span>
-                                  </label>
-                                </div>  
-                              </div>
-                            </div>
-      
-                            <div class="col s12">
-                              <label for="id_tipo_propiedad">Tipo de propiedad</label>
-                              <select  class="browser-default" formControlName="id_tipo_propiedad">
-                                <option *ngFor="let tipoPropiedad of tiposPropiedad" value="{{tipoPropiedad.id}}"> {{ tipoPropiedad.nombre }} </option>
-                              </select>
-                            </div>
-      
-                          </form>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-              <!--fin de secciones y propiedades-->
-              <div class="row">
-                <div class="col s12">
-                  <!--<a class="waves-effect waves-light btn-small left" >Previsualizar</a>-->
-                  <button type="submit" class="waves-effect waves-light btn-small right"> Actualizar catalogo</button>
-                </div>
-              </div>
-            </form>
+          <div class="col s12">
+            <button type="submit" class="waves-effect waves-light btn-small right" > Registrar catalogo</button>
           </div>
         </div>
-      </div>
+      </form>
+              
     </semovi-body>
   </semovi-card>
 </ng-container>

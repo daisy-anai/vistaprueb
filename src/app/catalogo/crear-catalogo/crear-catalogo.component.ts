@@ -1,5 +1,5 @@
 import { Component, OnInit, TestabilityRegistry, Input, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute} from '@angular/router';
 import { Apollo} from 'apollo-angular';
 
@@ -10,9 +10,6 @@ import { Catalogues } from '../../shared/models/catalogues';
 
 // Services
 import {CatalogoService} from '../catalogo.service';
-import { LoginComponent } from 'src/app/auth/login/login.component';
-
-declare var M: any;
 
 @Component({
   selector: 'app-crear-catalogo',
@@ -22,13 +19,11 @@ declare var M: any;
 })
 export class CrearCatalogoComponent implements OnInit {
   public catalogueForm: FormGroup;
-  public catalogoTypes : Array<CatalogueType>;
+  public configuration: Array<any>;
+  public catalogoTypes: Array<CatalogueType>;
   public modalidades: Array<Modalidad>;
   public catalogues: Array<Catalogues>;
-  public seccionesForm: any;
-  
-  public totalSecciones: number = 0;
-
+  public confi: any;
   constructor(
     private apollo?: Apollo,
     private service?: CatalogoService,
@@ -38,6 +33,8 @@ export class CrearCatalogoComponent implements OnInit {
   ){}
 
   ngOnInit() { 
+    let id_modalidad= this.route.snapshot.paramMap.get("id");
+  
     this.service.getCatalogues().subscribe(({data })=>{
       this.catalogues = data['catalogues'];
   
@@ -47,25 +44,39 @@ export class CrearCatalogoComponent implements OnInit {
       this.catalogoTypes = result.data['catalogueTypes'];
       
     });
- 
-    // this.service.getModalidad(this.route.snapshot.paramMap.get("id")).subscribe(({ data }) =>{
-    //   this.modalidades = data['modalidad'];    
-    //   console.log("modalidades",this.modalidades);
+
+    this.service.getModalidad(id_modalidad).subscribe(({ data }) =>{
+      this.modalidades = data['modalidad'];    
        
-    // });
-
-  
-  
-    this.catalogueForm = this.formBuilder.group({
-      modality:['',Validators.required],
-      name_Catalogue:['',Validators.required],
-      type_Catalogue:['',Validators.required]
     });
-
+         
+    
+    this.catalogueForm = this.formBuilder.group({
+      id_modalidad:[id_modalidad,Validators.required],
+      name_catalogue:['',Validators.required],
+      id_catalogue: ['', Validators.required],
+      configuration: new FormArray( [],Validators.required)
+    }); 
+ 
+    let configuracion = this.catalogueForm.controls.configuration as FormArray;
+    configuracion.push(this.formBuilder.group({
+      seccion:['', Validators.required],
+      propiedad:['',Validators.required]
+    }));
     
   }
 
   createCatalogue(){
-
+    console.log(this.catalogueForm);
+    
+    // let id_modalidad = this.catalogueForm.value.id_modalidad;
+    // let id_catalogue =  this.catalogueForm.value.name_catalogue;
+    // let name =  this.catalogueForm.value.name;
+    // let configuration = this.catalogueForm.value.configuration;
+    
+    // this.service.createdCatalogue(id_modalidad,id_catalogue,name,configuration).subscribe(({ data })=>{
+    //   this.catalogues = data['catalogue'];
+    // });
   }
+
 }

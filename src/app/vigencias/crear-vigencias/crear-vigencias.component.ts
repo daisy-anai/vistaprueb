@@ -45,10 +45,10 @@ export class CrearVigenciasComponent implements OnInit {
   crearVigencia(){
     console.log(this.catalogoForm.value);
     const id_modalidad = this.catalogoForm.value.id_modalidad;
-    const anios_legales= this.catalogoForm.value.anios_legales;
-    const anios_prorroga= this.catalogoForm.value.anios_prorroga;
+    const legal_years= this.catalogoForm.value.anios_legales;
+    const extension_years= this.catalogoForm.value.anios_prorroga;
    
-    this.service.createVigencia(id_modalidad,anios_legales,anios_prorroga).subscribe((result)  => {
+    this.service.createVigencia(id_modalidad,legal_years,extension_years).subscribe((result)  => {
       this.router.navigate(['aplicacion/vigencias/'])  
     }, (error) => {
         console.log(error);

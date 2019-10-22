@@ -103,31 +103,112 @@ export class CatalogoService {
   
   //Catalogue ID
   
-catalogueByID(id: Number){
-  return this.apollo.use('backrevista').watchQuery({
-    query: gql `
-    query catalogueID($id:ID!){
-      catalogue(id:$id){
-        id
-        id_modalidad
-         catalogueType{
+  catalogueByID(id: Number){
+    return this.apollo.use('backrevista').watchQuery({
+      query: gql `
+      query catalogueID($id:ID!){
+        catalogue(id:$id){
           id
+          id_modalidad
+          catalogueType{
+            id
+            name
+            description
+            created_at
+            deprecated
+          }
+          configuration
+          created_at   
+          deprecated
+        } 
+      }`,
+      variables:{
+        id: id
+      }
+    }).valueChanges;  
+  }
+
+  createdCatalogue(id_modalidad: String,id_catalogue:Number, name: String, configuration: String){
+    return this.apollo.use('backrevista').mutate({
+      mutation: gql`
+      mutation created($id_modalidad :ID!,$id_catalogue_type:ID!,$name:String!,$configuration:String!){
+        catalogue(id_modalidad:$id_modalidad,id_catalogue_type:$id_catalogue_type,name:$name,configuration:$configuration){
+          id
+          id_modalidad
+          catalogueType{
+            id
+            name
+            description
+            created_at
+            deprecated
+          }
           name
-          description
+          configuration
           created_at
           deprecated
         }
-        configuration
-        created_at   
-        deprecated
-      } 
-    }`,
-     variables:{
-      id: id
-    }
-  }).valueChanges;  
-}
+      }`,
+      variables:{
+        id_modalidad: id_modalidad,
+        id_catalogue: id_catalogue,
+        name: name,
+        configuration: configuration
+      }
+    }) 
+  }
+  catalogueUpdate(id_modalidad: String,id_catalogue:Number, name: String, configuration: String){
+    return this.apollo.use('backrevista').mutate({
+      mutation: gql`
+      mutation catalogueUpdate($id_modalidad :ID!,$id_catalogue_type:ID!,$name:String!,$configuration:String!){
+        catalogueUpdate(id_modalidad:$id_modalidad,id_catalogue_type:$id_catalogue_type,name:$name,configuration:$configuration){
+          id
+          id_modalidad
+          catalogueType{
+            id
+            name
+            description
+            created_at
+            deprecated
+          }
+          name
+          configuration
+          created_at
+          deprecated
+        }
+      }`,
+      variables:{
+        id_modalidad: id_modalidad,
+        id_catalogue: id_catalogue,
+        name: name,
+        configuration: configuration
+      }
+    })
+  }
 
-
-
+  catalogueDeprecate(id: Number, reason: String){
+    return this.apollo.use('backrevista').mutate({
+      mutation: gql`
+      mutation catalogueDeprecate($id:ID!,$reason:String!){
+        catalogueDeprecate(id:$id,reason:$reason){
+          id
+          id_modalidad
+          catalogueType{
+            id
+            name
+            description
+            created_at
+            deprecated
+          }
+          name
+          configuration
+          created_at
+          deprecated
+        }
+      }`,
+      variables:{
+        id: id,
+        reason: reason
+      }
+    })
+  }
 }
