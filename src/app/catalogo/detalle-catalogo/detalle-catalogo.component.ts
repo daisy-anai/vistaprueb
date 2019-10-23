@@ -13,7 +13,7 @@ import { CatalogoService } from '../catalogo.service';
   styleUrls: ['./detalle-catalogo.component.css']
 })
 export class DetalleCatalogoComponent implements OnInit {
-  public catalogo: Array<any>;
+  public catalogo: Array<Catalogues>;
   private parameter: string; 
 
   constructor(
@@ -23,14 +23,17 @@ export class DetalleCatalogoComponent implements OnInit {
   ){}
 
   ngOnInit() {
+   
     this.service.catalogueByID(parseInt(this.route.snapshot.paramMap.get("id"))).subscribe(({ data })=>{
       this.catalogo = data['catalogue'];
       
     });
+
   }
 
-  catalogueDeprecate(id: Number,reason: String){  
-    this.service.catalogueDeprecate(id,reason).subscribe(result=>{
+  catalogueDeprecate(id: Number){  
+
+    this.service.catalogueDeprecate(id,"hola").subscribe(result=>{    
       this.router.navigate(['/aplicacion/catalogo/listar']);
     });
   }

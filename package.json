@@ -12,7 +12,6 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "~8.2.0",
     "@angular/common": "~8.2.0",
     "@angular/compiler": "~8.2.0",
     "@angular/core": "~8.2.0",
@@ -30,6 +29,7 @@
     "graphql": "^14.3.1",
     "graphql-tag": "^2.10.0",
     "materialize-css": "^1.0.0-rc.2",
+    "materialize-stepper": "^3.1.0",
     "ng2-slim-loading-bar": "^4.0.0",
     "pdfmake": "^0.1.58",
     "rxjs": "~6.4.0",

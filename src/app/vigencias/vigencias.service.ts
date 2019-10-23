@@ -16,7 +16,7 @@ export class VigenciasService {
 
     return this.apollo.use('backrevista').mutate({
       mutation:gql`
-      mutation valityVigencia($id_modalidad:ID!,$legal_years:Int, $extension_years:Int){
+      mutation valityVigencia($id_modalidad:ID!,$legal_years:Int!, $extension_years:Int!){
         validity(id_modalidad:$id_modalidad,legal_years:$legal_years,extension_years:$extension_years){
         id
         id_modalidad  

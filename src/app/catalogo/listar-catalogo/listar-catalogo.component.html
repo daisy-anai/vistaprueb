@@ -22,6 +22,7 @@
       <semovi-list *ngIf="catalogos">
         <semovi-item *ngFor="let catalogo of catalogos | search: filtro">
           <semovi-label> {{catalogo.name}} </semovi-label>
+         
           <semovi-label>
             <a class="btn-floating btn-small right"
             [routerLink]="['/aplicacion/catalogo/detalle', catalogo.id ]">
@@ -29,7 +30,6 @@
           </semovi-label>
         </semovi-item>
       </semovi-list>
-        
     </semovi-card-body>
   </semovi-card>
 </ng-container>

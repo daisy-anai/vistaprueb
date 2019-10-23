@@ -26,25 +26,40 @@
             <option value="" disabled selected>Elige una opción</option>
             <option *ngFor="let catalogo of catalogoTypes" value="{{catalogo.id}}"> {{ catalogo.name }} </option>
           </select>
-        </div>
-            <!-- (ngModelChange)-->
-           
-        <div>
-          <form [formGroup]="configuration">
-            <div class="row valign-wrapper"> 
-              <input type="text" class="validate" id="seccion" autocomplete="off" 
-             >
-              <label for="seccion"> Nombre sección</label>
+        </div>   
+         <button (click)="configuracion()">Add</button>
+
+         <div formArrayName="configuration" *ngFor="let creds of catalogueForm.controls.configuration?.value; let i = index">
+            <div [formGroupName]="i">
+              <input id="seccion" type="text" class="validate"
+              formControlName="seccion" autocomplete="off">
             </div>
-          </form>
-        </div>
-  
+         </div>
+         
         <div class="row">
           <div class="col s12">
             <button type="submit" class="waves-effect waves-light btn-small right" > Registrar catalogo</button>
           </div>
         </div>
+
       </form>
+
+     <!-- Horizontal Steppers -->
+    <div class="row">
+        <div class="col-md-12">
+          <!-- Stepers Wrapper -->
+          <ul class="stepper stepper-horizontal">
+            <!-- First Step -->
+            <li class="completed">
+              <a href="#!">
+                <span class="circle">1</span>
+                <span class="label">First step</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+ 
     </semovi-body>
   </semovi-card>
 </ng-container>
