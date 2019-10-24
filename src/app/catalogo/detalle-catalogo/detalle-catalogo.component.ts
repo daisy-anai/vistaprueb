@@ -26,9 +26,9 @@ export class DetalleCatalogoComponent implements OnInit {
    
     this.service.catalogueByID(parseInt(this.route.snapshot.paramMap.get("id"))).subscribe(({ data })=>{
       this.catalogo = data['catalogue'];
+      console.log();
       
     });
-
   }
 
   catalogueDeprecate(id: Number){  

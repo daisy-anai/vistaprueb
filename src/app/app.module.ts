@@ -29,7 +29,8 @@ import * as $ from 'jquery';
     ComponentsModule,
     AuthModule,
     UsuarioModule,
-    AppRoutingModule
+    AppRoutingModule,
+  
   ],
   providers: [],
   bootstrap: [AppComponent]

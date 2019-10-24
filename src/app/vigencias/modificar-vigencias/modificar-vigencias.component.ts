@@ -32,15 +32,19 @@ export class ModificarVigenciasComponent implements OnInit {
   ngOnInit() {
     this.service.vigenciasByID(parseInt(this.route.snapshot.paramMap.get("id"))).subscribe(result =>{
       this.vigencia = result.data['validity'];        
-
+      console.log(this.vigencia.id_modalidad);
+      
       this.catalogoService.getModalidad(this.vigencia.id_modalidad).subscribe((result)=>{
         this.modalidad = result.data['modalidad']; 
         this.modalidad.vigencia = this.vigencia;   
         this.vigenciaForm = this.formBuilder.group({
           id_modalidad: [this.modalidad.id, Validators.required],
-          anios_legales: [this.modalidad.vigencia.anios_legales, Validators.required],
-          anios_prorroga: [this.modalidad.vigencia.anios_prorroga, Validators.required]
-        });  
+          anios_legales: [this.modalidad.vigencia.legal_years, Validators.required],
+          anios_prorroga: [this.modalidad.vigencia.extension_years, Validators.required]
+        
+        });
+        console.log(this.vigenciaForm);
+          
       });
     });
 
@@ -55,12 +59,11 @@ export class ModificarVigenciasComponent implements OnInit {
   */
 
   modificarVigencia(){
-    console.log(this.vigenciaForm.value.id_modalidad);
     let id = parseInt(this.route.snapshot.paramMap.get("id"));
     let id_modalidad = this.vigenciaForm.value.id_modalidad
-    let anios_legales= this.vigenciaForm.value.anios_legales;
-    let anios_prorroga = this.vigenciaForm.value.anios_prorroga;
-    this.service.modificarVigencias(id,id_modalidad,anios_legales,anios_prorroga).subscribe(result =>{
+    let legal_years= this.vigenciaForm.value.anios_legales;
+    let extension_years = this.vigenciaForm.value.anios_prorroga;
+    this.service.updateVigencias(id,id_modalidad,legal_years,extension_years).subscribe(result =>{
       this.router.navigate(['/aplicacion/vigencias/listar']);
      });
   }

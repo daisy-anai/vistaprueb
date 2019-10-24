@@ -7,7 +7,7 @@ import { ModalidadRoutingModule } from './modalidad-routing.module';
 
 // Modules
 import { ComponentsModule } from '../shared/components/components.module';
-
+import { FiltersModule } from '../shared/filters/filters.module';
 // Components
 import { ListarModalidadComponent } from './listar-modalidad/listar-modalidad.component';
 
@@ -20,7 +20,8 @@ import { ListarModalidadComponent } from './listar-modalidad/listar-modalidad.co
     FormsModule,
     ReactiveFormsModule,
     ModalidadRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    FiltersModule
   ]
 })
 export class ModalidadModule { }

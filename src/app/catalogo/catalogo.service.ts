@@ -9,60 +9,87 @@ import gql from 'graphql-tag';
 export class CatalogoService {
   constructor(private apollo: Apollo){}
 
- getCatalogoType(){
-   return this.apollo.use('backrevista').watchQuery({
-    query: gql`
-    query {
-      catalogueTypes{
-        id
-        name
-        description
-        created_at
-        deprecated
-      }
-    }`,
-   }).valueChanges;
- }
+  /**
+   @description Catalogue Type 
+   @param getCatalogueType
+   */
 
-
- getModalidad(id: String){
-  return this.apollo.use('sicac').watchQuery({
-    query: gql`
-    query modalidad($id:ID) {
-      modalidad(id:$id) {
-        id
-        nombre
-      }
-    }`,
-    variables: {
-      id: id
-    }
-  }).valueChanges;
-}
-
- getCatalogues(){
-   return this.apollo.use('backrevista').watchQuery({
-    query: gql`
-    query catalogues{
-      catalogues {
-        id
-        id_modalidad
-        catalogueType{
+  getCatalogoType(){
+    return this.apollo.use('backrevista').watchQuery({
+      query: gql`
+      query {
+        catalogueTypes{
           id
           name
           description
           created_at
           deprecated
         }
-        name
-        configuration
-        created_at
-        deprecated
+      }`,
+    }).valueChanges;
+  }
+
+
+  getModalidad(id: String){
+    return this.apollo.use('sicac').watchQuery({
+      query: gql`
+      query modalidad($id:ID) {
+        modalidad(id:$id) {
+          id
+          nombre
+        }
+      }`,
+      variables: {
+        id: id
       }
-    }`
-   }).valueChanges;
- }
-  
+    }).valueChanges;
+  }
+// Active catalogues
+  getCatalogues(){
+    return this.apollo.use('backrevista').watchQuery({
+      query: gql`
+      query catalogues{
+        catalogues {
+          id
+          id_modalidad
+          catalogueType{
+            id
+            name
+            description
+            created_at
+            deprecated
+          }
+          name
+          configuration
+          created_at
+          deprecated
+        }
+      }`
+    }).valueChanges;
+  }
+ //All existing catalogues  
+  getCataloguesAll(){
+    return this.apollo.use('backrevista').watchQuery({
+      query: gql`
+      query cataloguesAll{
+        cataloguesAll{
+          id
+          id_modalidad
+          catalogueType{
+            id
+            name
+            description
+            created_at
+            deprecated
+            }
+          name
+          configuration
+          created_at deprecated
+        }
+      }`
+    }).valueChanges;
+  }
+  //All modalities
   getModalidades(){
     return this.apollo.use('sicac').watchQuery({
       query: gql`
@@ -74,7 +101,7 @@ export class CatalogoService {
       }`
     }).valueChanges;
   }
-  
+  //Catalogues for modality
   catalogueByModality(id_modalidad: String){
     return this.apollo.use('backrevista').watchQuery({
       query :gql`
@@ -101,7 +128,7 @@ export class CatalogoService {
     }).valueChanges;
   }
   
-  //Catalogue ID
+  //Catalogue for ID
   
   catalogueByID(id: Number){
     return this.apollo.use('backrevista').watchQuery({
@@ -127,6 +154,35 @@ export class CatalogoService {
       }
     }).valueChanges;  
   }
+  //Search catalogues
+  searchWord(limit: Number,word: String){
+    return  this.apollo.use('backrevista').watchQuery({
+      query: gql`
+      query calogueWord($limit:Int,$word:String!){
+        cataloguesLike(limit:$limit, word:$word){
+          id
+          id_modalidad
+          catalogueType{
+            id
+            name
+            description
+            created_at
+            deprecated
+            }
+          name
+          configuration
+          created_at deprecated
+        }
+      }`,
+      variables:{
+        limit:limit,
+        word:word
+      }
+    }).valueChanges;
+  }
+  /**
+   @description Mutations
+  */
 
   createdCatalogue(id_modalidad: String,id_catalogue:Number, name: String, configuration: String){
     return this.apollo.use('backrevista').mutate({
@@ -208,6 +264,23 @@ export class CatalogoService {
       variables:{
         id: id,
         reason: reason
+      }
+    })
+  }
+
+  propertyType(name: String){
+    return this.apollo.use('backrevista').mutate({
+      mutation: gql`
+      mutation propertyType($name: String!){
+        propertyType(name:$name){
+          id
+          name
+          created_at
+          deprecated
+        }
+      }`,
+      variables:{
+        name: name
       }
     })
   }

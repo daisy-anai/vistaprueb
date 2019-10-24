@@ -27,14 +27,34 @@
             <option *ngFor="let catalogo of catalogoTypes" value="{{catalogo.id}}"> {{ catalogo.name }} </option>
           </select>
         </div>   
-         <button (click)="configuracion()">Add</button>
+        <!--configuracion (propiedasdes secciones)-->
 
-         <div formArrayName="configuration" *ngFor="let creds of catalogueForm.controls.configuration?.value; let i = index">
-            <div [formGroupName]="i">
-              <input id="seccion" type="text" class="validate"
-              formControlName="seccion" autocomplete="off">
+         <div class="col s6 right-align">
+            <a class="btn-floating btn-large waves-effect waves-light red btn-small red darken-2 "  (click)="configuracion()">
+              <i class="material-icons">add</i>
+            </a>
+          </div>
+        
+        <div formArrayName="configuration" *ngFor="let creds of catalogueForm.controls.configuration?.value; let i = index">          
+          <div class="row valign-wrapper">
+            <div class="col s6">
+              <p class="card-title">seccion</p>
             </div>
+          </div>
+        
+          <div  class="row">
+            <div  class="input-field col s12">
+              <div [formGroupName]="i">
+                <i class="material-icons prefix">textsms</i>
+                <input id="seccion" type="text" class="validate"
+                formControlName="seccion" autocomplete="off">
+               </div>
+              </div>
+            </div>
+
+       
          </div>
+  
          
         <div class="row">
           <div class="col s12">
@@ -43,23 +63,6 @@
         </div>
 
       </form>
-
-     <!-- Horizontal Steppers -->
-    <div class="row">
-        <div class="col-md-12">
-          <!-- Stepers Wrapper -->
-          <ul class="stepper stepper-horizontal">
-            <!-- First Step -->
-            <li class="completed">
-              <a href="#!">
-                <span class="circle">1</span>
-                <span class="label">First step</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
- 
     </semovi-body>
   </semovi-card>
 </ng-container>

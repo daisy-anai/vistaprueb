@@ -27,8 +27,9 @@ export class ListarVigenciasComponent implements OnInit {
   ) {}
 
   ngOnInit() {   
+  
     if(this.route.snapshot.paramMap.get("id")){
-      this.service.getVigenciasModalidadByID(this.route.snapshot.paramMap.get("id")).subscribe(({data}) =>{
+      this.service.getVigenciasModalidadByID(this.route.snapshot.paramMap.get("id")).subscribe(({data}) =>{   
         this.vigencias = data['validityByModalidad']; 
       });
      }else{

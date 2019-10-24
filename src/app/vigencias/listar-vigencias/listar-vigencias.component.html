@@ -25,9 +25,10 @@
       <!--let modalidad of modalidades| search: filtro">-->
 
       <semovi-list >
+       
         <semovi-item  *ngFor="let vigencia of vigencias">
-          <semovi-label> Años vigencia: {{ vigencia.anios_legales }}</semovi-label>
-          <semovi-label> Años prorroga: {{ vigencia.anios_prorroga }} </semovi-label>
+          <semovi-label class="highlight"> Años vigencia: {{ vigencia.legal_years }}</semovi-label>
+          <semovi-label> Años prorroga: {{ vigencia.extension_years }} </semovi-label>
           <semovi-label>
             <a class="right" [routerLink]="['/aplicacion/vigencias/modificar', vigencia.id]">
               <i class="material-icons">edit</i>

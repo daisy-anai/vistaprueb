@@ -1,7 +1,12 @@
 import { Default } from './default';
 
 export interface Vigencia extends Default { 
-  anios_legales: Number;
-  anios_prorroga: Number;
+  
+  id: Number;
   id_modalidad: String;
+  legal_years: Number;
+  extension_years: Number;
+  created_at: Date; 
+  deprecated: Boolean
+  
 }

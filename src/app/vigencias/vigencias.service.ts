@@ -88,23 +88,24 @@ export class VigenciasService {
     }).valueChanges;
   }
   
-  modificarVigencias(id: Number, id_modalidad: String, anios_legales: Number,anios_prorroga:Number){
+  updateVigencias(id: Number, id_modalidad: String, legal_years: Number,extension_years:Number){
     return this.apollo.use('backrevista').mutate({
       mutation: gql`
-      mutation modificar($id:ID!,$id_modalidad:ID!,$anios_legales:Int,$anios_prorroga:Int){
-        updateVigencia(id:$id,id_modalidad:$id_modalidad,anios_legales:$anios_legales,anios_prorroga:$anios_prorroga){
+      mutation validityUpdate($id:ID!,$id_modalidad:ID!,$legal_years:Int!,$extension_years:Int!){
+        validityUpdate(id:$id,id_modalidad:$id_modalidad,legal_years:$legal_years,extension_years:$extension_years){
           id
-          anios_legales
-          anios_prorroga
-          estatus
-          createdAt
+          id_modalidad
+          legal_years
+          extension_years
+          created_at
+          deprecated
         }
       }`,
       variables:{
         id: id,
         id_modalidad: id_modalidad,
-        anios_legales:anios_legales,
-        anios_prorroga: anios_prorroga
+        legal_years:legal_years,
+        extension_years: extension_years
       }
     });
   }
