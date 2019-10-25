@@ -13,9 +13,9 @@
       <div class="col  offset-s2" *ngIf="modalidad" >
         <form [formGroup]="vigenciaForm" (ngSubmit)="modificarVigencia()">
           <div class="input-field" >
-            <select formControlName="id_modalidad" class="browser-default">
-              <option *ngFor="let modalidad of modalidades" value="{{ modalidad.id }}"> {{ modalidad.nombre }} </option>
-            </select>
+            <div class="browser-default">
+              <span>{{modalidad.nombre}}</span>
+            </div>
           </div>
 
           <div class="input-field  col s6">
