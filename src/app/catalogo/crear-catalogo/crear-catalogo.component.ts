@@ -24,7 +24,7 @@ export class CrearCatalogoComponent implements OnInit {
 
   // public configuration: Array<any>;
   public catalogoTypes: Array<CatalogueType>;
-  public modalidades: Array<Modalidad>;
+  public modalidad: Array<Modalidad>;
   public catalogues: Array<Catalogues>;
   public configurarcionForm: any;
   constructor(
@@ -47,7 +47,9 @@ export class CrearCatalogoComponent implements OnInit {
     });
 
     this.service.getModalidad(id_modalidad).subscribe(({ data }) =>{
-      this.modalidades = data['modalidad'];      
+      this.modalidad = data['modalidad'];      
+      console.log(this.modalidad);
+      
     });
 
 
@@ -55,7 +57,7 @@ export class CrearCatalogoComponent implements OnInit {
       id_modalidad:[id_modalidad,Validators.required],
       name_catalogue:['',Validators.required],
       id_catalogue: ['', Validators.required],
-      configuration: new FormArray ([], Validators.required)
+      seccion: new FormArray ([], Validators.required)
       // configuration: this.formBuilder.array([]),
     }); 
 
@@ -74,20 +76,24 @@ export class CrearCatalogoComponent implements OnInit {
     // }); 
   }
 
-  configuracion(){
+  addSeccion(){
 
-    let configuracion = this.catalogueForm.controls.configuration as FormArray;
-    configuracion.push(this.formBuilder.group({
-      seccion:['', Validators.required],
-      propiedades: this.formBuilder.array([])
+    let seccion= this.catalogueForm.controls.seccion as FormArray;
+    seccion.push(this.formBuilder.group({
+      seccionName:['', Validators.required],
+      propiedad:new FormArray([], Validators.required)
     }));
 
   }
   propiedadesForm(){
+
     let controles = this.configurarcionForm;
-    let propiedades = controles.propiedades as FormArray;
+    let propiedades = controles.propiedad as FormArray;
     let properties = this.catalogueForm.controls
 
+  }
+  addPropiedad(){
+    
   }
 
 }

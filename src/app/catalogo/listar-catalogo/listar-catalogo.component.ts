@@ -31,17 +31,25 @@ export class ListarCatalogoComponent implements OnInit {
       {icon: 'add', description: 'Generar catálogo', urn: `/aplicacion/catalogo/crear/${this.modalidadID}`},
       {icon: 'list', description: 'Vigencia', urn: `/aplicacion/vigencias/modalidad/${this.modalidadID}`}
     ]; 
- 
-    if(this.route.snapshot.paramMap.get("id")){
-      this.service.catalogueByModality(this.modalidadID).subscribe(({ data })=>{
-        this.catalogos = data['catalogueByModalidad'];
-      });
-    }else{  
-      this.service.getCataloguesAll().subscribe(({ data })=>{
-        this.catalogos = data['cataloguesAll']; 
-        console.log("lista catalogos",this.catalogos); 
-      });   
-    }
+    this.service.getCataloguesAll().subscribe(({ data })=>{
+      this.catalogos = data['cataloguesAll'];
+      for (const catalogo of this.catalogos) {
+        if(catalogo.deprecated= false){
+          console.log("----");
+        } 
+      }
+    });
+
+    // if(this.route.snapshot.paramMap.get("id")){
+    //   this.service.catalogueByModality(this.modalidadID).subscribe(({ data })=>{
+    //     this.catalogos = data['catalogueByModalidad'];
+    //   });
+
+    // }else{  
+    //   this.service.getCatalogues().subscribe(({ data })=>{
+    //     this.catalogos = data['catalogues'];
+    //   });
+    // }
   }
 
   searchCatalgue(event):void{
