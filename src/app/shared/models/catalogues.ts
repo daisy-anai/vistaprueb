@@ -5,7 +5,7 @@ export interface Catalogues{
 	id_modalidad: String;
 	catalogueType:CatalogueType;
 	name: String;
-	configuration: String;
+	configuration: string;
 	created_at: Date;
 	deprecated: Boolean;
  }

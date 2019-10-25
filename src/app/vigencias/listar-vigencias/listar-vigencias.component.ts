@@ -19,7 +19,9 @@ export class ListarVigenciasComponent implements OnInit {
   public modalidades: Array<Modalidad>;
   private vigencias: Array<Vigencia>; 
   public filtro: string;
-
+  public buscarVisible: Boolean =false;
+  public agregarVisible: Boolean = false;
+  public vigenciaVisible: Boolean = false;
   constructor(
     private service?: VigenciasService,
     private serviceCatalogo?: CatalogoService,
@@ -27,15 +29,27 @@ export class ListarVigenciasComponent implements OnInit {
   ) {}
 
   ngOnInit() {   
-  
+
     if(this.route.snapshot.paramMap.get("id")){
       this.service.getVigenciasModalidadByID(this.route.snapshot.paramMap.get("id")).subscribe(({data}) =>{   
         this.vigencias = data['validityByModalidad']; 
       });
      }else{
+       this.agregarVisible=true;
+       this.buscarVisible=true;
+       this.vigenciaVisible=true;
       this.service.getVigencias().subscribe(({data})=>{
         this.vigencias =data['validities'];
       });
     }  
+  }
+  activeValidities(){
+ console.log("activas");
+ 
+  }
+  allValidities(){
+    this.service.getVigencias().subscribe(({ data })=>{
+      this.vigencias = data['validities']
+    })
   }
 }

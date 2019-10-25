@@ -47,7 +47,7 @@ export class CrearVigenciasComponent implements OnInit {
     const id_modalidad = this.catalogoForm.value.id_modalidad;
     const legal_years= this.catalogoForm.value.anios_legales;
     const extension_years= this.catalogoForm.value.anios_prorroga;
-   
+    
     this.service.createVigencia(id_modalidad,legal_years,extension_years).subscribe((result)  => {
       this.router.navigate(['aplicacion/vigencias/'])  
     }, (error) => {
