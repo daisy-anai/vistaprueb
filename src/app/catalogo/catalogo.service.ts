@@ -10,7 +10,7 @@ export class CatalogoService {
   constructor(private apollo: Apollo){}
 
   /**
-   @description Catalogue Type 
+   @description Catalogue Type
    @param getCatalogueType
    */
 
@@ -67,7 +67,7 @@ export class CatalogoService {
       }`
     }).valueChanges;
   }
- //All existing catalogues  
+ //All existing catalogues
   getCataloguesAll(){
     return this.apollo.use('backrevista').watchQuery({
       query: gql`
@@ -127,9 +127,9 @@ export class CatalogoService {
       }
     }).valueChanges;
   }
-  
+
   //Catalogue for ID
-  
+
   catalogueByID(id: Number){
     return this.apollo.use('backrevista').watchQuery({
       query: gql `
@@ -145,14 +145,14 @@ export class CatalogoService {
             deprecated
           }
           configuration
-          created_at   
+          created_at
           deprecated
-        } 
+        }
       }`,
       variables:{
         id: id
       }
-    }).valueChanges;  
+    }).valueChanges;
   }
   //Search catalogues
   searchWord(limit: Number,word: String){
@@ -210,7 +210,7 @@ export class CatalogoService {
         name: name,
         configuration: configuration
       }
-    }) 
+    })
   }
   catalogueUpdate(id_modalidad: String,id_catalogue:Number, name: String, configuration: String){
     return this.apollo.use('backrevista').mutate({
@@ -266,6 +266,20 @@ export class CatalogoService {
         reason: reason
       }
     })
+  }
+
+  // Properties
+  getPropertyTypes() {
+    return  this.apollo.use('backrevista').watchQuery({
+      query: gql`
+        query {
+          propertyTypes {
+            id
+            name
+          }
+        }
+      `
+    }).valueChanges;
   }
 
   propertyType(name: String){

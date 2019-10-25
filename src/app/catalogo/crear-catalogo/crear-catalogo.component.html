@@ -3,78 +3,169 @@
   <semovi-card>
     <semovi-card-header>
       <div class="row">
-        <div class="col s8 valign-wrapper">  
+        <div class="col s8 valign-wrapper">
           <semovi-card-header-icon icon="arrow_back"></semovi-card-header-icon>
           <semovi-card-header-title> Crear catálogo </semovi-card-header-title>
         </div>
       </div>
     </semovi-card-header>
+
     <semovi-body>
       <div class="row">
         <div class="col s12">
+          <div class="color-wrapper">
+            <semovi-color-picker [hue]="hue" (color)="color = $event"></semovi-color-picker>
+            <semovi-color-picker-slider (color)="hue=$event" style="margin-left:10px"> </semovi-color-picker-slider>
+          </div>
+
+          <div class="">
+            <span class="text">{{ color }}</span>
+            <div class="color-div" [ngStyle]="{'background-color': color || 'white'}"></div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s12">
           <form [formGroup]="catalogueForm" (ngSubmit)="createCatalogue()">
-            <div *ngIf="modalidad" >
-              <p class="card-title">{{ modalidad.nombre }}</p>
+            <div class="row valign-wrapper">
+              <div class="col s6 left-align">
+                <div *ngIf="modalidad">
+                  <h5>Catalogo para: {{ modalidad.nombre }}</h5>
+                </div>
+              </div>
+              <div class="col s6 right-align">
+                <a href="#">Previsualizar</a>
+              </div>
             </div>
 
-            <div class="input-field ">
-              <input id="nombre_catalogo" type="text" class="validate"
-              formControlName="name_catalogue"  autocomplete="off">
-              <label for="nombre_catalogo">Nombre del catalogo</label>
+            <div class="row">
+              <div class="col s12">
+                <div class="input-field ">
+                  <input id="catalogue_name" type="text" class="validate"
+                  formControlName="name"  autocomplete="off">
+                  <label for="catalogue_name">Nombre del catálogo</label>
+                </div>
+              </div>
             </div>
-          
-            <div class="">
-              <label for="id_tipo_catalogo">Tipo de catalogo</label>
-              <select class="browser-default" formControlName="id_catalogue">
-                <option value="" disabled selected>Elige una opción</option>
-                <option *ngFor="let catalogo of catalogoTypes" value="{{catalogo.id}}"> {{ catalogo.name }} </option>
-              </select>
-            </div>   
-            <!--configuracion (propiedasdes secciones)-->
-            <div class="row right"> 
-              <div class="col s6">
-                <a class="btn-floating btn-large waves-effect waves-light red btn-small red darken-2" id="addseccion"  (click)="addSeccion()">
+
+            <div class="row">
+              <div class="col s12">
+                <div class="">
+                  <label for="id_tipo_catalogo">Tipo de catalogo</label>
+                  <select class="browser-default" formControlName="id_catalogue_type">
+                    <option value="" disabled selected>Elige una opción</option>
+                    <option *ngFor="let catalogo of cataloguesTypes" value="{{catalogo.id}}"> {{ catalogo.name }} </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col s12">
+                <p>
+                  {{catalogueForm.value | json}}
+                </p>
+              </div>
+            </div>
+
+            <div class="row valign-wrapper">
+              <div class="col s8">
+                <p>Agregar sección</p>
+              </div>
+              <div class="col s6 right-align">
+                <a class="btn-floating btn-large waves-effect waves-light red btn-small red darken-2" (click)="addSection()">
                   <i class="material-icons">add</i>
                 </a>
               </div>
             </div>
 
+            <!-- Configuration -->
             <div class="row">
               <div class="col s12">
-                <div formArrayName="seccion" *ngFor="let seccion of catalogueForm.controls.seccion.value; let i = index">          
+                <div formArrayName="configuration" *ngFor="let section of configuration.controls; index as i">
                   <div class="card col s10 offset-s1">
                     <div class="row valign-wrapper">
+                      <div class="col s6 left-align">
+                        <p class="card-title">Panel de configuración</p>
+                      </div>
+                      <div class="col s6 right-align">
+                        <a href="#">Cancelar</a>
+                      </div>
+                    </div>
+
+                    <!-- Sections -->
+                    <div class="" [formGroupName]="i">
+                      <div class="row">
                         <div class="col s12">
-                          <p class="card-title">seccion</p>
-                        </div>
-                    </div>
-
-                    <div  class="row">
-                      <div  class="input-field col s12">
-                        <div [formGroupName]="i">
-                          <i class="material-icons prefix">textsms</i>
-                          <input id="seccion" type="text" class="validate"
-                          formControlName="seccionName" autocomplete="off">
+                          <div class="input-field ">
+                            <input id="S[{{i}}]-name" type="text" class="validate"
+                              formControlName="name"  autocomplete="off">
+                            <label for="S[{{i}}]-name">Titulo de sección</label>
                           </div>
+                        </div>
                       </div>
-                    </div> 
 
-                    <div  class="row">
-                      <div class="col s12">
-                        <a class="btn-floating btn-large waves-effect waves-light red btn-small red darken-2 "  (click)="addPropiedad()">
-                          <i class="material-icons">add</i>
-                        </a>
+                      <div class="row valign-wrapper">
+                        <div class="col s8">
+                          <p>Agregar propiedades</p>
+                        </div>
+                        <div class="col s6 right-align">
+                          <a class="waves-effect waves-light btn-small" (click)="addProperty(section)"> Agregar propiedad </a>
+                        </div>
+                      </div>
+
+                      <div formArrayName="properties" *ngFor="let property of properties(section).controls; index as j">
+                        <div class="" [formGroupName]="j">
+                          <div class="row">
+                            <div class="col m6">
+                              <div class="input-field ">
+                                <input id="S[{{i}}]-P[{{j}}]-name" type="text" class="validate"
+                                  formControlName="name"  autocomplete="off">
+                                <label for="S[{{i}}]-P[{{j}}]-name">Nombre de propiedad</label>
+                              </div>
+                            </div>
+
+                            <div class="col s6">
+                              <label for="id_tipo_catalogo">Tipo de propiedad</label>
+                              <select class="browser-default" formControlName="propertyType" id="S[{{i}}]-P[{{j}}]-propertyType">
+                                <option value="" disabled selected>Elige una opción</option>
+                                <option *ngFor="let property of propertyTypes" value="{{property.name}}"> {{ property.name }} </option>
+                              </select>
+                            </div>
+                          </div>
+
+                          <div class="" [ngSwitch]="onChangePropertyType(i, j)">
+                            <div class="row">
+                              <div class="col s12">
+                                  <div *ngSwitchCase="'Color'">
+                                    <semovi-color-picker></semovi-color-picker>
+                                  </div>
+
+                                  <div *ngSwitchCase="'Texto'">
+                                    <div class="input-field ">
+                                      <textarea id="S[{{i}}]-P[{{j}}]-value" type="text" class="materialize-textarea"
+                                      formControlName="value"  autocomplete="off"></textarea>
+                                      <label for="S[{{i}}]-P[{{j}}]-value">Agregue su descripción aquí</label>
+                                    </div>
+                                  </div>
+
+                                  <div *ngSwitchCase="'Lógico'">
+                                    <p>
+                                      <label>
+                                        <input type="checkbox" formControlName="value"/>
+                                        <span>Correcto</span>
+                                      </label>
+                                     </p>
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>           
+
+                  </div>
                 </div>
-              </div>
-            </div>
-          
-        
-            <div class="row">
-              <div class="col s12">
-                <button type="submit" class="waves-effect waves-light btn-small right" > Registrar catalogo</button>
               </div>
             </div>
           </form>
@@ -83,4 +174,3 @@
     </semovi-body>
   </semovi-card>
 </ng-container>
-

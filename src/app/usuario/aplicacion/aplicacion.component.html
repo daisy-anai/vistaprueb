@@ -24,7 +24,7 @@
     <li class="divider"></li>
     <li>
       <a [routerLink]="['/aplicacion/configuracion']">
-        <i class="material-icons">ballot</i> Configuración
+        <i class="material-icons">ballot</i> Configuracion
       </a>
     </li>
     <li class="divider"></li>
@@ -46,8 +46,23 @@
       </div>
     </li>
     <li class="divider"></li>
-    <li><a [routerLink]="['/aplicacion/catalogo']"><i class="material-icons left">list_alt</i>Catalogos</a></li>
-    <li><a [routerLink]="['/aplicacion/catalogo']" class="waves-effect" (click)="logout()"><i class="material-icons left">exit_to_app</i>Cerrar sesión</a></li>
+    <li>
+      <a [routerLink]="['/aplicacion/concesion']">
+        <i class="material-icons">home</i> Inicio
+      </a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a [routerLink]="['/aplicacion/configuracion']">
+        <i class="material-icons">ballot</i> Configuracion
+      </a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a (click)="logout()">
+        <i class="material-icons">exit_to_app</i>Cerrar sesión
+      </a>
+    </li>
   </ul>
 </header>
 

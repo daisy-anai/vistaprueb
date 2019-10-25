@@ -19,6 +19,8 @@ import { SemoviPreloadingComponent } from './semovi-preloading/semovi-preloading
 import { SemoviCardHeaderIconComponent } from './semovi-card-header-icon/semovi-card-header-icon.component';
 import { SemoviCardHeaderTitleComponent } from './semovi-card-header-title/semovi-card-header-title.component';
 import { SemoviCardHeaderOptionComponent } from './semovi-card-header-option/semovi-card-header-option.component';
+import { SemoviColorPickerComponent } from './semovi-color-picker/semovi-color-picker.component';
+import { SemoviColorPickerSliderComponent } from './semovi-color-picker-slider/semovi-color-picker-slider.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import { SemoviCardHeaderOptionComponent } from './semovi-card-header-option/sem
     SemoviCardHeaderIconComponent,
     SemoviCardHeaderTitleComponent,
     SemoviCardHeaderOptionComponent,
+    SemoviColorPickerComponent,
+    SemoviColorPickerSliderComponent,
   ],
   imports: [
     CommonModule,
@@ -58,7 +62,9 @@ import { SemoviCardHeaderOptionComponent } from './semovi-card-header-option/sem
     SemoviPreloadingComponent,
     SemoviCardHeaderIconComponent,
     SemoviCardHeaderTitleComponent,
-    SemoviCardHeaderOptionComponent
+    SemoviCardHeaderOptionComponent,
+    SemoviColorPickerComponent,
+    SemoviColorPickerSliderComponent
   ]
 })
 export class ComponentsModule { }

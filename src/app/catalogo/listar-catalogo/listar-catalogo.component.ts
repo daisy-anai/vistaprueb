@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 
-import {MenuItem} from 'primeng/api';
 // Servicios
 import { CatalogoService } from '../catalogo.service';
 import { VigenciasService } from '../../vigencias/vigencias.service'
@@ -13,8 +12,8 @@ import { Catalogues } from 'src/app/shared/models/catalogues';
   styleUrls: ['./listar-catalogo.component.css']
 })
 export class ListarCatalogoComponent implements OnInit {
-  private modalidadID: string; 
-  private options: Array<{}>;  
+  private modalidadID: string;
+  private options: Array<{}>;
   public catalogos: Array<Catalogues>;
   public filtro: String;
 
@@ -25,18 +24,18 @@ export class ListarCatalogoComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.modalidadID = this.route.snapshot.paramMap.get("id"); 
+    this.modalidadID = this.route.snapshot.paramMap.get("id");
 
     this.options = [
       {icon: 'add', description: 'Generar catálogo', urn: `/aplicacion/catalogo/crear/${this.modalidadID}`},
       {icon: 'list', description: 'Vigencia', urn: `/aplicacion/vigencias/modalidad/${this.modalidadID}`}
-    ]; 
+    ];
     this.service.getCataloguesAll().subscribe(({ data })=>{
       this.catalogos = data['cataloguesAll'];
       for (const catalogo of this.catalogos) {
         if(catalogo.deprecated= false){
           console.log("----");
-        } 
+        }
       }
     });
 
@@ -45,7 +44,7 @@ export class ListarCatalogoComponent implements OnInit {
     //     this.catalogos = data['catalogueByModalidad'];
     //   });
 
-    // }else{  
+    // }else{
     //   this.service.getCatalogues().subscribe(({ data })=>{
     //     this.catalogos = data['catalogues'];
     //   });
@@ -53,7 +52,7 @@ export class ListarCatalogoComponent implements OnInit {
   }
 
   searchCatalgue(event):void{
-    if (!this.filtro) {      
+    if (!this.filtro) {
       this.service.catalogueByModality(this.modalidadID).subscribe(({ data })=>{
         this.catalogos = data['catalogueByModalidad'];
       });
@@ -72,7 +71,7 @@ export class ListarCatalogoComponent implements OnInit {
 
   allCatalogues():void{
     this.service.getCataloguesAll().subscribe(({ data })=>{
-      this.catalogos = data['cataloguesAll']; 
-    }); 
+      this.catalogos = data['cataloguesAll'];
+    });
   }
 }
