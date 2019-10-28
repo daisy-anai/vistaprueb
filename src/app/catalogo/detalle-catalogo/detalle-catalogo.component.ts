@@ -12,7 +12,7 @@ import { CatalogoService } from '../catalogo.service';
 })
 export class DetalleCatalogoComponent implements OnInit {
   public catalogo: Array<Catalogues>;
-  private parameter: string; 
+  private parameter: string;
   private  visible: Boolean  = false;
   constructor(
     private router: Router,

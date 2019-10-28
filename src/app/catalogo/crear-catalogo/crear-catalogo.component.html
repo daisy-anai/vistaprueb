@@ -13,20 +13,7 @@
     <semovi-body>
       <div class="row">
         <div class="col s12">
-          <div class="color-wrapper">
-            <semovi-color-picker [hue]="hue" (color)="color = $event"></semovi-color-picker>
-            <semovi-color-picker-slider (color)="hue=$event" style="margin-left:10px"> </semovi-color-picker-slider>
-          </div>
-
-          <div class="">
-            <span class="text">{{ color }}</span>
-            <div class="color-div" [ngStyle]="{'background-color': color || 'white'}"></div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col s12">
-          <form [formGroup]="catalogueForm" (ngSubmit)="createCatalogue()">
+          <form [formGroup]="catalogueForm" (ngSubmit)="onPreview()">
             <div class="row valign-wrapper">
               <div class="col s6 left-align">
                 <div *ngIf="modalidad">
@@ -34,7 +21,7 @@
                 </div>
               </div>
               <div class="col s6 right-align">
-                <a href="#">Previsualizar</a>
+                <button (click)="onPreview()" class="btn-small"> Previsualizar </button>
               </div>
             </div>
 
@@ -138,7 +125,15 @@
                             <div class="row">
                               <div class="col s12">
                                   <div *ngSwitchCase="'Color'">
-                                    <semovi-color-picker></semovi-color-picker>
+                                    <div class="color-wrapper">
+                                      <semovi-color-picker [hue]="hue" (color)="color = $event"></semovi-color-picker>
+                                      <semovi-color-picker-slider (color)="hue=$event" style="margin-left:10px"> </semovi-color-picker-slider>
+                                    </div>
+
+                                    <div class="">
+                                      <input type="text" name="" [value]="color" formControlName="value">
+                                      <div class="color-div" [ngStyle]="{'background-color': color || 'white'}"></div>
+                                    </div>
                                   </div>
 
                                   <div *ngSwitchCase="'Texto'">
@@ -168,9 +163,36 @@
                 </div>
               </div>
             </div>
+
+
+
           </form>
         </div>
       </div>
     </semovi-body>
   </semovi-card>
+
+  <!-- MODAL -->
+  <div class="">
+    <div id="previewModal" class="modal">
+      <div class="modal-content" *ngIf="modalidad">
+        <h4> Previsualización de catálogo </h4>
+        <p> Tipo de modalidad: {{ modalidad.nombre }} </p>
+
+        <div class="row">
+          <div class="col s12">
+            <h5>Data</h5>
+            <span>
+              {{ catalogueForm.value | json }}
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a class="modal-close waves-effect btn-flat orange-text left"> cerrar </a>
+        <button class="waves-effect btn-flat right" (click)="onSubmit()" [disabled]="!catalogueForm.valid"> Guardar </button>
+      </div>
+    </div>
+  </div>
+  <!-- MODAL -->
 </ng-container>

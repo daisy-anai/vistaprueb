@@ -1,18 +1,21 @@
 <header >
-  <nav class="z-depth-2">
-    <div class="nav-wrapper white">
-      <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-      <a [routerLink]="['/aplicacion/inicio']"><img class="responsive-img logo-semovi" src="assets/images/banner.png"></a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li>
-          <a class="dropdown-menu" data-target="dropdown-menu-options">
-            <label class="">{{user.nombre}} {{user.primer_apellido}} {{user.segundo_apellido}}</label>
-            <i class="material-icons right">arrow_drop_down</i>
-          </a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+  <!-- navbar -->
+  <div class="navbar-fixed">
+    <nav class="z-depth-2">
+      <div class="nav-wrapper white">
+        <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <a [routerLink]="['/aplicacion/inicio']"><img class="responsive-img logo-semovi" src="assets/images/banner.png"></a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li>
+            <a class="dropdown-menu" data-target="dropdown-menu-options">
+              <label class="">{{user.nombre}} {{user.primer_apellido}} {{user.segundo_apellido}}</label>
+              <i class="material-icons right">arrow_drop_down</i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>  
 
   <!-- dropdown -->
   <ul id="dropdown-menu-options" class="dropdown-content">
@@ -24,7 +27,7 @@
     <li class="divider"></li>
     <li>
       <a [routerLink]="['/aplicacion/configuracion']">
-        <i class="material-icons">settings_applications</i> Configuracion
+        <i class="material-icons">settings_applications</i> Configuración
       </a>
     </li>
     <li class="divider"></li>
@@ -54,7 +57,7 @@
     <li class="divider"></li>
     <li>
       <a [routerLink]="['/aplicacion/configuracion']">
-        <i class="material-icons">ballot</i> Configuracion
+        <i class="material-icons">settings_applications</i> Configuración
       </a>
     </li>
     <li class="divider"></li>

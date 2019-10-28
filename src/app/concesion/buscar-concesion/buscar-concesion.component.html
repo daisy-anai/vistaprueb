@@ -11,7 +11,7 @@
 
     <semovi-card-body>
       <semovi-input-search>
-        <input name="filtro" id="filtro" type="search" class="browser-default placeholder-fix"
+        <input (window:keydown)="onKey($event)" name="filtro" id="filtro" type="search" class="browser-default placeholder-fix"
         placeholder="Buscar concesión" autofocus
         autocomplete="off" [(ngModel)]="filtro"
         (ngModelChange)="buscar($event)">

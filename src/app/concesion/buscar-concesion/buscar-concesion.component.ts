@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-
 // Services
 import { ConcesionService } from '../concesion.service';
 import { MediumDataService } from '../../shared/services/medium.data.service';
+import { HostListener } from '@angular/core';
 
 // Interfaces
 import { Concesion } from '../../shared/models/concesion';
@@ -25,7 +25,21 @@ export class BuscarConcesionComponent {
     private shared?: MediumDataService,
     private router?: Router
   ) { }
-
+  ngOnInit(){
+ 
+    // $('#filtro').focus(function(e) {
+    //   this.blur();
+    // });
+    
+  
+  }
+ //ocultar teclado movil
+  onKey(e) {
+    if (e.keyCode == 13) {
+      let activeElement = <HTMLElement>document.activeElement;
+      activeElement && activeElement.blur && activeElement.blur();
+    }
+  }
   cambiarModo(tipo: number): void {
     this.filtro = "";
     this.tipo = tipo;

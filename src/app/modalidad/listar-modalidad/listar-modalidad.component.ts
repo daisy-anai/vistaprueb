@@ -13,14 +13,22 @@ import { CatalogoService} from '../../catalogo/catalogo.service'
 })
 export class ListarModalidadComponent implements OnInit {
   public filtro: string;
-  public modalidades: Array<Modalidad>
+  public modalidades: Array<Modalidad>;
+  private options: Array<{}>;
+
 
   constructor(private service?: CatalogoService) { }
 
   ngOnInit() {
     this.service.getModalidades().subscribe(({data}) => {
-      this.modalidades = data['modalidades']
+      this.modalidades = data['modalidades'];
+      
     });
+  //   this.options = [
+  //     {icon: 'library_books', description: 'Generar catálogo', urn: `/aplicacion/catalogo/listar/${this.modalidadID}`},
+  //     {icon: 'list', description: 'Vigencia', urn: `/aplicacion/vigencias/modalidad/`}
+  //   ];
+  // //  
   }
 
 }

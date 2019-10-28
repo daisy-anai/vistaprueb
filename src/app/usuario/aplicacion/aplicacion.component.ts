@@ -31,10 +31,10 @@ export class AplicacionComponent implements OnInit {
       closeOnClick: true
     });
 
-    $('.sidenav').sidenav({
-      closeOnClick: false,
-      draggable: true
+    $('.sidenav').sidenav().on('click tap', 'li a', () => {
+        $('.sidenav').sidenav('close');
     });
+
   }
 
   logout(): void{
