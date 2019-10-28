@@ -26,6 +26,9 @@ export class CrearVigenciasComponent implements OnInit {
   ){}
 
   ngOnInit() {
+    // console.log(this.router.);
+    console.log("crear");
+    
     this.serviceCatalogo.getModalidades().subscribe(result => {
       this.modalidades = result.data['modalidades'];
     });

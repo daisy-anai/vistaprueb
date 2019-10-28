@@ -21,28 +21,15 @@ export class DetalleCatalogoComponent implements OnInit {
   ){}
 
   ngOnInit() {
-
-     let deprecated = this.route.snapshot.paramMap.get("deprecated");  
-     if(deprecated == "true"){
-      this.visible = false;
-      this.catalgueData();
-     }else{
-       this.visible = true;
-      this.catalgueData();
-     }  
+    this.service.catalogueByID(parseInt(this.route.snapshot.paramMap.get("id"))).subscribe(({ data })=>{
+      this.catalogo = data['catalogue'];
+      console.log(this.catalogo);
+    });
   }
 
   catalogueDeprecate(id: Number){  
     this.service.catalogueDeprecate(id,"hola").subscribe(result=>{    
       this.router.navigate(['/aplicacion/catalogo/listar']);
     });
-
-  }
-  catalgueData(){
-    this.service.catalogueByID(parseInt(this.route.snapshot.paramMap.get("id"))).subscribe(({ data })=>{
-      this.catalogo = data['catalogue'];   
-
-    });
-  }
- 
+  } 
 }

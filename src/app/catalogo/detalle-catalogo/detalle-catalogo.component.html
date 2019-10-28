@@ -20,9 +20,9 @@
                 <p> configuracion: {{ catalogo.configuration  | json : spacing }}</p>
                 <p *ngFor="let seccion of seccion">{{catalogo.configuracion.seccion.name}}</p>
               </div>
-              <div class="card-action" *ngIf="visible">
-                <a [routerLink]="['/aplicacion/catalogo/modificar',catalogo.id]" >Modificar</a>
-                <a (click)= "catalogueDeprecate(catalogo.id)" >Eliminar</a>
+              <div class="card-action" *ngIf="!catalogo.deprecated">
+                <a [routerLink]="['/aplicacion/catalogo/modificar',catalogo.id]">Modificar</a>
+                <a class="waves-effect btn" (click)= "catalogueDeprecate(catalogo.id)">Eliminar</a>
               </div>
             </div>
           </div>

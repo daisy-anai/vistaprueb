@@ -33,12 +33,15 @@ export class ListarVigenciasComponent implements OnInit {
     if(this.route.snapshot.paramMap.get("id")){
       this.service.getVigenciasModalidadByID(this.route.snapshot.paramMap.get("id")).subscribe(({data}) =>{   
         this.vigencias = data['validityByModalidad']; 
+        if( Object.keys(this.vigencias).length === 0){
+          this.agregarVisible=true;
+        }    
       });
      }else{
-       this.agregarVisible=true;
-       this.buscarVisible=true;
-       this.vigenciaVisible=true;
-      this.service.getVigencias().subscribe(({data})=>{
+        this.agregarVisible=true;
+        this.buscarVisible=true;
+        this.vigenciaVisible=true;
+        this.service.getVigencias().subscribe(({data})=>{
         this.vigencias =data['validities'];
       });
     }  

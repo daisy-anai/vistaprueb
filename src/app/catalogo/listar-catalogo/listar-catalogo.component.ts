@@ -6,7 +6,7 @@ import { CatalogoService } from '../catalogo.service';
 import { VigenciasService } from '../../vigencias/vigencias.service'
 import { Catalogues } from '../../shared/models/catalogues';
 import { Modalidad } from '../../shared/models/modalidad'
-import { runInThisContext } from 'vm';
+
 @Component({
   selector: 'app-listar-catalogo',
   templateUrl: './listar-catalogo.component.html',
@@ -25,6 +25,7 @@ export class ListarCatalogoComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+
     this.modalidadID = this.route.snapshot.paramMap.get("id");
 
     this.options = [
@@ -33,28 +34,28 @@ export class ListarCatalogoComponent implements OnInit {
     ];
 
     if(this.modalidadID){
-     this.activeCatalogues();
+      console.log("modalidad if", this.modalidadID);  
+      this.service.catalogueByModality(this.modalidadID).subscribe(({ data })=>{
+        this.catalogos = data['catalogueByModalidad'];
+        console.log(this.catalogos);
+
+      });
+     
     }else{
       this.service.getCatalogues().subscribe(({ data })=>{
         this.catalogos = data['catalogues'];
+        
       });
     }
-
   }
 
   searchCatalogue(event):void{
     if (!this.filtro) {
-        this.activeCatalogues();
-      console.log("no filtrador");
-
+      this.activeCatalogues();
     }else{
-
       this.service.searchWord(1,this.filtro).subscribe(({data})=>{
         this.catalogos = data['cataloguesLike'];
-        console.log(this.catalogos);
-
       });
-    //  this.getCatalogues();
     }
   }
 
@@ -63,7 +64,6 @@ export class ListarCatalogoComponent implements OnInit {
       this.service.catalogueByModality(this.modalidadID).subscribe(({ data })=>{
         this.catalogos = data['catalogueByModalidad'];
       });
-
     }else{
       this.getCatalogues();
     }
@@ -76,8 +76,9 @@ export class ListarCatalogoComponent implements OnInit {
   }
 
   allCatalogues():void{
+    console.log("all");
     this.service.getCataloguesAll().subscribe(({ data })=>{
       this.catalogos = data['cataloguesAll'];
-    });
+    }); 
   }
 }
