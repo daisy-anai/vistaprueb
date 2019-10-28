@@ -12,7 +12,7 @@ import { CatalogoService } from '../catalogo.service';
 })
 export class DetalleCatalogoComponent implements OnInit {
   public catalogo: Array<Catalogues>;
-  private parameter: string; 
+  private parameter: string;
   private  visible: Boolean  = false;
   constructor(
     private router: Router,
@@ -21,28 +21,14 @@ export class DetalleCatalogoComponent implements OnInit {
   ){}
 
   ngOnInit() {
-
-     let deprecated = this.route.snapshot.paramMap.get("deprecated");  
-     if(deprecated == "true"){
-      this.visible = false;
-      this.catalgueData();
-     }else{
-       this.visible = true;
-      this.catalgueData();
-     }  
+    this.service.catalogueByID(parseInt(this.route.snapshot.paramMap.get("id"))).subscribe(({ data })=>{
+      this.catalogo = data['catalogue'];
+    });
   }
 
-  catalogueDeprecate(id: Number){  
-    this.service.catalogueDeprecate(id,"hola").subscribe(result=>{    
+  catalogueDeprecate(id: Number){
+    this.service.catalogueDeprecate(id,"hola").subscribe(result=>{
       this.router.navigate(['/aplicacion/catalogo/listar']);
     });
-
   }
-  catalgueData(){
-    this.service.catalogueByID(parseInt(this.route.snapshot.paramMap.get("id"))).subscribe(({ data })=>{
-      this.catalogo = data['catalogue'];   
-
-    });
-  }
- 
 }

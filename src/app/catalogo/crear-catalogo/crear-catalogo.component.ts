@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute} from '@angular/router';
 import { Apollo} from 'apollo-angular';
@@ -11,8 +11,8 @@ import { PropertyType }  from '../../shared/models/propertyType'
 
 // Services
 import {CatalogoService} from '../catalogo.service';
-declare const MStepper: any;
 
+declare var M: any;
 
 @Component({
   selector: 'app-crear-catalogo',
@@ -25,11 +25,12 @@ export class CrearCatalogoComponent implements OnInit {
 
   public cataloguesTypes: Array<CatalogueType>;
   public propertyTypes: Array<PropertyType>;
-  public modalidad: Array<Modalidad>;
+  public modalidad: Modalidad;
   public configurarcionForm: any;
 
   public hue: string
   public color: string
+  public ModalInstance: any;
 
   constructor(
     private service?: CatalogoService,
@@ -59,6 +60,9 @@ export class CrearCatalogoComponent implements OnInit {
       name: ['', Validators.required],
       configuration: new FormArray ([], Validators.required)
     });
+
+    var modal = document.getElementById('previewModal');
+    this.ModalInstance = M.Modal.init(modal, {});
   }
 
   get configuration(): FormArray {
@@ -91,8 +95,21 @@ export class CrearCatalogoComponent implements OnInit {
     }));
   }
 
-  onSubmit(){
-
+  onPreview() {
+    this.ModalInstance.open();
   }
 
+  onSubmit() {
+    this.service.createCatalogue(
+      this.modalidad.id,
+      this.catalogueForm.value.id_catalogue_type,
+      this.catalogueForm.value.name,
+      this.catalogueForm.value.configuration
+    ).subscribe(({data}) => {
+      console.log("(Please hidden me) Result:: ", data);
+      this.router.navigate(['/aplicacion/catalogo/detalle', data['catalogue'].id]);
+    }, (error) => {
+      console.log("Error", error)
+    });
+  }
 }

@@ -29,7 +29,6 @@ export class CatalogoService {
     }).valueChanges;
   }
 
-
   getModalidad(id: String){
     return this.apollo.use('sicac').watchQuery({
       query: gql`
@@ -44,6 +43,7 @@ export class CatalogoService {
       }
     }).valueChanges;
   }
+
 // Active catalogues
   getCatalogues(){
     return this.apollo.use('backrevista').watchQuery({
@@ -89,6 +89,7 @@ export class CatalogoService {
       }`
     }).valueChanges;
   }
+
   //All modalities
   getModalidades(){
     return this.apollo.use('sicac').watchQuery({
@@ -101,6 +102,7 @@ export class CatalogoService {
       }`
     }).valueChanges;
   }
+
   //Catalogues for modality
   catalogueByModality(id_modalidad: String){
     return this.apollo.use('backrevista').watchQuery({
@@ -129,7 +131,6 @@ export class CatalogoService {
   }
 
   //Catalogue for ID
-
   catalogueByID(id: Number){
     return this.apollo.use('backrevista').watchQuery({
       query: gql `
@@ -154,6 +155,7 @@ export class CatalogoService {
       }
     }).valueChanges;
   }
+
   //Search catalogues
   searchWord(limit: Number,word: String){
     return  this.apollo.use('backrevista').watchQuery({
@@ -180,15 +182,15 @@ export class CatalogoService {
       }
     }).valueChanges;
   }
+
   /**
    @description Mutations
   */
-
-  createdCatalogue(id_modalidad: String,id_catalogue:Number, name: String, configuration: JSON){
+  createCatalogue(id_modalidad: String, id_catalogue_type:Number, name:String, configuration: any){
     return this.apollo.use('backrevista').mutate({
       mutation: gql`
-      mutation created($id_modalidad :ID!,$id_catalogue_type:ID!,$name:String!,$configuration:JSON!){
-        catalogue(id_modalidad:$id_modalidad,id_catalogue_type:$id_catalogue_type,name:$name,configuration:$configuration){
+      mutation created($id_modalidad: ID!, $id_catalogue_type: ID!, $name: String!, $configuration: JSON!){
+        catalogue(id_modalidad: $id_modalidad, id_catalogue_type: $id_catalogue_type, name: $name, configuration: $configuration){
           id
           id_modalidad
           catalogueType{
@@ -206,9 +208,9 @@ export class CatalogoService {
       }`,
       variables:{
         id_modalidad: id_modalidad,
-        id_catalogue: id_catalogue,
+        id_catalogue_type: id_catalogue_type,
         name: name,
-        configuration: configuration
+        configuration: { sections: configuration }
       }
     })
   }
