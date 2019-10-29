@@ -10,18 +10,12 @@
       </div>
     </semovi-card-header>
     <semovi-card-body>
-      
-      <div class="">
         <div class="row">
           <div class="col s8 offset-s2">
             <form [formGroup]="catalogoForm" (ngSubmit)="crearVigencia()">
-              <div class="input-field" >
-                <select formControlName="id_modalidad" class="browser-default">
-                  <option value="" disabled selected>Elige una opción</option>
-                  <option *ngFor="let modalidad of modalidades" value="{{ modalidad.id }}"> {{ modalidad.nombre }} </option>
-                </select>
+              <div class="" >
+                <label for="" *ngIf="modalidad"> {{modalidad.nombre}} </label>
               </div>
-
               <div class=" col s6">
                 <input  formControlName="anios_legales" type="number" min="1" class="validate">
                 <label for="first_name">Años Validos: </label>
@@ -40,7 +34,7 @@
             </form>
           </div>
         </div>
-      </div>
+   
 
     </semovi-card-body>
   </semovi-card>

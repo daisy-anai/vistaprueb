@@ -5,10 +5,7 @@
         <div class="col s12 valign-wrapper">
           <semovi-card-header-icon urn="/aplicacion/concesion" icon="arrow_back"></semovi-card-header-icon>
           <semovi-card-header-title> Configuración </semovi-card-header-title>
-          <div class="col s4">
-              <semovi-card-header-option [options]="options" ></semovi-card-header-option>
-            </div>
-
+  
         </div>      
       </div>
     </semovi-card-header>
@@ -17,7 +14,7 @@
     </div>
     <semovi-card-body>     
       <semovi-input-search>
-        <input name="filtro" id="filtro" class="browser-default placeholder-fix"
+        <input (window:keydown)="onKey($event)" name="filtro" id="filtro" class="browser-default placeholder-fix"
         placeholder="Buscar" type="search" autofocus
         autocomplete="off" [(ngModel)]="filtro">
       </semovi-input-search>
@@ -29,14 +26,12 @@
             <a class="btn-floating btn-small right"
             [routerLink]="['/aplicacion/catalogo/modalidad', modalidad.id]">
             <i class="material-icons">info</i></a>
-          </semovi-label>
-          <!-- <semovi-label>
-            <div class="col s4">
-                <semovi-card-header-option [options]="options" ></semovi-card-header-option>
-            </div>
-          </semovi-label> -->
+          </semovi-label>  
+
         </semovi-item>
       </semovi-list>
+   
+ 
     </semovi-card-body>
   </semovi-card>
 </ng-container>

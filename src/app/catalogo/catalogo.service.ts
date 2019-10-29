@@ -145,6 +145,7 @@ export class CatalogoService {
             created_at
             deprecated
           }
+          name
           configuration
           created_at
           deprecated

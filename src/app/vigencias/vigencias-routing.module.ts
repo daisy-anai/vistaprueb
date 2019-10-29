@@ -7,7 +7,7 @@ import { ModificarVigenciasComponent } from  './modificar-vigencias/modificar-vi
 
 const routes: Routes = [
   { path: '', component: ListarVigenciasComponent },
-  { path: 'crear', component: CrearVigenciasComponent },
+  { path: 'crear/:id', component: CrearVigenciasComponent },
   { path: 'modificar/:id', component: ModificarVigenciasComponent },
   { path: 'modalidad/:id', component: ListarVigenciasComponent },
   { path: '**', redirectTo: '' }

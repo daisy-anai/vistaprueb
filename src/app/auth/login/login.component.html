@@ -6,59 +6,65 @@
   <br class="br">
   </div>
   <div class="row" id="subir">
-    <div class="col s6 " id="cambiodetamanio">
-      <div class="col s12 z-depth-6 card-panel" id="cambiotama1">
-        <div class="col s6 offset-s6" id="paddingdiv2">
-          <form class="login-form" >
-            <div class="row">
-              <div class="input-field col s12">
-                <div class="col s10"> <br>
-                  <!-- <img id="imagenlogo" src="./assets/banner.png" height="204px" alt="" > -->
-                  <br><br><br><br>
+    <div class="col s12">
+      <div class="col s6 " id="cambiodetamanio">
+        <div class="col s12 z-depth-6 card-panel" id="cambiotama1">
+          <div class="col s6 offset-s6" id="paddingdiv2">
+            <form class="login-form" >
+              <div class="row">
+                <div class="input-field col s12">
+                  <div class="col s10"> <br>
+                    <!-- <img  id="imagenlogo" src="./assets/images/banner.png" height="50" alt="500" > -->
+                    <br><br><br>
+                  </div>
                 </div>
               </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col s6" id="cambiodetamanio2">
-      <div class="col s12 z-depth-6 card-panel" id="cambiotama2">
-        <div class="col s9" id="paddingdiv">
-          <form class="login-form" [formGroup]="loginForm" (ngSubmit)="login()">
-            <div class="row"></div>
-            <div class="row">
-              <div class="col s10 offset-s1" id="cambiocorreo">
-                <div class=" col s12 input-field inline">
-                  <i class="material-icons prefix">account_circle</i>
-                  <input id="email_inline" type="email" class="validate"
-                    autocomplete="off"
-                    autofocus
-                    name="email_inline" formControlName="email_inline">
-                  <label for="email_inline"  class="titulosform">Correo</label>
-                  <span class="helper-text" data-error="Error en el correo"></span>
+      <div class="col s6" id="cambiodetamanio2">
+        <div class="col s12 z-depth-6 card-panel" id="cambiotama2">
+          <div class="col s9" id="paddingdiv">
+            <form class="login-form" [formGroup]="loginForm" (ngSubmit)="login()">
+              <div class="row"></div>
+              <div class="row">
+                <div class="col s10 offset-s1" id="cambiocorreo">
+                  <div class=" col s12 input-field inline">
+                    <i class="material-icons prefix">account_circle</i>
+                    <input id="email_inline" type="email" class="validate"
+                      autocomplete="off"
+                      autofocus
+                      name="email_inline" formControlName="email_inline">
+                    <label for="email_inline"  class="titulosform">Correo</label>
+                    <span class="helper-text" data-error="Error en el correo"></span>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="col s10 offset-s1" id="cambiocontrasenia">
-                <div class="input-field col s12">
-                  <i class="material-icons prefix">lock_outline</i>
-                  <input id="password" type="password" name="password"
-                    formControlName="password">
-                  <label for="password" class="titulosform">Contraseña</label>
+              <div class="row">
+                <div class="col s10 offset-s1" id="cambiocontrasenia">
+                  <div class="input-field col s12">
+                    <i class="material-icons prefix">lock_outline</i>
+                    <input id="password" type="password" name="password"
+                      formControlName="password">
+                    <label for="password" class="titulosform">Contraseña</label>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="input-field col s6 offset-s9">
-                <button class="btn-floating btn-large waves-effect waves-light"
-                  type="submit" [disabled]="!loginForm.valid">
-                  <i class="material-icons">arrow_forward</i>
-                </button>
+              
+              <div class="row">
+                <div class="input-field col s6 offset-s9">
+                  <button  (window:keydown)="$event" class="btn-floating btn-large waves-effect waves-light"
+                    type="submit" [disabled]="!loginForm.valid">
+                    <i class="material-icons">arrow_forward</i>
+                  </button>
+                </div>
               </div>
-            </div>
-          </form>
+              <div class="progress" *ngIf="loading">
+                  <div class="indeterminate"></div>
+              </div>         
+            </form>
+          </div>
         </div>
       </div>
     </div>

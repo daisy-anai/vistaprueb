@@ -6,8 +6,8 @@
           <semovi-card-header-icon icon="arrow_back"></semovi-card-header-icon>
           <semovi-card-header-title> Vigencias </semovi-card-header-title>       
         </div>
-        <div class="col s4" >
-          <a *ngIf="agregarVisible" [routerLink]="['/aplicacion/vigencias/crear']" class="btn-floating btn-small waves-effect waves-light red right">
+        <div class="col s4" *ngIf="modalidades">
+          <a *ngIf="agregarVisible" [routerLink]="['/aplicacion/vigencias/crear', modalidades.id]" class="btn-floating btn-small waves-effect waves-light red right">
             <i class="material-icons">add</i>
           </a>
         </div>
@@ -20,7 +20,6 @@
         placeholder="Buscar" type="search" autofocus
         autocomplete="off" [(ngModel)]="filtro">
       </semovi-input-search>
-
       <semovi-input-options *ngIf="vigenciaVisible"> 
           <label class="left">
             <input class="with-gap" name="group1" type="radio"
@@ -34,16 +33,16 @@
           </label>
         </semovi-input-options>
       <semovi-list >
-       
+         
         <semovi-item  *ngFor="let vigencia of vigencias">
           <semovi-label class="highlight"> Años vigencia: {{ vigencia.legal_years }}</semovi-label>
           <semovi-label> Años prorroga: {{ vigencia.extension_years }} </semovi-label>
           <semovi-label>
-            <a class="right" [routerLink]="['/aplicacion/vigencias/modificar', vigencia.id]">
+            <a class="right tooltipped" data-tooltip="Modificar Vigencia" [routerLink]="['/aplicacion/vigencias/modificar', vigencia.id]">
               <i class="material-icons">edit</i>
             </a>
           </semovi-label> 
-        </semovi-item>
+        </semovi-item>       
       </semovi-list>
     </semovi-card-body>
   </semovi-card>  

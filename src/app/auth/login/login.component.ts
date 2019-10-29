@@ -23,7 +23,7 @@ declare var M: any;
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-
+  public loading : boolean= false;
   constructor(
     private apollo?: Apollo,
     private router?: Router,
@@ -55,9 +55,12 @@ export class LoginComponent implements OnInit {
     let email = this.loginForm.controls['email_inline'].value;
     let password = this.loginForm.controls['password'].value;
     password = CryptoJS.AES.encrypt(password, environment.__encrypt).toString();
-
+    this.loading= true;
+    let activeElement = <HTMLElement>document.activeElement;
+    activeElement && activeElement.blur && activeElement.blur();
     this.authService.login(email, password).subscribe(result => {
-      this.correctlogincheck(result.data);
+      this.correctlogincheck(result.data);  
+      this.loading= false;
     }, (error) => {
       var divisiones = error.message.split(":", 2);
       var toastHTML = '<span> <div class="valign-wrapper"><i class="material-icons">error_outline</i>  &nbsp;&nbsp;'+divisiones[1]+'</div></span>';
@@ -98,4 +101,5 @@ export class LoginComponent implements OnInit {
   redirect(user: User){
     this.router.navigate(['/aplicacion']);
   }
+
 }

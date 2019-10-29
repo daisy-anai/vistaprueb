@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { VigenciasService } from '../vigencias.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 // Service
 import { CatalogoService } from '../../catalogo/catalogo.service';
 
 // Models
 import { Modalidad } from '../../shared/models/modalidad';
+import {Vigencia } from '../../shared/models/vigencia';
+
 
 @Component({
   selector: 'app-crear-vigencias',
@@ -17,26 +19,27 @@ import { Modalidad } from '../../shared/models/modalidad';
 export class CrearVigenciasComponent implements OnInit {
   public catalogoForm: FormGroup;
   public modalidades: Array<Modalidad>;
-
+  public modalidad: Modalidad;
+  public vigencia : Vigencia;
   constructor(
     private service?: VigenciasService,
     private formBuilder?: FormBuilder,
     private serviceCatalogo ?: CatalogoService,
-    private router ?: Router
+    private router ?: Router,
+    private route?: ActivatedRoute
   ){}
 
   ngOnInit() {
-    // console.log(this.router.);
-    console.log("crear");
-    
-    this.serviceCatalogo.getModalidades().subscribe(result => {
-      this.modalidades = result.data['modalidades'];
-    });
-
+    let modalidadID=this.route.snapshot.paramMap.get("id");
+    this.serviceCatalogo.getModalidad(modalidadID).subscribe(( {data})=>{
+      this.modalidad= data['modalidad'];
+      console.log(this.modalidades);
+      
+    })
     this.catalogoForm = this.formBuilder.group({
-      id_modalidad: ['', Validators.required],
+      id_modalidad: [modalidadID, Validators.required],
       anios_legales: [1, [Validators.required, Validators.min(1)]],
-      anios_prorroga: [0, [Validators.required, Validators.min(0)]]
+      anios_prorroga: [, [Validators.required, Validators.min(0)]]
     });
   }
   

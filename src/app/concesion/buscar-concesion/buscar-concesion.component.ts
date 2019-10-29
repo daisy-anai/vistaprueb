@@ -24,15 +24,8 @@ export class BuscarConcesionComponent {
     private service?: ConcesionService,
     private shared?: MediumDataService,
     private router?: Router
-  ) { }
-  ngOnInit(){
- 
-    // $('#filtro').focus(function(e) {
-    //   this.blur();
-    // });
-    
-  
-  }
+  ) {}
+
  //ocultar teclado movil
   onKey(e) {
     if (e.keyCode == 13) {

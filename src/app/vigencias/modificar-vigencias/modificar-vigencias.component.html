@@ -8,9 +8,10 @@
           </div>
         </div>
       </semovi-card-header>
+   
       <semovi-card-body>
-          
-      <div class="col  offset-s2" *ngIf="modalidad" >
+    
+      <div class="col s8 offset-s2" *ngIf="modalidad" >
         <form [formGroup]="vigenciaForm" (ngSubmit)="modificarVigencia()">
           <div class="input-field" >
             <div class="browser-default">
@@ -34,6 +35,7 @@
             </div>
           </div>
         </form>
+ 
       </div>
     </semovi-card-body>
   </semovi-card>

@@ -29,6 +29,13 @@ export class ListarVigenciasComponent implements OnInit {
   ) {}
 
   ngOnInit() {   
+  
+    $(document).ready(function(){
+      $('.tooltipped').tooltip();
+    });
+    this.serviceCatalogo.getModalidad(this.route.snapshot.paramMap.get("id")).subscribe(( {data})=>{
+      this.modalidades= data['modalidad'];   
+    })
 
     if(this.route.snapshot.paramMap.get("id")){
       this.service.getVigenciasModalidadByID(this.route.snapshot.paramMap.get("id")).subscribe(({data}) =>{   
@@ -46,10 +53,7 @@ export class ListarVigenciasComponent implements OnInit {
       });
     }  
   }
-  activeValidities(){
- console.log("activas");
- 
-  }
+
   allValidities(){
     this.service.getVigencias().subscribe(({ data })=>{
       this.vigencias = data['validities']

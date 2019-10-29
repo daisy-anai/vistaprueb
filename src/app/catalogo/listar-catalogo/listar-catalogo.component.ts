@@ -29,16 +29,14 @@ export class ListarCatalogoComponent implements OnInit {
     this.modalidadID = this.route.snapshot.paramMap.get("id");
 
     this.options = [
-      {icon: 'add', description: 'Generar catálogo', urn: `/aplicacion/catalogo/crear/${this.modalidadID}`},
+      {icon: 'add', description: 'Lista catalogos ', urn: `/aplicacion/catalogo/crear/${this.modalidadID}`},
       {icon: 'list', description: 'Vigencia', urn: `/aplicacion/vigencias/modalidad/${this.modalidadID}`}
+
     ];
 
     if(this.modalidadID){
-      console.log("modalidad if", this.modalidadID);  
       this.service.catalogueByModality(this.modalidadID).subscribe(({ data })=>{
         this.catalogos = data['catalogueByModalidad'];
-        console.log(this.catalogos);
-
       });
      
     }else{
@@ -53,7 +51,7 @@ export class ListarCatalogoComponent implements OnInit {
     if (!this.filtro) {
       this.activeCatalogues();
     }else{
-      this.service.searchWord(1,this.filtro).subscribe(({data})=>{
+      this.service.searchWord(1,this.filtro.trim().toLowerCase()).subscribe(({data})=>{
         this.catalogos = data['cataloguesLike'];
       });
     }

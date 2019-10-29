@@ -16,7 +16,8 @@
               <div class="card-content">
                 <p class="card-title"> Detalle Catalogo: </p>
                 <p> ID modalidad {{ catalogo.id_modalidad}}</p>
-                <p > Nombre del catalogo: {{ catalogo.catalogueType.name}} </p>
+                <p>Nombre del catalogo: {{catalogo.name}}</p>
+                <p >Tipo de Catalogo: {{ catalogo.catalogueType.name}} </p>
                 <p> configuracion: {{ catalogo.configuration  | json : spacing }}</p>
                 <p *ngFor="let seccion of seccion">{{catalogo.configuracion.seccion.name}}</p>
               </div>
