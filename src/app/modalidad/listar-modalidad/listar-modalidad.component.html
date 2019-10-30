@@ -4,45 +4,31 @@
       <div class="valign-wrapper">
         <semovi-card-header-icon urn="/aplicacion/concesion" icon="arrow_back"></semovi-card-header-icon>
         <semovi-card-header-title> Configuración </semovi-card-header-title>
+        
       </div>      
     </semovi-card-header>
-    <div class="center">
-      <semovi-card-header-title  > Modalidades</semovi-card-header-title>
-    </div>
-    <semovi-card-body>     
+    <semovi-card-body>      
       <semovi-input-search>
         <input (window:keydown)="onKey($event)" name="filtro" id="filtro" class="browser-default placeholder-fix"
         placeholder="Buscar" type="search" autofocus
         autocomplete="off" [(ngModel)]="filtro">
       </semovi-input-search>
-      <semovi-list *ngIf="modalidades">
-        <semovi-item *ngFor="let modalidad of modalidades | search: filtro">
+      <semovi-list >
+        <semovi-item *ngFor="let modalidad of modalidades | search: filtro; let i = index">
           <semovi-label> {{modalidad.nombre}} </semovi-label>
-          
           <semovi-label>
-            <a class="dropdown-header-options right
-              btn-floating btn-small orange
-              waves-effect waves-light" data-target='dropdown-header-options'>
-              <i class="material-icons">more_vert</i>
+            <a class="waves-effect waves-light" (click)="clickHandler()"> 
+              <i class="material-icons">info</i>
             </a>
-
-            <ul id='dropdown-header-options' class='dropdown-content'>
-              <li>
-                <a [routerLink]="['/aplicacion/catalogo/modalidad', modalidad.id]">catalogo</a>
-              </li>
-            </ul>
+            <div class="container">
+                <div class="slide opened">
+                  <p onclick="innerClickHandler(event)">Open</p>
+                </div>
+              </div>  
           </semovi-label>
-
-          <!-- <semovi-label>
-            <a class="btn-floating btn-small right"
-            [routerLink]="['/aplicacion/catalogo/modalidad', modalidad.id]">
-            <i class="material-icons">info</i></a>
-          </semovi-label>   -->
-
-        </semovi-item>
+        </semovi-item>       
       </semovi-list>
-   
- 
     </semovi-card-body>
   </semovi-card>
 </ng-container>
+

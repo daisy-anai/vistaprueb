@@ -1,0 +1,25 @@
+button {
+	cursor: pointer;
+}
+
+.slide {
+	color: yellow;
+  line-height: 50px;
+	padding: 0 10px;
+	background-color: cadetblue;
+	width: 200px;
+	overflow-y: scroll;
+	transition: max-height 0.5s cubic-bezier(0, 1, 0.5, 1);
+}
+
+.slide > p {
+	cursor: pointer;
+}
+
+.opened {
+  max-height: 100px;
+}
+
+.closed {
+  max-height: 0;
+}
