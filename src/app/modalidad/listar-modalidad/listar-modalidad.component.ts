@@ -6,6 +6,7 @@ import { Modalidad } from '../../shared/models/modalidad';
 // Services
 import { CatalogoService} from '../../catalogo/catalogo.service'
 
+declare var M; 
 @Component({
   selector: 'app-listar-modalidad',
   templateUrl: './listar-modalidad.component.html',
@@ -28,6 +29,13 @@ export class ListarModalidadComponent implements OnInit {
       {icon: 'list', description: 'Catálogos', urn: `/aplicacion/catalogo/modalidad/${this.modalidad}`},
       {icon: 'list', description: 'Vigencia', urn: `/aplicacion/vigencias/modalidad/`}
     ];
+
+    var elems = document.querySelectorAll('.dropdown-header-options');
+    var instances = M.Dropdown.init(elems, {
+      alignment: 'left',
+      constrainWidth: false,
+      coverTrigger: true
+    });
   
   }
   onKey(e) {

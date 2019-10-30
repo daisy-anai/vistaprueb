@@ -1,5 +1,5 @@
 .semovi-header-card {
-  padding: 20px 10px 0px 10px;
+  padding: 20px 10px 20px 10px;
   border-radius: 10px 10px 0 0;
   background-color: #dbdada;
   margin-bottom: 2em;
@@ -7,11 +7,7 @@
 
 @media only screen and (max-width: 600px) {
   .semovi-header-card {
+    padding: 3px 10px 3px 10px;
     border-radius: 0;
-  }
-
-  .semovi-header-card .title {
-    font-size: 14px;
-    letter-spacing: 1px;
   }
 }
