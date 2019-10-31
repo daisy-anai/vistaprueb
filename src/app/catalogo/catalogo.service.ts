@@ -9,11 +9,85 @@ import gql from 'graphql-tag';
 export class CatalogoService {
   constructor(private apollo: Apollo){}
 
-  /**
+  //lista de todos los municipios 
+  getMunicipios(){
+    return this.apollo.use('sicac').watchQuery({
+      query: gql`
+      query municipios  {
+        municipios{
+          id
+          nombre
+          distrito{
+            id
+            nombre
+            region{
+              id
+              nombre
+            }
+          }
+        }
+      }`
+    }).valueChanges;
+  }
+  //lista las localidades por el id del municipio
+  getLocalidades(id: string){
+    return this.apollo.use('sicac').watchQuery({
+      query: gql`
+      query localidades($municipio:ID){
+        localidades (municipio:$municipio){
+          id
+          nombre
+          municipio{
+            id
+            nombre
+            distrito{
+              id
+              nombre
+              region{
+                id
+                nombre
+              }
+            }
+          }
+        }
+      }`,
+      variables:{
+        id: id
+      } 
+    }).valueChanges;
+  }
+  //lista de la localidad con el id de la localidad
+   
+  getLocalidad(id: string){
+    return this.apollo.use('sicac').watchQuery({
+      query: gql`
+      query localidad($id:ID){
+        localidad(id:$id){
+          id
+          nombre
+          municipio{
+            id
+            nombre
+            distrito{
+              id
+              nombre
+              region{
+                id
+                nombre
+              }
+            }
+          }
+        }
+      }` ,
+      variables:{
+        id:id
+      }
+    }).valueChanges;
+  }
+   /**
    @description Catalogue Type
    @param getCatalogueType
    */
-
   getCatalogoType(){
     return this.apollo.use('backrevista').watchQuery({
       query: gql`
@@ -187,13 +261,14 @@ export class CatalogoService {
   /**
    @description Mutations
   */
-  createCatalogue(id_modalidad: String, id_catalogue_type:Number, name:String, configuration: any){
+  createCatalogue(id_modalidad: String, id_localidad: string, id_catalogue_type:Number, name:String, configuration: any){
     return this.apollo.use('backrevista').mutate({
       mutation: gql`
-      mutation created($id_modalidad: ID!, $id_catalogue_type: ID!, $name: String!, $configuration: JSON!){
-        catalogue(id_modalidad: $id_modalidad, id_catalogue_type: $id_catalogue_type, name: $name, configuration: $configuration){
+      mutation createCatalogue( $id_modalidad:ID!,$id_localidad:ID!,$id_catalogue_type:ID!,$name:String!,$configuration:JSON!){
+        catalogue(id_modalidad:$id_modalidad, id_localidad:$id_localidad,id_catalogue_type:$id_catalogue_type, name:$name, configuration:$configuration){
           id
           id_modalidad
+          id_localidad
           catalogueType{
             id
             name
@@ -206,9 +281,11 @@ export class CatalogoService {
           created_at
           deprecated
         }
-      }`,
+      }
+      `,
       variables:{
         id_modalidad: id_modalidad,
+        id_localidad: id_localidad,
         id_catalogue_type: id_catalogue_type,
         name: name,
         configuration: { sections: configuration }

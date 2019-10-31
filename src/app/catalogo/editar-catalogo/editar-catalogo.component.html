@@ -1,4 +1,4 @@
-<!--Crear Catalogo -->
+<!--Editar Catalogo -->
 <ng-container >
     <semovi-card>
       <semovi-card-header>
@@ -9,21 +9,21 @@
       </semovi-card-header>
   
       <semovi-body>
-          {{catalogueForm.value | json}}
-        <div class="row">
+          <!-- {{catalogueForm.value | json}} -->
+        <div class="row" *ngIf="modalidad">
           <div class="col s12">
             <form [formGroup]="catalogueForm" (ngSubmit)="onPreview()">
               <div class="row valign-wrapper">
                 <div class="col s6 left-align">
-                    <div *ngIf="modalidad">
-                        <h5>Catalogo: {{ modalidad.nombre }}</h5>
-                      </div>
+                  <div *ngIf="modalidad">
+                      <h5>Catalogo: {{ modalidad.nombre }}</h5>
+                    </div>
                 </div>
                 <div class="col s6 right-align">
                   <button (click)="onPreview()" class="btn-small"> Previsualizar </button>
                 </div>
               </div>
-  
+              
               <div class="row">
                 <div class="col s12">
                   <div class="input-field ">
@@ -39,7 +39,6 @@
                   <div class="">
                     <label for="id_tipo_catalogo">Tipo de catalogo</label>
                     <select class="browser-default" formControlName="id_catalogue_type">
-                      <option value="" disabled selected>Elige una opción</option>
                       <option *ngFor="let catalogo of cataloguesTypes" value="{{catalogo.id}}"> {{ catalogo.name }} </option>
                     </select>
                   </div>
@@ -63,9 +62,9 @@
                   </a>
                 </div>
               </div>
-  
+
               <!-- Configuration -->
-              <!-- <div class="row">
+              <div class="row">
                 <div class="col s12">
                   <div formArrayName="configuration" *ngFor="let section of configuration.controls; index as i">
                     <div class="card col s10 offset-s1">
@@ -74,12 +73,12 @@
                           <p class="card-title">Panel de configuración</p>
                         </div>
                         <div class="col s6 right-align">
-                          <a href="#">Cancelar</a>
+                          <a class="waves-effect waves-light" (click)="closeSeccion(i)">Cancelar</a>
                         </div>
-                      </div>
-   -->
+                      </div>  
+
                       <!-- Sections -->
-                      <!-- <div class="" [formGroupName]="i">
+                       <div class="" [formGroupName]="i">
                         <div class="row">
                           <div class="col s12">
                             <div class="input-field ">
@@ -161,7 +160,6 @@
                   </div>
                 </div>
               </div>
-   -->
   
   
             </form>
@@ -188,8 +186,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <a class="modal-close waves-effect btn-flat orange-text left"> cerrar </a>
-          <button class="waves-effect btn-flat right" (click)="onSubmit()"> Guardar </button>
+          <a class="modal-close waves-effect btn-flat orange-text left"> errar </a>
+          <button class="waves-effect btn-flat right" (click)="onSubmit()"> Modificar </button>
         </div>
       </div>
     </div>

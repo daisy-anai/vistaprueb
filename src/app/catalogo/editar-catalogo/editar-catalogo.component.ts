@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+
 //modelos
 import { Modalidad } from '../../shared/models/modalidad';
-import { Location } from '@angular/common';
 import { CatalogueType } from '../../shared/models/catalogueType'
 import { Catalogues } from '../../shared/models/catalogues';
 import { PropertyType }  from '../../shared/models/propertyType'
+
 // Services
 import {CatalogoService} from '../catalogo.service';
-import { runInThisContext } from 'vm';
 
 
 declare var M: any;
@@ -26,24 +26,22 @@ export class EditarCatalogoComponent implements OnInit {
   public cataloguesTypes: Array<CatalogueType>;
   public propertyTypes: Array<PropertyType>;
   public modalidad: Modalidad;
-  public configurarcionForm: any;
-  public catalogo: Array<Catalogues>;
+  public catalogue : any;
+  
   public hue: string
   public color: string
   public ModalInstance: any;
-   public catalogue : any;
+  public controlconfiguracion : any;
   constructor(
     private service?: CatalogoService,
     private formBuilder?: FormBuilder,
     private router?: Router,
     private route?: ActivatedRoute
-
   ) {}
 
   ngOnInit() {
     let id= this.route.snapshot.paramMap.get("id");
-      console.log(id);
-      
+
     this.service.getCatalogoType().subscribe(result =>{
       this.cataloguesTypes = result.data['catalogueTypes'];
     });
@@ -54,19 +52,31 @@ export class EditarCatalogoComponent implements OnInit {
 
     this.service.catalogueByID(parseInt(id)).subscribe(({ data })=>{
       this.catalogue = data['catalogue'];
-        this.service.getModalidad(this.catalogue.id_modalidad).subscribe(({ data }) =>{
-          this.modalidad = data['modalidad'];
-             
+      this.service.getModalidad(this.catalogue.id_modalidad).subscribe(({ data }) =>{
+        this.modalidad = data['modalidad']; 
+      
         this.catalogueForm = this.formBuilder.group({
           id_modalidad: [this.catalogue.id_modalidad, Validators.required],
           id_catalogue_type: [this.catalogue.catalogueType.name, Validators.required],
           name: [this.catalogue.name, Validators.required],
           configuration: new FormArray ([], Validators.required)
         });
-        console.log(this.catalogueForm);
+
+        let catalogueControls= this.catalogueForm.controls  
+        let configuracion= catalogueControls.configuration as FormArray;
+      
+          // for (let configuracioncatalogue of configuracion) {
+          //   configuracioncatalogue.name;
+          // }
+        let configuration = this.configuration.push(this.formBuilder.group({
+          name:[configuracion, Validators.required],
+          properties: new FormArray([], Validators.required)
+        }));
+
       });       
+   
     });
-  
+
     var modal = document.getElementById('previewModal');
     this.ModalInstance = M.Modal.init(modal, {});
   }
@@ -100,11 +110,13 @@ export class EditarCatalogoComponent implements OnInit {
       value: ['', Validators.required]
     }));
   }
+
   onPreview() {
     this.ModalInstance.open();
   }
+
   onSubmit() {
-    this.service.createCatalogue(
+    this.service.catalogueUpdate(
       this.modalidad.id,
       this.catalogueForm.value.id_catalogue_type,
       this.catalogueForm.value.name,
@@ -116,4 +128,24 @@ export class EditarCatalogoComponent implements OnInit {
       console.log("Error", error)
     });
   }
+  
+  closeSeccion(index: any){
+    // this.configuration.reset();
+    for (let i = this.configuration.length; i >= index; i--) {
+      this.configuration.removeAt(index);
+    }
+  }
+  /**
+   *       "id": "MU0003",
+        "nombre": "ASUNCION CACALOTEPEC",
+        "distrito": {
+          "id": "DI0014",
+          "nombre": "MIXE",
+          "region": {
+            "id": "RE0006",
+            "nombre": "SIERRA NORTE"
+          }
+        }
+      },
+   */
 }
