@@ -23,31 +23,28 @@
                 <button (click)="onPreview()" class="btn-small"> Previsualizar </button>
               </div>
             </div>
-
+   
             <div class="row">
               <div class="col s12">
                 <div class="input-field ">
-                  <label for="">Municipio</label>
-                  <select class="browser-default" formControlName="municipio">
+                  <select  class="browser-default" formControlName="municipio"  (change)="searchLocalidadesByMunicipio($event.target.value)">
                     <option value="" disabled selected>Elige una opción</option>
-                    <option *ngFor="let municipio of municipios" value="{{municipio.nombre}}" > {{ municipio.nombre }}</option>
+                    <option  *ngFor="let municipio of municipios" value={{municipio.id}} > {{ municipio.nombre }}</option>
                   </select>
                 </div>
               </div>
             </div>
-
+            
             <div class="row">
-                <div class="col s12">
-                  <div class="input-field ">
-                    <label for="">Localidad</label>
-                    <select class="browser-default">
-                      <option value="" disabled selected>Elige una opción</option>
-                      <option *ngFor="let localidad of localidades" value="{{ localidad.nombre }}" > {{ localidad.nombre }}</option>
-                    </select>
-                  </div>
+              <div class="col s12" >
+                <div class="input-field ">
+                  <select class="browser-default" formControlName="id_localidad" (change)="setCurrentLocalidad($event.target.value)">
+                    <option value="" disabled selected>Elige una opción</option>
+                    <option *ngFor="let localidad of localidades" value="{{localidad.id}}"> {{ localidad.nombre }}</option>
+                  </select>
                 </div>
               </div>
-
+            </div>
 
             <div class="row">
               <div class="col s12">
@@ -63,7 +60,7 @@
               <div class="col s12">
                 <div class="">
                   <label for="id_tipo_catalogo">Tipo de catalogo</label>
-                  <select class="browser-default" formControlName="id_catalogue_type">
+                  <select class="browser-default" formControlName="id_catalogue_type" (change)="setcataloguesTypesName($event.target.value)">
                     <option value="" disabled selected>Elige una opción</option>
                     <option *ngFor="let catalogo of cataloguesTypes" value="{{catalogo.id}}"> {{ catalogo.name }} </option>
                   </select>
@@ -191,30 +188,26 @@
   <!-- MODAL -->
   <div class="">
     <div id="previewModal" class="modal">
-      <div class="modal-content" *ngIf="modalidad">
+      <div class="modal-content" >
         <h4> Previsualización de catálogo </h4>
-        <p> Tipo de modalidad: {{ modalidad.nombre }} </p>
+        <span *ngIf="modalidad"> Tipo de modalidad: {{ modalidad.nombre }} </span>
 
         <div class="row">
           <div class="col s12">
-            <h5>Datos</h5>
-            <span>
-              {{ catalogueForm.value | json }}
-            </span>
-
+            <h5>Datos</h5>    
           </div>
-          <div class="">
-            <span>Modalidad: {{ catalogueForm.value.id_modalidad}}</span>
+          <div class="" *ngIf="localidad">  
+            <span>Localdad: {{ localidad.nombre}}</span>
           </div>
           <div class="">
             <span>Nombre catálogo: {{ catalogueForm.value.name}}</span>
           </div>
-          <div class="">
-            <span>Tipo de catálogo: {{ catalogueForm.value.id_catalogue_type}}</span>
+          <div class="" *ngIf="nameproperty">
+            <span>Tipo de catálogo: {{nameproperty.name}}</span>
+          
           </div>
           <div class="">
             <span>Nombre de la seccion: {{ configuration.value |json  }}</span>
-
           </div>
         </div>
       </div>

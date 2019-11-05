@@ -29,8 +29,32 @@ export class CatalogoService {
       }`
     }).valueChanges;
   }
-  //lista las localidades por el id del municipio
+//municipio por id
+  getMunicipioID(id: string){
+    return this.apollo.use('sicac').watchQuery({
+      query: gql`
+      query municipio($id:ID){
+        municipio(id:$id){
+          id
+          nombre
+          distrito{
+            id
+            nombre
+            region{
+              id
+              nombre
+            }
+          }
+        }
+      }`,variables:{
+        id: id
+      }
+    }).valueChanges;
+  }
+    //lista las localidades por el id del municipio
   getLocalidades(id: string){
+    console.log(id);
+    
     return this.apollo.use('sicac').watchQuery({
       query: gql`
       query localidades($municipio:ID){
@@ -52,7 +76,7 @@ export class CatalogoService {
         }
       }`,
       variables:{
-        id: id
+        municipio: id
       } 
     }).valueChanges;
   }

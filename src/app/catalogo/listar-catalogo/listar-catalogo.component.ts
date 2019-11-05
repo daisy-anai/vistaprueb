@@ -18,6 +18,7 @@ export class ListarCatalogoComponent implements OnInit {
   public catalogos: Array<Catalogues>;
   public filtro: String;
   public modalidades: Array<Modalidad>;
+  public localidades: Array<any>;
   constructor (
     private service?: CatalogoService,
     private vigenciasService ?: VigenciasService,
@@ -25,7 +26,7 @@ export class ListarCatalogoComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-
+    
     this.modalidadID = this.route.snapshot.paramMap.get("id");
 
     this.options = [

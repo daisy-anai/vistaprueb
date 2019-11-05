@@ -12,6 +12,7 @@ import {  Municipio  } from '../../shared/models/municipio';
 
 // Services
 import {CatalogoService} from '../catalogo.service';
+import { isNgTemplate } from '@angular/compiler';
 
 declare var M: any;
 
@@ -29,8 +30,9 @@ export class CrearCatalogoComponent implements OnInit {
 	public modalidad: Modalidad;
 	public configurarcionForm: any;
 	public municipios: any;
-	public localidades: any;
-
+  public localidades: any;
+  public localidad: any;
+  public nameproperty: any
 	public hue: string
 	public color: string
 	public ModalInstance: any;
@@ -42,21 +44,16 @@ export class CrearCatalogoComponent implements OnInit {
 		private route?: ActivatedRoute
 	){}
 
-	ngOnInit() {
-  
-		let id_modalidad= this.route.snapshot.paramMap.get("id");
-  
-        // this.service.getLocalidades(this.municipios.id).subscribe(({ data })=>{
-        // this.localidades = data['localidades'];
-      //   this.service.getLocalidad(this.localidades.id).subscribe(({ data })=>{
-      //     this.localidades = data['localidad'];
-      //     console.log(this.localidades);
-          
-      //    });      
-      //  })
-  
+	ngOnInit() {   
+   
+    let id_modalidad= this.route.snapshot.paramMap.get("id");
+
+    this.service.getMunicipios().subscribe(({ data })=>{
+      this.municipios = data['municipios']; 
+    });
+      
 		this.service.getCatalogoType().subscribe(result =>{
-			this.cataloguesTypes = result.data['catalogueTypes'];
+      this.cataloguesTypes = result.data['catalogueTypes'];
 		});
 
 		this.service.getModalidad(id_modalidad).subscribe(({ data }) =>{
@@ -65,29 +62,36 @@ export class CrearCatalogoComponent implements OnInit {
 
 		this.service.getPropertyTypes().subscribe(({ data }) =>{
 			this.propertyTypes = data['propertyTypes'];
-		});
-
-    this.service.getMunicipios().subscribe(({ data })=>{
-      this.municipios = data['municipios'];
-    });
-
-		this.catalogueForm = this.formBuilder.group({
-      municipio:['', Validators.required],
-			id_modalidad: [id_modalidad, Validators.required],
-			id_localidad:['111',Validators.required],
-			id_catalogue_type: ['', Validators.required],
-			name: ['', Validators.required],
-			configuration: new FormArray ([], Validators.required)
     });
     
-
+    this.catalogueForm = this.formBuilder.group({
+      municipio:['', Validators.required],
+      id_localidad:['',Validators.required],
+      id_modalidad: [id_modalidad, Validators.required],
+      id_catalogue_type: ['', Validators.required],
+      name: ['', Validators.required],
+      configuration: new FormArray ([], Validators.required)
+    });
+ 
 		var modal = document.getElementById('previewModal');
 		this.ModalInstance = M.Modal.init(modal, {});
-	}
+  } 
 
+  searchLocalidadesByMunicipio(id: string) {        
+    this.service.getLocalidades(id).subscribe(({data})=>{      
+      this.localidades = data['localidades'];       
+    });
+  }
+
+  setCurrentLocalidad(localidadID: any){
+    [this.localidad] = this.localidades.filter(e => e.id === localidadID);  
+  }
+  setcataloguesTypesName(nameProperty: any){
+    [this.nameproperty] = this.cataloguesTypes.filter(e =>e.id ===nameProperty);
+  }
+  
 	get configuration(): FormArray {
-		return this.catalogueForm.get('configuration') as FormArray;
-		
+		return this.catalogueForm.get('configuration') as FormArray;	
 	}
 
 	properties(sectionObject: any): FormArray {
@@ -118,6 +122,7 @@ export class CrearCatalogoComponent implements OnInit {
 	}
 
 	onPreview() { 
+
 		this.ModalInstance.open();
 	}
 
@@ -143,14 +148,3 @@ export class CrearCatalogoComponent implements OnInit {
 		}
 	}
 }
-/**
- *    "id": "MU0001",
-				"nombre": "ABEJONES",
-				"distrito": {
-					"id": "DI0012",
-					"nombre": "IXTLAN",
-					"region": {
-						"id": "RE0006",
-						"nombre": "SIERRA NORTE"
-					}
- */
