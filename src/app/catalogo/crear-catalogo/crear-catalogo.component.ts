@@ -93,13 +93,13 @@ export class CrearCatalogoComponent implements OnInit {
 		return this.catalogueForm.get('configuration') as FormArray;	
 	}
 
-	properties(sectionObject: any): FormArray {
+	properties(sectionObject: any): FormArray {    
 		return sectionObject.get('properties') as FormArray;
 	}
 
 	onChangePropertyType(sectionIndex: number, propertyIndex: number){
-		let name = `S[${sectionIndex}]-P[${propertyIndex}]-propertyType`;
-		let element = (<HTMLInputElement>document.getElementById(name));
+    let name = `S[${sectionIndex}]-P[${propertyIndex}]-propertyType`;
+    let element = (<HTMLInputElement>document.getElementById(name));  
 		return element.value;
 	}
 
@@ -112,7 +112,6 @@ export class CrearCatalogoComponent implements OnInit {
 
 	removeSeccion(index: number){
 		// this.configuration.reset();
-		//var dato = this.configutarion.indexOf(index);		
 		var dato = this.configuration.value;
 			if (index > -1) {
         this.configuration.controls.splice(index, 1);
@@ -128,25 +127,27 @@ export class CrearCatalogoComponent implements OnInit {
 		}));
 	}
 
-	removeProperty(seccion : number, propiedad : number){
-	
-		let id_seccion = this.properties(seccion).controls;
-		let  var_Seccion = this.properties(seccion).value;//array
-		let control = this.properties(seccion);
-		if(propiedad>-1){
-			id_seccion.splice(propiedad,1);
-		}
-		
-		// for (let i = control.length; i >= propiedad; i--) {
-		// 	// id_seccion.removeAt(i)
-		// 	if (propiedad>-1) {
-		// 		id_seccion.splice(i,1);
-		// 		console.log("splice seccion	",id_seccion.splice(i,1));
-		// 	}
-		// }
-	}
+	removeProperty(section : any, index : number){
+    let properties = this.properties(section);      
+    setTimeout(function(){
+      properties.controls.splice(index, 1);      
+    }, 0);
+    
+    
+    // console.log(this.configuration.controls);    
+    // if(index >- 1){
+    //   properties.splice(index,1);  
+    // } 
+    // console.log(properties);
+    
+    
+    // console.log("propiedad", properties, "index", index)
+    // for (let i = properties.length;  i >= index ; i--) {
+    //  properties.splice(i,1);
+    // }
+	} 
 
-	onPreview() { 
+  onPreview() { 
 		this.ModalInstance.open();
 	}
 

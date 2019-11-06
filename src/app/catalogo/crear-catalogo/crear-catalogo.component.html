@@ -118,7 +118,6 @@
                         <div class="" [formGroupName]="j">
                           <div class="row">
                             <div class="col s12 right-align">
-                              {{j}}
                               <a  class="waves-effect waves-light" (click)="removeProperty(section, j)" >Cancelar</a>
                             </div>
                             <div class="col m6">
@@ -138,6 +137,7 @@
                             </div>
                           </div>
 
+                          
                           <div class="" [ngSwitch]="onChangePropertyType(i, j)">
                             <div class="row">
                               <div class="col s12">
@@ -168,6 +168,10 @@
                                         <span>Correcto</span>
                                       </label>
                                      </p>
+                                  </div>
+
+                                  <div *ngSwitchDefault>
+                                    <p>Seleccione un tipo de propiedad</p>
                                   </div>
                               </div>
                             </div>
