@@ -5,8 +5,8 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 //modelos
 import { Modalidad } from '../../shared/models/modalidad';
 import { CatalogueType } from '../../shared/models/catalogueType'
-import { Catalogues } from '../../shared/models/catalogues';
 import { PropertyType }  from '../../shared/models/propertyType'
+import { Municipio } from 'src/app/shared/models/municipio';
 
 // Services
 import {CatalogoService} from '../catalogo.service';
@@ -27,7 +27,8 @@ export class EditarCatalogoComponent implements OnInit {
   public propertyTypes: Array<PropertyType>;
   public modalidad: Modalidad;
   public catalogue : any;
-  
+  public municipios: Municipio;
+
   public hue: string
   public color: string
   public ModalInstance: any;
@@ -41,7 +42,10 @@ export class EditarCatalogoComponent implements OnInit {
 
   ngOnInit() {
     let id= this.route.snapshot.paramMap.get("id");
-
+    
+    this.service.getMunicipios().subscribe(({ data })=>{
+      this.municipios = data['municipios']; 
+    });
     this.service.getCatalogoType().subscribe(result =>{
       this.cataloguesTypes = result.data['catalogueTypes'];
     });
@@ -56,6 +60,7 @@ export class EditarCatalogoComponent implements OnInit {
         this.modalidad = data['modalidad']; 
       
         this.catalogueForm = this.formBuilder.group({
+          id_localidad:['',Validators.required],
           id_modalidad: [this.catalogue.id_modalidad, Validators.required],
           id_catalogue_type: [this.catalogue.catalogueType.name, Validators.required],
           name: [this.catalogue.name, Validators.required],

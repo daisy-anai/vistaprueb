@@ -4,7 +4,7 @@
       <div class="valign-wrapper">
         <semovi-card-header-icon icon="arrow_back"></semovi-card-header-icon>
         <semovi-card-header-title> Vigencias </semovi-card-header-title>       
-        <div class="col s4" *ngIf="modalidades">
+        <div class="col s4 right" *ngIf="modalidades">
           <a *ngIf="agregarVisible" [routerLink]="['/aplicacion/vigencias/crear', modalidades.id]" class="btn-floating btn-small waves-effect waves-light red right">
             <i class="material-icons">add</i>
           </a>

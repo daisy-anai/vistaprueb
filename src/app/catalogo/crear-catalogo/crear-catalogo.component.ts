@@ -6,13 +6,11 @@ import { Apollo} from 'apollo-angular';
 // Models
 import { Modalidad } from '../../shared/models/modalidad';
 import { CatalogueType } from '../../shared/models/catalogueType'
-import { Catalogues } from '../../shared/models/catalogues';
 import { PropertyType }  from '../../shared/models/propertyType'
-import {  Municipio  } from '../../shared/models/municipio';
+import { Municipio } from 'src/app/shared/models/municipio';
 
 // Services
 import {CatalogoService} from '../catalogo.service';
-import { isNgTemplate } from '@angular/compiler';
 
 declare var M: any;
 
@@ -28,11 +26,11 @@ export class CrearCatalogoComponent implements OnInit {
 	public cataloguesTypes: Array<CatalogueType>;
 	public propertyTypes: Array<PropertyType>;
 	public modalidad: Modalidad;
-	public configurarcionForm: any;
-	public municipios: any;
+	public municipios: Municipio;
   public localidades: any;
   public localidad: any;
-  public nameproperty: any
+	public nameproperty: any
+
 	public hue: string
 	public color: string
 	public ModalInstance: any;
@@ -40,12 +38,12 @@ export class CrearCatalogoComponent implements OnInit {
 	constructor(
 		private service?: CatalogoService,
 		private formBuilder?: FormBuilder,
-		private router?: Router,
-		private route?: ActivatedRoute
+		private route?: ActivatedRoute,
+		private router?: Router
 	){}
 
 	ngOnInit() {   
-   
+  
     let id_modalidad= this.route.snapshot.paramMap.get("id");
 
     this.service.getMunicipios().subscribe(({ data })=>{
@@ -72,7 +70,7 @@ export class CrearCatalogoComponent implements OnInit {
       name: ['', Validators.required],
       configuration: new FormArray ([], Validators.required)
     });
- 
+		
 		var modal = document.getElementById('previewModal');
 		this.ModalInstance = M.Modal.init(modal, {});
   } 
@@ -85,11 +83,12 @@ export class CrearCatalogoComponent implements OnInit {
 
   setCurrentLocalidad(localidadID: any){
     [this.localidad] = this.localidades.filter(e => e.id === localidadID);  
-  }
-  setcataloguesTypesName(nameProperty: any){
+	}
+	
+  setCataloguesTypesName(nameProperty: any){
     [this.nameproperty] = this.cataloguesTypes.filter(e =>e.id ===nameProperty);
-  }
-  
+	}
+
 	get configuration(): FormArray {
 		return this.catalogueForm.get('configuration') as FormArray;	
 	}
@@ -108,8 +107,16 @@ export class CrearCatalogoComponent implements OnInit {
 		let configuration = this.configuration.push(this.formBuilder.group({
 			name:['', Validators.required],
 			properties: new FormArray([], Validators.required)
-		}));
+		}));	
+	}
 
+	removeSeccion(index: number){
+		// this.configuration.reset();
+		//var dato = this.configutarion.indexOf(index);		
+		var dato = this.configuration.value;
+			if (index > -1) {
+        this.configuration.controls.splice(index, 1);
+   		}
 	}
 
 	addProperty(sectionObject: any){
@@ -121,8 +128,25 @@ export class CrearCatalogoComponent implements OnInit {
 		}));
 	}
 
-	onPreview() { 
+	removeProperty(seccion : number, propiedad : number){
+	
+		let id_seccion = this.properties(seccion).controls;
+		let  var_Seccion = this.properties(seccion).value;//array
+		let control = this.properties(seccion);
+		if(propiedad>-1){
+			id_seccion.splice(propiedad,1);
+		}
+		
+		// for (let i = control.length; i >= propiedad; i--) {
+		// 	// id_seccion.removeAt(i)
+		// 	if (propiedad>-1) {
+		// 		id_seccion.splice(i,1);
+		// 		console.log("splice seccion	",id_seccion.splice(i,1));
+		// 	}
+		// }
+	}
 
+	onPreview() { 
 		this.ModalInstance.open();
 	}
 
@@ -134,17 +158,11 @@ export class CrearCatalogoComponent implements OnInit {
 			this.catalogueForm.value.name,
 			this.catalogueForm.value.configuration
 		).subscribe(({data}) => {
-			console.log("(Please hidden me) Result:: ", data);
 			this.router.navigate(['/aplicacion/catalogo/detalle', data['catalogue'].id]);
 		}, (error) => {
 			console.log("Error", error)
 		});
 	}
 
-	closeSeccion(index: any){
-		// this.configuration.reset();
-		for (let i = this.configuration.length; i >= index; i--) {
-			this.configuration.removeAt(index);
-		}
-	}
+
 }

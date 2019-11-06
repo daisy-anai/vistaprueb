@@ -60,7 +60,7 @@
               <div class="col s12">
                 <div class="">
                   <label for="id_tipo_catalogo">Tipo de catalogo</label>
-                  <select class="browser-default" formControlName="id_catalogue_type" (change)="setcataloguesTypesName($event.target.value)">
+                  <select class="browser-default" formControlName="id_catalogue_type" (change)="setCataloguesTypesName($event.target.value)">
                     <option value="" disabled selected>Elige una opción</option>
                     <option *ngFor="let catalogo of cataloguesTypes" value="{{catalogo.id}}"> {{ catalogo.name }} </option>
                   </select>
@@ -89,7 +89,7 @@
                         <p class="card-title">Panel de configuración</p>
                       </div>
                       <div class="col s6 right-align">
-                        <a  class="waves-effect waves-light" (click)="closeSeccion(i)" >Cancelar</a>
+                        <a  class="waves-effect waves-light" (click)="removeSeccion(i)" >Cancelar</a>
                       </div>
                     </div>
 
@@ -117,6 +117,10 @@
                       <div formArrayName="properties" *ngFor="let property of properties(section).controls; index as j">
                         <div class="" [formGroupName]="j">
                           <div class="row">
+                            <div class="col s12 right-align">
+                              {{j}}
+                              <a  class="waves-effect waves-light" (click)="removeProperty(section, j)" >Cancelar</a>
+                            </div>
                             <div class="col m6">
                               <div class="input-field ">
                                 <input id="S[{{i}}]-P[{{j}}]-name" type="text" class="validate"
@@ -147,7 +151,7 @@
                                       <input type="text" name="" [value]="color" formControlName="value">
                                       <div class="color-div" [ngStyle]="{'background-color': color || 'white'}"></div>
                                     </div>
-                                  </div>
+                                  </div> 
 
                                   <div *ngSwitchCase="'Texto'">
                                     <div class="input-field ">
@@ -191,26 +195,34 @@
       <div class="modal-content" >
         <h4> Previsualización de catálogo </h4>
         <span *ngIf="modalidad"> Tipo de modalidad: {{ modalidad.nombre }} </span>
-
         <div class="row">
           <div class="col s12">
             <h5>Datos</h5>    
           </div>
-          <div class="" *ngIf="localidad">  
-            <span>Localdad: {{ localidad.nombre}}</span>
+          <div class="col s12" *ngIf="localidad">  
+           <b>Localdad: </b><span>{{ localidad.nombre}}</span>
           </div>
-          <div class="">
-            <span>Nombre catálogo: {{ catalogueForm.value.name}}</span>
+          <div class="col s12">
+            <b>Nombre catálogo: </b><span>{{ catalogueForm.value.name}}</span>
           </div>
-          <div class="" *ngIf="nameproperty">
-            <span>Tipo de catálogo: {{nameproperty.name}}</span>
-          
+          <div class="col s12" *ngIf="nameproperty">
+            <b>Tipo de catálogo: </b><span>{{nameproperty.name}}</span>   
           </div>
-          <div class="">
-            <span>Nombre de la seccion: {{ configuration.value |json  }}</span>
+          <div class="" >
+            <div class="col s12" *ngFor="let seccion of configuration.controls"> 
+              <b>Sección: </b><span> {{ seccion.value.name }} </span>
+              <div class= "col s12">
+                <div *ngFor="let property of seccion.value.properties">
+                   <b> Propiedad:  </b><span>{{ property.name }}</span>  
+                  <div class="col s12">
+                    <b>Tipo de propiedad: </b> <span>{{ property.propertyType }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </div>  
       <div class="modal-footer">
         <a class="modal-close waves-effect btn-flat orange-text left"> cerrar </a>
         <button class="waves-effect btn-flat right" (click)="onSubmit()" [disabled]="!catalogueForm.valid"> Guardar </button>

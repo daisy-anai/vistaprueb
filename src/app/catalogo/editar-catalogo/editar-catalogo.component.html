@@ -25,6 +25,17 @@
               </div>
               
               <div class="row">
+                <div class="col s12" >
+                  <div class="input-field ">
+                    <select class="browser-default" formControlName="id_localidad" (change)="setCurrentLocalidad($event.target.value)">
+                      <option value="" disabled selected>Elige una opción</option>
+                      <option *ngFor="let localidad of localidades" value="{{localidad.id}}"> {{ localidad.nombre }}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
                 <div class="col s12">
                   <div class="input-field ">
                     <input id="catalogue_name" type="text" class="validate"

@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 // Models
 import { Catalogues } from '../../shared/models/catalogues';
+
 // Service
 import { CatalogoService } from '../catalogo.service';
+import { Modalidad } from 'src/app/shared/models/modalidad';
 
 @Component({
   selector: 'app-detalle-catalogo',
@@ -11,9 +13,13 @@ import { CatalogoService } from '../catalogo.service';
   styleUrls: ['./detalle-catalogo.component.css']
 })
 export class DetalleCatalogoComponent implements OnInit {
-  public catalogo: Array<Catalogues>;
+  // public catalogo: Array<Catalogues>;
+  public catalogo : any
+  public modalidad: Modalidad;
+  public localidad; any;
   private parameter: string;
   private  visible: Boolean  = false;
+  
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -21,11 +27,18 @@ export class DetalleCatalogoComponent implements OnInit {
   ){}
 
   ngOnInit() {
+
+
     this.service.catalogueByID(parseInt(this.route.snapshot.paramMap.get("id"))).subscribe(({ data })=>{
       this.catalogo = data['catalogue'];
-      console.log(this.catalogo);
+      this.service.getLocalidad(this.catalogo.id_localidad).subscribe(({ data })=>{
+        this.localidad = data['localidad'];
+      }); 
+      this.service.getModalidad(this.catalogo.id_modalidad).subscribe(({ data })=>{
+        this.modalidad = data['modalidad'];   
+      });
     });
-  }
+  } 
 
   catalogueDeprecate(id: Number){  
     this.service.catalogueDeprecate(id,"hola").subscribe(result=>{    

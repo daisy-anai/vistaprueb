@@ -59,6 +59,8 @@ export class LoginComponent implements OnInit {
     let activeElement = <HTMLElement>document.activeElement;
     activeElement && activeElement.blur && activeElement.blur();
     this.authService.login(email, password).subscribe(result => {
+      console.log(result.data);
+      
       this.correctlogincheck(result.data);  
       this.loading= false;
     }, (error) => {

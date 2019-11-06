@@ -53,8 +53,6 @@ export class CatalogoService {
   }
     //lista las localidades por el id del municipio
   getLocalidades(id: string){
-    console.log(id);
-    
     return this.apollo.use('sicac').watchQuery({
       query: gql`
       query localidades($municipio:ID){
@@ -236,6 +234,7 @@ export class CatalogoService {
         catalogue(id:$id){
           id
           id_modalidad
+          id_localidad
           catalogueType{
             id
             name
