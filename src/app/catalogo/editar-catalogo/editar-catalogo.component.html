@@ -23,17 +23,28 @@
                   <button (click)="onPreview()" class="btn-small"> Previsualizar </button>
                 </div>
               </div>
-              
+  
               <div class="row">
-                <div class="col s12" >
+                <div class="col s12">
                   <div class="input-field ">
-                    <select class="browser-default" formControlName="id_localidad" (change)="setCurrentLocalidad($event.target.value)">
+                    <select  class="browser-default" formControlName="municipio"  (change)="searchLocalidadesByMunicipio($event.target.value)">
                       <option value="" disabled selected>Elige una opción</option>
-                      <option *ngFor="let localidad of localidades" value="{{localidad.id}}"> {{ localidad.nombre }}</option>
+                      <option  *ngFor="let municipio of municipios" value={{municipio.id}} > {{ municipio.nombre }}</option>
                     </select>
                   </div>
+                  </div>
+                </div>  
+                
+                <div class="row">
+                  <div class="col s12" >
+                    <div class="input-field ">
+                      <select class="browser-default" formControlName="id_localidad" (change)="setCurrentLocalidad($event.target.value)">
+                        <option value="" disabled selected>Elige una opción</option>
+                        <option *ngFor="let localidad of localidades" value="{{localidad.id}}"> {{ localidad.nombre }}</option>
+                      </select>
+                    </div>
+                  </div>
                 </div>
-              </div>
 
               <div class="row">
                 <div class="col s12">
@@ -47,7 +58,7 @@
   
               <div class="row">
                 <div class="col s12">
-                  <div class="">
+                  <div class="" >
                     <label for="id_tipo_catalogo">Tipo de catalogo</label>
                     <select class="browser-default" formControlName="id_catalogue_type">
                       <option *ngFor="let catalogo of cataloguesTypes" value="{{catalogo.id}}"> {{ catalogo.name }} </option>

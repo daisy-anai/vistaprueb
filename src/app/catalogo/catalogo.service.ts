@@ -2,6 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
+import { variable } from '@angular/compiler/src/output/output_ast';
 
 @Injectable({
   providedIn: 'root'
@@ -113,7 +114,7 @@ export class CatalogoService {
   getCatalogoType(){
     return this.apollo.use('backrevista').watchQuery({
       query: gql`
-      query {
+      query catalogueTypes{
         catalogueTypes{
           id
           name
@@ -379,6 +380,8 @@ export class CatalogoService {
           propertyTypes {
             id
             name
+            created_at
+            deprecated
           }
         }
       `

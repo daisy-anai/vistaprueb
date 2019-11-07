@@ -19,7 +19,7 @@ export class SemoviCardHeaderOptionComponent implements OnInit {
   ngOnInit() {
     var elems = document.querySelectorAll('.dropdown-header-options');
     var instances = M.Dropdown.init(elems, {
-      alignment: 'right ',
+      alignment: 'left ',
       constrainWidth: false,
       coverTrigger: true
     });

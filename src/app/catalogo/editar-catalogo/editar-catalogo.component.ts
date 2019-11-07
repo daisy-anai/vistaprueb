@@ -28,7 +28,7 @@ export class EditarCatalogoComponent implements OnInit {
   public modalidad: Modalidad;
   public catalogue : any;
   public municipios: Municipio;
-
+  public localidades: any;
   public hue: string
   public color: string
   public ModalInstance: any;
@@ -56,28 +56,44 @@ export class EditarCatalogoComponent implements OnInit {
 
     this.service.catalogueByID(parseInt(id)).subscribe(({ data })=>{
       this.catalogue = data['catalogue'];
+      console.log(this.catalogue);
+      
       this.service.getModalidad(this.catalogue.id_modalidad).subscribe(({ data }) =>{
         this.modalidad = data['modalidad']; 
-      
+
         this.catalogueForm = this.formBuilder.group({
-          id_localidad:['',Validators.required],
+          municipio:[, Validators.required],
+          id_localidad :[this.catalogue.id_localidad,Validators.required],
           id_modalidad: [this.catalogue.id_modalidad, Validators.required],
           id_catalogue_type: [this.catalogue.catalogueType.name, Validators.required],
           name: [this.catalogue.name, Validators.required],
           configuration: new FormArray ([], Validators.required)
         });
+      
 
         let catalogueControls= this.catalogueForm.controls  
         let configuracion= catalogueControls.configuration as FormArray;
-      
-          // for (let configuracioncatalogue of configuracion) {
-          //   configuracioncatalogue.name;
-          // }
-        let configuration = this.configuration.push(this.formBuilder.group({
-          name:[configuracion, Validators.required],
-          properties: new FormArray([], Validators.required)
-        }));
 
+          for (let configuracionS of this.catalogue['configuration'].sections) {
+            configuracion.push(this.formBuilder.group({
+              name:[configuracionS.name, Validators.required],
+              properties: new FormArray([], Validators.required)
+            }));
+            console.log(configuracionS['properties']);
+   
+
+          }
+                   
+          let propertiess= catalogueControls;
+          // let propiedadCatalogue = configuracionS['properties'] as  FormArray;
+   
+          // for (let property of configuracionS['properties']) {
+          //   propiedadCatalogue.push(this.formBuilder.group({
+          //   	name: [property.name, Validators.required],
+          //     propertyType: [property.propertyType, Validators.required],
+          //     value: [property.value, Validators.required]
+          //   }));
+          // }
       });       
    
     });

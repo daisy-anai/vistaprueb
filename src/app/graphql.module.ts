@@ -4,6 +4,7 @@ import { Apollo, ApolloModule } from 'apollo-angular';
 import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { environment } from '../environments/environment';
+import { StorageService } from './shared/services/storage.service';
 
 @NgModule({
   imports: [
@@ -13,7 +14,9 @@ import { environment } from '../environments/environment';
   ]
 })
 export class GraphQLModule {
-  constructor(apollo: Apollo, httpLink: HttpLink){
+  constructor(apollo: Apollo, httpLink: HttpLink, service: StorageService){
+    console.log(service.getCurrentToken());
+    
     apollo.createNamed('servicios', {
       link: httpLink.create({
         uri: environment.URIServicios
@@ -30,7 +33,10 @@ export class GraphQLModule {
 
     apollo.createNamed('backrevista', {
       link: httpLink.create({
-        uri: environment.URIBackRevista
+        uri: environment.URIBackRevista,
+        headers: new HttpHeaders({
+          authorization: `Bearer ${service.getCurrentToken()}`
+        })
       }),
       cache: new InMemoryCache(),
       defaultOptions: {

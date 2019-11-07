@@ -33,8 +33,8 @@
               <div *ngFor="let seccion of catalogo.configuration.sections ">
                 <semovi-label><b>Sección: </b>{{seccion.name}}</semovi-label> 
                 <div *ngFor="let propiedad of seccion.properties">
-                  <semovi-label><b>Propiedad: </b>{{ propiedad.name}}</semovi-label>  
-                  <p><semovi-label><b>Descripcion:</b> {{ propiedad.value }}</semovi-label></p>
+                  <semovi-label ><b>Propiedad: </b>{{ propiedad.name}}</semovi-label>
+                  <p><semovi-label ><b>Descripcion:</b> {{ propiedad.value }}</semovi-label></p>
                 </div>
               </div>
             </div>

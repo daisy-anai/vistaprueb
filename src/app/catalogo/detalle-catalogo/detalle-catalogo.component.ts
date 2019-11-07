@@ -14,7 +14,7 @@ import { Modalidad } from 'src/app/shared/models/modalidad';
 })
 export class DetalleCatalogoComponent implements OnInit {
   // public catalogo: Array<Catalogues>;
-  public catalogo : any
+  public catalogo : any;
   public modalidad: Modalidad;
   public localidad; any;
   public deprecated: any;
@@ -28,10 +28,9 @@ export class DetalleCatalogoComponent implements OnInit {
   ){}
 
   ngOnInit() {
-
-
-    this.service.catalogueByID(parseInt(this.route.snapshot.paramMap.get("id"))).subscribe(({ data })=>{
-      this.catalogo = data['catalogue'];
+   this.service.catalogueByID(parseInt(this.route.snapshot.paramMap.get("id"))).subscribe(({ data })=>{
+      this.catalogo = data['catalogue'];  
+   
       this.service.getLocalidad(this.catalogo.id_localidad).subscribe(({ data })=>{
         this.localidad = data['localidad'];
       }); 
@@ -42,9 +41,12 @@ export class DetalleCatalogoComponent implements OnInit {
   } 
 
   catalogueDeprecate(id: Number){  
+
     this.service.catalogueDeprecate(id,"hola").subscribe(({ data })=>{  
       this.deprecated = data['catalogueDeprecate'];
-      this.router.navigate([`/aplicacion/catalogo/modalidad /${this.deprecated.id_modalidad}`]);
+      console.log(this.deprecated.id_modalidad);
+      
+      this.router.navigate([`/aplicacion/catalogo/modalidad/${this.deprecated.id_modalidad}`]);
     });
   } 
 }

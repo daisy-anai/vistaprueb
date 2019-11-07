@@ -52,6 +52,8 @@ export class CrearCatalogoComponent implements OnInit {
       
 		this.service.getCatalogoType().subscribe(result =>{
       this.cataloguesTypes = result.data['catalogueTypes'];
+      console.log(this.cataloguesTypes  );    
+      
 		});
 
 		this.service.getModalidad(id_modalidad).subscribe(({ data }) =>{

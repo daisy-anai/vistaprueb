@@ -16,6 +16,9 @@ export class ListarCatalogoComponent implements OnInit {
   private modalidadID: string;
   private options: Array<{}>;
   public catalogos: Array<Catalogues>;
+  public activos: Array<Catalogues>;
+  // public catalogos: any;
+
   public filtro: String;
   public modalidades: Array<Modalidad>;
   public localidades: Array<any>;
@@ -30,25 +33,27 @@ export class ListarCatalogoComponent implements OnInit {
       $('.tooltipped').tooltip();
     }); 
     this.modalidadID = this.route.snapshot.paramMap.get("id");
-
+ 
     this.options = [
       {icon: 'add', description: 'Crear catalogos ', urn: `/aplicacion/catalogo/crear/${this.modalidadID}`},
       {icon: 'list', description: 'Vigencia', urn: `/aplicacion/vigencias/modalidad/${this.modalidadID}`}
 
     ];
 
-    if(this.modalidadID){
-      this.service.catalogueByModality(this.modalidadID).subscribe(({ data })=>{
-        this.catalogos = data['catalogueByModalidad'];
-      });
-     
-    }else{
-      this.service.getCatalogues().subscribe(({ data })=>{
-        this.catalogos = data['catalogues'];
-        
-      });
+      if(this.modalidadID){   
+        this.service.catalogueByModality(this.modalidadID).subscribe(({ data })=>{
+          this.catalogos = data['catalogueByModalidad'];
+          this.service.getCatalogues().subscribe(({ data })=>{
+            this.catalogos = data['catalogues'];
+          });
+        });
+      
+      }else{
+        this.service.getCatalogues().subscribe(({ data })=>{
+          this.catalogos = data['catalogues'];
+        });
+      }
     }
-  }
 
   searchCatalogue(event):void{
     if (!this.filtro) {
@@ -64,9 +69,8 @@ export class ListarCatalogoComponent implements OnInit {
     if(this.modalidadID){
       this.service.catalogueByModality(this.modalidadID).subscribe(({ data })=>{
         this.catalogos = data['catalogueByModalidad'];
-        console.log(this.catalogos);
-        
-      });
+        this.getCatalogues();
+        });
     }else{
       this.getCatalogues();
     }
@@ -78,10 +82,19 @@ export class ListarCatalogoComponent implements OnInit {
     });
   }
 
-  allCatalogues():void{
-    console.log("all");
-    this.service.getCataloguesAll().subscribe(({ data })=>{
-      this.catalogos = data['cataloguesAll'];
-    }); 
+  allCatalogues(){
+    if(this.modalidadID){
+      //lista Todos los actalogos existendes deacuerdo a sun modalidad
+      this.service.getCataloguesAll().subscribe(({ data })=>{
+        this.catalogos = data['cataloguesAll'];
+        this.service.catalogueByModality(this.modalidadID).subscribe(({ data })=>{
+          this.catalogos = data['catalogueByModalidad'];
+        }); 
+     });
+    }else{
+      this.service.getCataloguesAll().subscribe(({ data })=>{
+        this.catalogos = data['cataloguesAll'];
+      });
+    }
   }
 }

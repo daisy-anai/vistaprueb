@@ -31,10 +31,10 @@ export class CrearVigenciasComponent implements OnInit {
 
   ngOnInit() {
     let modalidadID=this.route.snapshot.paramMap.get("id");
+    console.log(modalidadID);
+    
     this.serviceCatalogo.getModalidad(modalidadID).subscribe(( {data})=>{
       this.modalidad= data['modalidad'];
-      console.log(this.modalidades);
-      
     })
     this.catalogoForm = this.formBuilder.group({
       id_modalidad: [modalidadID, Validators.required],
@@ -53,9 +53,10 @@ export class CrearVigenciasComponent implements OnInit {
     const id_modalidad = this.catalogoForm.value.id_modalidad;
     const legal_years= this.catalogoForm.value.anios_legales;
     const extension_years= this.catalogoForm.value.anios_prorroga;
+    console.log(id_modalidad);
     
     this.service.createVigencia(id_modalidad,legal_years,extension_years).subscribe((result)  => {
-      this.router.navigate(['aplicacion/vigencias/'])  
+      this.router.navigate([`/aplicacion/vigencias/modalidad/${id_modalidad}`])  
     }, (error) => {
         console.log(error);
     });

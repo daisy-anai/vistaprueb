@@ -34,7 +34,9 @@ export class ListarVigenciasComponent implements OnInit {
       $('.tooltipped').tooltip();
     });
     this.serviceCatalogo.getModalidad(this.route.snapshot.paramMap.get("id")).subscribe(( {data})=>{
-      this.modalidades= data['modalidad'];   
+      this.modalidades= data['modalidad']; 
+      console.log(this.modalidades);
+        
     })
 
     if(this.route.snapshot.paramMap.get("id")){

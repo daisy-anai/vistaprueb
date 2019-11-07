@@ -1,5 +1,5 @@
 export interface CatalogueType{
-     id : Number;
+     id : string;
      name: String;
      description : String;
      created_at: Date;

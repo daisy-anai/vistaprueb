@@ -21,15 +21,11 @@ export class ListarModalidadComponent implements OnInit {
   constructor(private service?: CatalogoService) { }
 
   ngOnInit() {  
-    let elems; 
+     
     this.service.getModalidades().subscribe(({data}) => {
       this.modalidades = data['modalidades'];      
     });
-   
-    
-    this.slide = document.querySelector('.slide');  
-    console.log(this.slide);
-    
+  
   }
 
   onKey(e) {
