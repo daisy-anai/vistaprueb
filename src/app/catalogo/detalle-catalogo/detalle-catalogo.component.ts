@@ -17,6 +17,7 @@ export class DetalleCatalogoComponent implements OnInit {
   public catalogo : any
   public modalidad: Modalidad;
   public localidad; any;
+  public deprecated: any;
   private parameter: string;
   private  visible: Boolean  = false;
   
@@ -41,8 +42,9 @@ export class DetalleCatalogoComponent implements OnInit {
   } 
 
   catalogueDeprecate(id: Number){  
-    this.service.catalogueDeprecate(id,"hola").subscribe(result=>{    
-      this.router.navigate(['/aplicacion/catalogo/listar']);
+    this.service.catalogueDeprecate(id,"hola").subscribe(({ data })=>{  
+      this.deprecated = data['catalogueDeprecate'];
+      this.router.navigate([`/aplicacion/catalogo/modalidad /${this.deprecated.id_modalidad}`]);
     });
   } 
 }

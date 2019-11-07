@@ -26,7 +26,9 @@ export class ListarCatalogoComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    
+    $(document).ready(function(){
+      $('.tooltipped').tooltip();
+    }); 
     this.modalidadID = this.route.snapshot.paramMap.get("id");
 
     this.options = [
@@ -62,6 +64,8 @@ export class ListarCatalogoComponent implements OnInit {
     if(this.modalidadID){
       this.service.catalogueByModality(this.modalidadID).subscribe(({ data })=>{
         this.catalogos = data['catalogueByModalidad'];
+        console.log(this.catalogos);
+        
       });
     }else{
       this.getCatalogues();

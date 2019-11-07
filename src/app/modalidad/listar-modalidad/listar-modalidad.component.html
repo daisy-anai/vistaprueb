@@ -13,18 +13,19 @@
         placeholder="Buscar" type="search" autofocus
         autocomplete="off" [(ngModel)]="filtro">
       </semovi-input-search>
-      <semovi-list >
+    
+      <semovi-list  >
         <semovi-item *ngFor="let modalidad of modalidades | search: filtro; let i = index">
           <semovi-label> {{modalidad.nombre}} </semovi-label>
             <semovi-label>
-                <a class="btn-floating btn-small right"
-                [routerLink]="['/aplicacion/catalogo/modalidad', modalidad.id]">
-                <i class="material-icons">info</i></a>
-    
+              <a class="btn-floating btn-small right"
+              [routerLink]="['/aplicacion/catalogo/modalidad', modalidad.id]">
+              <i class="material-icons">info</i></a>
           </semovi-label>
-
         </semovi-item>       
       </semovi-list>
+        <!-- <div class=" col s12 scrolls center"> 
+          </div> -->
     </semovi-card-body>
   </semovi-card>
 </ng-container>

@@ -134,6 +134,7 @@ export class CrearCatalogoComponent implements OnInit {
     }, 0);
     
     
+    
     // console.log(this.configuration.controls);    
     // if(index >- 1){
     //   properties.splice(index,1);  
