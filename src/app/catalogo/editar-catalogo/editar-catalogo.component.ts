@@ -27,6 +27,7 @@ export class EditarCatalogoComponent implements OnInit {
   public propertyTypes: Array<PropertyType>;
   public modalidad: Modalidad;
   public catalogue : any;
+  public ex : any;
   public municipios: Municipio;
   public localidades: any;
   public hue: string
@@ -41,8 +42,7 @@ export class EditarCatalogoComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    let id= this.route.snapshot.paramMap.get("id");
-    
+    let id= this.route.snapshot.paramMap.get("id"); 
     this.service.getMunicipios().subscribe(({ data })=>{
       this.municipios = data['municipios']; 
     });
@@ -54,10 +54,8 @@ export class EditarCatalogoComponent implements OnInit {
       this.propertyTypes = data['propertyTypes'];
     });
 
-    this.service.catalogueByID(parseInt(id)).subscribe(({ data })=>{
-      this.catalogue = data['catalogue'];
-      console.log(this.catalogue);
-      
+    this.service.catalogueByID((id)).subscribe(({ data })=>{
+      this.catalogue = data['catalogue']; 
       this.service.getModalidad(this.catalogue.id_modalidad).subscribe(({ data }) =>{
         this.modalidad = data['modalidad']; 
 
@@ -73,29 +71,25 @@ export class EditarCatalogoComponent implements OnInit {
 
         let catalogueControls= this.catalogueForm.controls  
         let configuracion= catalogueControls.configuration as FormArray;
+    
+        for (let configuracionS of this.catalogue['configuration'].sections ) {
+          configuracion.push(this.formBuilder.group({
+            name:[configuracionS.name, Validators.required],
+            properties: new FormArray([], Validators.required)
+          }));
 
-          for (let configuracionS of this.catalogue['configuration'].sections) {
-            configuracion.push(this.formBuilder.group({
-              name:[configuracionS.name, Validators.required],
-              properties: new FormArray([], Validators.required)
-            }));
-            console.log(configuracionS['properties']);
-   
+          let propiedadCatalogue = configuracion['properties'] as  FormArray;
+          console.log(propiedadCatalogue);
 
-          }
-                   
-          let propertiess= catalogueControls;
-          // let propiedadCatalogue = configuracionS['properties'] as  FormArray;
-   
-          // for (let property of configuracionS['properties']) {
-          //   propiedadCatalogue.push(this.formBuilder.group({
-          //   	name: [property.name, Validators.required],
-          //     propertyType: [property.propertyType, Validators.required],
-          //     value: [property.value, Validators.required]
+            
+          // for (const propiedad of configuracionS['properties']) {
+          //   configuracion.push(this.formBuilder.group({
+          //     name: [propiedad.name, Validators.required]
           //   }));
-          // }
-      });       
-   
+          //   }
+        }
+
+      });    
     });
 
     var modal = document.getElementById('previewModal');

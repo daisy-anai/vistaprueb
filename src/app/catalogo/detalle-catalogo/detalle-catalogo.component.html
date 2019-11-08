@@ -8,43 +8,45 @@
     </semovi-card-header>
     <semovi-body>
 
-      <div class="row">
-        <semovi-list class="col s8 offset-s2" *ngIf="catalogo">
-          <div class="card">
-            <div class="card-content">
-              <p class="card-title center" > Detalle Catalogo:  </p>
-              <semovi-label-group>
-                <!-- <semovi-label class="highlight">Modalidad:</semovi-label> -->
-                <p *ngIf="modalidad " class="card-title highlight   right">{{ modalidad.nombre}} </p>
-              </semovi-label-group>
-              <semovi-label-group>
-                <semovi-label class="highlight">Localidad:</semovi-label>
-                <semovi-label *ngIf="localidad"> {{ localidad.nombre }} </semovi-label>
-              </semovi-label-group>
-              <semovi-label-group>
-                <semovi-label class="highlight">Nombre del catalogo:</semovi-label>
-                <semovi-label> {{catalogo.name}}</semovi-label>
-                </semovi-label-group>
-              <semovi-label-group>
-                <semovi-label class="highlight">Tipo de Catalogo:</semovi-label>
-                <semovi-label> {{ catalogo.catalogueType.name}} </semovi-label>
-              </semovi-label-group>
-            
-              <div *ngFor="let seccion of catalogo.configuration.sections ">
-                <semovi-label><b>Sección: </b>{{seccion.name}}</semovi-label> 
-                <div *ngFor="let propiedad of seccion.properties">
-                  <semovi-label ><b>Propiedad: </b>{{ propiedad.name}}</semovi-label>
-                  <p><semovi-label ><b>Descripcion:</b> {{ propiedad.value }}</semovi-label></p>
-                </div>
-              </div>
-            </div>
-            <div class="card-action" *ngIf="!catalogo.deprecated">
-              <a [routerLink]="['/aplicacion/catalogo/modificar',catalogo.id]">Modificar</a>
-              <a class="waves-effect" (click)= "catalogueDeprecate(catalogo.id)">Eliminar</a>
+      <!-- <semovi-list *ngIf="catalogo">
+        <semovi-label > Detalle Catalogo:  </semovi-label>
+          <semovi-label-group *ngIf="modalidad ">
+          <semovi-label>{{ modalidad.nombre}} </semovi-label>
+        </semovi-label-group>
+      </semovi-list> -->
+
+      <div class="card">
+        <div class="card-content">
+          <p class="card-title"> Catálogo {{ catalogo.name }} {{ modalidad.nombre}} </p>
+
+          <semovi-label-group>
+            <p *ngIf="modalidad " class="card-title highlight"> </p>
+          </semovi-label-group>
+          <semovi-label-group>
+            <semovi-label class="highlight">Localidad:</semovi-label>
+            <semovi-label *ngIf="localidad"> {{ localidad.nombre }} </semovi-label>
+          </semovi-label-group>
+          <semovi-label-group>
+            <semovi-label class="highlight">Nombre del catalogo:</semovi-label>
+            <semovi-label> {{catalogo.name}}</semovi-label>
+            </semovi-label-group>
+          <semovi-label-group>
+            <semovi-label class="highlight">Tipo de Catalogo:</semovi-label>
+            <semovi-label> {{ catalogo.catalogueType.name}} </semovi-label>
+          </semovi-label-group>
+        
+          <div *ngFor="let seccion of catalogo.configuration.sections ">
+            <semovi-label><b>Sección: </b>{{seccion.name}}</semovi-label> 
+            <div *ngFor="let propiedad of seccion.properties">
+              <semovi-label ><b>Propiedad: </b>{{ propiedad.name}}</semovi-label>
+              <p><semovi-label ><b>Descripcion:</b> {{ propiedad.value }}</semovi-label></p>
             </div>
           </div>
-        </semovi-list>
-          
+        </div>
+        <div class="card-action" *ngIf="!catalogo.deprecated">
+          <a [routerLink]="['/aplicacion/catalogo/modificar',catalogo.id]">Modificar</a>
+          <a class="waves-effect" (click)= "catalogueDeprecate(catalogo.id)">Eliminar</a>
+        </div>
       </div>
     </semovi-body>
   </semovi-card>

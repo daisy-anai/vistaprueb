@@ -227,8 +227,8 @@ export class CatalogoService {
     }).valueChanges;
   }
 
-  //Catalogue for ID
-  catalogueByID(id: Number){
+  //Catalogue for IDss
+  catalogueByID(id: String){
     return this.apollo.use('backrevista').watchQuery({
       query: gql `
       query catalogueID($id:ID!){

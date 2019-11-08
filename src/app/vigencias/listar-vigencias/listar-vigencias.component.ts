@@ -8,7 +8,7 @@ import { ActivatedRoute } from "@angular/router";
 // Models
 import { Modalidad } from '../../shared/models/modalidad';
 import { Vigencia } from 'src/app/shared/models/vigencia';
-
+var M :any
 
 @Component({
   selector: 'app-listar-vigencias',
@@ -29,10 +29,14 @@ export class ListarVigenciasComponent implements OnInit {
   ) {}
 
   ngOnInit() {   
-  
-    $(document).ready(function(){
-      $('.tooltipped').tooltip();
+
+   let  options= document.addEventListener('DOMContentLoaded', function() {
+      var elems = document.querySelectorAll('.modal');
+      var instances = M.Modal.init(elems, options);
+      // instances.open();
     });
+  
+  
     this.serviceCatalogo.getModalidad(this.route.snapshot.paramMap.get("id")).subscribe(( {data})=>{
       this.modalidades= data['modalidad']; 
       console.log(this.modalidades);

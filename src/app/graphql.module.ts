@@ -15,8 +15,6 @@ import { StorageService } from './shared/services/storage.service';
 })
 export class GraphQLModule {
   constructor(apollo: Apollo, httpLink: HttpLink, service: StorageService){
-    console.log(service.getCurrentToken());
-    
     apollo.createNamed('servicios', {
       link: httpLink.create({
         uri: environment.URIServicios

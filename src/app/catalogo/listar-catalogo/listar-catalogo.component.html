@@ -5,7 +5,7 @@
       <div class="valign-wrapper">
         <semovi-card-header-icon urn="/aplicacion/configuracion" icon="arrow_back"></semovi-card-header-icon>
         <semovi-card-header-title> Catálogos </semovi-card-header-title>
-        <div  class="col s3 tooltipped right" data-position="bottom" data-tooltip="Elige una opcion" >
+        <div  class=" col s3 right ">
           <semovi-card-header-option [options]="options" ></semovi-card-header-option>
         </div>
       </div>   
@@ -35,7 +35,6 @@
       <semovi-list *ngIf="catalogos">
         <semovi-item *ngFor="let catalogo of catalogos">
           <semovi-label> {{catalogo.name}} {{catalogo.deprecated}}</semovi-label>
-          
           <semovi-label>
             <a class="btn-floating btn-small right"
             [routerLink]="['/aplicacion/catalogo/detalle', catalogo.id]">

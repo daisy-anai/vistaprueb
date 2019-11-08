@@ -28,7 +28,9 @@ export class DetalleCatalogoComponent implements OnInit {
   ){}
 
   ngOnInit() {
-   this.service.catalogueByID(parseInt(this.route.snapshot.paramMap.get("id"))).subscribe(({ data })=>{
+    console.log(this.route.snapshot.paramMap.get("id"));
+  
+   this.service.catalogueByID(  this.route.snapshot.paramMap.get("id")).subscribe(({ data })=>{
       this.catalogo = data['catalogue'];  
    
       this.service.getLocalidad(this.catalogo.id_localidad).subscribe(({ data })=>{
