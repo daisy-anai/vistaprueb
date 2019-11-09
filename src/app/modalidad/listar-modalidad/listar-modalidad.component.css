@@ -24,12 +24,20 @@ button {
   max-height: 0;
 }
 
-.scrolls  { 
-  height: 500px;
+.contendor{
   overflow: scroll;
+  height: 500px;
+  border-radius: 5px;
+
+  /* overflow-x:visible; */
+
 }
+
+
 @media only screen and (max-width: 600px) {
-.scrolls{
+.contenedor {
+  visibility: collapse
+
+  }
   
-}
-}
+} 

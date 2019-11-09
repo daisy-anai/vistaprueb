@@ -31,17 +31,17 @@
             <span class="buscadores">Todos los catálogos</span>
         </label>
       </semovi-input-options>
-      
-      <semovi-list *ngIf="catalogos">
-        <semovi-item *ngFor="let catalogo of catalogos">
-          <semovi-label> {{catalogo.name}} {{catalogo.deprecated}}</semovi-label>
-          <semovi-label>
-            <a class="btn-floating btn-small right"
-            [routerLink]="['/aplicacion/catalogo/detalle', catalogo.id]">
-            <i class="material-icons">info</i></a>
-          </semovi-label>
-        </semovi-item>
-      </semovi-list>
+        <semovi-list *ngIf="catalogos">
+          <semovi-item *ngFor="let catalogo of catalogos">
+            <semovi-label> {{catalogo.name}} {{catalogo.deprecated}}</semovi-label>
+            <semovi-label>
+              <a class="btn-floating btn-small right"
+              [routerLink]="['/aplicacion/catalogo/detalle', catalogo.id]">
+              <i class="material-icons">info</i></a>
+            </semovi-label>
+          </semovi-item>
+        </semovi-list>
+     
     </semovi-card-body>
   </semovi-card>
 </ng-container> 

@@ -1,7 +1,7 @@
 import { CatalogueType }from  './catalogueType';
 
 export interface Catalogues{
-	id: number;
+	id: string;
 	id_modalidad: String;
 	catalogueType:CatalogueType;
 	name: String;

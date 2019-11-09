@@ -69,7 +69,7 @@ export class VigenciasService {
     }).valueChanges
   }
 
-  vigenciasByID(id: Number){
+  vigenciasByID(id: string){
     return this.apollo.use('backrevista').watchQuery({
       query: gql` 
       query validities($id:ID!){
@@ -88,7 +88,7 @@ export class VigenciasService {
     }).valueChanges;
   }
   
-  updateVigencias(id: Number, id_modalidad: String, legal_years: Number,extension_years:Number){
+  updateVigencias(id: string, id_modalidad: String, legal_years: Number,extension_years:Number){
     return this.apollo.use('backrevista').mutate({
       mutation: gql`
       mutation validityUpdate($id:ID!,$id_modalidad:ID!,$legal_years:Int!,$extension_years:Int!){

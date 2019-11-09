@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+  import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute} from '@angular/router';
 import { Apollo} from 'apollo-angular';
@@ -151,6 +151,7 @@ export class CrearCatalogoComponent implements OnInit {
 	} 
 
   onPreview() { 
+
 		this.ModalInstance.open();
 	}
 
@@ -167,6 +168,7 @@ export class CrearCatalogoComponent implements OnInit {
 			console.log("Error", error)
 		});
 	}
-
+    
+  
 
 }

@@ -7,47 +7,62 @@
       </div>
     </semovi-card-header>
     <semovi-body>
-
-      <!-- <semovi-list *ngIf="catalogo">
-        <semovi-label > Detalle Catalogo:  </semovi-label>
-          <semovi-label-group *ngIf="modalidad ">
-          <semovi-label>{{ modalidad.nombre}} </semovi-label>
-        </semovi-label-group>
-      </semovi-list> -->
-
-      <div class="card">
-        <div class="card-content">
-          <p class="card-title"> Catálogo {{ catalogo.name }} {{ modalidad.nombre}} </p>
-
-          <semovi-label-group>
-            <p *ngIf="modalidad " class="card-title highlight"> </p>
-          </semovi-label-group>
-          <semovi-label-group>
-            <semovi-label class="highlight">Localidad:</semovi-label>
-            <semovi-label *ngIf="localidad"> {{ localidad.nombre }} </semovi-label>
-          </semovi-label-group>
-          <semovi-label-group>
-            <semovi-label class="highlight">Nombre del catalogo:</semovi-label>
-            <semovi-label> {{catalogo.name}}</semovi-label>
+      <div class="card " *ngIf="catalogo">  
+        <div  class="col s12 m10  l8 offset-l2 offset-m1">
+          <semovi-item>
+            <p class="card-title uppercase"  *ngIf="modalidad"> Catálogo: {{ catalogo.name }}     {{ modalidad.nombre}} </p>
+            <semovi-label-group>
+              <semovi-label class="highlight">Localidad:</semovi-label>
+              <semovi-label *ngIf="localidad"> {{ localidad.nombre }} </semovi-label>
             </semovi-label-group>
-          <semovi-label-group>
-            <semovi-label class="highlight">Tipo de Catalogo:</semovi-label>
-            <semovi-label> {{ catalogo.catalogueType.name}} </semovi-label>
-          </semovi-label-group>
-        
-          <div *ngFor="let seccion of catalogo.configuration.sections ">
-            <semovi-label><b>Sección: </b>{{seccion.name}}</semovi-label> 
-            <div *ngFor="let propiedad of seccion.properties">
-              <semovi-label ><b>Propiedad: </b>{{ propiedad.name}}</semovi-label>
-              <p><semovi-label ><b>Descripcion:</b> {{ propiedad.value }}</semovi-label></p>
+            <semovi-label-group>
+              <semovi-label class="highlight">Nombre del catálogo:</semovi-label>
+              <semovi-label> {{catalogo.name}}</semovi-label>
+            </semovi-label-group>
+            <semovi-label-group>
+              <semovi-label class="highlight">Tipo de Catálogo:</semovi-label>
+              <semovi-label> {{ catalogo.catalogueType.name}} </semovi-label>
+            </semovi-label-group>
+            <div *ngFor="let seccion of catalogo.configuration.sections ">
+              <semovi-label-group>
+                <semovi-label class="highlight"> Sección: </semovi-label> 
+                <semovi-label> {{seccion.name}}</semovi-label>
+              </semovi-label-group>
+              <div *ngFor="let propiedad of seccion.properties">
+                <semovi-label-group>
+                  <semovi-label class="highlight" >Propiedad:</semovi-label>
+                  <semovi-label> {{ propiedad.name}}  </semovi-label>
+               </semovi-label-group>
+               <semovi-label-group *ngIf="typeCatalogue">
+                  <semovi-label class="highlight">Descripción:</semovi-label>
+                  <semovi-label>  {{ propiedad.value }}</semovi-label>
+               </semovi-label-group>
+              </div>
+            </div>        
+            <div class="card-action " *ngIf="!catalogo.deprecated">
+              <a [routerLink]="['/aplicacion/catalogo/modificar',catalogo.id]">Modificar</a>
+              <a (click)="preview()" class="waves-effect  " >Eliminar</a>  
             </div>
-          </div>
-        </div>
-        <div class="card-action" *ngIf="!catalogo.deprecated">
-          <a [routerLink]="['/aplicacion/catalogo/modificar',catalogo.id]">Modificar</a>
-          <a class="waves-effect" (click)= "catalogueDeprecate(catalogo.id)">Eliminar</a>
+          </semovi-item>
         </div>
       </div>
     </semovi-body>
   </semovi-card>
 </ng-container>
+
+<!-- Modal Structure -->
+<div id="descriptionModal" class="modal">
+  <div class="modal-content">
+    <div class="input-field col s6">
+      <input   id="descripcion" name="description" type="text" class="validate">
+      <label for="first_name">Descripción</label>
+    </div>
+  </div>
+  <div *ngIf="catalogo">
+    <div class="modal-footer" *ngIf="!catalogo.deprecated">
+      <a class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+      <a (click)="catalogueDeprecate(catalogo.id )" class="modal-close waves-effect waves-green btn-flat">Aceptar</a>
+    </div>
+  </div>
+</div>
+

@@ -17,6 +17,7 @@ export class ListarCatalogoComponent implements OnInit {
   private options: Array<{}>;
   public catalogos: Array<Catalogues>;
   public activos: Array<Catalogues>;
+  public catalogue: any;
   // public catalogos: any;
 
   public filtro: String;
@@ -29,9 +30,7 @@ export class ListarCatalogoComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    $(document).ready(function(){
-      $('.tooltipped').tooltip();
-    }); 
+   
     this.modalidadID = this.route.snapshot.paramMap.get("id");
  
     this.options = [
@@ -41,11 +40,10 @@ export class ListarCatalogoComponent implements OnInit {
     ];
 
       if(this.modalidadID){   
+        console.log(this.modalidadID);   
         this.service.catalogueByModality(this.modalidadID).subscribe(({ data })=>{
           this.catalogos = data['catalogueByModalidad'];
-          this.service.getCatalogues().subscribe(({ data })=>{
-            this.catalogos = data['catalogues'];
-          });
+    
         });
       
       }else{
@@ -65,12 +63,18 @@ export class ListarCatalogoComponent implements OnInit {
     }
   }
 
-  activeCatalogues():void{
+  activeCatalogues(){
+    
     if(this.modalidadID){
       this.service.catalogueByModality(this.modalidadID).subscribe(({ data })=>{
-        this.catalogos = data['catalogueByModalidad'];
-        this.getCatalogues();
-        });
+        this.catalogos = data['catalogueByModalidad'];     
+          this.service.getCatalogues().subscribe(({ data })=>{
+            this.catalogos = data['catalogues'];
+            console.log(this.catalogos);
+            
+          });
+      });
+      
     }else{
       this.getCatalogues();
     }
@@ -85,12 +89,12 @@ export class ListarCatalogoComponent implements OnInit {
   allCatalogues(){
     if(this.modalidadID){
       //lista Todos los actalogos existendes deacuerdo a sun modalidad
-      this.service.getCataloguesAll().subscribe(({ data })=>{
-        this.catalogos = data['cataloguesAll'];
-        this.service.catalogueByModality(this.modalidadID).subscribe(({ data })=>{
-          this.catalogos = data['catalogueByModalidad'];
-        }); 
-     });
+        // this.service.getCataloguesAll().subscribe(({ data })=>{
+        //   this.catalogos = data['cataloguesAll'];
+        // }); 
+      this.service.catalogueByModality(this.modalidadID).subscribe(({ data })=>{
+        this.catalogos = data['catalogueByModalidad'];  
+      });
     }else{
       this.service.getCataloguesAll().subscribe(({ data })=>{
         this.catalogos = data['cataloguesAll'];

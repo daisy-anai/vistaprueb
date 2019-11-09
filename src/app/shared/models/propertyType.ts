@@ -1,6 +1,6 @@
 export  interface PropertyType{
-     id: Number;
-     name: String;
+     id: string;
+     name: string;
      created_at: Date;
      deprecated: Boolean;
 

@@ -8,7 +8,8 @@ import { ActivatedRoute } from "@angular/router";
 // Models
 import { Modalidad } from '../../shared/models/modalidad';
 import { Vigencia } from 'src/app/shared/models/vigencia';
-var M :any
+import { element } from 'protractor';
+declare var M: any;
 
 @Component({
   selector: 'app-listar-vigencias',
@@ -22,6 +23,8 @@ export class ListarVigenciasComponent implements OnInit {
   public buscarVisible: Boolean =false;
   public agregarVisible: Boolean = false;
   public vigenciaVisible: Boolean = false;
+  public modalvisible: Boolean= false; 
+  public vigenciaModal: any;
   constructor(
     private service?: VigenciasService,
     private serviceCatalogo?: CatalogoService,
@@ -30,32 +33,37 @@ export class ListarVigenciasComponent implements OnInit {
 
   ngOnInit() {   
 
-   let  options= document.addEventListener('DOMContentLoaded', function() {
-      var elems = document.querySelectorAll('.modal');
-      var instances = M.Modal.init(elems, options);
-      // instances.open();
+    var modal = document.getElementById('vigenciaModal');
+		this.vigenciaModal = M.Modal.init(modal, {
+      opacity:0.5,
+      inDuration:3000,
+      outDuration: 250,
     });
-  
+
   
     this.serviceCatalogo.getModalidad(this.route.snapshot.paramMap.get("id")).subscribe(( {data})=>{
       this.modalidades= data['modalidad']; 
-      console.log(this.modalidades);
-        
-    })
+    });
 
     if(this.route.snapshot.paramMap.get("id")){
       this.service.getVigenciasModalidadByID(this.route.snapshot.paramMap.get("id")).subscribe(({data}) =>{   
         this.vigencias = data['validityByModalidad']; 
-        if( Object.keys(this.vigencias).length === 0){
-          this.agregarVisible=true;
-        }    
+        console.log(this.vigencias);
+          if( Object.keys(this.vigencias).length === 0){
+            this.agregarVisible=true;   
+            this.vigenciaModal.open();
+      
+          }    
       });
      }else{
+     
         this.agregarVisible=true;
         this.buscarVisible=true;
         this.vigenciaVisible=true;
         this.service.getVigencias().subscribe(({data})=>{
         this.vigencias =data['validities'];
+        console.log(this.vigencias);
+        
       });
     }  
   }

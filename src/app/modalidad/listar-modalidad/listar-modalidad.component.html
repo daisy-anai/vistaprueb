@@ -13,7 +13,7 @@
         placeholder="Buscar" type="search" autofocus
         autocomplete="off" [(ngModel)]="filtro">
       </semovi-input-search>
-    
+    <div class="contendor">
       <semovi-list  >
         <semovi-item *ngFor="let modalidad of modalidades | search: filtro; let i = index">
           <semovi-label> {{modalidad.nombre}} </semovi-label>
@@ -24,8 +24,7 @@
           </semovi-label>
         </semovi-item>       
       </semovi-list>
-        <!-- <div class=" col s12 scrolls center"> 
-          </div> -->
+    </div>
     </semovi-card-body>
   </semovi-card>
 </ng-container>

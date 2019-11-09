@@ -31,9 +31,6 @@
           </label>
         </semovi-input-options>
       <semovi-list >
-        
-           Agrega  una vigencia
-        
         <semovi-item  *ngFor="let vigencia of vigencias">
           <semovi-label class="highlight"> Años vigencia: {{ vigencia.legal_years }}</semovi-label>
           <semovi-label> Años prorroga: {{ vigencia.extension_years }} </semovi-label>
@@ -44,8 +41,20 @@
           </semovi-label> 
         </semovi-item>       
       </semovi-list>
-    
-
     </semovi-card-body>
   </semovi-card>  
+  <!-- Modal Structure -->
+  <div id="vigenciaModal" class="modal">
+    <div class="modal-content">
+        <p>Ingrese un una vigencia</p>
+    </div>
+    <div>
+      <div class="modal-footer">
+        <a class="modal-close waves-effect waves-green btn-flat">Aceptar</a>
+      </div>
+    </div>
+  </div>
+  
 </ng-container>
+
+          

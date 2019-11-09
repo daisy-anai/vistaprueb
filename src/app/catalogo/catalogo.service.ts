@@ -285,7 +285,7 @@ export class CatalogoService {
   /**
    @description Mutations
   */
-  createCatalogue(id_modalidad: String, id_localidad: string, id_catalogue_type:Number, name:String, configuration: any){
+  createCatalogue(id_modalidad: String, id_localidad: string, id_catalogue_type:string, name:String, configuration: any){
     return this.apollo.use('backrevista').mutate({
       mutation: gql`
       mutation createCatalogue( $id_modalidad:ID!,$id_localidad:ID!,$id_catalogue_type:ID!,$name:String!,$configuration:JSON!){
@@ -316,7 +316,7 @@ export class CatalogoService {
       }
     })
   }
-  catalogueUpdate(id_modalidad: String,id_catalogue:Number, name: String, configuration: any){
+  catalogueUpdate(id_modalidad: String,id_catalogue:string, name: String, configuration: any){
     return this.apollo.use('backrevista').mutate({
       mutation: gql`
       mutation catalogueUpdate($id_modalidad :ID!,$id_catalogue_type:ID!,$name:String!,$configuration:JSON!){
@@ -345,7 +345,7 @@ export class CatalogoService {
     })
   }
 
-  catalogueDeprecate(id: Number, reason: String){
+  catalogueDeprecate(id: string, reason: String){
     return this.apollo.use('backrevista').mutate({
       mutation: gql`
       mutation catalogueDeprecate($id:ID!,$reason:String!){
