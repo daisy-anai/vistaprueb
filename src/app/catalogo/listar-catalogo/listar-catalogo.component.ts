@@ -19,8 +19,9 @@ export class ListarCatalogoComponent implements OnInit {
   public activos: Array<Catalogues>;
   public catalogue: any;
   // public catalogos: any;
+  public onlyActive: Boolean = false;
 
-  public filtro: String;
+  public filtro: string;
   public modalidades: Array<Modalidad>;
   public localidades: Array<any>;
   constructor (
@@ -30,54 +31,36 @@ export class ListarCatalogoComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-   
     this.modalidadID = this.route.snapshot.paramMap.get("id");
  
     this.options = [
       {icon: 'add', description: 'Crear catalogos ', urn: `/aplicacion/catalogo/crear/${this.modalidadID}`},
       {icon: 'list', description: 'Vigencia', urn: `/aplicacion/vigencias/modalidad/${this.modalidadID}`}
-
     ];
 
-      if(this.modalidadID){   
-        console.log(this.modalidadID);   
-        this.service.catalogueByModality(this.modalidadID).subscribe(({ data })=>{
-          this.catalogos = data['catalogueByModalidad'];
-    
-        });
-      
-      }else{
-        this.service.getCatalogues().subscribe(({ data })=>{
-          this.catalogos = data['catalogues'];
-        });
-      }
-    }
-
-  searchCatalogue(event):void{
-    if (!this.filtro) {
+    if(this.modalidadID){    
       this.activeCatalogues();
     }else{
+      this.getCatalogues();
+    }
+  }
+
+  searchCatalogue(){
+    if (!this.filtro) {
+     this.activeCatalogues();    
+    }else{
+     
       this.service.searchWord(1,this.filtro.trim().toLowerCase()).subscribe(({data})=>{
         this.catalogos = data['cataloguesLike'];
-      });
+        console.log(this.catalogos);  
+        });
     }
   }
 
   activeCatalogues(){
-    
-    if(this.modalidadID){
-      this.service.catalogueByModality(this.modalidadID).subscribe(({ data })=>{
-        this.catalogos = data['catalogueByModalidad'];     
-          this.service.getCatalogues().subscribe(({ data })=>{
-            this.catalogos = data['catalogues'];
-            console.log(this.catalogos);
-            
-          });
-      });
-      
-    }else{
-      this.getCatalogues();
-    }
+    this.service.catalogueByModality(this.modalidadID).subscribe(({ data })=>{
+      this.catalogos = data['catalogueByModalidad'];
+    });
   }
 
   getCatalogues(){
@@ -88,13 +71,9 @@ export class ListarCatalogoComponent implements OnInit {
 
   allCatalogues(){
     if(this.modalidadID){
-      //lista Todos los actalogos existendes deacuerdo a sun modalidad
-        // this.service.getCataloguesAll().subscribe(({ data })=>{
-        //   this.catalogos = data['cataloguesAll'];
-        // }); 
-      this.service.catalogueByModality(this.modalidadID).subscribe(({ data })=>{
-        this.catalogos = data['catalogueByModalidad'];  
-      });
+      this.service.getCatalogueByModaliadDeprecated(this.modalidadID).subscribe(({data})=>{
+        this.catalogos = data['catalogueByModalidadDeprecated'];
+      }); 
     }else{
       this.service.getCataloguesAll().subscribe(({ data })=>{
         this.catalogos = data['cataloguesAll'];

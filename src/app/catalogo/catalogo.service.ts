@@ -186,6 +186,34 @@ export class CatalogoService {
       }`
     }).valueChanges;
   }
+  //Catalogues by modalidad deprecated
+  getCatalogueByModaliadDeprecated(id_modalidad: string){
+    console.log(id_modalidad);
+    
+    return this.apollo.use('backrevista').watchQuery({
+      query: gql`
+      query cataloguesByModalidadDeprecated($id_modalidad:ID!) {
+        catalogueByModalidadDeprecated(id_modalidad:$id_modalidad){
+         id
+          id_modalidad
+          catalogueType{
+            id
+            name
+            description
+            created_at
+            deprecated
+          }
+          name
+          configuration
+          created_at
+           deprecated
+        }
+      }`,
+      variables:{
+        id_modalidad: id_modalidad
+      }
+    }).valueChanges;
+  }
 
   //All modalities
   getModalidades(){

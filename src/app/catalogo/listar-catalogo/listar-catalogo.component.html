@@ -16,7 +16,7 @@
       <semovi-input-search >
         <input name="filtro" id="filtro" class="browser-default placeholder-fix"
         placeholder="Buscar" type="search" autofocus
-        autocomplete="off" [(ngModel)]="filtro"(ngModelChange)="searchCatalogue($event)"  >
+        autocomplete="off" [(ngModel)]="filtro"(ngModelChange)="searchCatalogue()"  >
       </semovi-input-search>
 
       <semovi-input-options>
@@ -34,14 +34,13 @@
         <semovi-list *ngIf="catalogos">
           <semovi-item *ngFor="let catalogo of catalogos">
             <semovi-label> {{catalogo.name}} {{catalogo.deprecated}}</semovi-label>
-            <semovi-label>
-              <a class="btn-floating btn-small right"
-              [routerLink]="['/aplicacion/catalogo/detalle', catalogo.id]">
-              <i class="material-icons">info</i></a>
-            </semovi-label>
+              <semovi-label>
+                <a class="btn-floating btn-small right"
+                [routerLink]="['/aplicacion/catalogo/detalle', catalogo.id]">
+                <i class="material-icons">info</i></a>
+              </semovi-label>                
           </semovi-item>
         </semovi-list>
-     
     </semovi-card-body>
   </semovi-card>
 </ng-container> 

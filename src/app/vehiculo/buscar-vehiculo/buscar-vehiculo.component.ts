@@ -51,10 +51,10 @@ export class BuscarVehiculoComponent implements OnInit {
       this.vehiculo = result.data['vehiculoActivo'];
       this.loading = false;
     },(error) => {
-      var errores = error.message.split(":");
-      var toastHTML = '<span> <div class="valign-wrapper"><i class="material-icons">error_outline</i>  &nbsp;&nbsp;'+errores[1]+'</div></span>';
-      M.toast({html: toastHTML});
-      this.loading=false;
+      // var errores = error.message.split(":");
+      // var toastHTML = '<span> <div class="valign-wrapper"><i class="material-icons">error_outline</i>  &nbsp;&nbsp;'+errores[1]+'</div></span>';
+      // M.toast({html: toastHTML});
+      // this.loading=false;
     });
 
   }

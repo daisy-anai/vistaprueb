@@ -16,14 +16,14 @@ export class DetalleCatalogoComponent implements OnInit {
   // public catalogo: Array<Catalogues>;
   public catalogo : any;
   public ModalInstance: any;
+  public collapsibleInstance: any;
   public modalquestion:any;
   public modalidad: Modalidad;
   public localidad; any;
   public deprecated: any;
-  private parameter: string;
-  private  visible: Boolean  = false;
-  private typeCatalogue: Boolean= false;
-  
+
+  public typeCatalogue: boolean= true;
+  public type : string = 'texto';
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -32,6 +32,13 @@ export class DetalleCatalogoComponent implements OnInit {
 
   ngOnInit() {
 
+    $(document).ready(function(){
+      $('.collapsible').collapsible();
+    });
+    $(document).ready(function(){
+      $('.collapsible1').collapsible();
+    });
+  
     var modal = document.getElementById('descriptionModal');
 		this.ModalInstance = M.Modal.init(modal, {
       dismissible:false
@@ -45,17 +52,6 @@ export class DetalleCatalogoComponent implements OnInit {
       this.service.getModalidad(this.catalogo.id_modalidad).subscribe(({ data })=>{
         this.modalidad = data['modalidad'];   
       });
-
-      for (let section of this.catalogo.configuration.sections) {  
-        for (let property of section.properties) {
-          if(property.propertyType  == 'Texto'){
-            this.typeCatalogue= true;
-          }
-          else{
-          this.typeCatalogue= false;
-         }
-        }       
-      }
     });
   } 
 
