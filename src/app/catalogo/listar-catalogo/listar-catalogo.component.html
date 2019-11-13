@@ -5,11 +5,10 @@
       <div class="valign-wrapper">
         <semovi-card-header-icon urn="/aplicacion/configuracion" icon="arrow_back"></semovi-card-header-icon>
         <semovi-card-header-title> Catálogos </semovi-card-header-title>
-        <div  class=" col s3 right ">
+        <div  class=" col s12 center">
           <semovi-card-header-option [options]="options" ></semovi-card-header-option>
         </div>
       </div>   
-
     </semovi-card-header>
       
     <semovi-card-body>
@@ -21,7 +20,7 @@
 
       <semovi-input-options>
         <label class="left">
-          <input class="with-gap" name="group1" type="radio"
+          <input class="with-gap" name="group1" id="active" type="radio"
           (click)="activeCatalogues()" checked/>
           <span class="buscadores">Activos</span>
         </label>
@@ -30,7 +29,17 @@
             (click)="allCatalogues()" />
             <span class="buscadores">Todos los catálogos</span>
         </label>
-      </semovi-input-options>
+        <label class="left">
+          <input class="with-gap" id="group1"  name="group1" type="radio"
+          (click)="example()" />
+          <span class="buscadores">change</span>
+        </label>
+        <!-- <label for="">
+          <input type="radio name=something" value='' style="display:none" >
+        </label> -->
+
+      </semovi-input-options>  
+    
         <semovi-list *ngIf="catalogos">
           <semovi-item *ngFor="let catalogo of catalogos">
             <semovi-label> {{catalogo.name}} {{catalogo.deprecated}}</semovi-label>

@@ -9,115 +9,71 @@
     <semovi-body>
       <div class=" row">
         <div class="card">
-        <div class="col s12 m10  l10 offset-l1 offset-m1">
-          <ul class="collapsible semovi-item ">
-            <li >  
-              <div class="col s8">
-                <span > <b>Catálogo: </b></span>  
-                <span *ngIf="catalogo">{{ catalogo.name }}</span>
-              </div>
-              <div class=" col s4">
-                <span *ngIf="modalidad" class="uppercase">  {{ modalidad.nombre}}</span>
-              </div>
-            </li> 
-            <li>
-              <div class="collapsible-header" ><b> Localidad</b></div>
-              <div class="collapsible-body" *ngIf="localidad"><span>{{ localidad.nombre }}</span></div>
-            </li>
-            <li>
-              <div class="collapsible-header"> <b> Tipo de Catálogo</b></div>
-              <div class="collapsible-body"  *ngIf="catalogo"> {{ catalogo.catalogueType.name}}</div>
-            </li>
-            <li>
-              <div class="collapsible-header">Configuración: </div>
-                <div class="collapsible-body">
-                  <ul class="collapsible">
-                    <li>
-                      <div class="collapsible-header">secciones</div>
-                      <div class="collapsible-body">
-                        <div *ngIf="catalogo">
-                          <div *ngFor="let seccion of catalogo.configuration.sections " >
-                            <span> seccion: {{seccion.name}}</span> 
-  
-                          </div>  
-                        </div>
-                      </div>
-                    </li> 
-                    <li>
-                      <ul class="collapsible">
-
-                      </ul>
-                    </li> 
-                  </ul>
+          <div class="col s12 m10  l10 offset-l1 offset-m1">
+            <ul class="collapsible semovi-item ">
+              <li >  
+                <div class="col s8">
+                  <span class="span">Catálogo:</span>  
+                  <span *ngIf="catalogo">{{ catalogo.name }}</span>
                 </div>
-              </li>  
-              <!-- <div class="collapsible-header"><b> Configuración</b></div>
-              <div class="collapsible-body" >
-                <div *ngIf="catalogo">
-                  <div *ngFor="let seccion of catalogo.configuration.sections " >
-                    <span class="">Secciones: </span>
-                    <span>  {{ seccion.name}}</span>
-                    <div *ngFor="let propiedad of seccion.properties">
-                      <span>Propiedad: </span>
-                      <span>{{ propiedad.name}} </span>
-                      <div *ngIf="typeCatalogue">  Descripcion: {{propiedad.value}} </div>
-                    </div>
+                <div class=" col s4">
+                  <span *ngIf="modalidad" class="uppercase">  {{ modalidad.nombre}}</span>
+                </div>
+              </li> 
+              <li>
+                <div class="collapsible-header"> <span  class="span">Localidad:</span> </div>
+                <div class="collapsible-body" *ngIf="localidad"><span>{{ localidad.nombre }}</span></div>
+              </li>
+              <li>
+                <div class="collapsible-header"> <span  class="span">Tipo de Catálogo</span></div>
+                <div class="collapsible-body "  *ngIf="catalogo"> {{ catalogo.catalogueType.name}}</div>
+              </li>
+              <li>
+                <div class="collapsible-header"><span  class="span">Configuración:</span> </div>
+                  <div class="collapsible-body">
+                    <ul class="collapsible">
+                      <li>
+                        <div class="collapsible-header"><span  class="span">Secciones</span></div>
+                        <div class="collapsible-body"> 
+                           <div *ngIf="catalogo">
+                              <div *ngFor="let seccion of catalogo.configuration.sections ">
+                                <semovi-group>
+                                  <semovi-label><b>Sección: </b></semovi-label>
+                                  <semovi-label  class="uppercase"> {{seccion.name}}</semovi-label>
+                                </semovi-group>
+                                <ul class="collapsible">
+                                  <li>
+                                    <div *ngFor="let propiedad of seccion.properties">   
+                                      <div class="collpasible-header"> 
+                                        <semovi-label class="span">Propiedad:</semovi-label>
+                                        <semovi-label class="uppercase"> {{ propiedad.name}}</semovi-label>
+                                      </div>     
+                                      <div *ngIf="propiedad.propertyType == type" > 
+                                        <semovi-group>
+                                          <semovi-label class="span">Descripcion:</semovi-label>
+                                          <semovi-label>{{propiedad.value}}</semovi-label>
+                                        </semovi-group>
+                                      </div>
+                                    </div>
+                                  </li>
+                                </ul>
+                              </div>  
+                           </div>
+                        </div>
+                      </li> 
+                    </ul>
                   </div>
-                </div>    
-              </div> -->
-            
-            
-             <div *ngIf="catalogo">
-              <div class="card-action " *ngIf="!catalogo.deprecated">
-                <a [routerLink]="['/aplicacion/catalogo/modificar',catalogo.id]">Modificar</a>
-                <a (click)="preview()" class="waves-effect right" >Eliminar</a>  
+                </li>               
+              <div *ngIf="catalogo">
+                <div class="card-action " *ngIf="!catalogo.deprecated">
+                  <!-- <a [routerLink]="['/aplicacion/catalogo/modificar',catalogo.id]">Modificar</a> -->
+                  <a (click)="preview()" class="waves-effect right" >Eliminar</a>  
+                </div>
               </div>
-            </div>
-          </ul>
+            </ul>
+          </div>
         </div>
-      </div>
       </div> 
-      <!-- <div class="card " *ngIf="catalogo">  
-          <div  class="col s12 m10  l8 offset-l2 offset-m1">
-            <semovi-item>
-              <p class="card-title uppercase"  *ngIf="modalidad"> Catálogo: {{ catalogo.name }}     {{ modalidad.nombre}} </p>
-              <semovi-label-group>
-                <semovi-label class="highlight">Localidad:</semovi-label>
-                <semovi-label *ngIf="localidad"> {{ localidad.nombre }} </semovi-label>
-              </semovi-label-group>
-              <semovi-label-group>
-                <semovi-label class="highlight">Nombre del catálogo:</semovi-label>
-                <semovi-label> {{catalogo.name}}</semovi-label>
-              </semovi-label-group>
-              <semovi-label-group>
-                <semovi-label class="highlight">Tipo de Catálogo:</semovi-label>
-                <semovi-label> {{ catalogo.catalogueType.name}} </semovi-label>
-              </semovi-label-group>
-              <div *ngFor="let seccion of catalogo.configuration.sections ">
-                <semovi-label-group>
-                  <semovi-label class="highlight"> Sección: </semovi-label> 
-                  <semovi-label> {{seccion.name}}</semovi-label>
-                </semovi-label-group>
-              <div *ngFor="let propiedad of seccion.properties">
-                  <semovi-label-group>
-                    <semovi-label class="highlight" >Propiedad:</semovi-label>
-                    <semovi-label> {{ propiedad.name}}  </semovi-label>
-                 </semovi-label-group>               
-                  <div  *ngIf="propiedad.propertyType == type">
-                    <semovi-label-group >
-                      <semovi-label class="highlight">Descripción:</semovi-label>
-                      <semovi-label>  {{ propiedad.value }}</semovi-label>
-                    </semovi-label-group>
-                   </div>
-                </div>  
-              </div>        
-              <div class="card-action " *ngIf="!catalogo.deprecated">
-                <a [routerLink]="['/aplicacion/catalogo/modificar',catalogo.id]">Modificar</a>
-                <a (click)="preview()" class="waves-effect  " >Eliminar</a>  
-              </div>
-            </semovi-item>
-          </div>  
-        </div> -->
     </semovi-body>
   </semovi-card> 
 </ng-container> 
@@ -125,15 +81,19 @@
 <!-- Modal Structure -->
 <div id="descriptionModal" class="modal">
   <div class="modal-content">
-    <div class="input-field col s6">
-      <input   id="descripcion" name="description" type="text" class="validate">
-      <label for="first_name">Descripción</label>
-    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="description" name="description" type="text" class="validate" [(ngModel)]="descripcionDeprecated" data-length="10"> 
+        <label for="description">Descripción</label>
+      </div>
+    </div>    
   </div>
+
   <div *ngIf="catalogo">
     <div class="modal-footer" *ngIf="!catalogo.deprecated">
       <a class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
-      <a (click)="catalogueDeprecate(catalogo.id )" class="modal-close waves-effect waves-green btn-flat">Aceptar</a>
+      <button (click)="catalogueDeprecate(catalogo.id )" class="modal-close waves-effect waves-green btn-small"
+       [disabled] ="!(descripcionDeprecated.length >= 10)">Aceptar</button  >
     </div>
   </div>
 </div>

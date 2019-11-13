@@ -1,8 +1,8 @@
 <ng-container>
   <semovi-card>
     <semovi-card-header>
-      <div class="valign-wrapper">
-        <semovi-card-header-icon icon="arrow_back"></semovi-card-header-icon>
+      <div class="valign-wrapper" >
+        <semovi-card-header-icon  icon="arrow_back"></semovi-card-header-icon>
         <semovi-card-header-title> Vigencias </semovi-card-header-title>       
         <div class=" col s2  right" *ngIf="modalidades">
           <a *ngIf="agregarVisible" [routerLink]="['/aplicacion/vigencias/crear', modalidades.id]" class="btn-floating btn-small waves-effect waves-light red right">
@@ -11,7 +11,6 @@
         </div>
       </div>
     </semovi-card-header>
-  
     <semovi-card-body>
       <semovi-input-search *ngIf="buscarVisible">
         <input name="filtro" id="filtro" class="browser-default placeholder-fix"
@@ -30,6 +29,9 @@
               <span class="buscadores">Todas las Vigencias</span>
           </label>
         </semovi-input-options>
+       <div class="col s12 center" *ngIf="sinCatalogo">
+          <span >  <i class="material-icons">info</i> No hay Catalogos Agrege un nuevo Catálogo</span>
+       </div>
       <semovi-list >
         <semovi-item  *ngFor="let vigencia of vigencias">
           <semovi-label class="highlight"> Años vigencia: {{ vigencia.legal_years }}</semovi-label>
@@ -43,18 +45,6 @@
       </semovi-list>
     </semovi-card-body>
   </semovi-card>  
-  <!-- Modal Structure -->
-  <div id="vigenciaModal" class="modal">
-    <div class="modal-content">
-        <p>Ingrese un una vigencia</p>
-    </div>
-    <div>
-      <div class="modal-footer">
-        <a class="modal-close waves-effect waves-green btn-flat">Aceptar</a>
-      </div>
-    </div>
-  </div>
-  
 </ng-container>
 
           

@@ -1,20 +1,17 @@
 <ng-container>
   <!-- Dropdown Trigger -->
-    <a class="dropdown-header-options 
-      btn-floating btn-small orange
-      waves-effect waves-light" href='#' data-target='dropdown-header-options'>
-      <i class="material-icons">more_vert</i>
-    </a>
+
+  <a class="dropdown-header-options  btn-floating btn-small orange
+    waves-effect waves-light" href='#' data-target='dropdown-header-options'>
+    <i class="material-icons">more_vert</i>
+  </a>
 
 
-  
-
-  
 
   <!-- Dropdown Structure -->
   <ul id='dropdown-header-options' class='dropdown-content'>
     <li *ngFor="let option of options">
       <a [routerLink]="[option.urn]" > <i class="material-icons"> {{ option.icon }} </i> {{ option.description }} </a>
     </li>
-  </ul>
+    </ul>
 </ng-container>

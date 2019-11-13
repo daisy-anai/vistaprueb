@@ -30,7 +30,7 @@ export class CatalogoService {
       }`
     }).valueChanges;
   }
-//municipio por id
+//municipio por id de localidad
   getMunicipioID(id: string){
     return this.apollo.use('sicac').watchQuery({
       query: gql`

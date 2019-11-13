@@ -11,26 +11,26 @@
    
       <semovi-card-body>
 
-      <div class="col s8 offset-s2" *ngIf="modalidad" >
+      <div class="col s10 m10  offset-m1" *ngIf="modalidad" >
         <form [formGroup]="vigenciaForm" (ngSubmit)="modificarVigencia()">
           <div class="input-field" >
             <div class="browser-default">
-              <span>{{modalidad.nombre}}</span>
+              <span> Modaliad: {{modalidad.nombre}}</span>
             </div>
           </div>
-
+            
           <div class="input-field  col s6">
-            <input  formControlName="anios_legales" type="number" min="1" class="validate">
-            <label for="first_name">Años Validos: </label>
+            <input  formControlName="anios_legales" id="anios_legales" type="number" min="1" class="validate">
+            <label for="anios_legales">Años Validos: </label>
           </div>
           
           <div class="input-field col s6">
-            <input formControlName="anios_prorroga" type="number" min="0">
-            <label for="first_name">Años Prorroga:</label>
+            <input formControlName="anios_prorroga"  id="anios_prorroga" type="number" min="0">
+            <label for="anios_prorroga">Años Prorroga:</label>
           </div> 
 
           <div class="row">
-            <div class="input-field col s12  offset-m1">
+            <div class="input-field col s10 offset-m1">
               <button type="submit" class="waves-effect waves-light btn-small right"> Modificar Vigencias</button>
             </div>
           </div>

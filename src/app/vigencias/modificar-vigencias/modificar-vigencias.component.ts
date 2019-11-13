@@ -56,6 +56,8 @@ export class ModificarVigenciasComponent implements OnInit {
 
   modificarVigencia(){
     let id = this.route.snapshot.paramMap.get("id");
+    console.log(this.vigenciaForm.value.id_modalidad);
+    
     let id_modalidad = this.vigenciaForm.value.id_modalidad
     let legal_years= this.vigenciaForm.value.anios_legales;
     let extension_years = this.vigenciaForm.value.anios_prorroga;

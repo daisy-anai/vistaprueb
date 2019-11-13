@@ -25,21 +25,14 @@ export class ListarVigenciasComponent implements OnInit {
   public vigenciaVisible: Boolean = false;
   public modalvisible: Boolean= false; 
   public vigenciaModal: any;
+  public sinCatalogo: Boolean= false;
   constructor(
     private service?: VigenciasService,
     private serviceCatalogo?: CatalogoService,
     private route?: ActivatedRoute
   ) {}
 
-  ngOnInit() {   
-
-    var modal = document.getElementById('vigenciaModal');
-		this.vigenciaModal = M.Modal.init(modal, {
-      opacity:0.5,
-      inDuration:3000,
-      outDuration: 250,
-    });
-
+  ngOnInit() {    
   
     this.serviceCatalogo.getModalidad(this.route.snapshot.paramMap.get("id")).subscribe(( {data})=>{
       this.modalidades= data['modalidad']; 
@@ -50,9 +43,8 @@ export class ListarVigenciasComponent implements OnInit {
         this.vigencias = data['validityByModalidad']; 
         console.log(this.vigencias);
           if( Object.keys(this.vigencias).length === 0){
-            this.agregarVisible=true;   
-            this.vigenciaModal.open();
-      
+            this.agregarVisible=true;  
+            this.sinCatalogo=true;       
           }    
       });
      }else{

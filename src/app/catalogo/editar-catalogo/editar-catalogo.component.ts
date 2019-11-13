@@ -43,9 +43,11 @@ export class EditarCatalogoComponent implements OnInit {
 
   ngOnInit() {
     let id= this.route.snapshot.paramMap.get("id"); 
+
     this.service.getMunicipios().subscribe(({ data })=>{
       this.municipios = data['municipios']; 
     });
+
     this.service.getCatalogoType().subscribe(result =>{
       this.cataloguesTypes = result.data['catalogueTypes'];
     });
@@ -56,6 +58,12 @@ export class EditarCatalogoComponent implements OnInit {
 
     this.service.catalogueByID((id)).subscribe(({ data })=>{
       this.catalogue = data['catalogue']; 
+      this.service.getLocalidad(this.catalogue.id_localidad).subscribe(({ data })=>{
+        this.localidades = data['localidad'];
+        console.log(this.localidades.municipio.id);
+      });
+      
+      
       this.service.getModalidad(this.catalogue.id_modalidad).subscribe(({ data }) =>{
         this.modalidad = data['modalidad']; 
 
@@ -67,7 +75,7 @@ export class EditarCatalogoComponent implements OnInit {
           name: [this.catalogue.name, Validators.required],
           configuration: new FormArray ([], Validators.required)
         });
-      
+    
 
         let catalogueControls= this.catalogueForm.controls  
         let configuracion= catalogueControls.configuration as FormArray;
@@ -79,8 +87,7 @@ export class EditarCatalogoComponent implements OnInit {
           }));
 
           let propiedadCatalogue = configuracion['properties'] as  FormArray;
-          console.log(propiedadCatalogue);
-
+ 
             
           // for (const propiedad of configuracionS['properties']) {
           //   configuracion.push(this.formBuilder.group({
@@ -150,17 +157,5 @@ export class EditarCatalogoComponent implements OnInit {
       this.configuration.removeAt(index);
     }
   }
-  /**
-   *       "id": "MU0003",
-        "nombre": "ASUNCION CACALOTEPEC",
-        "distrito": {
-          "id": "DI0014",
-          "nombre": "MIXE",
-          "region": {
-            "id": "RE0006",
-            "nombre": "SIERRA NORTE"
-          }
-        }
-      },
-   */
+
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
+// import {SwPush} from '@angular/service-worker';
 
 // Servicios
 import { CatalogoService } from '../catalogo.service';
@@ -49,11 +50,10 @@ export class ListarCatalogoComponent implements OnInit {
     if (!this.filtro) {
      this.activeCatalogues();    
     }else{
-     
       this.service.searchWord(1,this.filtro.trim().toLowerCase()).subscribe(({data})=>{
         this.catalogos = data['cataloguesLike'];
         console.log(this.catalogos);  
-        });
+      });
     }
   }
 
@@ -61,6 +61,7 @@ export class ListarCatalogoComponent implements OnInit {
     this.service.catalogueByModality(this.modalidadID).subscribe(({ data })=>{
       this.catalogos = data['catalogueByModalidad'];
     });
+
   }
 
   getCatalogues(){
@@ -80,4 +81,21 @@ export class ListarCatalogoComponent implements OnInit {
       });
     }
   }
+
+  example1(){
+    
+    var doc= document.getElementsByName('group');
+    if ($('input[name=group1]:checked').length > 0) {
+      // do something here
+      console.log("checado");      
+    }
+  }
+example(){
+  $("input[type='group']").click(function() {
+    var previousValue = $(this).attr('previousValue');
+    var name = $(this).attr('name');
+
+  });
+}
+ 
 }

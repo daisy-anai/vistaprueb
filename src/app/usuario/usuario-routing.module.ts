@@ -22,13 +22,18 @@ const routes: Routes = [
         loadChildren: () => import ('../vigencias/vigencias.module').then(m => m.VigenciasModule )
       },
       {
+        path: 'catalogo',
+        loadChildren: () => import ('../catalogo/catalogo.module').then(m => m.CatalogoModule )
+      },
+      {
         path: 'vehiculo',
         loadChildren: () => import ('../vehiculo/vehiculo.module').then(m => m.VehiculoModule )
       },
       {
-        path: 'catalogo',
-        loadChildren: () => import ('../catalogo/catalogo.module').then(m => m.CatalogoModule )
+        path:'verificacion',
+        loadChildren:()=> import ('../verificacion/verificacion.module').then(m  => m.VerificacionModule)
       },
+      
       {
         path: '**',
         redirectTo: 'concesion'

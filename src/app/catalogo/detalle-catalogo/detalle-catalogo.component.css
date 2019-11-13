@@ -7,6 +7,10 @@
 .semovi-item:hover {
   transform: scale(1.05);
 }
-.mayusculas{
+.uppercase{
   text-transform: uppercase;
 }
+.span{
+  font-weight: bold;
+}
+

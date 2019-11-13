@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class SemoviCardHeaderIconComponent {
   @Input() urn: String; 
   @Input() icon: String; 
-
+  @Input()parameter: String;
   constructor(
     private navigate: Location,
     private route: Router
@@ -21,6 +21,7 @@ export class SemoviCardHeaderIconComponent {
       this.navigate.back(); 
     }else{
       this.route.navigate([this.urn]); 
+      //this.route.navigate([this.urn, this.parameter])
     }
   }
 }
