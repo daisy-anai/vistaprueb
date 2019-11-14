@@ -7,6 +7,7 @@ interface JQuery {
   tooltipped():void;
   closeModal():void;
   collapsible():void;
+  carousel(options?: any):void;
   characterCounter():void;
   tooltip(options?: any, callback?: Function) : any
   pageMe(options?: any, callback?: Function) : any

@@ -12,7 +12,7 @@ declare var M: any;
   templateUrl: './detalle-catalogo.component.html',
   styleUrls: ['./detalle-catalogo.component.css']
 })
-export class DetalleCatalogoComponent implements OnInit {
+export class DetalleCatalogoComponent implements OnInit{
   public catalogo : any;
   public ModalInstance: any;
   public collapsibleInstance: any;
@@ -22,6 +22,10 @@ export class DetalleCatalogoComponent implements OnInit {
   public typeCatalogue: boolean= true;
   public type: string = 'texto';  
   public descripcionDeprecated : string = '';
+  public secciones: Boolean= true;
+  public propiedades: Boolean= false;
+  public regresar: Boolean= false;
+  public descripcion: Boolean= false;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -30,8 +34,8 @@ export class DetalleCatalogoComponent implements OnInit {
 
   ngOnInit() {
     $('.collapsible').collapsible();
-    $('input#description').characterCounter();
-
+    $('input#description').characterCounter();  
+    $('#demo-carousel').carousel();
     var modal = document.getElementById('descriptionModal');
 		this.ModalInstance = M.Modal.init(modal, {
       dismissible:false
@@ -48,6 +52,7 @@ export class DetalleCatalogoComponent implements OnInit {
     });
   } 
 
+
   preview(){
     this.ModalInstance.open();
     }
@@ -59,5 +64,14 @@ export class DetalleCatalogoComponent implements OnInit {
       this.router.navigate([`/aplicacion/catalogo/modalidad/${this.deprecated.id_modalidad}`]);
     });
   } 
-
+  next(){
+    this.secciones= false;
+    this.propiedades= true;
+    this.regresar= true;
+  }
+  back(){
+    this.propiedades= false;
+    this.secciones= true;
+    this.regresar= false; 
+  }
 }

@@ -11,53 +11,61 @@
     <semovi-body>
  
       <div class="row">
-        <div class="col s12">
+        <div class="col s10 offset-s1">
           <form [formGroup]="catalogueForm" (ngSubmit)="onPreview()" id="myform">
             <div class="row valign-wrapper">
-              <div class="col s6 left-align">
+              <div class=" left-align">
                 <div *ngIf="modalidad">
-                  <h5>Catalogo para: {{ modalidad.nombre }}</h5>
+                  <h5>Catálogo para: {{ modalidad.nombre }}</h5>
                 </div>
               </div>
               <div class="col s6 right-align">
                 <button (click)="onPreview()" class="btn-small"> Previsualizar </button>
               </div>
             </div>
-   
-            <div class="row">
-              <div class="col s12">
-                <div class="input-field ">
-                  <select  class="browser-default" formControlName="municipio"  (change)="searchLocalidadesByMunicipio($event.target.value)">
-                    <option value="" disabled selected>Elige una opción</option>
-                    <option  *ngFor="let municipio of municipios" value={{municipio.id}} > {{ municipio.nombre }}</option>
-                  </select>
+
+             <!-- <div class="row">
+                <div class="col s12" >
+                  <div class="input-field ">
+                    <select class="browser-default" formControlName="id_localidad" (change)="setCurrentLocalidad($event.target.value)">
+                      <option value="" disabled selected>Elige una opción</option>
+                      <option *ngFor="let localidad of localidades" value="{{localidad.id}}"> {{ localidad.nombre }}</option>
+                    </select>
+                  </div>
+                </div>
+              </div> -->
+              <div class="row">
+                <div class="col s12">
+                  <div class="input-field col s11">
+                    <input  class="autocomplete" formControlName="municipio"
+                     id="autocompleteMunicipio" type="text" (ngModelChange)="searchLocalidadesByMunicipio($event)" >
+                    <label for="autocompleteMunicipio">Municipio</label>
+                  </div>
                 </div>
               </div>
+           
+            <div class="input-field col s11 ">
+              <input   class="autocomplete" id="autocompleteLocalidad" type="text" 
+              formControlName="id_localidad"  (ngModelChange)="setCurrentLocalidad($event)">
+              <label for="autocompleteLocalidad">Localidad</label>
             </div>
             
+          
+
             <div class="row">
-              <div class="col s12" >
-                <div class="input-field ">
-                  <select class="browser-default" formControlName="id_localidad" (change)="setCurrentLocalidad($event.target.value)">
-                    <option value="" disabled selected>Elige una opción</option>
-                    <option *ngFor="let localidad of localidades" value="{{localidad.id}}"> {{ localidad.nombre }}</option>
-                  </select>
+              <div class="col 12">
+                <div class="col s10 offset-s1">
+                  <div class="input-field ">
+                    <input id="catalogue_name" type="text" class="validate"
+                    formControlName="name"  autocomplete="off">
+                    <label for="catalogue_name">Nombre del catálogo</label>
+                  </div>
                 </div>
               </div>
             </div>
 
             <div class="row">
-              <div class="col s12">
-                <div class="input-field ">
-                  <input id="catalogue_name" type="text" class="validate"
-                  formControlName="name"  autocomplete="off">
-                  <label for="catalogue_name">Nombre del catálogo</label>
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col s12">
+              <div class="col s10 offset-s1">
                 <div class="">
                   <label for="id_tipo_catalogo">Tipo de catalogo</label>
                   <select class="browser-default" formControlName="id_catalogue_type" (change)="setCataloguesTypesName($event.target.value)">
@@ -185,11 +193,21 @@
               </div>
             </div>
 
-
-
           </form>
         </div>
       </div>
+
+      <div class="row">
+          <div class="col s12">
+            <div class="row">
+              <div class="input-field col s12">
+                <i class="material-icons prefix">textsms</i>
+                <input type="text" id="autocomplete-input" class="autocomplete" [(ngModel)]="autocompleteInstance">
+                <label for="autocomplete-input">Autocomplete</label>
+              </div>
+            </div>
+          </div>
+        </div>
     </semovi-body>
   </semovi-card>
 

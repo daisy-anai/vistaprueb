@@ -1,13 +1,13 @@
   import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute} from '@angular/router';
-import { Apollo} from 'apollo-angular';
 
 // Models
 import { Modalidad } from '../../shared/models/modalidad';
 import { CatalogueType } from '../../shared/models/catalogueType'
 import { PropertyType }  from '../../shared/models/propertyType'
 import { Municipio } from 'src/app/shared/models/municipio';
+
 
 // Services
 import {CatalogoService} from '../catalogo.service';
@@ -26,34 +26,38 @@ export class CrearCatalogoComponent implements OnInit {
 	public cataloguesTypes: Array<CatalogueType>;
 	public propertyTypes: Array<PropertyType>;
 	public modalidad: Modalidad;
-	public municipios: Municipio;
+  // public municipios: Municipio;
+  public municipios: any;
+  public municipioID: any;
   public localidades: any;
   public localidad: any;
 	public nameproperty: any
 
 	public hue: string
 	public color: string
-	public ModalInstance: any;
+  public ModalInstance: any;
+  public autocompleteInstance: any;
 	public total: number=0;
 	constructor(
 		private service?: CatalogoService,
 		private formBuilder?: FormBuilder,
 		private route?: ActivatedRoute,
-		private router?: Router
+    private router?: Router
 	){}
 
 	ngOnInit() {   
-  
+
+
     let id_modalidad= this.route.snapshot.paramMap.get("id");
 
     this.service.getMunicipios().subscribe(({ data })=>{
       this.municipios = data['municipios']; 
+      this.asignarMunicipio(this.municipios);
     });
+  
       
 		this.service.getCatalogoType().subscribe(result =>{
       this.cataloguesTypes = result.data['catalogueTypes'];
-      console.log(this.cataloguesTypes  );    
-      
 		});
 
 		this.service.getModalidad(id_modalidad).subscribe(({ data }) =>{
@@ -74,16 +78,61 @@ export class CrearCatalogoComponent implements OnInit {
     });
 		
 		var modal = document.getElementById('previewModal');
-		this.ModalInstance = M.Modal.init(modal, {});
-  } 
+    this.ModalInstance = M.Modal.init(modal, {});
 
-  searchLocalidadesByMunicipio(id: string) {        
+    var elems = document.querySelectorAll('.autocomplete');
+    this.autocompleteInstance = M.Autocomplete.init(elems, {});
+  
+  } 
+  asignarMunicipio(municipios: any){
+    this.municipios = municipios;
+    var datosMunicipios= new Object();
+    datosMunicipios={}
+    for (let i = 0; i < this.municipios.length; i++) {
+     datosMunicipios[this.municipios[i].nombre]= null;
+      $('#autocompleteMunicipio').autocomplete(
+        {
+          data: datosMunicipios,
+          getData: function (value, callback) {
+          }
+        });
+    }
+  }
+  searchLocalidadesByMunicipio(id: string) {    
     this.service.getLocalidades(id).subscribe(({data})=>{      
-      this.localidades = data['localidades'];       
+      this.localidades = data['localidades'];  
+    
     });
+  }
+  localidadesdata(){
+    let nombreMunicipio= (<HTMLInputElement> document.getElementById('autocompleteMunicipio')).value;
+    for (let i = 0; i < this.municipios.length; i++) {
+      if(this.municipios[i].nombre== nombreMunicipio){
+        this.municipioID= this.municipios[i];
+        this.service.getLocalidades(this.municipioID.id).subscribe(({ data })=>{
+          this.localidades = data['localidades'];
+          this.asignarLocalidades(this.localidades);
+        });
+      }
+    }
+  }
+  asignarLocalidades(localidades: any){
+    this.localidades= localidades;
+    var datosLocalidades= new Object();
+    datosLocalidades={}
+    for (let i = 0; i < this.localidades.length; i++) {
+      datosLocalidades[this.localidades[i]]== null;
+      $('#autocompleteLocalidad').autocomplete(
+        {
+          data: datosLocalidades,
+          getData: function (value, callback) {
+          }
+        });
+    }
   }
 
   setCurrentLocalidad(localidadID: any){
+    this.asignarLocalidades(this.localidad  );
     [this.localidad] = this.localidades.filter(e => e.id === localidadID);  
 	}
 	
@@ -169,6 +218,6 @@ export class CrearCatalogoComponent implements OnInit {
 		});
 	}
     
-  
-
+  municipio(){
+  }
 }
