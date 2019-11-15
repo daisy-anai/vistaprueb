@@ -12,7 +12,7 @@ declare var M: any;
   templateUrl: './detalle-catalogo.component.html',
   styleUrls: ['./detalle-catalogo.component.css']
 })
-export class DetalleCatalogoComponent implements OnInit{
+export class DetalleCatalogoComponent implements OnInit {
   public catalogo : any;
   public ModalInstance: any;
   public collapsibleInstance: any;
@@ -26,6 +26,7 @@ export class DetalleCatalogoComponent implements OnInit{
   public propiedades: Boolean= false;
   public regresar: Boolean= false;
   public descripcion: Boolean= false;
+  variable: boolean = false;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -35,14 +36,13 @@ export class DetalleCatalogoComponent implements OnInit{
   ngOnInit() {
     $('.collapsible').collapsible();
     $('input#description').characterCounter();  
-    $('#demo-carousel').carousel();
     var modal = document.getElementById('descriptionModal');
 		this.ModalInstance = M.Modal.init(modal, {
       dismissible:false
     });
-  
+ 
     this.service.catalogueByID( this.route.snapshot.paramMap.get("id")).subscribe(({ data })=>{
-      this.catalogo = data['catalogue']; 
+      this.catalogo = data['catalogue'];  
       this.service.getLocalidad(this.catalogo.id_localidad).subscribe(({ data })=>{
         this.localidad = data['localidad'];
       }); 
@@ -51,7 +51,7 @@ export class DetalleCatalogoComponent implements OnInit{
       });
     });
   } 
-
+ 
 
   preview(){
     this.ModalInstance.open();
