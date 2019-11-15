@@ -41,7 +41,7 @@ button {
 } 
 .contenedor::-webkit-scrollbar-thumb {
   border-radius: 10px; 
-  background-color: #4db6ac ; 
+  background-color: #80cbc4 ; 
 }
 
 @media only screen and (max-width: 600px) {

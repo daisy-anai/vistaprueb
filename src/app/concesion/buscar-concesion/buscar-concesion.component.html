@@ -32,13 +32,14 @@
       <semovi-preloading *ngIf="loading"> </semovi-preloading>
 
       <semovi-list *ngIf="concesiones">
+       
         <semovi-item *ngFor="let concesion  of concesiones" [ngClass]="{'allowed': permitido(concesion), 'not-allowed': !permitido(concesion)}" (click)="redirect(concesion)">
           <semovi-label-group>
             <semovi-label class="highlight"> {{concesion.concesionario.tipoPersona == "F" ? "Nombre: " : "Razón social: "}} </semovi-label>
             <semovi-label class="uppercase" *ngIf="concesion.concesionario.tipoPersona === 'F' else M"> {{concesion.concesionario.nombre}} {{concesion.concesionario.primerApellido	}} {{concesion.concesionario.segundoApellido}} </semovi-label>
             <semovi-label class="uppercase" id="M"> {{concesion.concesionario.razonSocial}} </semovi-label>
           </semovi-label-group>
-
+           
           <semovi-label-group>
             <semovi-label class="highlight">NUC:</semovi-label>
             <semovi-label class="uppercase"> {{concesion.nuc}}</semovi-label>

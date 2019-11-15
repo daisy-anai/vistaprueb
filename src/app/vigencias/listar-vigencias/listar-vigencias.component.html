@@ -1,14 +1,19 @@
 <ng-container>
   <semovi-card>
     <semovi-card-header>
-      <div class="valign-wrapper" >
-        <semovi-card-header-icon  icon="arrow_back"></semovi-card-header-icon>
-        <semovi-card-header-title> Vigencias </semovi-card-header-title>       
-        <div class=" col s2  right" *ngIf="modalidades">
-          <a *ngIf="agregarVisible" [routerLink]="['/aplicacion/vigencias/crear', modalidades.id]" class="btn-floating btn-small waves-effect waves-light red right">
-            <i class="material-icons">add</i>
-          </a>
+      <div class="valign-wrapper"   >
+        <div  *ngIf="modalidades">
+            <a class="semovi-card-header-icon" [routerLink]="['/aplicacion/catalogo/modalidad', modalidades.id]">
+              <i class="material-icons">arrow_back</i>
+            </a>
         </div>
+        
+        <semovi-card-header-title> Vigencias </semovi-card-header-title>       
+          <div class=" col s2  right" *ngIf="modalidades">
+            <a *ngIf="agregarVisible" [routerLink]="['/aplicacion/vigencias/crear', modalidades.id]" class="btn-floating btn-small waves-effect waves-light red right">
+              <i class="material-icons">add</i>
+            </a>
+          </div>
       </div>
     </semovi-card-header>
     <semovi-card-body>
@@ -30,7 +35,7 @@
           </label>
         </semovi-input-options>
        <div class="col s12 center" *ngIf="sinCatalogo">
-          <span >  <i class="material-icons">info</i> No hay Catalogos Agrege un nuevo Catálogo</span>
+          <span >  <i class="material-icons">info</i> No hay vigencia agrege una nueva</span>
        </div>
       <semovi-list >
         <semovi-item  *ngFor="let vigencia of vigencias">

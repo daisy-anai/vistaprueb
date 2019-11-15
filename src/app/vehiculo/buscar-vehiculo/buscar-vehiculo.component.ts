@@ -1,14 +1,15 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 
 // services
 import { VehiculoService } from '../vehiculo.service';
 import { MediumDataService } from '../../shared/services/medium.data.service';
+import { VigenciasService } from '../../vigencias/vigencias.service';
 
-//modules
+//models
 import { Concesion } from '../../shared/models/concesion';
 import { Vehiculo } from '../../shared/models/vehiculo';
+import { Vigencia } from '../../shared/models/vigencia';
 
 declare var M: any;
 
@@ -25,38 +26,77 @@ export class BuscarVehiculoComponent implements OnInit {
   public filtro: String = 'KMHAG51G44U340853';
   public vehiculo: any;
   public concesion:Concesion;
+  public vigencias: any;
+  public  anio = new Date();
+  public ModalInstance: any;
 
   constructor(
     private service?: VehiculoService,
     private shared?: MediumDataService,
-    private router?: Router
+    private router?: Router,
+    private vigenciasService?: VigenciasService
   ) { }
 
   ngOnInit() {
     this.concesion = this.shared.getConcesion();  
-    
+
     if(!this.concesion){
       this.router.navigate(['/aplicacion/concesion/busqueda']);
     }
 
+    var modal = document.getElementById('validVehiculo');
+		this.ModalInstance = M.Modal.init(modal, {
+      dismissible:false
+      
+    });
   }
-
+  preview(){
+    this.ModalInstance.open();
+  }
   onKeyDown($event: any){
     this.buscar();
+
   }
 
   buscar(): void {
     this.loading = true;
     this.service.getVehiculo(this.concesion.id, this.filtro).subscribe(result => {
       this.vehiculo = result.data['vehiculoActivo'];
+      console.log(this.vehiculo);
+        var modalidadID=  this.concesion.modalidad.id;
+        // this.vigenciasService.getVigenciasModalidadByID(modalidadID).subscribe(({ data })=>{
+        //   this.vigencias = data['validityByModalidad'];        
+        //   for (const vigencia of this.vigencias) {
+        //     var years = this.anio.getFullYear() - this.vehiculo.anioModelo ;
+        //     if (years <= vigencia.legal_years  ) {
+        //       this.catalogue();
+        //     }  else{
+        //       this.ModalInstance.open();
+        //     }
+        //   }
+        // });
+      
       this.loading = false;
     },(error) => {
-      // var errores = error.message.split(":");
-      // var toastHTML = '<span> <div class="valign-wrapper"><i class="material-icons">error_outline</i>  &nbsp;&nbsp;'+errores[1]+'</div></span>';
-      // M.toast({html: toastHTML});
-      // this.loading=false;
+      var errores = error.message.split(":");
+      var toastHTML = '<span> <div class="valign-wrapper"><i class="material-icons">error_outline</i>  &nbsp;&nbsp;'+errores[1]+'</div></span>';
+      M.toast({html: toastHTML});
+      this.loading=false;  
     });
 
+  }
+  catalogue(){
+ 
+  }
+  catalogueSelect(){
+  //elegir el catalogo
+  var modalidadID = this.concesion.modalidad.id;
+   console.log(modalidadID);
+   
+  }
+
+  returnStart(){
+    this.router.navigate(['/aplicacion/inicio']);
   }
 
   permitido(vehiculo: Vehiculo): Boolean {
@@ -68,6 +108,7 @@ export class BuscarVehiculoComponent implements OnInit {
       errores.push('Vehiculo bloqueado');
       status = false;
     } 
+   
     return status;
   }
 

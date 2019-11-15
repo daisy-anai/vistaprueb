@@ -1,8 +1,10 @@
 <ng-container>
   <semovi-card>
     <semovi-card-header>
-      <div class="valign-wrapper">
-        <semovi-card-header-icon icon="arrow_back"></semovi-card-header-icon>
+      <div class="valign-wrapper" *ngIf="modalidad">
+        <a class="semovi-card-header-icon" [routerLink]="['/aplicacion/catalogo/modalidad/', modalidad.id]">
+          <i class="material-icons">arrow_back</i>
+        </a>
         <semovi-card-header-title> Detalle </semovi-card-header-title>
       </div>
     </semovi-card-header>
@@ -14,15 +16,13 @@
               <li>  
                 <div class="row ">
                  <div class="col s12">
-                    <div class="col s6">
-                      <span class="span">Catálogo:</span>  
-                      <span *ngIf="catalogo" class="uppercase">{{ catalogo.name }}</span>
-                    </div>
-                    <div class=" col s6 right">
-                      <span>Modalidad:</span>
+                   <span class="span">Catálogo: </span>
+                    <span *ngIf="catalogo"> {{ catalogo.name }}</span >
+                  </div>  
+                    <div class=" right">
+                      <span class="span">Modalidad:</span>
                       <span *ngIf="modalidad" class="uppercase">{{ modalidad.nombre}}</span>
                     </div> 
-                  </div>  
                 </div>        
               </li> 
               <li>
@@ -31,46 +31,33 @@
               </li>
               <li>
                 <div class="collapsible-header"> <span  class="span">Tipo de Catálogo</span></div>
-                <div class="collapsible-body "  *ngIf="catalogo"> {{ catalogo.catalogueType.name}}</div>
+                <div class="collapsible-body" *ngIf="catalogo"> {{ catalogo.catalogueType.name}}</div>
               </li>
               <li>
-                <div class="collapsible-header"><span  class="span">Datos del catálogo</span> </div>
+                <a (click)="seeCarousel()" class="black-text"><div class="collapsible-header">
+                  <span  class="span">  Datos del catálogo</span></div></a>
                   <div class="collapsible-body">
-                    <semovi-item >  
-                        <semovi-label><b>Sección: </b></semovi-label>
-                        
-                        
-                         
-                          <!-- <div *ngIf="catalogo">
-                          <div *ngFor="let seccion of catalogo.configuration.sections; let indice=index ">
-                             <div *ngIf="propiedades" class="borde" >
-                           
-                            <div *ngFor="let propiedad of seccion.properties; let indicep= indice">   
-                              <semovi-label class="span">Propiedad: </semovi-label>
-                              <semovi-label class="uppercase"> {{ propiedad.name}}</semovi-label>
-                              <div *ngIf="descripcion">
-                                <div *ngIf="propiedad.propertyType == type" > 
-                                  <semovi-group>
-                                    <semovi-label class="span">Descripcion:</semovi-label>
-                                    <semovi-label>{{propiedad.value}}</semovi-label>
-                                  </semovi-group>
-                                </div> 
+                    <div class="row">
+                      <div class="col s12">
+                        <div  *ngIf="variable">
+                          <div class="carousel carousel-slider contenedor">
+                            <div *ngIf="catalogo">
+                              <div *ngFor="let seccion of catalogo.configuration.sections; let indice=index ">
+                                <div class="carousel-item  black-text" href="#one!">
+                                  <h6 class="uppercase text-content span" >  {{seccion.name}}</h6>
+                                  <div *ngFor="let propiedad of seccion.properties; let indicep= indice">
+                                    <span class="black-text text-content"> <span class="span">Propiedad:</span>  {{propiedad.name}}</span>
+                                    <div *ngIf="propiedad.propertyType == type" >
+                                      <span class="text-content"> Descripcion: {{propiedad.value}}</span>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
-                            </div> 
-                          </div> }
-                         </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                        -->
-<!--                        
-                         <button class="btn-floating btn-small waves-effect waves-light pink right" (click)="next();">
-                          <i class="material-icons">arrow_forward</i>
-                        </button> 
-                        <div *ngIf="regresar">
-                      <button class="btn-floating btn-small waves-effect waves-light pink left" (click)="back();">
-                        <i class="material-icons">arrow_back</i>
-                      </button> 
-                    </div> -->
-                    </semovi-item>            
+                    </div>      
                   </div>
                 </li>               
                 <div *ngIf="catalogo">
@@ -82,9 +69,7 @@
             </ul>
           </div>
         </div>
-      </div>   
-
-
+      </div>  
     </semovi-body>
   </semovi-card> 
 </ng-container> 

@@ -14,7 +14,6 @@
           placeholder="Buscar vehículo" type="search" autofocus
           autocomplete="off" [(ngModel)]="filtro">
       </semovi-input-search>
-      
       <semovi-input-options>
         <label class="right">
             <a class="waves-effect waves-light right grey btn-small grey lighten-4 black-text" (click)="buscar()">
@@ -31,7 +30,6 @@
           </div>
         </div>
       </div>
-      
       <semovi-list *ngIf="vehiculo">
           <semovi-item
           [ngClass]="{'resultPointerNotAllowed': !permitido(vehiculo), 'resultPointerAllowed': permitido(vehiculo)}"
@@ -40,7 +38,7 @@
             <semovi-label class="highlight">Número de serie</semovi-label>
             <semovi-label class="uppercase"> {{vehiculo.serie}} </semovi-label>
           </semovi-label-group>
-
+          
           <semovi-label-group>
             <semovi-label class="highlight">Número de motor:</semovi-label>
             <semovi-label class="uppercase"> {{vehiculo.id}} </semovi-label>
@@ -71,13 +69,33 @@
 
           <semovi-label>
             <a *ngIf="permitido(vehiculo)"
-              class="btn-floating btn-small waves-effect waves-light pink right">
+              class="btn-floating btn-small waves-effect waves-light pink right" (click)="catalogueSelect()">
               <i class="material-icons">arrow_forward</i>
             </a>
           </semovi-label>
         </semovi-item>
       </semovi-list>
     </semovi-card-body>
+    
+  
+<!-- Modal Structure -->
+<div id="validVehiculo" class="modal">
+  <div class="modal-content">
+    <div class="row">
+      <div class="input-field col s12 center "*ngIf="vehiculo">
+        <span><i class="material-icons">info</i>
+          El año del modelo del vehiculo {{vehiculo.anioModelo}} excede a la vigenica asignada.
+       
+        </span> 
+      </div>
+      <div *ngIf="vigencias"> {{vigencias.id}}</div>
+    </div>    
+  </div>
+
+  <div class="modal-footer">
+    <a  class="modal-close waves-effect waves-green btn-flat" (click)="returnStart()">Aceptar</a>
+  </div>
+</div>
   </semovi-card>
 </ng-container>
 

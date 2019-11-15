@@ -26,7 +26,7 @@ export class DetalleCatalogoComponent implements OnInit {
   public propiedades: Boolean= false;
   public regresar: Boolean= false;
   public descripcion: Boolean= false;
-  variable: boolean = false;
+  public variable: boolean = false;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -50,8 +50,15 @@ export class DetalleCatalogoComponent implements OnInit {
         this.modalidad = data['modalidad'];   
       });
     });
+  
   } 
- 
+  
+  seeCarousel(){
+    this.variable = true;
+    $(function(){ $('.carousel.carousel-slider').carousel({
+      full_width: true,indicators: true}); 
+    });
+  }
 
   preview(){
     this.ModalInstance.open();

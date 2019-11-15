@@ -63,7 +63,8 @@ export class CrearCatalogoComponent implements OnInit {
 		});
 
 		this.service.getModalidad(id_modalidad).subscribe(({ data }) =>{
-			this.modalidad = data['modalidad'];
+      this.modalidad = data['modalidad'];
+     
 		});
 
 		this.service.getPropertyTypes().subscribe(({ data }) =>{

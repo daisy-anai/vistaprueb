@@ -17,7 +17,7 @@
         placeholder="Buscar" type="search" autofocus
         autocomplete="off" [(ngModel)]="filtro"(ngModelChange)="searchCatalogue()"  >
       </semovi-input-search>
-
+     
       <semovi-input-options>
         <label class="left">
           <input class="with-gap" name="group1" id="active" type="radio"
@@ -29,11 +29,11 @@
             (click)="allCatalogues()" />
             <span class="buscadores">Todos los catálogos</span>
         </label>
-        <label class="left">
+        <!-- <label class="left">
           <input class="with-gap" id="group1"  name="group1" type="radio"
           (click)="example()" />
           <span class="buscadores">change</span>
-        </label>
+        </label> -->
         <!-- <label for="">
           <input type="radio name=something" value='' style="display:none" >
         </label> -->

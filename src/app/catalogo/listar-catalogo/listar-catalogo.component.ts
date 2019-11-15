@@ -33,7 +33,7 @@ export class ListarCatalogoComponent implements OnInit {
 
   ngOnInit() {
     this.modalidadID = this.route.snapshot.paramMap.get("id");
- 
+  
     this.options = [
       {icon: 'add', description: 'Crear catalogos ', urn: `/aplicacion/catalogo/crear/${this.modalidadID}`},
       {icon: 'list', description: 'Vigencia', urn: `/aplicacion/vigencias/modalidad/${this.modalidadID}`}
