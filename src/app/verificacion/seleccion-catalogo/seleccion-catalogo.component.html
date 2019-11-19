@@ -1,0 +1,29 @@
+<ng-container>
+  <semovi-card>
+    <semovi-card-header>
+      <div class="valign-wrapper">
+        <semovi-card-header-icon urn="/aplicacion/vehiculo" icon="arrow_back"></semovi-card-header-icon>
+        <semovi-card-header-title> Selección de Catálogo</semovi-card-header-title>
+      </div>
+    </semovi-card-header>
+      <semovi-card-body>
+        <semovi-input-search >
+          <input name="filtro" id="filtro" class="browser-default placeholder-fix"
+          placeholder="Buscar" type="search" autofocus
+          autocomplete="off" [(ngModel)]="filtro"(ngModelChange)="searchCatalogue()"  >
+        </semovi-input-search>
+        
+        <semovi-list *ngIf="catalogues" class="center ">
+          <semovi-item *ngFor="let catalogo of catalogues ">
+           
+            <semovi-label > {{catalogo.name}} {{catalogo.deprecated}}</semovi-label>
+            <semovi-label>
+                <a class="btn-floating btn-small right"
+                [routerLink]="['/aplicacion/verificacion/check', catalogo.id]">
+                <i class="material-icons">info</i></a>
+              </semovi-label>                
+          </semovi-item>
+        </semovi-list>
+      </semovi-card-body>
+    </semovi-card>
+  </ng-container>

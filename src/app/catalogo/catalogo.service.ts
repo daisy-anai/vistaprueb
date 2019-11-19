@@ -9,7 +9,7 @@ import { variable } from '@angular/compiler/src/output/output_ast';
 })
 export class CatalogoService {
   constructor(private apollo: Apollo){}
-
+ 
   //lista de todos los municipios 
   getMunicipios(){
     return this.apollo.use('sicac').watchQuery({
@@ -229,7 +229,7 @@ export class CatalogoService {
   }
 
   //Catalogues for modality
-  catalogueByModality(id_modalidad: String){
+  catalogueByModalidadID(id_modalidad: String){
     return this.apollo.use('backrevista').watchQuery({
       query :gql`
       query modalidadByID($id_modalidad:ID!){
@@ -255,7 +255,7 @@ export class CatalogoService {
     }).valueChanges;
   }
 
-  //Catalogue for IDss
+  //Catalogos por ID
   catalogueByID(id: String){
     return this.apollo.use('backrevista').watchQuery({
       query: gql `
@@ -313,6 +313,25 @@ export class CatalogoService {
   /**
    @description Mutations
   */
+  //type catalogue
+  createCatalogueType(name: String, description:String){
+    return this.apollo.use('backrevista').mutate({
+      mutation: gql`
+      mutation  catalogueTypeCreate($name:String!,$description:String!){
+        catalogueType(name:$name,description:$description){
+          id
+          name
+          description
+          created_at
+          deprecated
+          }
+        }`,
+        variables:{
+          name: name,
+          description: description
+        }
+    })
+  }
   createCatalogue(id_modalidad: String, id_localidad: string, id_catalogue_type:string, name:String, configuration: any){
     return this.apollo.use('backrevista').mutate({
       mutation: gql`

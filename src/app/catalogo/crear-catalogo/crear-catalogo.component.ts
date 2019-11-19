@@ -36,10 +36,13 @@ export class CrearCatalogoComponent implements OnInit {
   public nameproperty: any
   
   public nameMunicipio: string = '';
+  public namecatalogueType: string='';
+  public description: string='';
 	public hue: string
 	public color: string
   public ModalInstance: any;
   public autocompleteInstance: any;
+  public ModalInstanceAdd: any;
 
 	constructor(
 		private service?: CatalogoService,
@@ -56,19 +59,15 @@ export class CrearCatalogoComponent implements OnInit {
       this.municipios = data['municipios']; 
       this.assignMunicipio(this.municipios);
     });
-  
-      
-		this.service.getCatalogoType().subscribe(result =>{
-      this.cataloguesTypes = result.data['catalogueTypes'];
-		});
-
 		this.service.getModalidad(id_modalidad).subscribe(({ data }) =>{
       this.modalidad = data['modalidad'];
      
 		});
 
 		this.service.getPropertyTypes().subscribe(({ data }) =>{
-			this.propertyTypes = data['propertyTypes'];
+      this.propertyTypes = data['propertyTypes'];
+      console.log(this.propertyTypes);
+      
     });
        
     this.catalogueForm = this.formBuilder.group({
@@ -84,7 +83,32 @@ export class CrearCatalogoComponent implements OnInit {
 		var modal = document.getElementById('previewModal');
     this.ModalInstance = M.Modal.init(modal, {});
 
+    var modalAdd = document.getElementById('addCatalogueType');
+		this.ModalInstanceAdd = M.Modal.init(modalAdd, {
+      dismissible:false
+    });
   } 
+  tipoCatalogo(){     
+		this.service.getCatalogoType().subscribe(result =>{
+      this.cataloguesTypes = result.data['catalogueTypes'];
+      console.log("tipos", this.cataloguesTypes);
+	
+    if(Object.keys(this.propertyTypes).length === 0){
+      console.log("sin datos");
+      this.ModalInstanceAdd.open();
+    }else{
+    console.log("holo");
+      
+    }
+  });
+    
+  }
+  newCatalogueType(){
+    this.service.createCatalogueType(this.namecatalogueType, this.description).subscribe(({ data })=>{
+      this.cataloguesTypes = data['catalogueType'];
+    })
+    
+  }
   assignMunicipio(municipios: any){ 
     this.municipios = municipios;
     var datosMunicipios= new Object();

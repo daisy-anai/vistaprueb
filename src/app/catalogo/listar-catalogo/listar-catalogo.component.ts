@@ -58,8 +58,10 @@ export class ListarCatalogoComponent implements OnInit {
   }
 
   activeCatalogues(){
-    this.service.catalogueByModality(this.modalidadID).subscribe(({ data })=>{
+    this.service.catalogueByModalidadID(this.modalidadID).subscribe(({ data })=>{
       this.catalogos = data['catalogueByModalidad'];
+      console.log(this.catalogos);
+      
     });
 
   }

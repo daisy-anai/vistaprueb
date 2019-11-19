@@ -39,23 +39,26 @@
                   <div class="collapsible-body">
                     <div class="row">
                       <div class="col s12">
-                        <div  *ngIf="variable">
-                          <div class="carousel carousel-slider contenedor">
-                            <div *ngIf="catalogo">
-                              <div *ngFor="let seccion of catalogo.configuration.sections; let indice=index ">
-                                <div class="carousel-item  black-text" href="#one!">
-                                  <h6 class="uppercase text-content span" >  {{seccion.name}}</h6>
-                                  <div *ngFor="let propiedad of seccion.properties; let indicep= indice">
-                                    <span class="black-text text-content"> <span class="span">Propiedad:</span>  {{propiedad.name}}</span>
-                                    <div *ngIf="propiedad.propertyType == type" >
-                                      <span class="text-content"> Descripcion: {{propiedad.value}}</span>
+                        <div class="tamanio">
+                            <div  *ngIf="variable">
+                                <div class="carousel carousel-slider contenedor">
+                                  <div *ngIf="catalogo" class="contenedorSecciones "> 
+                                    <div class="col s10 offset-s1 " *ngFor="let seccion of catalogo.configuration.sections; let indice=index ">
+                                      <div class="carousel-item  black-text" href="#one!">
+                                        <h6 class="uppercase text-content span" >  {{seccion.name}}</h6>
+                                        <div *ngFor="let propiedad of seccion.properties; let indicep= indice">
+                                          <span class="black-text text-content col s10" > <span class="span">Propiedad:</span>  {{propiedad.name}}</span>
+                                          <div *ngIf="propiedad.propertyType == type" >
+                                            <span class="text-content col s10"> Descripcion: {{propiedad.value}}</span>
+                                          </div>
+                                        </div>
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
                               </div>
-                            </div>
-                          </div>
                         </div>
+                  
                       </div>
                     </div>      
                   </div>
@@ -75,7 +78,6 @@
 </ng-container> 
 
 
-<!-- Modal Structure -->
 <div id="descriptionModal" class="modal">
   <div class="modal-content">
     <div class="row">
@@ -94,5 +96,7 @@
     </div>
   </div>
 </div>
+
+
 
 

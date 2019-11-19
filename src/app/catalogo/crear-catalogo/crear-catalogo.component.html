@@ -56,7 +56,7 @@
               <div class="col s12">
                 <div class="">
                   <label for="id_tipo_catalogo">Tipo de catalogo</label>
-                  <select class="browser-default" formControlName="id_catalogue_type" (change)="setCataloguesTypesName($event.target.value)">
+                  <select class="browser-default" formControlName="id_catalogue_type" (change)="setCataloguesTypesName($event.target.value) " (click)="tipoCatalogo()">
                     <option value="" disabled selected>Elige una opción</option>
                     <option *ngFor="let catalogo of cataloguesTypes" value="{{catalogo.id}}"> {{ catalogo.name }} </option>
                   </select>
@@ -235,4 +235,24 @@
     </div>
   </div>
   <!-- MODAL -->
+
+  <!-- Modal Structure año del vehiculo invalidao-->
+<div id="addCatalogueType" class="modal">
+    <div class="modal-content">
+      <div class="row">
+        <div class="input-field">
+          <input id="nameType" type="text"autocomplete="off" [(ngModel)]="namecatalogueType">
+          <label for="nametype">Nombre del Catálogo</label>
+        </div>
+        <div>
+        <input id="description" type="text"autocomplete="off"[(ngModel)]="description">
+        <label for="description">Descripción</label>
+        </div>
+      </div>    
+    </div>
+  
+    <div class="modal-footer">
+      <a  class="modal-close waves-effect waves-green btn-flat" (click)="newCatalogueType()"  >Aceptar</a>
+    </div>
+  </div>
 </ng-container>

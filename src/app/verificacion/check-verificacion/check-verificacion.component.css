@@ -1,0 +1,25 @@
+.letter:first-letter{  
+  text-transform:uppercase;
+}
+.des{
+  /* word-break: break-all; */
+  
+  white-space: pre-line;
+}
+.uppercase{
+  font-weight: bold;
+  text-transform:uppercase;
+
+}
+.item{
+  padding: 20px;
+  border-radius:  10px;
+  /* background-color: #e3f8f0; */
+  background-color: #f7f7f7;
+}
+.item:hover {
+  transform: scale(1.05);
+}
+@media only screen and (max-width: 600px) {
+   
+}

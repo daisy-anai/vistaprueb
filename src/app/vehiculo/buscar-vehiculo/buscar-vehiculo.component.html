@@ -78,7 +78,7 @@
     </semovi-card-body>
     
   
-<!-- Modal Structure -->
+<!-- Modal Structure año del vehiculo invalidao-->
 <div id="validVehiculo" class="modal">
   <div class="modal-content">
     <div class="row">
@@ -96,6 +96,23 @@
     <a  class="modal-close waves-effect waves-green btn-flat" (click)="returnStart()">Aceptar</a>
   </div>
 </div>
+<!-- Modal sin vigencias -->
+<div id="sinVigencia" class="modal">
+    <div class="modal-content">
+      <div class="row">
+        <div class="input-field col s12 center">
+          <span><i class="material-icons">info</i>
+           Vigencia del vehículo no asignada.
+          </span> 
+        </div>
+       
+      </div>    
+    </div>
+  
+    <div class="modal-footer">
+      <a  class="modal-close waves-effect waves-green btn-flat" (click)="returnStart()">Aceptar</a>
+    </div>
+  </div>
   </semovi-card>
 </ng-container>
 

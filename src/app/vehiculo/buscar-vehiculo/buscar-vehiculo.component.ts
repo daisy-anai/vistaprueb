@@ -29,6 +29,8 @@ export class BuscarVehiculoComponent implements OnInit {
   public vigencias: any;
   public  anio = new Date();
   public ModalInstance: any;
+  public ModalInstanceVigencia: any;
+
 
   constructor(
     private service?: VehiculoService,
@@ -47,7 +49,11 @@ export class BuscarVehiculoComponent implements OnInit {
     var modal = document.getElementById('validVehiculo');
 		this.ModalInstance = M.Modal.init(modal, {
       dismissible:false
-      
+    });
+
+    var modalvigencia = document.getElementById('sinVigencia');
+		this.ModalInstanceVigencia = M.Modal.init(modalvigencia, {
+      dismissible:false
     });
   }
   preview(){
@@ -62,20 +68,21 @@ export class BuscarVehiculoComponent implements OnInit {
     this.loading = true;
     this.service.getVehiculo(this.concesion.id, this.filtro).subscribe(result => {
       this.vehiculo = result.data['vehiculoActivo'];
-      console.log(this.vehiculo);
         var modalidadID=  this.concesion.modalidad.id;
-        // this.vigenciasService.getVigenciasModalidadByID(modalidadID).subscribe(({ data })=>{
-        //   this.vigencias = data['validityByModalidad'];        
-        //   for (const vigencia of this.vigencias) {
-        //     var years = this.anio.getFullYear() - this.vehiculo.anioModelo ;
-        //     if (years <= vigencia.legal_years  ) {
-        //       this.catalogue();
-        //     }  else{
-        //       this.ModalInstance.open();
-        //     }
-        //   }
-        // });
-      
+        this.vigenciasService.getVigenciasModalidadByID(modalidadID).subscribe(({ data })=>{
+          this.vigencias = data['validityByModalidad'];
+          if( Object.keys(this.vigencias).length === 0){
+            this.ModalInstanceVigencia.open();
+          }else{
+            for (const vigencia of this.vigencias) {
+              var years = this.anio.getFullYear() - this.vehiculo.anioModelo ;  
+              if (years <= vigencia.legal_years) {
+              } else{
+              this.ModalInstance.open();
+              }
+            }
+          }
+        });
       this.loading = false;
     },(error) => {
       var errores = error.message.split(":");
@@ -92,7 +99,7 @@ export class BuscarVehiculoComponent implements OnInit {
   //elegir el catalogo
   var modalidadID = this.concesion.modalidad.id;
    console.log(modalidadID);
-   
+   this.router.navigate([`aplicacion/verificacion/seleccion/${modalidadID}`]);
   }
 
   returnStart(){
@@ -123,6 +130,7 @@ export class BuscarVehiculoComponent implements OnInit {
 
   goToSearchConcesion() {
     this.router.navigate(['/aplicacion/inicio']); 
+    
   }
 
   vigenciaVehiculo(){

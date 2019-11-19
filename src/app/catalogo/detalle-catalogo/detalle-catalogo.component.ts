@@ -40,9 +40,9 @@ export class DetalleCatalogoComponent implements OnInit {
 		this.ModalInstance = M.Modal.init(modal, {
       dismissible:false
     });
- 
     this.service.catalogueByID( this.route.snapshot.paramMap.get("id")).subscribe(({ data })=>{
       this.catalogo = data['catalogue'];  
+      
       this.service.getLocalidad(this.catalogo.id_localidad).subscribe(({ data })=>{
         this.localidad = data['localidad'];
       }); 
@@ -56,7 +56,9 @@ export class DetalleCatalogoComponent implements OnInit {
   seeCarousel(){
     this.variable = true;
     $(function(){ $('.carousel.carousel-slider').carousel({
-      full_width: true,indicators: true}); 
+      full_width: false,
+      indicators: true
+    }); 
     });
   }
 
