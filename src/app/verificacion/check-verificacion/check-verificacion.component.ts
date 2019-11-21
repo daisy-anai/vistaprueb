@@ -22,8 +22,7 @@ export class CheckVerificacionComponent implements OnInit {
     this.catalogueID= this.route.snapshot.paramMap.get('id');
    this.catalogueService.catalogueByID( this.route.snapshot.paramMap.get("id")).subscribe(({ data })=>{
       this.catalogues = data['catalogue']; 
-      console.log(this.catalogues);
-       
+    
    });  
   }
 

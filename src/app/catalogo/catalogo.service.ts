@@ -123,6 +123,7 @@ export class CatalogoService {
           deprecated
         }
       }`,
+      fetchPolicy: 'network-only'
     }).valueChanges;
   }
 
@@ -315,6 +316,7 @@ export class CatalogoService {
   */
   //type catalogue
   createCatalogueType(name: String, description:String){
+    console.log(name,"des",description); 
     return this.apollo.use('backrevista').mutate({
       mutation: gql`
       mutation  catalogueTypeCreate($name:String!,$description:String!){
@@ -430,8 +432,8 @@ export class CatalogoService {
             created_at
             deprecated
           }
-        }
-      `
+        }`,
+      fetchPolicy: 'network-only'
     }).valueChanges;
   }
 
@@ -446,6 +448,7 @@ export class CatalogoService {
           deprecated
         }
       }`,
+      
       variables:{
         name: name
       }

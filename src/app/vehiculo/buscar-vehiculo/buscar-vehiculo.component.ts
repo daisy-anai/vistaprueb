@@ -41,7 +41,8 @@ export class BuscarVehiculoComponent implements OnInit {
 
   ngOnInit() {
     this.concesion = this.shared.getConcesion();  
-
+    console.log(this.concesion);
+    
     if(!this.concesion){
       this.router.navigate(['/aplicacion/concesion/busqueda']);
     }
@@ -68,6 +69,7 @@ export class BuscarVehiculoComponent implements OnInit {
     this.loading = true;
     this.service.getVehiculo(this.concesion.id, this.filtro).subscribe(result => {
       this.vehiculo = result.data['vehiculoActivo'];
+     
         var modalidadID=  this.concesion.modalidad.id;
         this.vigenciasService.getVigenciasModalidadByID(modalidadID).subscribe(({ data })=>{
           this.vigencias = data['validityByModalidad'];

@@ -25,9 +25,9 @@
             <div class="row">
               <div class="col s12">
                 <div class="input-field">
-                  <input  class="autocomplete" formControlName="municipio" class="validate"
-                    id="autocompleteMunicipio" type="text" (change)="searchLocalidadesByMunicipio()" >
-                  <label for="autocompleteMunicipio" autocomplete="off" >Municipio</label>
+                  <input  class="autocomplete" formControlName="municipio"
+                    id="autocompleteMunicipio" type="text" (change)="searchLocalidadesByMunicipio()" autocomplete="off">
+                    <label for="autocompleteMunicipio" style="color:teal" >Municipio</label>
                 </div>
               </div>
             </div>
@@ -35,9 +35,9 @@
             <div class="row">
               <div class="col s12">
                 <div class="input-field ">
-                  <input  class="autocomplete" id="autocompleteLocalidad" 
+                  <input  class="autocomplete" id="autocompleteLocalidad"  
                     type="text"  formControlName="id_localidad" autocomplete="off">
-                  <label for="autocompleteLocalidad">Localidad</label>
+                  <label for="autocompleteLocalidad" style="color:teal">Localidad</label>
                 </div>    
               </div>
             </div>
@@ -47,45 +47,54 @@
                 <div class="input-field ">
                   <input id="catalogue_name" type="text" class="validate"
                   formControlName="name"  autocomplete="off" >
-                  <label for="catalogue_name">Nombre del catálogo</label>
+                  <label for="catalogue_name" style="color:teal">Nombre del catálogo</label>
                 </div>
               </div>
             </div>
 
-            <div class="row">
+            <div class="row  valign-wrapper">
               <div class="col s12">
-                <div class="">
-                  <label for="id_tipo_catalogo">Tipo de catalogo</label>
-                  <select class="browser-default" formControlName="id_catalogue_type" (change)="setCataloguesTypesName($event.target.value) " (click)="tipoCatalogo()">
+                <div class="col s8">
+                  <label for="id_tipo_catalogo" style="color:teal">Tipo de catalogo</label>
+                  <select class="browser-default" formControlName="id_catalogue_type" (change)="setCataloguesTypesName($event.target.value)"  >
                     <option value="" disabled selected>Elige una opción</option>
                     <option *ngFor="let catalogo of cataloguesTypes" value="{{catalogo.id}}"> {{ catalogo.name }} </option>
                   </select>
                 </div>
+                <div class="col s4 center">
+                  <label style="color:teal" class="left">Tipo de catalogo</label>
+                    <a class="btn-floating btn-large waves-effect waves-light red btn-small green center " (click)="openModalType()">
+                      <i class="material-icons">add</i>
+                    </a>
+                </div>
+              </div>
+            </div> 
+            <hr>  
+            
+            <div class="row valign-wrapper " >
+              <div class="col s12">
+                <div class="col m6 center">
+                  <span>Agregar sección</span>
+                </div>
+                <div class="col s6 left-align">
+                  <a class="btn-floating btn-large waves-effect waves-light red btn-small red darken-2" (click)="addSection()">
+                    <i class="material-icons">add</i>
+                  </a>
+                </div>
               </div>
             </div>
- 
-            <div class="row valign-wrapper">
-              <div class="col s8 center">
-                <p>Agregar sección</p>
-              </div>
-              <div class="col s5 ">
-                <a class="btn-floating btn-large waves-effect waves-light red btn-small red darken-2" (click)="addSection()">
-                <i class="material-icons">add</i>
-                </a>
-              </div>
-            </div>
-
+            
             <!-- Configuration -->
-            <div class="row">
+            <div class="row" >
               <div class="col s12">
                 <div formArrayName="configuration" *ngFor="let section of configuration.controls; index as i">
                   <div class="card col s10 offset-s1">
                     <div class="row valign-wrapper">
-                      <div class="col s6 left-align">
-                        <p class="card-title">Panel de configuración</p>
+                      <div class="col s8  left-align">
+                        <h6 class="color-bold">Panel de configuración</h6>
                       </div>
-                      <div class="col s6 right-align">
-                        <a  class="waves-effect waves-light" (click)="removeSeccion(i)" >Cancelar</a>
+                      <div class="col s6 right-align cancelar">
+                        <a  class="waves-effect waves-light red-text" (click)="removeSeccion(i)">Cancelar</a>
                       </div>
                     </div>
 
@@ -95,18 +104,21 @@
                         <div class="col s12">
                           <div class="input-field ">
                             <input id="S[{{i}}]-name" type="text" class="validate"
-                              formControlName="name"  autocomplete="off">
-                            <label for="S[{{i}}]-name">Titulo de sección</label>
+                              formControlName="name"  autocomplete="off" minlength="10">
+                            <label for="S[{{i}}]-name" style="color:teal">Titulo de sección</label>
                           </div>
                         </div>
                       </div>
 
                       <div class="row valign-wrapper">
-                        <div class="col s8">
-                          <p>Agregar propiedades</p>
+                        <div class="col s6">
+                          <span>Agregar propiedades</span>
                         </div>
-                        <div class="col s6 right-align">
-                          <a class="waves-effect waves-light btn-small" (click)="addProperty(section)"> Agregar propiedad </a>
+                        <div class="col s6 right-align cancelar">
+                          <!-- <a class="waves-effect waves-light btn-small" (click)="addProperty(section)"> Propiedad</a> -->
+                          <a class="btn-floating btn-large waves-effect waves-light red btn-small red darken-2" (click)="addProperty(section)">
+                              <i class="material-icons">add</i>
+                            </a>
                         </div>
                       </div>
 
@@ -114,30 +126,36 @@
                         <div class="" [formGroupName]="j">
                           <div class="row">
                             <div class="col s12 right-align">
-                              <a  class="waves-effect waves-light" (click)="removeProperty(section, j)" >Cancelar</a>
+                              <a  class="waves-effect waves-light red-text" (click)="removeProperty(section, j)" >Cancelar</a>
                             </div>
-                          <div class="col m6">
+                            
+                            <div class="col s12">
                               <div class="input-field ">
                                 <input id="S[{{i}}]-P[{{j}}]-name" type="text" class="validate"
-                                  formControlName="name"  autocomplete="off">
-                                <label for="S[{{i}}]-P[{{j}}]-name">Nombre de propiedad</label>
+                                formControlName="name"  autocomplete="off"  minlength="10">
+                              <label for="S[{{i}}]-P[{{j}}]-name" style="color:teal">Nombre de propiedad</label>
                               </div>
                             </div>
-
-                            <div class="col s6">
-                              <label for="id_tipo_catalogo">Tipo de propiedad</label>
-                              <select class="browser-default" formControlName="propertyType" id="S[{{i}}]-P[{{j}}]-propertyType">
-                                <option value="" disabled selected>Elige una opción</option>
-                                <option *ngFor="let property of propertyTypes" value="{{property.name}}"> {{ property.name }} </option>
-                              </select>
+                              <div class="col s12">
+                                <div class="col s9">
+                                  <label for="id_tipo_catalogo">Tipo de propiedad</label>
+                                  <select class="browser-default" formControlName="propertyType" id="S[{{i}}]-P[{{j}}]-propertyType">
+                                    <option value="" disabled selected>Elige una opción</option>
+                                    <option *ngFor="let property of propertyTypes" value="{{property.name}}"> {{ property.name }} </option>
+                                  </select>
+                                </div>
+                              <div class="right-align col s3">
+                                <a class="btn-floating btn-large waves-effect waves-light red btn-small green darken-2" (click)="newProperty()">
+                                  <i class="material-icons">add</i>
+                                </a>
+                              </div>     
                             </div>
                           </div>
 
-                          
                           <div class="" [ngSwitch]="onChangePropertyType(i, j)">
                             <div class="row">
                               <div class="col s12">
-                                  <div *ngSwitchCase="'Color'">
+                                  <div *ngSwitchCase="'color'">
                                     <div class="color-wrapper">
                                       <semovi-color-picker [hue]="hue" (color)="color = $event"></semovi-color-picker>
                                       <semovi-color-picker-slider (color)="hue=$event" style="margin-left:10px"> </semovi-color-picker-slider>
@@ -149,7 +167,7 @@
                                     </div>
                                   </div> 
 
-                                  <div *ngSwitchCase="'Texto'">
+                                  <div *ngSwitchCase="'texto'">
                                     <div class="input-field ">
                                       <textarea id="S[{{i}}]-P[{{j}}]-value" type="text" class="materialize-textarea"
                                       formControlName="value"  autocomplete="off"></textarea>
@@ -157,7 +175,7 @@
                                     </div>
                                   </div>
 
-                                  <div *ngSwitchCase="'Lógico'">
+                                  <div *ngSwitchCase="'lógico'">
                                     <p>
                                       <label>
                                         <input type="checkbox" formControlName="value"/>
@@ -190,69 +208,87 @@
       </div>
 
     </semovi-body>
-  </semovi-card>
 
-  <!-- MODAL -->
+
+      <!-- MODAL -->
   <div class="">
-    <div id="previewModal" class="modal">
-      <div class="modal-content" >
-        <h4> Previsualización de catálogo </h4>
-        <span *ngIf="modalidad"> Tipo de modalidad: {{ modalidad.nombre }} </span>
-        <div class="row">
-          <div class="col s12">
-            <h5>Datos</h5>    
-          </div>
-          {{localidadName}}
-          <div class="col s12" *ngIf="localidad">  
-           <b>Localdad: </b><span>{{ localidad.nombre}}</span>
-          </div>
-          <div class="col s12">
-            <b>Nombre catálogo: </b><span>{{ catalogueForm.value.name}}</span>
-          </div>
-          <div class="col s12" *ngIf="nameproperty">
-            <b>Tipo de catálogo: </b><span>{{nameproperty.name}}</span>   
-          </div>
-          <div class="" >
-            <div class="col s12" *ngFor="let seccion of configuration.controls"> 
-              <b>Sección: </b><span> {{ seccion.value.name }} </span>
-              <div class= "col s12">
-                <div *ngFor="let property of seccion.value.properties">
-                   <b> Propiedad:  </b><span>{{ property.name }}</span>  
-                  <div class="col s12">
-                    <b>Tipo de propiedad: </b> <span>{{ property.propertyType }}</span>
-                    {{property.value}}
+      <div id="previewModal" class="modal">
+        <div class="modal-content" >
+          <h4> Previsualización de catálogo </h4>
+          <span *ngIf="modalidad"> Tipo de modalidad: {{ modalidad.nombre }} </span>
+          <div class="row">
+            {{localidadName}}
+            <div class="col s12" *ngIf="localidad">  
+             <b>Localdad: </b><span>{{ localidad.nombre}}</span>
+            </div>
+            <div class="col s12">
+              <b>Nombre catálogo: </b><span>{{ catalogueForm.value.name}}</span>
+            </div>
+            <div class="col s12" *ngIf="nameproperty">
+              <b>Tipo de catálogo: </b><span>{{nameproperty.name}}</span>   
+            </div>
+            <div class="" >
+              <div class="col s12" *ngFor="let seccion of configuration.controls"> 
+                <b>Sección: </b><span> {{ seccion.value.name }} </span>
+                <div class= "col s12">
+                  <div *ngFor="let property of seccion.value.properties">
+                     <b> Propiedad:  </b><span>{{ property.name }}</span>  
+                    <div class="col s12">
+                      <b>Tipo de propiedad: </b> <span>{{ property.propertyType }}</span>
+                      Descripcion: {{property.value}}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>  
+        <div class="modal-footer">
+          <a class="modal-close waves-effect btn-flat orange-text left"> cerrar </a>
+          <button class="waves-effect btn-flat right" (click)="onSubmit()" [disabled]="!catalogueForm.valid"> Guardar </button>
         </div>
-      </div>  
-      <div class="modal-footer">
-        <a class="modal-close waves-effect btn-flat orange-text left"> cerrar </a>
-        <button class="waves-effect btn-flat right" (click)="onSubmit()" [disabled]="!catalogueForm.valid"> Guardar </button>
       </div>
     </div>
-  </div>
-  <!-- MODAL -->
-
-  <!-- Modal Structure año del vehiculo invalidao-->
-<div id="addCatalogueType" class="modal">
-    <div class="modal-content">
-      <div class="row">
-        <div class="input-field">
-          <input id="nameType" type="text"autocomplete="off" [(ngModel)]="namecatalogueType">
-          <label for="nametype">Nombre del Catálogo</label>
-        </div>
-        <div>
-        <input id="description" type="text"autocomplete="off"[(ngModel)]="description">
-        <label for="description">Descripción</label>
-        </div>
-      </div>    
-    </div>
+    <!-- MODAL -->
   
-    <div class="modal-footer">
-      <a  class="modal-close waves-effect waves-green btn-flat" (click)="newCatalogueType()"  >Aceptar</a>
-    </div>
-  </div>
+    <!-- Modal catalogue type-->
+  <div id="addCatalogueType" class="modal">
+      <div class="modal-content">
+        <div class="row">
+          <div class="col s10 offset-s1">
+              <div class="input-field">
+                <input id="nameType" name="nameType" type="text" autocomplete="off" class="validate" [(ngModel)]="namecatalogueType" >
+                <label for="nameType">Tipo de Catálogo</label>
+              </div>
+              <div class="input-field">
+                <input id="description" type="text"autocomplete="off"[(ngModel)]="description">
+                <label for="description">Descripción</label>
+              </div>
+          </div>
+        </div>    
+      </div>
+      <div class="modal-footer">
+        <a class="modal-close waves-effect waves-green btn-flat" (click)="cancelarModaltype()">Cancelar</a>
+        <button (click)="newCatalogueType()" class="modal-close waves-effect waves-green btn-small" [disabled]="!(description.length >=10 && namecatalogueType.length >= 5)" >Aceptar</button  >
+      </div> 
+    </div> 
+
+    <!--modal property-->
+  <div id="addCatalogueProperty" class="modal">
+      <div class="modal-content">
+        <div class="row">
+          <div class="col s10 offset-s1">
+            <div class="input-field ">
+              <input id="property" name="property" type="text" autocomplete="off" class="validate" [(ngModel)]="newPropertyName" >
+              <label for="property">Nombre Propiedad</label>
+            </div>  
+          </div>
+        </div>    
+      </div>
+      <div class="modal-footer">
+        <a class="modal-close waves-effect waves-green btn-flat" (click)="cancelarModalProperty()">Cancelar</a>
+        <button (click)="createPropetyType()" class="modal-close waves-effect waves-green btn-small" [disabled]="!(newPropertyName.length >=5 )" >Aceptar</button  >
+      </div> 
+    </div> 
+  </semovi-card>
 </ng-container>

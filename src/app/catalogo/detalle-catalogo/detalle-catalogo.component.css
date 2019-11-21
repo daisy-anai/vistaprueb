@@ -33,7 +33,7 @@
   overflow-x: hidden;
   width: auto; 
   height:400px;  
-  margin-left: 5px ;
+  margin-left: 0px ;
   margin-right: 5px;
   } 
   .contenedor::-webkit-scrollbar-track { 
@@ -42,12 +42,12 @@
     background-color: #F5F5F5; 
   } 
   .contenedor::-webkit-scrollbar {
-    width: 5px;
+    width: 7px;
     background-color: #F5F5F5; 
   } 
   .contenedor::-webkit-scrollbar-thumb {
     border-radius: 10px; 
-    background-color: gray ; 
+    background-color: #80cbc4 ; 
   }
 
 .carousel-slider {
@@ -74,7 +74,7 @@
   width: 48px;
   height: 48px;
   margin: 10px;
-  background-color: #ffff99;
+
 }
 
 
@@ -85,23 +85,17 @@
  
 } 
 .text-content{
-  margin-left: auto;
-  margin-top: auto;
-  align-content: center;
+  margin-left: 0px;
+  margin-top: 10px;
+  align-content: initial;
 }
-.contenedorSecciones{
-  /* height: 50px;
-  width: 50px;
 
-  text-align: center; */
-}
 .tamanio{
   right: 100px;
   left: 100px;
   align-content: center;
-  border: 1px solid black;
-  padding: 10px; 
-
+  border: 1px dotted teal;
+  padding: 20px; 
   
 }
 
@@ -113,3 +107,25 @@
   }   
 
 } 
+/*  
+.middle-indicator{
+   position:absolute;
+   top:50%;
+   }
+  .middle-indicator-text{
+   font-size: 4.2rem;
+  }
+  a.middle-indicator-text{
+    color:black !important;
+  }
+.content-indicator{
+    width: 64px;
+    height: 64px;
+    background: none;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px; 
+  }
+    .indicators{
+  	visibility: hidden;
+  }  */

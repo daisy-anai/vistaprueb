@@ -26,23 +26,26 @@ export class CrearCatalogoComponent implements OnInit {
 
 	public cataloguesTypes: Array<CatalogueType>;
 	public propertyTypes: Array<PropertyType>;
-  public modalidad: Modalidad;
-  public localidadName: string='';
+  public modalidad: Modalidad; 
   public municipios: any;
   public municipioID: any;
   public localidadesID: any;
   public localidades: any;
   public localidad: any;
   public nameproperty: any
-  
+
+  public localidadName: string='';
+  public newPropertyName: string ='';
   public nameMunicipio: string = '';
   public namecatalogueType: string='';
   public description: string='';
 	public hue: string
-	public color: string
+  public color: string
+  
   public ModalInstance: any;
   public autocompleteInstance: any;
   public ModalInstanceAdd: any;
+  public ModalInstanceProperty: any
 
 	constructor(
 		private service?: CatalogoService,
@@ -66,9 +69,11 @@ export class CrearCatalogoComponent implements OnInit {
 
 		this.service.getPropertyTypes().subscribe(({ data }) =>{
       this.propertyTypes = data['propertyTypes'];
-      console.log(this.propertyTypes);
-      
     });
+    this.service.getCatalogoType().subscribe(({ data})=>{
+      this.cataloguesTypes = data['catalogueTypes'];      
+    })
+
        
     this.catalogueForm = this.formBuilder.group({
       municipio:['', Validators.required],
@@ -87,28 +92,59 @@ export class CrearCatalogoComponent implements OnInit {
 		this.ModalInstanceAdd = M.Modal.init(modalAdd, {
       dismissible:false
     });
+    var modalProperty= document.getElementById('addCatalogueProperty');
+    this.ModalInstanceProperty = M.Modal.init(modalProperty,{
+      dismissible: false
+    });
   } 
-  tipoCatalogo(){     
-		this.service.getCatalogoType().subscribe(result =>{
-      this.cataloguesTypes = result.data['catalogueTypes'];
-      console.log("tipos", this.cataloguesTypes);
-	
-    if(Object.keys(this.propertyTypes).length === 0){
-      console.log("sin datos");
-      this.ModalInstanceAdd.open();
-    }else{
-    console.log("holo");
-      
-    }
-  });
-    
-  }
+    //catalogue type
   newCatalogueType(){
     this.service.createCatalogueType(this.namecatalogueType, this.description).subscribe(({ data })=>{
       this.cataloguesTypes = data['catalogueType'];
-    })
-    
+    this.listCatalogueType();
+    });
+
+    this.namecatalogueType='';
+    this.description='';
   }
+  listCatalogueType(){
+    this.cataloguesTypes=[];
+    this.service.getCatalogoType().subscribe(({data})=>{
+      this.cataloguesTypes = data['catalogueTypes'];   
+    });
+  }
+  openModalType(){
+    this.ModalInstanceAdd.open();
+  }
+  cancelarModaltype(){
+    this.namecatalogueType='';
+    this.description='';
+  }
+  setCataloguesTypesName(nameProperty: any){
+  [this.nameproperty] = this.cataloguesTypes.filter(e =>e.id ===nameProperty);
+  
+  }
+  //catalogue property
+  newProperty(){
+    this.ModalInstanceProperty.open();
+  }
+  createPropetyType(){
+    this.service.propertyType(this.newPropertyName).subscribe(({ data })=>{
+      this.propertyTypes = data['propertyType'];
+      this.listCatalogueProperty();
+    });
+    this.newPropertyName='';
+  }
+  listCatalogueProperty(){
+    this.propertyTypes=[];
+    this.service.getPropertyTypes().subscribe(({ data }) =>{
+      this.propertyTypes = data['propertyTypes'];
+    });
+  }
+  cancelarModalProperty(){
+    this.newPropertyName='';
+  }
+  //  search municipios and  localidades
   assignMunicipio(municipios: any){ 
     this.municipios = municipios;
     var datosMunicipios= new Object();
@@ -150,9 +186,7 @@ export class CrearCatalogoComponent implements OnInit {
     }); 
   }
 
-  setCataloguesTypesName(nameProperty: any){
-    [this.nameproperty] = this.cataloguesTypes.filter(e =>e.id ===nameProperty);
-	}
+  
 
 	get configuration(): FormArray {
 		return this.catalogueForm.get('configuration') as FormArray;	
@@ -163,9 +197,9 @@ export class CrearCatalogoComponent implements OnInit {
 	}
 
 	onChangePropertyType(sectionIndex: number, propertyIndex: number){
+  
     let name = `S[${sectionIndex}]-P[${propertyIndex}]-propertyType`;
     let element = (<HTMLInputElement>document.getElementById(name));  
- 
     return element.value;
    
 	}

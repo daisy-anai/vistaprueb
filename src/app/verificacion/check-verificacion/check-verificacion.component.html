@@ -10,13 +10,17 @@
         <div class="row">
          <div class="col s10 z-depth-2  item offset-s1  ">
             <div class="" *ngIf="catalogues">
-             Nombre del catálogo: {{catalogues.name}}
+              <div col s12>
+
+              </div>
+                Nombre del catálogo:  {{catalogues.name}}
+             
               <div *ngFor="let seccion of catalogues.configuration.sections">
                 <span class="uppercase bold">{{seccion.name}}</span> 
                 <div *ngFor="let propiedad of seccion.properties">
                   <div class="row">
                     <div class="col s12">
-                      <div>
+                      <div >
                         <label>
                           <input type="checkbox" />
                           <span class="letter des">{{propiedad.name}} </span>
