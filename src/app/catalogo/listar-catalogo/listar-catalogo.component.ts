@@ -60,8 +60,7 @@ export class ListarCatalogoComponent implements OnInit {
   activeCatalogues(){
     this.service.catalogueByModalidadID(this.modalidadID).subscribe(({ data })=>{
       this.catalogos = data['catalogueByModalidad'];
-      console.log(this.catalogos);
-      
+
     });
 
   }
@@ -83,21 +82,6 @@ export class ListarCatalogoComponent implements OnInit {
       });
     }
   }
-
-  example1(){
-    
-    var doc= document.getElementsByName('group');
-    if ($('input[name=group1]:checked').length > 0) {
-      // do something here
-      console.log("checado");      
-    }
-  }
-example(){
-  $("input[type='group']").click(function() {
-    var previousValue = $(this).attr('previousValue');
-    var name = $(this).attr('name');
-
-  });
-}
+  //   window.location.reload(false); 
  
 }

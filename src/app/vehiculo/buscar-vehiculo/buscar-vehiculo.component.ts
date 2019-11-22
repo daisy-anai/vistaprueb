@@ -41,12 +41,10 @@ export class BuscarVehiculoComponent implements OnInit {
 
   ngOnInit() {
     this.concesion = this.shared.getConcesion();  
-    console.log(this.concesion);
-    
     if(!this.concesion){
       this.router.navigate(['/aplicacion/concesion/busqueda']);
     }
-
+ 
     var modal = document.getElementById('validVehiculo');
 		this.ModalInstance = M.Modal.init(modal, {
       dismissible:false
@@ -69,7 +67,6 @@ export class BuscarVehiculoComponent implements OnInit {
     this.loading = true;
     this.service.getVehiculo(this.concesion.id, this.filtro).subscribe(result => {
       this.vehiculo = result.data['vehiculoActivo'];
-     
         var modalidadID=  this.concesion.modalidad.id;
         this.vigenciasService.getVigenciasModalidadByID(modalidadID).subscribe(({ data })=>{
           this.vigencias = data['validityByModalidad'];
@@ -94,13 +91,10 @@ export class BuscarVehiculoComponent implements OnInit {
     });
 
   }
-  catalogue(){
- 
-  }
+
   catalogueSelect(){
   //elegir el catalogo
   var modalidadID = this.concesion.modalidad.id;
-   console.log(modalidadID);
    this.router.navigate([`aplicacion/verificacion/seleccion/${modalidadID}`]);
   }
 
@@ -112,7 +106,6 @@ export class BuscarVehiculoComponent implements OnInit {
 
     let errores: Array<String> = [];
     let status: Boolean = true;
-
     if(vehiculo.estatus != 'A'){
       errores.push('Vehiculo bloqueado');
       status = false;
@@ -126,7 +119,7 @@ export class BuscarVehiculoComponent implements OnInit {
     if(this.permitido(vehiculo)){
       this.out.emit(vehiculo);
       this.shared.setVehiculo(vehiculo);
-      // this.router.navigate([''])
+       //this.router.navigate(['/aplicacion/inicio'])
     }
   }
 
@@ -135,7 +128,5 @@ export class BuscarVehiculoComponent implements OnInit {
     
   }
 
-  vigenciaVehiculo(){
 
-  }
 }

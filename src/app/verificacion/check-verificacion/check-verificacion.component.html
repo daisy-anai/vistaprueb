@@ -7,38 +7,61 @@
         </div>
     </semovi-card-header>
     <semovi-card-body>
-        <div class="row">
-         <div class="col s10 z-depth-2  item offset-s1  ">
-            <div class="" *ngIf="catalogues">
-              <div col s12>
-
+      <div class="row">
+        <div class="col s10 z-depth-2  item offset-s1  ">
+          <div class="" *ngIf="catalogues">
+            <div class="row">
+                <div class="col s12 left-align">
+                  <span class="title">{{catalogues.name}}</span>
+                </div>
+            </div>
+            <div class="row">
+              <div class="col s12">
+                <div *ngIf="concesion">
+                  Nombre:  {{concesion.concesionario.nombre}} {{concesion.concesionario.primerApellido}} {{concesion.concesionario.segundoApellido}}         
+                </div>
               </div>
-                Nombre del catálogo:  {{catalogues.name}}
-             
-              <div *ngFor="let seccion of catalogues.configuration.sections">
-                <span class="uppercase bold">{{seccion.name}}</span> 
-                <div *ngFor="let propiedad of seccion.properties">
-                  <div class="row">
-                    <div class="col s12">
-                      <div >
+            </div>
+            <div class="row">
+              <div class="col s12">
+                <div *ngIf="vehiculo">
+                  Serie del vehiculo:  {{vehiculo.serie}}
+                </div>
+              </div>
+            </div>
+              
+            <div class="row">
+              <div class="col s12">
+                <form action="" >
+                <div *ngFor="let seccion of catalogues.configuration.sections">
+                  <span class="uppercase bold">{{seccion.name}}</span> 
+      
+                  <div *ngFor="let propiedad of seccion.properties">
+                    <div class="row">
+                      <div class="col s12">
                         <label>
-                          <input type="checkbox" />
-                          <span class="letter des">{{propiedad.name}} </span>
-                        </label>
-                      </div>
-
-                      <div *ngIf="propiedad.propertyType == type">
-                        <!-- <div class="col s6"> -->
-                          <span>{{propiedad.value}}</span>
-                        <!-- </div> -->
+                          <input  id="check"  type="checkbox"  />
+                          <span class="letter">{{propiedad.name}}  </span>
+                          </label>
+                          <div *ngIf="propiedad.propertyType == type">
+                            <span>{{propiedad.value}}</span>
+                        </div>
                       </div>
                     </div>
                   </div>
+
                 </div>
+                <button class="btn-small right" (click)="checksComplete()" disabled > Aprobado </button>
+                <button class="btn-small left" (click)="checksIncomplete()" > Incompleto </button>
+              </form>
               </div>
+            </div>
             </div>  
           </div>
         </div> 
+        <div>
+      
+        </div>
     </semovi-card-body>
   </semovi-card>
 </ng-container>

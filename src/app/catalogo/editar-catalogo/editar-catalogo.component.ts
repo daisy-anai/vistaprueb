@@ -6,7 +6,6 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Modalidad } from '../../shared/models/modalidad';
 import { CatalogueType } from '../../shared/models/catalogueType'
 import { PropertyType }  from '../../shared/models/propertyType'
-import { Municipio } from 'src/app/shared/models/municipio';
 
 // Services
 import {CatalogoService} from '../catalogo.service';
@@ -28,7 +27,7 @@ export class EditarCatalogoComponent implements OnInit {
   public modalidad: Modalidad;
   public catalogue : any;
   public ex : any;
-  public municipios: Municipio;
+  public municipios: any;
   public localidades: any;
   public hue: string
   public color: string

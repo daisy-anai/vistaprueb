@@ -36,6 +36,7 @@ export class DetalleCatalogoComponent implements OnInit {
   ngOnInit() {
     $('.collapsible').collapsible();
     $('input#description').characterCounter();  
+ 
     var modal = document.getElementById('descriptionModal');
 		this.ModalInstance = M.Modal.init(modal, {
       dismissible:false
@@ -53,21 +54,10 @@ export class DetalleCatalogoComponent implements OnInit {
     });
   
   } 
+ 
   
   seeCarousel(){
     this.variable = true;
-        $('.moveNextCarousel').click(function(e){
-      e.preventDefault();
-      e.stopPropagation();
-      $('.carousel').carousel('next');
-   });
-
-   // move prev carousel
-   $('.movePrevCarousel').click(function(e){
-      e.preventDefault();
-      e.stopPropagation();
-      $('.carousel').carousel('prev');
-   });
     $(function(){ $('.carousel.carousel-slider').carousel({
       full_width: false
     }); 

@@ -1,6 +1,5 @@
-import { Default } from './default';
 
-export interface Vigencia extends Default { 
+export interface Vigencia  { 
   
   id: Number;
   id_modalidad: String;

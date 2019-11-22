@@ -20,6 +20,12 @@
 .item:hover {
   transform: scale(1.05);
 }
+.title{
+  color: black; 
+  font-size: 15px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
 @media only screen and (max-width: 600px) {
    
 }

@@ -3,7 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 //Service
 import { CatalogoService } from '../../catalogo/catalogo.service';
 import { Catalogues } from '../../shared/models/catalogues';
- 
+
 @Component({
   selector: 'app-seleccion-catalogo',
   templateUrl: './seleccion-catalogo.component.html',
@@ -13,15 +13,13 @@ export class SeleccionCatalogoComponent implements OnInit {
   private modalidadID: string;
   private catalogues: Array<Catalogues>;
   public filtro: string;
-
   constructor(
     private route?: ActivatedRoute,
-    private service?: CatalogoService,
-   
-    ) 
-  {}
+    private service?: CatalogoService
+    ){}
 
   ngOnInit() {
+
     this.modalidadID = this.route.snapshot.paramMap.get("id");
     this.service.catalogueByModalidadID(this.modalidadID).subscribe(({ data })=>{
       this.catalogues = data['catalogueByModalidad'];      

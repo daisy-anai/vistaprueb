@@ -6,12 +6,10 @@ import { Router, ActivatedRoute} from '@angular/router';
 import { Modalidad } from '../../shared/models/modalidad';
 import { CatalogueType } from '../../shared/models/catalogueType'
 import { PropertyType }  from '../../shared/models/propertyType'
-import { Municipio } from 'src/app/shared/models/municipio';
 
 
 // Services
 import {CatalogoService} from '../catalogo.service';
-import { element } from 'protractor';
 
 declare var M: any;
 
@@ -65,7 +63,12 @@ export class CrearCatalogoComponent implements OnInit {
 		this.service.getModalidad(id_modalidad).subscribe(({ data }) =>{
       this.modalidad = data['modalidad'];
      
-		});
+    });
+    
+
+    $(document).ready(function() {
+      $('input#catalogue_name').characterCounter();
+    });
 
 		this.service.getPropertyTypes().subscribe(({ data }) =>{
       this.propertyTypes = data['propertyTypes'];
@@ -167,6 +170,8 @@ export class CrearCatalogoComponent implements OnInit {
         this.municipioID= this.municipios[i];
         this.service.getLocalidades(this.municipioID.id).subscribe(({ data })=>{
           this.localidades = data['localidades'];
+          console.log(this.localidades);
+          
           this.assignLocalidades(this.localidades);
         });
       }
@@ -208,7 +213,7 @@ export class CrearCatalogoComponent implements OnInit {
 		let configuration = this.configuration.push(this.formBuilder.group({
 			name:['', Validators.required],
 			properties: new FormArray([], Validators.required)
-		}));	
+    }));	
 	}
 
 	removeSeccion(index: number){
@@ -248,9 +253,7 @@ export class CrearCatalogoComponent implements OnInit {
 	} 
 
   onPreview() { 
-
     console.log(this.catalogueForm);
- 
 		this.ModalInstance.open();
   }
 
@@ -261,19 +264,20 @@ export class CrearCatalogoComponent implements OnInit {
       if(this.municipios[i].nombre== nombreMunicipio){
         this.municipioID= this.municipios[i];
         this.service.getLocalidades(this.municipioID.id).subscribe(({ data })=>{
-          this.localidades = data['localidades'];
+          this.localidades = data['localidades'];        
           let nombreLocalidad= (<HTMLInputElement> document.getElementById('autocompleteLocalidad')).value;  
-  
           for (let i = 0; i < this.localidades.length; i++) {
             if(this.localidades[i].nombre == nombreLocalidad){
               this.localidadesID = this.localidades[i];
-              this.service.createCatalogue(this.modalidad.id,
+              this.service.createCatalogue(
+                this.modalidad.id,
                 this.localidadesID.id,
                 this.catalogueForm.value.id_catalogue_type,
                 this.catalogueForm.value.name,
                 this.catalogueForm.value.configuration
               ).subscribe(({data}) => {
-                this.router.navigate(['/aplicacion/catalogo/detalle', data['catalogue'].id]);
+                this.router.navigate(['/aplicacion/catalogo/modalidad', this.modalidad.id]);
+
               }, (error) => {
                 console.log("Error", error)
               });

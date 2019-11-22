@@ -8,6 +8,7 @@ import { VerificacionRoutingModule} from './verificacion-routing.module';
 // Modules
 import { ComponentsModule } from '../shared/components/components.module';
 
+
 //components
 import { CheckVerificacionComponent} from './check-verificacion/check-verificacion.component';
 import { SeleccionCatalogoComponent } from'./seleccion-catalogo/seleccion-catalogo.component';
