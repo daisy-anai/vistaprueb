@@ -62,7 +62,7 @@ export class ListarCatalogoComponent implements OnInit {
 
   activeCatalogues(){
     this.service.catalogueByModalidadID(this.modalidadID).subscribe(({ data })=>{
-      this.catalogos = data['catalogueByModalidad'];
+      this.catalogos = data['catalogueByModalidad']; 
     });
 
   }
@@ -75,9 +75,10 @@ export class ListarCatalogoComponent implements OnInit {
 
   allCatalogues(){
     if(this.modalidadID){
-      this.service.getCatalogueByModaliadDeprecated(this.modalidadID).subscribe(({data})=>{
-        this.catalogos = data['catalogueByModalidadDeprecated'];
+      this.service.getcatalogueByModalidadAll(this.modalidadID).subscribe(({data})=>{
+        this.catalogos = data['catalogueByModalidadAll'];
       }); 
+     
     }else{
       this.service.getCataloguesAll().subscribe(({ data })=>{
         this.catalogos = data['cataloguesAll'];

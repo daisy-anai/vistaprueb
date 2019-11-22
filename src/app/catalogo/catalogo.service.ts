@@ -284,6 +284,33 @@ export class CatalogoService {
       }
     }).valueChanges;
   }
+  getcatalogueByModalidadAll(id_modalidad: string){
+    return this.apollo.use('backrevista').watchQuery({
+      query: gql`
+      query catalogues($id_modalidad:ID!){
+        catalogueByModalidadAll(id_modalidad:$id_modalidad){
+          id
+          id_modalidad
+          id_localidad
+          catalogueType{
+            id
+            name
+            description
+            created_at
+            deprecated
+          }
+          name
+          configuration
+          created_at
+          deprecated
+          
+        }
+      }`,
+      variables:{
+        id_modalidad: id_modalidad
+      }
+    }).valueChanges
+  }
 
   //Search catalogues
   searchWord(limit: Number,word: String){
@@ -390,7 +417,7 @@ export class CatalogoService {
         id_modalidad: id_modalidad,
         id_catalogue: id_catalogue,
         name: name,
-        configuration: { secctions: configuration }
+        configuration: { sections: configuration }
       }
     })
   }

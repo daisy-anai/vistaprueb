@@ -4,14 +4,16 @@
     <nav class="z-depth-2">
       <div class="nav-wrapper white">
         <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-        <a [routerLink]="['/aplicacion/inicio']"><img class="responsive-img logo-semovi" src="assets/images/banner.png"></a>
+        <a ><img class="responsive-img logo-semovi" src="assets/images/banner.png"></a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a [routerLink]="['/aplicacion/concesion']">Inicio</a></li>
+          <li><a [routerLink]="['/aplicacion/configuracion']" >Configuración</a></li>
           <li>
             <a class="dropdown-menu" data-target="dropdown-menu-options">
               <label class="">{{user.nombre}} {{user.primer_apellido}} {{user.segundo_apellido}}</label>
               <i class="material-icons right">arrow_drop_down</i>
             </a>
-          </li>
+          </li> 
         </ul>
       </div>
     </nav>

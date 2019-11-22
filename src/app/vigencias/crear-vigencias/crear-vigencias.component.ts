@@ -37,8 +37,8 @@ export class CrearVigenciasComponent implements OnInit {
     })
     this.catalogoForm = this.formBuilder.group({
       id_modalidad: [modalidadID, Validators.required],
-      anios_legales: [1, [Validators.required, Validators.min(1)]],
-      anios_prorroga: [, [Validators.required, Validators.min(0)]]
+      anios_legales: [1, [Validators.required, Validators.min(1),Validators.max(20)]],
+      anios_prorroga: [, [Validators.required, Validators.min(0), Validators.max(10)]]
     });
 
   }
