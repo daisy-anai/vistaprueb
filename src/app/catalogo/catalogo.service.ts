@@ -237,6 +237,7 @@ export class CatalogoService {
         catalogueByModalidad(id_modalidad:$id_modalidad){
           id
           id_modalidad
+          id_localidad
           catalogueType{
             id
             name

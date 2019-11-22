@@ -40,7 +40,11 @@ export class ListarCatalogoComponent implements OnInit {
     ];
 
     if(this.modalidadID){    
-      this.activeCatalogues();
+      this.service.catalogueByModalidadID(this.modalidadID).subscribe(({ data })=>{
+        this.catalogos = data['catalogueByModalidad'];
+        console.log(this.catalogos);
+        
+      });
     }else{
       this.getCatalogues();
     }
@@ -50,9 +54,8 @@ export class ListarCatalogoComponent implements OnInit {
     if (!this.filtro) {
      this.activeCatalogues();    
     }else{
-      this.service.searchWord(1,this.filtro.trim().toLowerCase()).subscribe(({data})=>{
+      this.service.searchWord(2 ,this.filtro.trim().toLowerCase()).subscribe(({data})=>{
         this.catalogos = data['cataloguesLike'];
-        console.log(this.catalogos);  
       });
     }
   }
@@ -60,7 +63,6 @@ export class ListarCatalogoComponent implements OnInit {
   activeCatalogues(){
     this.service.catalogueByModalidadID(this.modalidadID).subscribe(({ data })=>{
       this.catalogos = data['catalogueByModalidad'];
-
     });
 
   }

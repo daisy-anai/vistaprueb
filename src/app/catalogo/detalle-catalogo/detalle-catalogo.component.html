@@ -16,7 +16,7 @@
               <li>  
                 <div class="row ">
                  <div class="col s12">
-                   <span class="span">Catálogo: </span>
+                   <span class="span">Plantilla: </span>
                     <span *ngIf="catalogo"> {{ catalogo.name }}</span >
                   </div>  
                     <div class=" right">
@@ -30,12 +30,12 @@
                 <div class="collapsible-body" *ngIf="localidad"><span>{{ localidad.nombre }}</span></div>
               </li>
               <li>
-                <div class="collapsible-header"> <span  class="span">Tipo de Catálogo</span></div>
+                <div class="collapsible-header"> <span  class="span">Tipo de plantilla</span></div>
                 <div class="collapsible-body" *ngIf="catalogo"> {{ catalogo.catalogueType.name}}</div>
               </li>
               <li>
                 <a (click)="seeCarousel()" class="black-text"><div class="collapsible-header">
-                  <span  class="span">  Datos del catálogo</span></div></a>
+                  <span  class="span">  Datos de la plantilla</span></div></a>
                   <div class="collapsible-body">
                     <div class="row">
                       <div class="col s12">

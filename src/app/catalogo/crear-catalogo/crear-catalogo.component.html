@@ -4,7 +4,7 @@
     <semovi-card-header>
       <div class="valign-wrapper">
         <semovi-card-header-icon icon="arrow_back"></semovi-card-header-icon>
-        <semovi-card-header-title> Crear catálogo </semovi-card-header-title>
+        <semovi-card-header-title> Crear plantilla </semovi-card-header-title>
       </div>
     </semovi-card-header>
 
@@ -17,7 +17,7 @@
               <div class="col s12">
                 <div class=" left-align">           
                   <div *ngIf="modalidad">
-                    <h5>Catálogo para: {{ modalidad.nombre }}</h5>
+                    <h5>Plantilla para: {{ modalidad.nombre }}</h5>
                   </div>
                 </div>
               </div>
@@ -46,24 +46,18 @@
                 <div class="input-field col s12">
                     <input id="catalogue_name" type="text" class="validate"
                     formControlName="name"  autocomplete="off" data-length="10">
-                    <label for="catalogue_name" style="color:teal">Nombre del catálogo</label>
+                    <label for="catalogue_name" style="color:teal">Nombre de la plantilla</label>
                   </div>
               </div>
 
             <div class="row  valign-wrapper">
               <div class="col s12">
                 <div class="col s8">
-                  <label for="id_tipo_catalogo" style="color:teal">Tipo de catalogo</label>
+                  <label for="id_tipo_catalogo" style="color:teal">Tipo de plantilla</label>
                   <select class="browser-default" formControlName="id_catalogue_type" (change)="setCataloguesTypesName($event.target.value)"  >
                     <option value="" disabled selected>Elige una opción</option>
                     <option *ngFor="let catalogo of cataloguesTypes" value="{{catalogo.id}}"> {{ catalogo.name }} </option>
                   </select>
-                </div>
-                <div class="col s4 center">
-                  <label style="color:teal" class="left">Tipo de catalogo</label>
-                    <a class="btn-floating btn-large waves-effect waves-light red btn-small green center " (click)="openModalType()">
-                      <i class="material-icons">add</i>
-                    </a>
                 </div>
               </div>
             </div> 
@@ -75,7 +69,7 @@
                   <span>Agregar sección</span>
                 </div>
                 <div class="col s6 left-align">
-                  <a class="btn-floating btn-large waves-effect waves-light red btn-small red darken-2" (click)="addSection()">
+                  <a class="btn-floating btn-large waves-effect waves-light red btn-small green darken-2" (click)="addSection()">
                     <i class="material-icons">add</i>
                   </a>
                 </div>
@@ -114,7 +108,7 @@
                         </div>
                         <div class="col s6 right-align cancelar">
                           <!-- <a class="waves-effect waves-light btn-small" (click)="addProperty(section)"> Propiedad</a> -->
-                          <a class="btn-floating btn-large waves-effect waves-light red btn-small red darken-2" (click)="addProperty(section)">
+                          <a class="btn-floating btn-large waves-effect waves-light red btn-small blue darken-2" (click)="addProperty(section)">
                               <i class="material-icons">add</i>
                             </a>
                         </div>
@@ -141,12 +135,7 @@
                                     <option value="" disabled selected>Elige una opción</option>
                                     <option *ngFor="let property of propertyTypes" value="{{property.name}}"> {{ property.name }} </option>
                                   </select>
-                                </div>
-                              <div class="right-align col s3">
-                                <a class="btn-floating btn-large waves-effect waves-light red btn-small green darken-2" (click)="newProperty()">
-                                  <i class="material-icons">add</i>
-                                </a>
-                              </div>     
+                                </div>     
                             </div>
                           </div>
 
