@@ -5,19 +5,27 @@ import { IMAGEOAXACAWEB } from "../../../assets/imgoaxacagobmx";
 import { IMAGE} from "../../../assets/imglogo"; 
 import { IMAGE_BANNER } from "../../../assets/banner";
 
+//servicios
+import { MediumDataService } from '../../shared/services/medium.data.service';
+
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
-  selector: 'app-reporte-final-cromatica',
+  selector: 'reporte-cromatica',
   templateUrl: './reporte-final-cromatica.component.html',
   styleUrls: ['./reporte-final-cromatica.component.css']
 })
 export class ReporteFinalCromaticaComponent implements OnInit {
+  public concesion : any;
+  public vehiculo: any;
 
-  constructor() { }
+  constructor(private shared?: MediumDataService)
+   {}
 
   ngOnInit() {
-      
+      this.concesion = this.shared.getConcesion();
+      this.vehiculo = this.shared.getVehiculo();
+
   }
    
   generarpdf(){
@@ -51,7 +59,8 @@ export class ReporteFinalCromaticaComponent implements OnInit {
             { columns:
               [
                 {width:300,text:''},
-                {width: 300,text:'NUMERO DE FOLIO: ',fontSize:5,bold:true}
+                {width: 300,text:'NUMERO DE FOLIO:'+'DF5154121',fontSize:5,bold:true}
+               
               ]
             },
             { columns: 
@@ -62,7 +71,7 @@ export class ReporteFinalCromaticaComponent implements OnInit {
             { columns: 
               [
                 { text: 'LUGAR: ',fontSize: 9,bold:true },
-                { text: 'FECHA: \n\n\n',fontSize: 9,bold:true },
+                { text: 'FECHA:'+d.getDate()+'\n\n\n',fontSize: 9,bold:true },
               ]
             },
             { columns:
@@ -83,29 +92,26 @@ export class ReporteFinalCromaticaComponent implements OnInit {
             },
             { columns:
               [
-                {text:'realizado al C. \n\n',fontSize: 10},
+                {text:'realizado al C. '+this.concesion.concesionario.nombre+' '+this.concesion.concesionario.primerApellido+' '+this.concesion.concesionario.segundoApellido + '    para que presente la unidad de motor con las siguientes características:\n\n', fontSize: 10},
+              
               ]
             },
+         
             { columns:
               [
-                {text:'para que presente la unidad de motorcon las siguientes características: \n ',fontSize: 10},
-              ]
-            },
-            { columns:
-              [
-                {text:'NUC: ',fontSize: 9,bold:true },
+                {text:'NUC: ' +this.concesion.nuc,fontSize: 9,bold:true },
                 {text:'PLACAS: \n\n',fontSize: 9,bold:true },
               ]
             },
             { columns:
               [
-                {text:'NÚMERO DE SERIE: ',fontSize: 9,bold:true },
-                {text:'MOTOR: \n\n',fontSize: 9,bold:true },
+                {text:'NÚMERO DE SERIE: '+this.vehiculo.serie,fontSize: 9,bold:true },
+                {text:'MOTOR: '+this.vehiculo.motor+'\n\n',fontSize: 9,bold:true },
               ]
             },{ columns:
               [
-                {text:'MARCA: ',fontSize: 9,bold:true },
-                {text:'TIPO: \n\n',fontSize: 9,bold:true },
+                {text:'MARCA: '+this.vehiculo.marca.nombre,fontSize: 9,bold:true },
+                {text:'TIPO: ' +this.vehiculo.tipo.nombre +'\n\n',fontSize: 9,bold:true },
               ]
             },
             { columns:

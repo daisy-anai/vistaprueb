@@ -12,10 +12,14 @@ import { ComponentsModule } from '../shared/components/components.module';
 //components
 import { CheckVerificacionComponent} from './check-verificacion/check-verificacion.component';
 import { SeleccionCatalogoComponent } from'./seleccion-catalogo/seleccion-catalogo.component';
+import { ReporteFinalCromaticaComponent} from './reporte-final-cromatica/reporte-final-cromatica.component';
+import { ReporteCromaticaComponent } from './reporte-cromatica/reporte-cromatica.component';
 @NgModule({
   declarations: [
     CheckVerificacionComponent,
-    SeleccionCatalogoComponent
+    SeleccionCatalogoComponent,
+    ReporteFinalCromaticaComponent,
+    ReporteCromaticaComponent
   ],
   imports: [
     VerificacionRoutingModule,

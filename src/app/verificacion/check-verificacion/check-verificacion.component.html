@@ -10,22 +10,23 @@
       <div class="row">
         <div class="col s10 z-depth-2  item offset-s1  ">
           <div class="" *ngIf="catalogues">
-            <div class="row">
-                <div class="col s12 left-align">
-                  <span class="title">{{catalogues.name}}</span>
-                </div>
-            </div>
+
             <div class="row">
               <div class="col s12">
                 <div *ngIf="concesion">
                   Nombre:  {{concesion.concesionario.nombre}} {{concesion.concesionario.primerApellido}} {{concesion.concesionario.segundoApellido}}         
+                </div >
+                <div class="col s6 right">
+                    <div *ngIf="vehiculo">
+                        Serie:  {{vehiculo.serie}}
+                      </div>
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col s12">
                 <div *ngIf="vehiculo">
-                  Serie del vehiculo:  {{vehiculo.serie}}
+                  Serie:  {{vehiculo.serie}}
                 </div>
               </div>
             </div>
@@ -38,12 +39,16 @@
                     <div class="row">
                       <div class="col s12">
                         <label>
-                          <input  id="check"  type="checkbox"  (click)="checar(propiedad)" s/>
+                          <input  id="check" name="check" type="checkbox" (click)="checar(propiedad)" />
                           <span class="letter">{{propiedad.name}}  </span>
                           </label>
-                          <div *ngIf="propiedad.propertyType == type">
+                          <!--  -->
+                          <div *ngIf="propiedad.propertyType == type" >
                             <span>{{propiedad.value}}</span>
                         </div>
+                          <!-- <div [ngStyle]="{'background-color': propiedad.propertyType === 'color' ? 'propiedad.value': 'white'}">
+                          <label for="">{{propiedad.value}}</label>
+                          </div> -->
                       </div>
                     </div>
                   </div>
@@ -56,23 +61,60 @@
         </div> 
       <div>
     </div>
-
+      
     <!--modal descripcion-->
     <div id="descriptionModal" class="modal">
         <div class="modal-content">
           <div class="row">
+            <h6>Descripción del chequeo del vehículo</h6>
             <div class="input-field col s12">
-              <input id="description" name="description" type="text" class="validate" [(ngModel)]="descriptionHistory" > 
+              <input autocomplete="off" id="description" name="description" type="text" class="validate" [(ngModel)]="descriptionHistory" > 
               <label for="description">Descripción</label>
+            </div>
+            <div *ngIf="download">
+              <reporte-cromatica></reporte-cromatica>
             </div>
           </div>    
         </div>
         <div class="modal-footer">
           <a class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
           <button (click)="createHistory()" class="modal-close waves-effect waves-green btn-small"
-            >Aceptar</button  >
+          [disabled] ="!(descriptionHistory.length >= 10)" >Aceptar</button  >
         </div>
       </div>  
+   <!--modal dowload PDF-->
+   <div id="download" class="modal">
+      <div class="modal-content">
+        <div class="row">
+          <h6>Descarga el PDF de la revista Cromática</h6>
+          <div>
+            <reporte-cromatica></reporte-cromatica>
+          </div>
+        </div>    
+      </div>
+      <div class="modal-footer">
+        <a class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+        <button (click)="dowloandPDF()" class="modal-close waves-effect waves-green btn-small"
+        >Aceptar</button  >
+      </div>
+    </div>  
+    <!--modal download PDF Inconplete-->
+    <div id="downloadIncomplete" class="modal">
+      <div class="modal-content">
+        <div class="row">
+          <h6>Descarga el PDF de la revista Cromática</h6>
+          <div>
+              <reporte-cromatica-incompleta></reporte-cromatica-incompleta>
+            </div>
+        </div>    
+      </div>
+      <div class="modal-footer">
+        <a class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+        <button (click)="dowloandIncompletePDF()" class="modal-close waves-effect waves-green btn-small"
+        >Aceptar</button  >
+      </div>
+    </div>  
+  
     </semovi-card-body>
   </semovi-card>
 </ng-container>

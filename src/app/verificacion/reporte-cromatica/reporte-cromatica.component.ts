@@ -3,20 +3,28 @@ import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import { IMAGEOAXACAWEB } from "../../../assets/imgoaxacagobmx";
 import { IMAGE } from "../../../assets/imglogo";
+//servicios
+import { MediumDataService } from '../../shared/services/medium.data.service';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
-  selector: 'app-reporte-cromatica',
+  selector: 'reporte-cromatica-incompleta',
   templateUrl: './reporte-cromatica.component.html',
   styleUrls: ['./reporte-cromatica.component.css']
 })
 
 export class ReporteCromaticaComponent implements OnInit {
-  constructor() { }
-  ngOnInit() {
+  public concesion : any;
+  public vehiculo: any;
 
+  constructor(private shared?: MediumDataService) 
+  {}
+  ngOnInit() {
+    this.concesion = this.shared.getConcesion();
+    this.vehiculo = this.shared.getVehiculo();
   }
+
   generarpdf(){
 
     pdfMake.fonts = {
@@ -68,22 +76,22 @@ export class ReporteCromaticaComponent implements OnInit {
             {
               columns:
               [
-                {  width: 250, text: 'NUC: ', fontSize: 9,bold: true , margin: [0, 10, 0, 0]},
+                {  width: 250, text: 'NUC: '+this.concesion.nuc, fontSize: 9,bold: true , margin: [0, 10, 0, 0]},
                 {  width: 250, text: 'PLACAS: ', fontSize: 9,bold: true , margin: [0, 10, 0, 0]},
               ]
             },
             {
               columns:
               [
-                {  width: 250, text: 'NÚMERO DE SERIE: ', fontSize: 9,bold: true , margin: [0, 10, 0, 0]},
-                {  width: 250, text: 'MOTOR: ', fontSize: 9,bold: true , margin: [0, 10, 0, 0]},
+                {  width: 250, text: 'NÚMERO DE SERIE: '+this.vehiculo.serie, fontSize: 9,bold: true , margin: [0, 10, 0, 0]},
+                {  width: 250, text: 'MOTOR: '+this.vehiculo.motor, fontSize: 9,bold: true , margin: [0, 10, 0, 0]},
               ]
             },
             {
               columns:
               [
-                {  width: 250, text: 'MARCA: ', fontSize: 9,bold: true , margin: [0, 10, 0, 0]},
-                {  width: 250, text: 'TIPO : ', fontSize: 9,bold: true , margin: [0, 10, 0, 0]},
+                {  width: 250, text: 'MARCA: '+this.vehiculo.marca.nombre, fontSize: 9,bold: true , margin: [0, 10, 0, 0]},
+                {  width: 250, text: 'TIPO : '+this.vehiculo.tipo.nombre, fontSize: 9,bold: true , margin: [0, 10, 0, 0]},
               ]
             },
             {
@@ -96,13 +104,13 @@ export class ReporteCromaticaComponent implements OnInit {
             {
               columns:
               [
-                {  width: 250, text: 'AGRUPACIÓN (SITIO): \n\n', fontSize: 9,bold: true , margin: [0, 10, 0, 0]},
+                {  width: 250, text: 'AGRUPACIÓN (SITIO):'+this.concesion.sitio.nombre+ '\n\n', fontSize: 9,bold: true , margin: [0, 10, 0, 0]},
               ]
             },
             {
               columns:
               [
-                {  alignment: 'justify',text: ['Ante la Dirección  de Operación del Tranporte Público de la Secretaría de Vialidad y Transporte del Estado de Oaxaca, en Avenida Carlos Gracida Número 09, Colonia la Experimental, San Antonio de la Cal, Oaxaca (OFICINAS DE SEVITRA), en ____ días NATURALES a partir de su notificación. \n\n',], fontSize: 9}
+                {  alignment: 'justify',text: ['Ante la Dirección  de Operación del Tranporte Público de la Secretaría de Vialidad y Transporte del Estado de Oaxaca, en Avenida Carlos Gracida Número 09, Colonia la Experimental, San Antonio de la Cal, Oaxaca (OFICINAS DE SEVITRA), en 30 días NATURALES a partir de su notificación. \n\n',], fontSize: 9}
               ]
             },
             {
@@ -170,6 +178,6 @@ export class ReporteCromaticaComponent implements OnInit {
           ]
         };
           //Descargar el PDF
-     pdfMake.createPdf(dd).download('cromatica-vehiculo.pdf');
+     pdfMake.createPdf(dd).download('reposrte-cromatica-incompleto.pdf');
   }
 }
