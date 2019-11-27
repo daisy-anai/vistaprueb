@@ -143,7 +143,8 @@
                             <div class="row">
                               <div class="col s12">
                                   <div *ngSwitchCase="'color'">
-                                    <div class="color-wrapper">
+                                    <input type="color" formControlName="value">
+                                    <!-- <div class="color-wrapper">
                                       <semovi-color-picker [hue]="hue" (color)="color = $event"></semovi-color-picker>
                                       <semovi-color-picker-slider (color)="hue=$event" style="margin-left:10px"> </semovi-color-picker-slider>
                                     </div>
@@ -151,7 +152,7 @@
                                     <div class="">
                                       <input type="text" [value]="color" formControlName="value">
                                       <div class="color-div" [ngStyle]="{'background-color': color || 'white'}"></div>
-                                    </div>
+                                    </div>  -->
                                   </div> 
 
                                   <div *ngSwitchCase="'texto'">

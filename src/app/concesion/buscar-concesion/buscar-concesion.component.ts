@@ -46,9 +46,7 @@ export class BuscarConcesionComponent {
     }else{
       this.loading = true;
       this.service.getConcesiones(this.filtro.trim(), this.tipo, 1).subscribe(result => {
-        this.concesiones = result.data['concesiones'];
-        console.log(this.concesiones);
-        
+        this.concesiones = result.data['concesiones']; 
         this.loading = false;
       },(error)=>{
         var toastHTML = '<span><i class="material-icons">error_outline</i>Concesion no encontrada</span>';

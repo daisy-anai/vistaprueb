@@ -34,6 +34,13 @@
     </li>
     <li class="divider"></li> -->
     <li>
+      <a (click)="changePassword()">
+        <i class="material-icons">account_circle</i>Cambio contraseña
+      </a>
+    </li>
+    <li class="divider"></li>
+
+    <li>
       <a (click)="logout()">
         <i class="material-icons">exit_to_app</i>Cerrar sesión
       </a>
@@ -59,7 +66,14 @@
     <li class="divider"></li>
     <li>
       <a [routerLink]="['/aplicacion/configuracion']">
-        <i class="material-icons">settings_applications</i> Configuración
+        <i class="material-icons">settings</i> Configuración
+      </a>
+    </li>
+    <li class="divider"></li>
+
+    <li>
+      <a (click)="changePassword()">
+        <i class="material-icons">account_circle</i>Cambiar contraseña
       </a>
     </li>
     <li class="divider"></li>

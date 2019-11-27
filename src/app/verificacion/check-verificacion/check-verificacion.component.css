@@ -11,14 +11,18 @@
   text-transform:uppercase;
 
 }
+.negrita{
+  font-weight: bold;
+
+}
 .item{
   padding: 20px;
-  border-radius:  10px;
+  border-radius:  10px; 
   /* background-color: #e3f8f0; */
   background-color: #f7f7f7;
 }
 .item:hover {
-  transform: scale(1.05);
+  /* transform: scale(1.05); */
 }
 .title{
   color: black; 
@@ -26,6 +30,14 @@
   font-weight: bold;
   text-transform: uppercase;
 }
+.colorCuadro{
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+}
 @media only screen and (max-width: 600px) {
-   
+ 
+   .item:hover{
+     transform: none;
+   }
 }

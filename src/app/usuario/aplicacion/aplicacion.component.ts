@@ -41,4 +41,7 @@ export class AplicacionComponent implements OnInit {
     this.session.logout();
     this.router.navigate(['/login']);
   }
+  changePassword(){
+    this.router.navigate(['/aplicacion/usuario/'])
+  }
 }

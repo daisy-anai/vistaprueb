@@ -49,6 +49,15 @@ button {
       /* overflow-y: hidden; */
     height:auto;
     overflow:visible;
-    
-  } 
+  }
+  .icon {
+    margin-right: 15px;
+    font-size: 35px;
+  }
 } 
+  
+  .icon {
+    margin-right: 15px;
+    cursor: pointer;
+  }
+  

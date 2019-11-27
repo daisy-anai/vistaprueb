@@ -189,9 +189,7 @@ export class CatalogoService {
   }
   //Catalogues by modalidad deprecated
   getCatalogueByModaliadDeprecated(id_modalidad: string){
-    console.log(id_modalidad);
-    
-    return this.apollo.use('backrevista').watchQuery({
+  return this.apollo.use('backrevista').watchQuery({
       query: gql`
       query cataloguesByModalidadDeprecated($id_modalidad:ID!) {
         catalogueByModalidadDeprecated(id_modalidad:$id_modalidad){

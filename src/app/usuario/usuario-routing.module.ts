@@ -33,7 +33,10 @@ const routes: Routes = [
         path:'verificacion',
         loadChildren:()=> import ('../verificacion/verificacion.module').then(m  => m.VerificacionModule)
       },
-      
+      {
+        path:'usuario',
+        loadChildren:()=> import ('../resetpassword/resetpassword.module').then(m => m.ResetpasswordModule)
+      },
       {
         path: '**',
         redirectTo: 'concesion'

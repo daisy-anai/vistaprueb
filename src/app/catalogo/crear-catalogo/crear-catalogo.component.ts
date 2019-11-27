@@ -277,7 +277,7 @@ export class CrearCatalogoComponent implements OnInit {
                 this.catalogueForm.value.configuration
               ).subscribe(({data}) => {
                 this.router.navigate(['/aplicacion/catalogo/modalidad', this.modalidad.id]);
-
+                window.location.reload(false); 
               }, (error) => {
                 console.log("Error", error)
               });

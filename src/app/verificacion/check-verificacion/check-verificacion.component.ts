@@ -62,60 +62,50 @@ export class CheckVerificacionComponent implements OnInit {
 
     this.concesion= this.shared.getConcesion();
     this.vehiculo = this.shared.getVehiculo();
-   
+    console.log(this.concesion, this.vehiculo);
+    console.log(this.concesion.concesionario.localidad.nombre);
+
+    console.log(this.concesion.concesionario.localidad.municipio);
+    
+    
     if(!this.vehiculo){
-      var toastHTML= '<span><div class="valign-wrapper">No se encontro vehículo<i class="material-icons">error_outline</i> </div></span>';
-      M.toast({html: toastHTML});
-      this.router.navigate(['/aplicacion/concesion/busqueda']);
+      // var toastHTML= '<span><div class="valign-wrapper">No se encontro vehículo<i class="material-icons">error_outline</i> </div></span>';
+      // M.toast({html: toastHTML});
+      // this.router.navigate(['/aplicacion/concesion/busqueda']);
+      //  window.location.href='/aplicacionconcesion/busqueda' ;
     }
     
     this.catalogueID= this.route.snapshot.paramMap.get('id');
+
     this.catalogueService.catalogueByID( this.route.snapshot.paramMap.get("id")).subscribe(({ data })=>{
-      this.catalogues = data['catalogue']; 
-      
-      // for (const proper of this.catalogues.configuration.sections ) {
-      //   var propiedad = proper.properties as FormArray;
-      //   proper.properties.push(this.formBuilder.group({
-      //     checked:[false, Validators.required]
-      //   }));
-      // }
-      //   console.log(this.catalogues);
-        
+      this.catalogues = data['catalogue'];    
+      for (const secciones of this.catalogues.configuration.sections ) {
+        for (const propiedades of secciones.properties) {
+          propiedades.checked = false;
+        }
+      }   
    });     
-   
   }
 
   checar(propiedad: any ){
-    console.log(this.catalogues)
     propiedad.checked = !propiedad.checked;  
-    console.log(propiedad.checked);
-    
   } 
 
   createHistory(){
     var cont = 0;
     var checkTamanio =document.getElementsByName('check').length
-
-    console.log(this.catalogues);
-    // for (const secciones of this.catalogues.configuration.sections) {
-    //   console.log(secciones.properties);
-      
-    // }
-    for (var i = 0; i < this.catalogues.configuration.sections.length; i++) {
-      for (let j = 0; j < this.catalogues.configuration.sections[i].properties.length; j++) {
-        if(this.catalogues.configuration.sections[i].properties[j].checked==true){
-          console.log(this.catalogues.configuration.sections[i].properties[j]);
-          
-          cont ++;
-          if(checkTamanio == cont){
+    for (const secciones of this.catalogues.configuration.sections) {
+      for (const propiedades of secciones.properties) {
+        if(propiedades.checked==true){
+          cont ++
+          if(checkTamanio== cont){
             this.is_correct= true;
           }else{
             this.is_correct= false;
           }    
         }
       }
-    }  
-  
+    }
     var id_concesion = this.concesion.id;
     var id_vehiculo = this.vehiculo.id;
     var id_catalogue = this.catalogues.id
@@ -137,7 +127,7 @@ export class CheckVerificacionComponent implements OnInit {
     this.ModalInstanceDownload.close(); 
   }
   dowloandIncompletePDF(){
-    this.ModalInstanceIncomplete.close();
+    this.ModalInstanceIncomplete.close(); 
   }
 
  }

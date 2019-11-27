@@ -59,9 +59,6 @@ export class LoginComponent implements OnInit {
     let activeElement = <HTMLElement>document.activeElement;
     activeElement && activeElement.blur && activeElement.blur();
     this.authService.login(email, password).subscribe(result => {
-      console.log("----COMENTAR ESTE");
-      console.log(result.data);
-      
       this.correctlogincheck(result.data);  
       this.loading= false;
     }, (error) => {
@@ -98,11 +95,14 @@ export class LoginComponent implements OnInit {
     newseccion.user = user;
 
     this.storageService.setCurrentSession(newseccion);
+    console.log(this.storageService.getCurrentToken());
     this.redirect(user);
   }
 
   redirect(user: User){
-    this.router.navigate(['/aplicacion']);
+    // this.router.navigate(['/aplicacion']);
+       window.location.href='/aplicacion' ;
+
   }
 
 }

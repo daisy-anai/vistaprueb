@@ -5,6 +5,7 @@ import { ActivatedRoute } from "@angular/router";
 import { CatalogoService } from '../../catalogo/catalogo.service';
 import { Catalogues } from '../../shared/models/catalogues';
 import { MediumDataService } from '../../shared/services/medium.data.service';
+import { StorageService } from "../../shared/services/storage.service";
 
 
 @Component({
@@ -22,17 +23,18 @@ export class SeleccionCatalogoComponent implements OnInit {
   constructor(
     private route?: ActivatedRoute,
     private service?: CatalogoService,
-    private shared?: MediumDataService
+    private shared?: MediumDataService,
+    public storageService?: StorageService,
     ){}
 
   ngOnInit() {
     this.concesion = this.shared.getConcesion();
     this.vehiculo = this.shared.getVehiculo();
     //validar que obtenga una serue de vehiculo
-    
+   
     this.modalidadID = this.route.snapshot.paramMap.get("id");
     this.service.catalogueByModalidadID(this.modalidadID).subscribe(({ data })=>{
-      this.catalogues = data['catalogueByModalidad'];      
+      this.catalogues = data['catalogueByModalidad'];            
     });
   }
 
