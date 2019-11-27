@@ -24,6 +24,7 @@ export class ReporteCromaticaComponent implements OnInit {
   constructor(private shared?: MediumDataService) 
   {}
   ngOnInit() {
+    console.log(this.color);
     
     this.concesion = this.shared.getConcesion();
     this.vehiculo = this.shared.getVehiculo();

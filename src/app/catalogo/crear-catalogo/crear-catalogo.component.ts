@@ -274,6 +274,8 @@ export class CrearCatalogoComponent implements OnInit {
               ).subscribe(({data}) => {
                 this.router.navigate(['/aplicacion/catalogo/modalidad', this.modalidad.id]);
                 // window.location.reload(false); 
+                console.log("dss");
+                
               }, (error) => {
                 console.log("Error", error)
               });
