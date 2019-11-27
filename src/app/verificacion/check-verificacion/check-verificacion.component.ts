@@ -8,6 +8,8 @@ import { CatalogoService } from '../../catalogo/catalogo.service';
 import { Concesion} from '../../shared/models/concesion';
 import { Vehiculo} from '../../shared/models/vehiculo';
 import {VerificarcionService} from '../verificacion.service';
+import { VehiculoService } from '../../vehiculo/vehiculo.service';
+
 
 declare var M: any;
 @Component({
@@ -25,10 +27,12 @@ export class CheckVerificacionComponent implements OnInit {
   public history: any;
   public proipiedacCheck: any;
   public descriptionHistory : string = '';
+  public colorVehiculo: string ='';
   public ModalInstance: any;
   public ModalInstanceDownload :any;
   public ModalInstanceIncomplete: any;
-
+  public ModalInstancePreview: any;
+  public saludo : string="hola";
   public is_correct : boolean= false;
   public download : boolean = false;
   public color: string ='';
@@ -39,16 +43,12 @@ export class CheckVerificacionComponent implements OnInit {
     public shared?: MediumDataService,
     public router?: Router,
     public service?: VerificarcionService,
-    public formBuilder?: FormBuilder
+    public formBuilder?: FormBuilder,
+    public vehiculoService?: VehiculoService
    
   ) {}
 
   ngOnInit() {
-  
-    var modal = document.getElementById('descriptionModal');
-		this.ModalInstance = M.Modal.init(modal, {
-      dismissible:false
-    });
   
     var modalCorrect = document.getElementById('download');
 		this.ModalInstanceDownload = M.Modal.init(modalCorrect, {
@@ -58,23 +58,24 @@ export class CheckVerificacionComponent implements OnInit {
     var modalIncomplete = document.getElementById('downloadIncomplete');
     this.ModalInstanceIncomplete = M.Modal.init(modalIncomplete,{
       dismissible: false
-    })
+    });
+
+    var modalPreview = document.getElementById('modalPreview');
+    this.ModalInstancePreview= M.Modal.init(modalPreview,{
+      dismissible:false
+    });
 
     this.concesion= this.shared.getConcesion();
     this.vehiculo = this.shared.getVehiculo();
-    console.log(this.concesion, this.vehiculo);
-    console.log(this.concesion.concesionario.localidad.nombre);
+ 
 
-    console.log(this.concesion.concesionario.localidad.municipio);
-    
-    
     if(!this.vehiculo){
-      // var toastHTML= '<span><div class="valign-wrapper">No se encontro vehículo<i class="material-icons">error_outline</i> </div></span>';
-      // M.toast({html: toastHTML});
-      // this.router.navigate(['/aplicacion/concesion/busqueda']);
+      var toastHTML= '<span><div class="valign-wrapper">No se encontro vehículo<i class="material-icons">error_outline</i> </div></span>';
+      M.toast({html: toastHTML});
+      this.router.navigate(['/aplicacion/concesion/busqueda']);
       //  window.location.href='/aplicacionconcesion/busqueda' ;
     }
-    
+  
     this.catalogueID= this.route.snapshot.paramMap.get('id');
 
     this.catalogueService.catalogueByID( this.route.snapshot.paramMap.get("id")).subscribe(({ data })=>{
@@ -86,7 +87,7 @@ export class CheckVerificacionComponent implements OnInit {
       }   
    });     
   }
-
+ 
   checar(propiedad: any ){
     propiedad.checked = !propiedad.checked;  
   } 
@@ -119,9 +120,6 @@ export class CheckVerificacionComponent implements OnInit {
     });
   }
 
-  openModalDescription(){
-    this.ModalInstance.open();
-  }
 
   dowloadPDF(){
     this.ModalInstanceDownload.close(); 
@@ -129,5 +127,7 @@ export class CheckVerificacionComponent implements OnInit {
   dowloandIncompletePDF(){
     this.ModalInstanceIncomplete.close(); 
   }
-
+  preview(){
+    this.ModalInstancePreview.open();
+  }
  }

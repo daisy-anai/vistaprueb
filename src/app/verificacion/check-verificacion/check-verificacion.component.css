@@ -35,6 +35,11 @@
   height: 30px;
   border-radius: 10px;
 }
+
+.text-justify{
+  text-align: justify;
+}
+
 @media only screen and (max-width: 600px) {
  
    .item:hover{

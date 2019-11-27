@@ -100,7 +100,7 @@ export class LoginComponent implements OnInit {
   }
 
   redirect(user: User){
-    // this.router.navigate(['/aplicacion']);
+    //  this.navigate(['/aplicacion']);
        window.location.href='/aplicacion' ;
 
   }

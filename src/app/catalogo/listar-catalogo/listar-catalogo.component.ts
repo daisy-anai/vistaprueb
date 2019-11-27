@@ -41,9 +41,7 @@ export class ListarCatalogoComponent implements OnInit {
 
     if(this.modalidadID){    
       this.service.catalogueByModalidadID(this.modalidadID).subscribe(({ data })=>{
-        this.catalogos = data['catalogueByModalidad'];
-        console.log(this.catalogos);
-        
+        this.catalogos = data['catalogueByModalidad'];        
       });
     }else{
       this.getCatalogues();

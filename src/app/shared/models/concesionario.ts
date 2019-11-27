@@ -1,3 +1,4 @@
+import {Localidad} from './localidad';
 export interface Concesionario {
   id: String;
   tipoPersona: String

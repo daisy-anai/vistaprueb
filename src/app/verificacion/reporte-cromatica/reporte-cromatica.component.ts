@@ -1,4 +1,4 @@
-import { Component, OnInit, ModuleWithComponentFactories } from '@angular/core';
+import { Component, OnInit,Input, ModuleWithComponentFactories } from '@angular/core';
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import { IMAGEOAXACAWEB } from "../../../assets/imgoaxacagobmx";
@@ -15,16 +15,24 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 })
 
 export class ReporteCromaticaComponent implements OnInit {
+  @Input() color: string;
+
   public concesion : any;
   public vehiculo: any;
+  public placas: any;
 
   constructor(private shared?: MediumDataService) 
   {}
   ngOnInit() {
+    
     this.concesion = this.shared.getConcesion();
     this.vehiculo = this.shared.getVehiculo();
+    for (const placas of this.vehiculo.placa) {
+      this.placas = placas.matricula;   
+      }
   }
-
+  
+  
   generarpdf(){
 
     pdfMake.fonts = {
@@ -77,7 +85,7 @@ export class ReporteCromaticaComponent implements OnInit {
               columns:
               [
                 {  width: 250, text: 'NUC: '+this.concesion.nuc, fontSize: 9,bold: true , margin: [0, 10, 0, 0]},
-                {  width: 250, text: 'PLACAS: ', fontSize: 9,bold: true , margin: [0, 10, 0, 0]},
+                {  width: 250, text: 'PLACAS: '+this.placas, fontSize: 9,bold: true , margin: [0, 10, 0, 0]},
               ]
             },
             {
@@ -176,7 +184,8 @@ export class ReporteCromaticaComponent implements OnInit {
               ]
             },
           ]
-        };
+        }; 
+        
           //Descargar el PDF
      pdfMake.createPdf(dd).download('reposrte-cromatica-incompleto.pdf');
   }

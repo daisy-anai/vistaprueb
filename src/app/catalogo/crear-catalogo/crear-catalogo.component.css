@@ -25,3 +25,8 @@ hr{
 .color-bold{
   font-weight: bold;
 }
+.colorCuadro{
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+}

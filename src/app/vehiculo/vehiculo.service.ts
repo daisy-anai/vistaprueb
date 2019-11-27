@@ -33,6 +33,10 @@ export class VehiculoService {
               id,
               nombre
             }
+            placa{
+              id
+              matricula
+            }
           }
         }
       `,

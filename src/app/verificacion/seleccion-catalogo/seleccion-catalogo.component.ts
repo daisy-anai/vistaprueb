@@ -14,12 +14,13 @@ import { StorageService } from "../../shared/services/storage.service";
   styleUrls: ['./seleccion-catalogo.component.css']
 })
 export class SeleccionCatalogoComponent implements OnInit {
+
   private modalidadID: string;
   private catalogues: Array<Catalogues>;
   public filtro: string;
   public concesion: any;
   public vehiculo: any;
-
+  
   constructor(
     private route?: ActivatedRoute,
     private service?: CatalogoService,

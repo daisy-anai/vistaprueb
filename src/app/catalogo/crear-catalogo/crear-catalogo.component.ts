@@ -37,6 +37,7 @@ export class CrearCatalogoComponent implements OnInit {
   public nameMunicipio: string = '';
   public namecatalogueType: string='';
   public description: string='';
+  public type: string  = 'texto';
 	public hue: string
   public color: string
   
@@ -169,9 +170,7 @@ export class CrearCatalogoComponent implements OnInit {
       if(this.municipios[i].nombre== nombreMunicipio){
         this.municipioID= this.municipios[i];
         this.service.getLocalidades(this.municipioID.id).subscribe(({ data })=>{
-          this.localidades = data['localidades'];
-          console.log(this.localidades);
-          
+          this.localidades = data['localidades'];     
           this.assignLocalidades(this.localidades);
         });
       }
@@ -185,13 +184,11 @@ export class CrearCatalogoComponent implements OnInit {
       datosLocalidades[this.localidades[i].nombre]= null; 
     }
     $('#autocompleteLocalidad').autocomplete({
-        data: datosLocalidades,
-        getData: function (value, callback) {
-        }        
+      data: datosLocalidades,
+      getData: function (value, callback) {
+      }        
     }); 
   }
-
-  
 
 	get configuration(): FormArray {
 		return this.catalogueForm.get('configuration') as FormArray;	
@@ -253,7 +250,6 @@ export class CrearCatalogoComponent implements OnInit {
 	} 
 
   onPreview() { 
-    console.log(this.catalogueForm);
 		this.ModalInstance.open();
   }
 
@@ -277,7 +273,7 @@ export class CrearCatalogoComponent implements OnInit {
                 this.catalogueForm.value.configuration
               ).subscribe(({data}) => {
                 this.router.navigate(['/aplicacion/catalogo/modalidad', this.modalidad.id]);
-                window.location.reload(false); 
+                // window.location.reload(false); 
               }, (error) => {
                 console.log("Error", error)
               });

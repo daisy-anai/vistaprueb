@@ -40,7 +40,12 @@ export class BuscarVehiculoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    
     this.concesion = this.shared.getConcesion();  
+    console.log(this.concesion);
+    this.vehiculo = this.shared.getVehiculo()   ;
+    
+    
     if(!this.concesion){
       this.router.navigate(['/aplicacion/concesion/busqueda']);
     }
@@ -81,6 +86,8 @@ export class BuscarVehiculoComponent implements OnInit {
               }
             }
           }
+          console.log(this.vehiculo);
+          
         });
       this.loading = false;
     },(error) => {

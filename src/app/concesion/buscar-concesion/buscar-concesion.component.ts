@@ -19,13 +19,14 @@ export class BuscarConcesionComponent {
   public loading: boolean = false;
   public tipo: number = 1;
   public filtro: string = 'candido gallegos';
+  public errores: Array<String> = [];
 
   constructor(
     private service?: ConcesionService,
     private shared?: MediumDataService,
     private router?: Router
   ) {}
-
+ 
  //ocultar teclado movil
   onKey(e) {
     if (e.keyCode == 13) {
@@ -56,30 +57,28 @@ export class BuscarConcesionComponent {
   }
 
   permitido(concesion: any): Boolean {
-    let errores: Array<String> = [];
     let status: Boolean = true;
 
     if(concesion.condiciones.bloqueado){
-      errores.push("Concesión bloqueada");
+      this.errores.push("Concesión bloqueada");
       status = false;
+      console.log("bloqueado",status);
+      
     }
 
     if(!concesion.condiciones.vigente){
-      errores.push("Concesión vencida");
+      this.errores.push("Concesión vencida");
        status = false;
+       console.log("vencida",status);
+       
     }
 
     if(!concesion.modalidad.estatus){
-      errores.push("Modalidad invalida o inactiva");
+      this.errores.push("Modalidad invalida o inactiva");
       status = false;
+      console.log("modalidad  ",status);
     }
-
-    if(concesion.nuc.status == "/"){
-      errores.push("No cuenta con NUC");
-      status=false;
-    }
-
-    return status;
+    return    status;
   }
 
   redirect(concesion: Concesion): void {
