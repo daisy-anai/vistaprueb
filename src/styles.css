@@ -30,6 +30,8 @@ body {
   font-family: "UniviaPro-Light";
   background-image: url("http://resource.semovioaxaca.gob.mx/assets/images/background-80.png");
   background-color: #B1AFAF;
+  height: 100%;
+  margin: 0;
 }
 
 label {
