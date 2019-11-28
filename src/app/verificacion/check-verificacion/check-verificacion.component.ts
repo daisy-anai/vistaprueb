@@ -49,17 +49,10 @@ export class CheckVerificacionComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    var hola =this.saludo.toUpperCase();
+    console.log(hola);
+    
   
-    var modalCorrect = document.getElementById('download');
-		this.ModalInstanceDownload = M.Modal.init(modalCorrect, {
-      dismissible:false
-    });
-
-    var modalIncomplete = document.getElementById('downloadIncomplete');
-    this.ModalInstanceIncomplete = M.Modal.init(modalIncomplete,{
-      dismissible: false
-    });
-
     var modalPreview = document.getElementById('modalPreview');
     this.ModalInstancePreview= M.Modal.init(modalPreview,{
       dismissible:false
@@ -92,8 +85,25 @@ export class CheckVerificacionComponent implements OnInit {
     propiedad.checked = !propiedad.checked;  
   } 
 
+  incompletePDF(){
+    this.color= this.colorVehiculo;
+    var modalIncomplete = document.getElementById('downloadIncomplete');
+    this.ModalInstanceIncomplete = M.Modal.init(modalIncomplete,{
+      dismissible: false
+    });
+    this.ModalInstanceIncomplete.open();
+  }
+  completePDF(){
+    this.color= this.colorVehiculo;
+    var modalCorrect = document.getElementById('download');
+		this.ModalInstanceDownload = M.Modal.init(modalCorrect, {
+      dismissible:false
+    });
+    this.ModalInstanceDownload.open();
+  }
   createHistory(){
     var cont = 0;
+    this.color= this.colorVehiculo;
     var checkTamanio =document.getElementsByName('check').length
     for (const secciones of this.catalogues.configuration.sections) {
       for (const propiedades of secciones.properties) {
@@ -113,19 +123,24 @@ export class CheckVerificacionComponent implements OnInit {
     this.service.createHistory(id_concesion,id_vehiculo,id_catalogue,this.catalogues.configuration,this.is_correct,this.descriptionHistory).subscribe(({data})=>{ 
       this.history = data['history'];
       if(this.is_correct == true){
-        this.ModalInstanceDownload.open();
+        this.completePDF();
       }else{
-        this.ModalInstanceIncomplete.open();
+        this.incompletePDF();
       }
     });
+  
+  }
+  cancelarPreview(){
+    
   }
 
-
-  dowloadPDF(){
+  downloadPDF(){
     this.ModalInstanceDownload.close(); 
+    this.router.navigate(['/aplicacion/concesion']);
   }
-  dowloandIncompletePDF(){
+  downloandIncompletePDF(){
     this.ModalInstanceIncomplete.close(); 
+    this.router.navigate(['/aplicacion/concesion']);
   }
   preview(){
     this.ModalInstancePreview.open();

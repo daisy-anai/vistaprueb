@@ -3,7 +3,7 @@
     <semovi-card-header>
       <div class="valign-wrapper">
         <semovi-card-header-icon  icon="arrow_back"></semovi-card-header-icon>
-        <semovi-card-header-title> Verificación vehículo</semovi-card-header-title>
+        <semovi-card-header-title> Verificación vehículo para cromática</semovi-card-header-title>
         </div>
     </semovi-card-header>
     <semovi-card-body>
@@ -136,11 +136,11 @@
                   </div>
                 </div>
               </div>
-              <span>Los campos no marcados son Incorrectos</span>
+              <span class="color-text">Los campos no marcados son Incorrectos</span>
 
             </div>
             <div class="modal-footer">
-                <a class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+                <a class="modal-close waves-effect waves-green btn-flat" (click)="cancelarPreview()">Cancelar</a>
                 <button (click)="createHistory()" class="modal-close waves-effect waves-green btn-small"
                 [disabled]="!(descriptionHistory.length >=10 && colorVehiculo.length >=3)">Aceptar</button  >
               </div>
@@ -155,14 +155,15 @@
         <div class="row">
           <h6>Descarga el PDF de la revista Cromática</h6>
           <br>
+          <reporte-cromatica [color]="color"></reporte-cromatica>
+
           <div>
-            <reporte-cromatica-incompleta [color]="saludo" ></reporte-cromatica-incompleta>
           </div>
         </div>    
       </div>
       <div class="modal-footer">
         <a class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
-        <button (click)="dowloandPDF()" class="modal-close waves-effect waves-green btn-small"
+        <button (click)="downloandPDF()" class="modal-close waves-effect waves-green btn-small"
         >Aceptar</button  >
       </div>
     </div>  
@@ -174,13 +175,14 @@
           <h6>Descarga el PDF de la revista Cromática</h6>
           <br>
           <div>
-              <reporte-cromatica ></reporte-cromatica>
+              <reporte-cromatica-incompleta [color]="color" ></reporte-cromatica-incompleta>
+
             </div>
         </div>    
       </div>
       <div class="modal-footer">
         <a class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
-        <button (click)="dowloandIncompletePDF()" class="modal-close waves-effect waves-green btn-small"
+        <button (click)="downloandIncompletePDF()" class="modal-close waves-effect waves-green btn-small"
         >Aceptar</button  >
       </div>
     </div>  

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,Input} from '@angular/core';
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import { IMAGEOAXACAWEB } from "../../../assets/imgoaxacagobmx";
@@ -16,8 +16,11 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
   styleUrls: ['./reporte-final-cromatica.component.css']
 })
 export class ReporteFinalCromaticaComponent implements OnInit {
+  @Input() color: string;
+
   public concesion : any;
   public vehiculo: any;
+  public placas : any;
 
   constructor(private shared?: MediumDataService)
    {}
@@ -25,7 +28,12 @@ export class ReporteFinalCromaticaComponent implements OnInit {
   ngOnInit() {
       this.concesion = this.shared.getConcesion();
       this.vehiculo = this.shared.getVehiculo();
-
+      this.concesion = this.shared.getConcesion();
+      this.vehiculo = this.shared.getVehiculo();
+      for (const placa of this.vehiculo.placa) {
+        this.placas = placa.matricula;  
+          
+        }
   }
    
   generarpdf(){
@@ -92,15 +100,17 @@ export class ReporteFinalCromaticaComponent implements OnInit {
             },
             { columns:
               [
-                {text:'realizado al C. '+this.concesion.concesionario.nombre+' '+this.concesion.concesionario.primerApellido+' '+this.concesion.concesionario.segundoApellido + '    para que presente la unidad de motor con las siguientes características:\n\n', fontSize: 10},
               
+                // {text:'realizado al C.  para que presente la unidad de motor con las siguientes características:\n\n', fontSize: 10}, 
+                {  alignment: 'justify',text: ['realizado al C. ',{text:this.concesion.concesionario.nombre +' '+this.concesion.concesionario.primerApellido+' '+this.concesion.concesionario.segundoApellido ,bold:true}, ' para que presente la unidad de motor con las siguientes características:\n\n', ], fontSize: 10 }
+
               ]
             },
          
             { columns:
               [
                 {text:'NUC: ' +this.concesion.nuc,fontSize: 9,bold:true },
-                {text:'PLACAS: \n\n',fontSize: 9,bold:true },
+                {text:'PLACAS: '+ this.placas+'\n\n',fontSize: 9,bold:true },
               ]
             },
             { columns:
@@ -116,8 +126,8 @@ export class ReporteFinalCromaticaComponent implements OnInit {
             },
             { columns:
               [
-                {text:'MODELO',fontSize: 9,bold:true },
-                {text:'COLOR: \n\n',fontSize: 9,bold:true },
+                {text:'MODELO:',fontSize: 9,bold:true },
+                {text:'COLOR: '+this.color +'\n\n',fontSize: 9, bold:true ,toUpperCase: true},
               ]
             },
             { columns:

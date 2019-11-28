@@ -85,4 +85,7 @@ export class DetalleCatalogoComponent implements OnInit {
     this.secciones= true;
     this.regresar= false; 
   }
+  cancelar(){
+    this.descripcionDeprecated='';
+  }
 }

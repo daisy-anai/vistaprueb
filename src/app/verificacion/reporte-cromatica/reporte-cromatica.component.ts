@@ -24,12 +24,12 @@ export class ReporteCromaticaComponent implements OnInit {
   constructor(private shared?: MediumDataService) 
   {}
   ngOnInit() {
-    console.log(this.color);
-    
+
     this.concesion = this.shared.getConcesion();
     this.vehiculo = this.shared.getVehiculo();
-    for (const placas of this.vehiculo.placa) {
-      this.placas = placas.matricula;   
+    for (const placa of this.vehiculo.placa) {
+      this.placas = placa.matricula;  
+      // this.placas.toUpperCase()
       }
   }
   
@@ -107,7 +107,7 @@ export class ReporteCromaticaComponent implements OnInit {
               columns:
               [
                 {  width: 250, text: 'MODELO: ', fontSize: 9,bold: true , margin: [0, 10, 0, 0]},
-                {  width: 250, text: 'COLOR:  ', fontSize: 9,bold: true , margin: [0, 10, 0, 0]},
+                {  width: 250, text: 'COLOR:  '+this.color, fontSize: 9,bold: true ,toUpperCase: true, margin: [0, 10, 0, 0]},
               ]
             },
             {
@@ -188,6 +188,6 @@ export class ReporteCromaticaComponent implements OnInit {
         }; 
         
           //Descargar el PDF
-     pdfMake.createPdf(dd).download('reposrte-cromatica-incompleto.pdf');
+     pdfMake.createPdf(dd).download('reporte-cromatica-incompleto.pdf');
   }
 }

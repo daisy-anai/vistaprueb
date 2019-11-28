@@ -85,7 +85,7 @@
         <div class="modal-content">
           <div class="row">
             <div class="input-field col s12">
-              <input id="description" name="description" type="text" class="validate" [(ngModel)]="descripcionDeprecated" data-length="10"> 
+              <input  id="description" name="description" type="text" class="validate" [(ngModel)]="descripcionDeprecated" data-length="10"> 
               <label for="description">Descripción</label>
             </div>
           </div>    
@@ -93,7 +93,7 @@
       
         <div *ngIf="catalogo">
           <div class="modal-footer" *ngIf="!catalogo.deprecated">
-            <a class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+            <a class="modal-close waves-effect waves-green btn-flat" (click)="cancelar()">Cancelar</a>
             <button (click)="catalogueDeprecate(catalogo.id )" class="modal-close waves-effect waves-green btn-small"
              [disabled] ="!(descripcionDeprecated.length >= 10)">Aceptar</button  >
           </div>

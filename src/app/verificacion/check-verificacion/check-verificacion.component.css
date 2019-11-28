@@ -39,6 +39,9 @@
 .text-justify{
   text-align: justify;
 }
+.color-text{
+color: red;
+}
 
 @media only screen and (max-width: 600px) {
  
