@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
     let activeElement = <HTMLElement>document.activeElement;
     activeElement && activeElement.blur && activeElement.blur();
     this.authService.login(email, password).subscribe(result => {
-      this.correctlogincheck(result.data);  
+      this.correctlogincheck(result.data);
       this.loading= false;
     }, (error) => {
       var divisiones = error.message.split(":", 2);
@@ -69,9 +69,9 @@ export class LoginComponent implements OnInit {
  }
 
   /* Parseo del objeto que me regresa el mandar los parametros del login*/
-  correctlogincheck(objlogin: any){    
-    let newseccion: Session = new Session(); 
-    
+  correctlogincheck(objlogin: any){
+    let newseccion: Session = new Session();
+
     newseccion.token = objlogin.login.token;
     let dialogeo = new Date();
     let finsession = new Date();
@@ -82,7 +82,7 @@ export class LoginComponent implements OnInit {
     rol.id = objlogin.login.role.id;
     rol.nombre = objlogin.login.role.nombre;
 
-    let user: User = new User(); 
+    let user: User = new User();
     user.id = objlogin.login.user.id
     user.nombre = objlogin.login.user.nombre;
     user.primer_apellido = objlogin.login.user.primer_apellido;
@@ -95,14 +95,11 @@ export class LoginComponent implements OnInit {
     newseccion.user = user;
 
     this.storageService.setCurrentSession(newseccion);
-    console.log(this.storageService.getCurrentToken());
     this.redirect(user);
   }
 
   redirect(user: User){
-    //  this.navigate(['/aplicacion']);
-       window.location.href='/aplicacion' ;
-
+    this.router.navigate(['/aplicacion']);
   }
 
 }

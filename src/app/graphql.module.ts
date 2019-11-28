@@ -28,21 +28,5 @@ export class GraphQLModule {
       }),
       cache: new InMemoryCache()
     });
-
-    apollo.createNamed('backrevista', {
-      link: httpLink.create({
-        uri: environment.URIBackRevista,
-        headers: new HttpHeaders({
-          authorization: `Bearer ${service.getCurrentToken()}`
-        })
-      }),
-      cache: new InMemoryCache(),
-      defaultOptions: {
-        watchQuery: {
-          fetchPolicy: 'no-cache',
-          errorPolicy: 'ignore'
-        }
-      }
-    });
   }
 }
