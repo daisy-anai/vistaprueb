@@ -20,6 +20,8 @@ export class SeleccionCatalogoComponent implements OnInit {
   public filtro: string;
   public concesion: any;
   public vehiculo: any;
+  public cataloguesList: boolean =true;
+  public cromatica: boolean= false;
   
   constructor(
     private route?: ActivatedRoute,
@@ -49,6 +51,15 @@ export class SeleccionCatalogoComponent implements OnInit {
         this.catalogues = data['cataloguesLike'];
       });
     }
+  }
+  cromaticaCatalogues(){
+    console.log("cromatica");
+    this.cataloguesList= false;
+    this.cromatica= true;
+  }
+  fisicoMecanicaCatalogues(){
+    console.log("fisico-Mecanica");
+    
   }
 
 }

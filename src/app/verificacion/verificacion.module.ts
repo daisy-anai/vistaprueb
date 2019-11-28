@@ -10,13 +10,13 @@ import { ComponentsModule } from '../shared/components/components.module';
 
 
 //components
-import { CheckVerificacionComponent} from './check-verificacion/check-verificacion.component';
+import { CheckVerificacionCromaticaComponent} from './check-verificacion-cromatica/check-verificacion-cromatica.component';
 import { SeleccionCatalogoComponent } from'./seleccion-catalogo/seleccion-catalogo.component';
-import { ReporteFinalCromaticaComponent} from './reporte-final-cromatica/reporte-final-cromatica.component';
-import { ReporteCromaticaComponent } from './reporte-cromatica/reporte-cromatica.component';
+import { ReporteFinalCromaticaComponent} from './check-verificacion-cromatica/reporte-final-cromatica/reporte-final-cromatica.component';
+import { ReporteCromaticaComponent } from './check-verificacion-cromatica/reporte-cromatica/reporte-cromatica.component';
 @NgModule({
   declarations: [
-    CheckVerificacionComponent,
+    CheckVerificacionCromaticaComponent,
     SeleccionCatalogoComponent,
     ReporteFinalCromaticaComponent,
     ReporteCromaticaComponent

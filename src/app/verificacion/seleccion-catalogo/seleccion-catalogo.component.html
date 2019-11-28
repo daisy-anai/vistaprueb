@@ -7,23 +7,39 @@
       </div>
     </semovi-card-header>
     <semovi-card-body>
-      <!-- <semovi-input-search >
-        <input name="filtro" id="filtro" class="browser-default placeholder-fix"
-          placeholder="Buscar" type="search" autofocus
-          autocomplete="off" [(ngModel)]="filtro"(ngModelChange)="searchCatalogue()"  >
-      </semovi-input-search>
-         -->
-      <semovi-list *ngIf="catalogues" class="center ">
-        <semovi-item *ngFor="let catalogo of catalogues ">
-          <semovi-label > {{catalogo.name}} {{catalogo.deprecated}}</semovi-label>
-          <semovi-label>
-            <a class="btn-floating btn-small right"
-            [routerLink]="['/aplicacion/verificacion/check', catalogo.id]">
-            <i class="material-icons">chrome_reader_mode</i></a>
-          </semovi-label>                
-        </semovi-item>
-      </semovi-list>
- 
+    
+      <div *ngIf="cataloguesList">
+        <div class="row">
+          <div class="col s12 cuadro">
+            <div class="z-depth-2  item center">
+              <a class="waves-effect black-text" (click)="cromaticaCatalogues()"> Cromática</a> 
+            </div>                 
+            <div class="z-depth-2  item  center ">
+              <a class="waves-effect black-text" (click)="fisicoMecanicaCatalogues()">Fisico Mecánica</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="cromatica">
+          <semovi-input-search >
+          <input name="filtro" id="filtro" class="browser-default placeholder-fix"
+            placeholder="Buscar" type="search" autofocus
+            autocomplete="off" [(ngModel)]="filtro"(ngModelChange)="searchCatalogue()"  >
+        </semovi-input-search>
+        
+        <semovi-list *ngIf="catalogues" class="center ">
+          <semovi-item *ngFor="let catalogo of catalogues ">
+            <semovi-label > {{catalogo.name}} {{catalogo.deprecated}}</semovi-label>
+            <semovi-label>
+              <a class="btn-floating btn-small right"
+              [routerLink]="['/aplicacion/verificacion/cromatica', catalogo.id]">
+              <i class="material-icons">chrome_reader_mode</i></a>
+            </semovi-label>                
+          </semovi-item>
+        </semovi-list>
+      </div>
+     
+    
     </semovi-card-body>
   </semovi-card>
 </ng-container>

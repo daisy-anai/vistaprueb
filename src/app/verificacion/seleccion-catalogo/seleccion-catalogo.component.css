@@ -1,7 +1,20 @@
 .item{
-    padding: 30px;
-    border-radius:  10px; 
-    /* background-color: #e3f8f0; */
-    background-color: #f7f7f7;
+  padding: 30px;
+  border-radius:  10px; 
+  /* background-color: #e3f8f0; */
+  background-color: #f7f7f7;
 
-  } 
+} 
+.item:hover {
+  transform: scale(1.05);
+}
+.cuadro{
+  display: grid;
+  grid-template-columns: 1fr 1fr ;
+  grid-gap: 20px 2em; 
+  /* cursor: pointer; */
+}
+.cuadro :first-child {
+  align-self: center;
+}
+  

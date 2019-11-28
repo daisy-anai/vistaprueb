@@ -9,16 +9,17 @@ import { Concesion} from '../../shared/models/concesion';
 import { Vehiculo} from '../../shared/models/vehiculo';
 import {VerificarcionService} from '../verificacion.service';
 import { VehiculoService } from '../../vehiculo/vehiculo.service';
+import { resetCaches } from 'graphql-tag';
 
 
 declare var M: any;
 @Component({
-  selector: 'app-check-verificacion',
-  templateUrl: './check-verificacion.component.html',
-  styleUrls: ['./check-verificacion.component.css']
+  selector: 'app-check-verificacion-cromatica',
+  templateUrl: './check-verificacion-cromatica.component.html',
+  styleUrls: ['./check-verificacion-cromatica.component.css']
 })
 
-export class CheckVerificacionComponent implements OnInit {
+export class CheckVerificacionCromaticaComponent implements OnInit {
   public catalogueID :string;
   private catalogues: any;
   public type: string = 'texto'; 
@@ -35,6 +36,7 @@ export class CheckVerificacionComponent implements OnInit {
   public saludo : string="hola";
   public is_correct : boolean= false;
   public download : boolean = false;
+  public reportComplete : boolean =false;
   public color: string ='';
 
   constructor(
@@ -49,10 +51,7 @@ export class CheckVerificacionComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    var hola =this.saludo.toUpperCase();
-    console.log(hola);
-    
-  
+
     var modalPreview = document.getElementById('modalPreview');
     this.ModalInstancePreview= M.Modal.init(modalPreview,{
       dismissible:false
@@ -102,41 +101,45 @@ export class CheckVerificacionComponent implements OnInit {
     this.ModalInstanceDownload.open();
   }
   createHistory(){
-    var cont = 0;
-    this.color= this.colorVehiculo;
-    var checkTamanio =document.getElementsByName('check').length
-    for (const secciones of this.catalogues.configuration.sections) {
-      for (const propiedades of secciones.properties) {
-        if(propiedades.checked==true){
-          cont ++
-          if(checkTamanio== cont){
-            this.is_correct= true;
-          }else{
-            this.is_correct= false;
-          }    
-        }
-      }
-    }
-    var id_concesion = this.concesion.id;
-    var id_vehiculo = this.vehiculo.id;
-    var id_catalogue = this.catalogues.id
-    this.service.createHistory(id_concesion,id_vehiculo,id_catalogue,this.catalogues.configuration,this.is_correct,this.descriptionHistory).subscribe(({data})=>{ 
-      this.history = data['history'];
-      if(this.is_correct == true){
-        this.completePDF();
-      }else{
-        this.incompletePDF();
-      }
-    });
-  
+    
+    // var cont = 0;
+    // this.color= this.colorVehiculo;
+    // var checkTamanio =document.getElementsByName('check').length
+    // for (const secciones of this.catalogues.configuration.sections) {
+    //   for (const propiedades of secciones.properties) {
+    //     if(propiedades.checked==true){
+    //       cont ++
+    //       if(checkTamanio== cont){
+    //         this.is_correct= true;
+    //       }else{
+    //         this.is_correct= false;
+    //       }    
+    //     }
+    //   }
+    // }
+    // var id_concesion = this.concesion.id;
+    // var id_vehiculo = this.vehiculo.id;
+    // var id_catalogue = this.catalogues.id
+    // this.service.createHistory(id_concesion,id_vehiculo,id_catalogue,this.catalogues.configuration,this.is_correct,this.descriptionHistory).subscribe(({data})=>{ 
+    //   this.history = data['history'];
+    //   if(this.is_correct == true){
+    //     this.completePDF();
+    //   }else{
+    
+    //     this.incompletePDF();
+    //   }
+    // });
+   
   }
   cancelarPreview(){
-    
+   this.descriptionHistory ='';
+   this.colorVehiculo='';
   }
 
-  downloadPDF(){
+  downloandPDF(){
     this.ModalInstanceDownload.close(); 
-    this.router.navigate(['/aplicacion/concesion']);
+    // this.router.navigate(['/aplicacion/concesion']);
+    this.ModalInstancePreview.open();
   }
   downloandIncompletePDF(){
     this.ModalInstanceIncomplete.close(); 

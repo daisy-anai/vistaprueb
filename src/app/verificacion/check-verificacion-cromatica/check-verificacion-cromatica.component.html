@@ -68,8 +68,9 @@
                     </div>
                   </div>
                 </div>
+                <span class="color-text">Los campos no marcados son Incorrectos</span>
                 <!-- <button class="btn-small right" (click)="openModalDescription()" >Siguiente </button> -->
-                <button  class="btn-small right"   (click)="preview()">Previsualizar</button>
+                <button  class="btn-small right"   (click)="preview()">Aceptar</button>
               </div>
             </div>
           </div>  
@@ -123,12 +124,12 @@
                       </div>
                     </div>
                   </div>
-                </div> 
+                </div>  
        
                 <div class="row ">
                   <div class="input-field col m8">
-                    <textarea autocomplete="off"  id="description" name="description" class="validate" [(ngModel)]="descriptionHistory" class="materialize-textarea"></textarea>
-                    <label for="description">Descripción de la revision</label>
+                    <textarea  autocomplete="off"  id="description" name="description" class="validate" [(ngModel)]="descriptionHistory" class="materialize-textarea"></textarea>
+                    <label for="description">Descripción de la revision </label>
                   </div>
                   <div class=" input-field col m4 ">
                     <input type="text" autocomplete="off" id="color" name="color" [(ngModel)]="colorVehiculo" >
@@ -136,18 +137,17 @@
                   </div>
                 </div>
               </div>
-              <span class="color-text">Los campos no marcados son Incorrectos</span>
 
             </div>
             <div class="modal-footer">
-                <a class="modal-close waves-effect waves-green btn-flat" (click)="cancelarPreview()">Cancelar</a>
+                <a class="modal-close waves-effect waves-green btn-flat" (click)="cancelarPreview(); this.reset">Cancelar</a>
                 <button (click)="createHistory()" class="modal-close waves-effect waves-green btn-small"
-                [disabled]="!(descriptionHistory.length >=10 && colorVehiculo.length >=3)">Aceptar</button  >
+                [disabled]="!(descriptionHistory.length >=10 && colorVehiculo.length >=3)">Previsualizar</button  >
               </div>
         </div>
          
         </div>  
-
+    
  
    <!--modal dowload PDF complete-->
    <div id="download" class="modal">
@@ -162,7 +162,7 @@
         </div>    
       </div>
       <div class="modal-footer">
-        <a class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+        <a class="modal-close waves-effect waves-green btn-flat" (click)="downloandPDF() ">Cancelar</a>
         <button (click)="downloandPDF()" class="modal-close waves-effect waves-green btn-small"
         >Aceptar</button  >
       </div>

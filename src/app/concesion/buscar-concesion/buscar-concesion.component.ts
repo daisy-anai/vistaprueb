@@ -48,6 +48,8 @@ export class BuscarConcesionComponent {
       this.loading = true;
       this.service.getConcesiones(this.filtro.trim(), this.tipo, 1).subscribe(result => {
         this.concesiones = result.data['concesiones']; 
+        console.log(this.concesiones);
+        
         this.loading = false;
       },(error)=>{
         var toastHTML = '<span><i class="material-icons">error_outline</i>Concesion no encontrada</span>';
@@ -59,7 +61,7 @@ export class BuscarConcesionComponent {
   permitido(concesion: any): Boolean {
     let status: Boolean = true;
 
-    if(concesion.condiciones.bloqueado){
+    if(concesion.condiciones.bloqueado){    
       this.errores.push("Concesión bloqueada");
       status = false;
       console.log("bloqueado",status);
