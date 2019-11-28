@@ -24,7 +24,7 @@ export class CrearCatalogoComponent implements OnInit {
 
 	public cataloguesTypes: Array<CatalogueType>;
 	public propertyTypes: Array<PropertyType>;
-  public modalidad: Modalidad; 
+  public modalidad: Modalidad;
   public municipios: any;
   public municipioID: any;
   public localidadesID: any;
@@ -40,7 +40,7 @@ export class CrearCatalogoComponent implements OnInit {
   public type: string  = 'texto';
 	public hue: string
   public color: string
-  
+
   public ModalInstance: any;
   public autocompleteInstance: any;
   public ModalInstanceAdd: any;
@@ -53,19 +53,19 @@ export class CrearCatalogoComponent implements OnInit {
     private router?: Router
 	){}
 
-	ngOnInit() {   
+	ngOnInit() {
 
     let id_modalidad= this.route.snapshot.paramMap.get("id");
 
     this.service.getMunicipios().subscribe(({ data })=>{
-      this.municipios = data['municipios']; 
+      this.municipios = data['municipios'];
       this.assignMunicipio(this.municipios);
     });
 		this.service.getModalidad(id_modalidad).subscribe(({ data }) =>{
       this.modalidad = data['modalidad'];
-     
+
     });
-    
+
 
     $(document).ready(function() {
       $('input#catalogue_name').characterCounter();
@@ -75,10 +75,10 @@ export class CrearCatalogoComponent implements OnInit {
       this.propertyTypes = data['propertyTypes'];
     });
     this.service.getCatalogoType().subscribe(({ data})=>{
-      this.cataloguesTypes = data['catalogueTypes'];      
+      this.cataloguesTypes = data['catalogueTypes'];
     })
 
-       
+
     this.catalogueForm = this.formBuilder.group({
       municipio:['', Validators.required],
       id_localidad:['',Validators.required],
@@ -87,8 +87,8 @@ export class CrearCatalogoComponent implements OnInit {
       name: ['', Validators.required],
       configuration: new FormArray ([], Validators.required)
     });
-  
-	
+
+
 		var modal = document.getElementById('previewModal');
     this.ModalInstance = M.Modal.init(modal, {});
 
@@ -100,7 +100,7 @@ export class CrearCatalogoComponent implements OnInit {
     this.ModalInstanceProperty = M.Modal.init(modalProperty,{
       dismissible: false
     });
-  } 
+  }
     //catalogue type
   newCatalogueType(){
     this.service.createCatalogueType(this.namecatalogueType, this.description).subscribe(({ data })=>{
@@ -114,7 +114,7 @@ export class CrearCatalogoComponent implements OnInit {
   listCatalogueType(){
     this.cataloguesTypes=[];
     this.service.getCatalogoType().subscribe(({data})=>{
-      this.cataloguesTypes = data['catalogueTypes'];   
+      this.cataloguesTypes = data['catalogueTypes'];
     });
   }
   openModalType(){
@@ -126,7 +126,7 @@ export class CrearCatalogoComponent implements OnInit {
   }
   setCataloguesTypesName(nameProperty: any){
   [this.nameproperty] = this.cataloguesTypes.filter(e =>e.id ===nameProperty);
-  
+
   }
   //catalogue property
   newProperty(){
@@ -149,7 +149,7 @@ export class CrearCatalogoComponent implements OnInit {
     this.newPropertyName='';
   }
   //  search municipios and  localidades
-  assignMunicipio(municipios: any){ 
+  assignMunicipio(municipios: any){
     this.municipios = municipios;
     var datosMunicipios= new Object();
     datosMunicipios={}
@@ -164,13 +164,13 @@ export class CrearCatalogoComponent implements OnInit {
     }
   }
 
-  searchLocalidadesByMunicipio() {    
-    let nombreMunicipio= (<HTMLInputElement> document.getElementById('autocompleteMunicipio')).value;  
+  searchLocalidadesByMunicipio() {
+    let nombreMunicipio= (<HTMLInputElement> document.getElementById('autocompleteMunicipio')).value;
     for (let i = 0; i < this.municipios.length; i++) {
       if(this.municipios[i].nombre== nombreMunicipio){
         this.municipioID= this.municipios[i];
         this.service.getLocalidades(this.municipioID.id).subscribe(({ data })=>{
-          this.localidades = data['localidades'];     
+          this.localidades = data['localidades'];
           this.assignLocalidades(this.localidades);
         });
       }
@@ -181,36 +181,36 @@ export class CrearCatalogoComponent implements OnInit {
     var datosLocalidades= new Object();
     datosLocalidades={}
     for (let i = 0; i < this.localidades.length; i++) {
-      datosLocalidades[this.localidades[i].nombre]= null; 
+      datosLocalidades[this.localidades[i].nombre]= null;
     }
     $('#autocompleteLocalidad').autocomplete({
       data: datosLocalidades,
       getData: function (value, callback) {
-      }        
-    }); 
+      }
+    });
   }
 
 	get configuration(): FormArray {
-		return this.catalogueForm.get('configuration') as FormArray;	
+		return this.catalogueForm.get('configuration') as FormArray;
 	}
 
-	properties(sectionObject: any): FormArray {    
+	properties(sectionObject: any): FormArray {
 		return sectionObject.get('properties') as FormArray;
 	}
 
 	onChangePropertyType(sectionIndex: number, propertyIndex: number){
-  
+
     let name = `S[${sectionIndex}]-P[${propertyIndex}]-propertyType`;
-    let element = (<HTMLInputElement>document.getElementById(name));  
+    let element = (<HTMLInputElement>document.getElementById(name));
     return element.value;
-   
+
 	}
 
 	addSection(){
 		let configuration = this.configuration.push(this.formBuilder.group({
 			name:['', Validators.required],
 			properties: new FormArray([], Validators.required)
-    }));	
+    }));
 	}
 
 	removeSeccion(index: number){
@@ -231,37 +231,37 @@ export class CrearCatalogoComponent implements OnInit {
 	}
 
 	removeProperty(section : any, index : number){
-    let properties = this.properties(section);      
+    let properties = this.properties(section);
     setTimeout(function(){
-      properties.controls.splice(index, 1);      
+      properties.controls.splice(index, 1);
     }, 0);
 
-    // console.log(this.configuration.controls);    
+    // console.log(this.configuration.controls);
     // if(index >- 1){
-    //   properties.splice(index,1);  
-    // } 
+    //   properties.splice(index,1);
+    // }
     // console.log(properties);
-    
-    
+
+
     // console.log("propiedad", properties, "index", index)
     // for (let i = properties.length;  i >= index ; i--) {
     //  properties.splice(i,1);
     // }
-	} 
+	}
 
-  onPreview() { 
+  onPreview() {
 		this.ModalInstance.open();
   }
 
 
 	onSubmit() {
-    let nombreMunicipio= (<HTMLInputElement> document.getElementById('autocompleteMunicipio')).value;  
+    let nombreMunicipio= (<HTMLInputElement> document.getElementById('autocompleteMunicipio')).value;
     for (let i = 0; i < this.municipios.length; i++) {
       if(this.municipios[i].nombre== nombreMunicipio){
         this.municipioID= this.municipios[i];
         this.service.getLocalidades(this.municipioID.id).subscribe(({ data })=>{
-          this.localidades = data['localidades'];        
-          let nombreLocalidad= (<HTMLInputElement> document.getElementById('autocompleteLocalidad')).value;  
+          this.localidades = data['localidades'];
+          let nombreLocalidad= (<HTMLInputElement> document.getElementById('autocompleteLocalidad')).value;
           for (let i = 0; i < this.localidades.length; i++) {
             if(this.localidades[i].nombre == nombreLocalidad){
               this.localidadesID = this.localidades[i];
@@ -272,18 +272,15 @@ export class CrearCatalogoComponent implements OnInit {
                 this.catalogueForm.value.name,
                 this.catalogueForm.value.configuration
               ).subscribe(({data}) => {
+                this.ModalInstance.close();
                 this.router.navigate(['/aplicacion/catalogo/modalidad', this.modalidad.id]);
-                // window.location.reload(false); 
-                console.log("dss");
-                
               }, (error) => {
                 console.log("Error", error)
               });
             }
-
           }
         });
       }
-    }   
+    }
 	}
 }

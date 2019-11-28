@@ -9,13 +9,13 @@
     </semovi-card-header>
 
     <semovi-body>
- 
+
       <div class="row">
         <div class="col s10 offset-s1">
           <form [formGroup]="catalogueForm" (ngSubmit)="onPreview()" id="myform" >
             <div class="row valign-wrapper">
               <div class="col s12">
-                <div class=" left-align">           
+                <div class=" left-align">
                   <div *ngIf="modalidad">
                     <h5>Plantilla para: {{ modalidad.nombre }}</h5>
                   </div>
@@ -35,13 +35,13 @@
             <div class="row">
               <div class="col s12">
                 <div class="input-field ">
-                  <input  class="autocomplete" id="autocompleteLocalidad"  
+                  <input  class="autocomplete" id="autocompleteLocalidad"
                     type="text"  formControlName="id_localidad" autocomplete="off">
                   <label for="autocompleteLocalidad" style="color:teal">Localidad</label>
-                </div>    
+                </div>
               </div>
             </div>
-              
+
             <div class="row">
                 <div class="input-field col s12">
                     <input id="catalogue_name" type="text" class="validate"
@@ -60,9 +60,9 @@
                   </select>
                 </div>
               </div>
-            </div> 
-            <hr>  
-            
+            </div>
+            <hr>
+
             <div class="row valign-wrapper " >
               <div class="col s12">
                 <div class="col m6 center">
@@ -75,7 +75,7 @@
                 </div>
               </div>
             </div>
-            
+
             <!-- Configuration -->
             <div class="row" >
               <div class="col s12">
@@ -120,7 +120,7 @@
                             <div class="col s12 right-align">
                               <a  class="waves-effect waves-light red-text" (click)="removeProperty(section, j)" >Cancelar</a>
                             </div>
-                            
+
                             <div class="col s12">
                               <div class="input-field ">
                                 <input id="S[{{i}}]-P[{{j}}]-name" type="text" class="validate"
@@ -135,7 +135,7 @@
                                     <option value="" disabled selected>Elige una opción</option>
                                     <option *ngFor="let property of propertyTypes" value="{{property.name}}"> {{ property.name }} </option>
                                   </select>
-                                </div>     
+                                </div>
                             </div>
                           </div>
 
@@ -153,7 +153,7 @@
                                       <input type="text" [value]="color" formControlName="value">
                                       <div class="color-div" [ngStyle]="{'background-color': color || 'white'}"></div>
                                     </div>  -->
-                                  </div> 
+                                  </div>
 
                                   <div *ngSwitchCase="'texto'">
                                     <div class="input-field ">
@@ -206,21 +206,21 @@
           <span *ngIf="modalidad"> Tipo de modalidad: {{ modalidad.nombre }} </span>
           <div class="row">
             {{localidadName}}
-            <div class="col s12" *ngIf="localidad">  
+            <div class="col s12" *ngIf="localidad">
              <b>Localdad: </b><span>{{ localidad.nombre}}</span>
             </div>
             <div class="col s12">
               <b>Nombre catálogo: </b><span>{{ catalogueForm.value.name}}</span>
             </div>
             <div class="col s12" *ngIf="nameproperty">
-              <b>Tipo de catálogo: </b><span>{{nameproperty.name}}</span>   
+              <b>Tipo de catálogo: </b><span>{{nameproperty.name}}</span>
             </div>
             <div class="" >
-              <div class="col s12" *ngFor="let seccion of configuration.controls"> 
+              <div class="col s12" *ngFor="let seccion of configuration.controls">
                 <b>Sección: </b><span> {{ seccion.value.name }} </span>
                 <div class= "col s12">
                   <div *ngFor="let property of seccion.value.properties">
-                     <b> Propiedad:  </b><span>{{ property.name }}</span>  
+                     <b> Propiedad:  </b><span>{{ property.name }}</span>
                      <div class="row">
                         <div class="col s12">
                           <div class="col s6">
@@ -239,7 +239,7 @@
                 </div>
               </div>
             </div>
-          </div>  
+          </div>
         <div class="modal-footer">
           <a class="modal-close waves-effect btn-flat orange-text left"> cerrar </a>
           <button class="waves-effect btn-flat right" (click)="onSubmit()" [disabled]="!catalogueForm.valid"> Guardar </button>
@@ -247,7 +247,7 @@
       </div>
     </div>
     <!-- MODAL -->
-  
+
     <!-- Modal catalogue type-->
   <div id="addCatalogueType" class="modal">
       <div class="modal-content">
@@ -262,30 +262,30 @@
                 <label for="description">Descripción</label>
               </div>
           </div>
-        </div>    
+        </div>
       </div>
       <div class="modal-footer">
         <a class="modal-close waves-effect waves-green btn-flat" (click)="cancelarModaltype()">Cancelar</a>
         <button (click)="newCatalogueType()" class="modal-close waves-effect waves-green btn-small" [disabled]="!(description.length >=10 && namecatalogueType.length >= 5)" >Aceptar</button  >
-      </div> 
-    </div> 
+      </div>
+    </div>
 
     <!--modal property-->
   <div id="addCatalogueProperty" class="modal">
-      <div class="modal-content">
-        <div class="row">
-          <div class="col s10 offset-s1">
-            <div class="input-field ">
-              <input id="property" name="property" type="text" autocomplete="off" class="validate" [(ngModel)]="newPropertyName" >
-              <label for="property">Nombre Propiedad</label>
-            </div>  
+    <div class="modal-content">
+      <div class="row">
+        <div class="col s10 offset-s1">
+          <div class="input-field ">
+            <input id="property" name="property" type="text" autocomplete="off" class="validate" [(ngModel)]="newPropertyName" >
+            <label for="property">Nombre Propiedad</label>
           </div>
-        </div>    
+        </div>
       </div>
-      <div class="modal-footer">
-        <a class="modal-close waves-effect waves-green btn-flat" (click)="cancelarModalProperty()">Cancelar</a>
-        <button (click)="createPropetyType()" class="modal-close waves-effect waves-green btn-small" [disabled]="!(newPropertyName.length >=5 )" >Aceptar</button  >
-      </div> 
-    </div> 
+    </div>
+    <div class="modal-footer">
+      <a class="modal-close waves-effect waves-green btn-flat" (click)="cancelarModalProperty()">Cancelar</a>
+      <button (click)="createPropetyType()" class="modal-close waves-effect waves-green btn-small" [disabled]="!(newPropertyName.length >=5 )" >Aceptar</button  >
+    </div>
+  </div>
   </semovi-card>
 </ng-container>

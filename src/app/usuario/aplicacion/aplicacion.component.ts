@@ -1,5 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpHeaders } from '@angular/common/http';
+import { Apollo } from 'apollo-angular';
+import { HttpLink } from 'apollo-angular-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { environment } from '../../../environments/environment';
+
 
 // Services
 import { StorageService } from "../../shared/services/storage.service";
@@ -16,6 +22,8 @@ export class AplicacionComponent implements OnInit {
   public user: User;
 
   constructor(
+    private apollo: Apollo,
+    private httpLink: HttpLink,
     private router?: Router,
     private session?: StorageService
   ) {}
@@ -34,6 +42,24 @@ export class AplicacionComponent implements OnInit {
     $('.sidenav').sidenav().on('click tap', 'li a', () => {
         $('.sidenav').sidenav('close');
     });
+
+    // This module is for ws.revista access with tokens
+    this.apollo.createNamed('backrevista', {
+      link: this.httpLink.create({
+       uri: environment.URIBackRevista,
+       headers: new HttpHeaders({
+         authorization: `Bearer ${this.session.getCurrentToken()}`
+       })
+      }),
+      cache: new InMemoryCache(),
+      defaultOptions: {
+       watchQuery: {
+         fetchPolicy: 'no-cache',
+         errorPolicy: 'ignore'
+       }
+      }
+    });
+
 
   }
 
