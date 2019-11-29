@@ -12,14 +12,19 @@ import { ComponentsModule } from '../shared/components/components.module';
 //components
 import { CheckVerificacionCromaticaComponent} from './check-verificacion-cromatica/check-verificacion-cromatica.component';
 import { SeleccionCatalogoComponent } from'./seleccion-catalogo/seleccion-catalogo.component';
-import { ReporteFinalCromaticaComponent} from './check-verificacion-cromatica/reporte-final-cromatica/reporte-final-cromatica.component';
-import { ReporteCromaticaComponent } from './check-verificacion-cromatica/reporte-cromatica/reporte-cromatica.component';
+import { ReporteFinalCromaticaComponent} from './reporte-final-cromatica/reporte-final-cromatica.component';
+import { ReporteCromaticaComponent } from './reporte-cromatica/reporte-cromatica.component';
+import { SeleccionCromaticaComponent} from './seleccion-cromatica/seleccion-cromatica.component';
+import { SeleccionFisicoMecanicaComponent } from './seleccion-fisico-mecanica/seleccion-fisico-mecanica.component';
+
 @NgModule({
   declarations: [
     CheckVerificacionCromaticaComponent,
     SeleccionCatalogoComponent,
     ReporteFinalCromaticaComponent,
-    ReporteCromaticaComponent
+    ReporteCromaticaComponent,
+    SeleccionCromaticaComponent,
+    SeleccionFisicoMecanicaComponent
   ],
   imports: [
     VerificacionRoutingModule,

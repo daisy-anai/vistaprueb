@@ -1,10 +1,10 @@
 import { Component, OnInit,Input, ModuleWithComponentFactories } from '@angular/core';
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
-import { IMAGEOAXACAWEB } from "../../../../assets/imgoaxacagobmx";
-import { IMAGE } from "../../../../assets/imglogo";
+import { IMAGEOAXACAWEB } from "../../../assets/imgoaxacagobmx";
+import { IMAGE } from "../../../assets/imglogo";
 //servicios
-import { MediumDataService } from '../../../shared/services/medium.data.service';
+import { MediumDataService } from '../../shared/services/medium.data.service';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 

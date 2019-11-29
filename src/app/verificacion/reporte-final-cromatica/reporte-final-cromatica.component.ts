@@ -1,12 +1,12 @@
 import { Component, OnInit ,Input} from '@angular/core';
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
-import { IMAGEOAXACAWEB } from "../../../../assets/imgoaxacagobmx";
-import { IMAGE} from "../../../../assets/imglogo"; 
-import { IMAGE_BANNER } from "../../../../assets/banner";
+import { IMAGEOAXACAWEB } from "../../../assets/imgoaxacagobmx";
+import { IMAGE} from "../../../assets/imglogo"; 
+import { IMAGE_BANNER } from "../../../assets/banner";
 
 //servicios
-import { MediumDataService } from '../../../shared/services/medium.data.service';
+import { MediumDataService } from '../../shared/services/medium.data.service';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 

@@ -9,19 +9,16 @@ import { StorageService } from "../../shared/services/storage.service";
 
 
 @Component({
-  selector: 'app-seleccion-catalogo',
-  templateUrl: './seleccion-catalogo.component.html',
-  styleUrls: ['./seleccion-catalogo.component.css']
+  selector: 'app-seleccion-cromatica',
+  templateUrl: './seleccion-cromatica.component.html',
+  styleUrls: ['./seleccion-cromatica.component.css']
 })
-export class SeleccionCatalogoComponent implements OnInit {
-
+export class SeleccionCromaticaComponent implements OnInit {
   private modalidadID: string;
   private catalogues: Array<Catalogues>;
   public filtro: string;
   public concesion: any;
   public vehiculo: any;
-  public cataloguesList: boolean =true;
-  public cromatica: boolean= false;
   
   constructor(
     private route?: ActivatedRoute,
@@ -29,7 +26,7 @@ export class SeleccionCatalogoComponent implements OnInit {
     private shared?: MediumDataService,
     public storageService?: StorageService,
     private router?: Router
-    ){}
+  ){}
 
   ngOnInit() {
     this.concesion = this.shared.getConcesion();
@@ -41,7 +38,6 @@ export class SeleccionCatalogoComponent implements OnInit {
       this.catalogues = data['catalogueByModalidad'];            
     });
   }
-
   searchCatalogue(){
     if (!this.filtro) {
       this.service.catalogueByModalidadID(this.modalidadID).subscribe(({ data })=>{
@@ -52,13 +48,6 @@ export class SeleccionCatalogoComponent implements OnInit {
         this.catalogues = data['cataloguesLike'];
       });
     }
-  }
-  cromaticaCatalogues(){
-     this.router.navigate([`/aplicacion/verificacion/cromatica/seleccion/${this.modalidadID}`])
-  }
-  fisicoMecanicaCatalogues(){
-    this.router.navigate([`/aplicacion/verificacion/fisicoMecanica/seleccion/${this.modalidadID}`])
-
   }
 
 }

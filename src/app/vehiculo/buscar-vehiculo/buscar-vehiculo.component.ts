@@ -102,7 +102,7 @@ export class BuscarVehiculoComponent implements OnInit {
   catalogueSelect(){
   //elegir el catalogo
   var modalidadID = this.concesion.modalidad.id;
-   this.router.navigate([`aplicacion/verificacion/seleccion/${modalidadID}`]);
+   this.router.navigate([`aplicacion/verificacion/plantilla/${modalidadID}`]);
   }
 
   returnStart(){

@@ -8,6 +8,12 @@
     </semovi-card-header>
 
     <semovi-card-body>
+
+        <!-- <div class=" materialert error">
+            <i class="material-icons">error_outline</i> <span> Los campos no seleccionados seran tomados como Incorrectos</span>
+            <button type="button" class="close-alert" (click)="closeAlert()">×</button>
+          </div>
+                 -->
       <semovi-input-search>
         <input (window:keydown)="onKey($event)" name="filtro" id="filtro" type="search" class="browser-default placeholder-fix"
         placeholder="Buscar concesión" autofocus

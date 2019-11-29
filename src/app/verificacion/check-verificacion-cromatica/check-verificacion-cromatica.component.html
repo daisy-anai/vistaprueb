@@ -7,15 +7,38 @@
         </div>
     </semovi-card-header>
     <semovi-card-body>
+       
       <div class="row">
         <div class="col s12 z-depth-2  item ">
-            <div class="row ">
-              <div class="col s12">
-                <span class=" negrita">Nombre:</span>
-                <span *ngIf="concesion">{{concesion.concesionario.nombre}} {{concesion.concesionario.primerApellido}} {{concesion.concesionario.segundoApellido}}</span>
+          <div class="row">
+            <div *ngIf="alert">
+              <div class=" materialert error">
+                <i class="material-icons">error_outline</i> <span> Los campos no seleccionados seran tomados como Incorrectos</span>
+                <button type="button" class="close-alert" (click)="closeAlert()">×</button>
+              </div>
             </div>
           </div>
-            
+         
+          <div class="row ">
+            <div class="col s12">
+              <span class=" negrita">Nombre:</span>
+              <span *ngIf="concesion">{{concesion.concesionario.nombre}} {{concesion.concesionario.primerApellido}} {{concesion.concesionario.segundoApellido}}</span>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s12" *ngIf="concesion">
+                <span class="negrita">Municipio:</span>
+              <span>{{concesion.concesionario.localidad.municipio.nombre}}</span>
+            </div>
+          </div>
+          <div class="row">
+              <div class="col s12" *ngIf="concesion ">
+              <span class="negrita">Localidad:</span>
+              <span>{{concesion.concesionario.localidad.nombre}}</span>
+            </div>
+          </div>
+
           <div class="row">
             <div class="col m6 left-align">
               <span class=" negrita">Serie:</span>
@@ -27,19 +50,8 @@
             </div>  
           </div> 
 
-            <div class="row">
-              <div class="col s12" *ngIf="concesion ">
-                <span class="negrita">Localidad:</span>
-                <span>{{concesion.concesionario.localidad.nombre}}</span>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col s12" *ngIf="concesion">
-                  <span class="negrita">Municipio:</span>
-                <span>{{concesion.concesionario.localidad.municipio.nombre}}</span>
-              </div>
-            </div>
-  
+    
+                 
           <div class="" *ngIf="catalogues">
             <div class="row">
               <div class="col s12">
@@ -68,9 +80,8 @@
                     </div>
                   </div>
                 </div>
-                <span class="color-text">Los campos no marcados son Incorrectos</span>
                 <!-- <button class="btn-small right" (click)="openModalDescription()" >Siguiente </button> -->
-                <button  class="btn-small right"   (click)="preview()">Aceptar</button>
+                <button  class="btn-small right"   (click)="preview()">Siguiente</button>
               </div>
             </div>
           </div>  
@@ -140,53 +151,41 @@
 
             </div>
             <div class="modal-footer">
-                <a class="modal-close waves-effect waves-green btn-flat" (click)="cancelarPreview(); this.reset">Cancelar</a>
-                <button (click)="createHistory()" class="modal-close waves-effect waves-green btn-small"
-                [disabled]="!(descriptionHistory.length >=10 && colorVehiculo.length >=3)">Previsualizar</button  >
-              </div>
-        </div>
-         
-        </div>  
-    
- 
-   <!--modal dowload PDF complete-->
-   <div id="download" class="modal">
-      <div class="modal-content">
-        <div class="row">
-          <h6>Descarga el PDF de la revista Cromática</h6>
-          <br>
-          <reporte-cromatica [color]="color"></reporte-cromatica>
-
-          <div>
-          </div>
-        </div>    
-      </div>
-      <div class="modal-footer">
-        <a class="modal-close waves-effect waves-green btn-flat" (click)="downloandPDF() ">Cancelar</a>
-        <button (click)="downloandPDF()" class="modal-close waves-effect waves-green btn-small"
-        >Aceptar</button  >
-      </div>
-    </div>  
-
-    <!--modal download PDF Inconplete-->
-    <div id="downloadIncomplete" class="modal">
-      <div class="modal-content">
-        <div class="row">
-          <h6>Descarga el PDF de la revista Cromática</h6>
-          <br>
-          <div>
-              <reporte-cromatica-incompleta [color]="color" ></reporte-cromatica-incompleta>
-
+              <a class="modal-close waves-effect waves-green btn-flat" (click)="cancelarPreview()">Cancelar</a>
+              <button (click)="questionAlert()" class=" waves-effect waves-green btn-small"
+              [disabled]="!(descriptionHistory.length >=10 && colorVehiculo.length >=3)">Aceptar</button  >
+            
             </div>
-        </div>    
+        </div>
+
+      </div>  
+    
+ <!--question Mod-->
+ <div id="question" class="modal">
+    <div class="modal-content">
+      <div class="row">
+        <h6>Esta seguro que su informacion es correcta</h6>
+        <br>
+        <div *ngIf="showComplete">
+        <reporte-cromatica [color]="color"></reporte-cromatica>
+        </div>
+        <div *ngIf="showIncomplete">
+          <reporte-cromatica-incompleta [color]="color" ></reporte-cromatica-incompleta>
+        </div>
+      </div>    
+    </div>
+    <div class="modal-footer">
+      <div *ngIf= "close">
+        <a class="modal-close waves-effect waves-green btn-flat"  >Cancelar</a>
+        <button (click)="aceptado()" class=" waves-effect waves-green btn-small">Aceptar</button>
       </div>
-      <div class="modal-footer">
-        <a class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
-        <button (click)="downloandIncompletePDF()" class="modal-close waves-effect waves-green btn-small"
-        >Aceptar</button  >
-      </div>
-    </div>  
-  
+      <div *ngIf="finalizar">
+        <button (click)="finalizarCromatica()" class=" waves-effect waves-green btn-small">Finalizar</button>
+     </div>
+
+    </div>
+  </div>  
+
     </semovi-card-body>
   </semovi-card>
 </ng-container>

@@ -4,10 +4,15 @@ import { Routes, RouterModule } from '@angular/router';
 import { CheckVerificacionCromaticaComponent} from './check-verificacion-cromatica/check-verificacion-cromatica.component';
 import { SeleccionCatalogoComponent } from './seleccion-catalogo/seleccion-catalogo.component';
 import { CheckVerificacionFisicoMecanicaComponent } from './check-verificacion-fisico-mecanica/check-verificacion-fisico-mecanica.component'
+import { SeleccionCromaticaComponent } from './seleccion-cromatica/seleccion-cromatica.component';
+import{ SeleccionFisicoMecanicaComponent } from './seleccion-fisico-mecanica/seleccion-fisico-mecanica.component';
+
 const routes : Routes=[
   {path:'cromatica/:id',component:CheckVerificacionCromaticaComponent},
-  {path:'seleccion/:id', component:SeleccionCatalogoComponent},
+  {path:'plantilla/:id', component:SeleccionCatalogoComponent},
   {path:'fisicoMecanica', component: CheckVerificacionFisicoMecanicaComponent },
+  {path: 'cromatica/seleccion/:id', component: SeleccionCromaticaComponent},
+  {path: 'fisicoMecanica/seleccion/:id', component: SeleccionFisicoMecanicaComponent},
   {path:'**',redirectTo:''}
 ];
 

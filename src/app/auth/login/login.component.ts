@@ -60,6 +60,7 @@ export class LoginComponent implements OnInit {
     activeElement && activeElement.blur && activeElement.blur();
     this.authService.login(email, password).subscribe(result => {
       this.correctlogincheck(result.data);
+  
       this.loading= false;
     }, (error) => {
       var divisiones = error.message.split(":", 2);
