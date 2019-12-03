@@ -9,7 +9,6 @@ import { Concesion} from '../../shared/models/concesion';
 import { Vehiculo} from '../../shared/models/vehiculo';
 import {VerificarcionService} from '../verificacion.service';
 import { VehiculoService } from '../../vehiculo/vehiculo.service';
-import { resetCaches } from 'graphql-tag';
 
 
 declare var M: any;
@@ -34,17 +33,19 @@ export class CheckVerificacionCromaticaComponent implements OnInit {
   public ModalInstanceIncomplete: any;
   public ModalInstancePreview: any;
   public ModalInstanceQuestion: any;
-  public saludo : string="hola";
   public is_correct : boolean= false;
   public download : boolean = false;
   public reportComplete : boolean =false;
   public color: string ='';
   public alert: boolean= true;
-
+  public modalidad: string='';
+  public idhistory: string= '';
   public showComplete: boolean= false;
   public showIncomplete: boolean= false;
   public close : boolean= true;
   public finalizar: boolean= false;
+
+
   constructor(
     private route?: ActivatedRoute,
     private catalogueService?: CatalogoService,
@@ -117,7 +118,9 @@ export class CheckVerificacionCromaticaComponent implements OnInit {
         this.showIncomplete = true;
         this.showComplete= false;
       }
+      this.idhistory= this.history.id;
     });
+    
    
   }
   cancelarPreview(){
@@ -131,6 +134,7 @@ export class CheckVerificacionCromaticaComponent implements OnInit {
     this.alert= false;
   }
   questionAlert(){
+    
     var question = document.getElementById('question');
 		this.ModalInstanceQuestion = M.Modal.init(question, {
       dismissible:false
@@ -138,14 +142,13 @@ export class CheckVerificacionCromaticaComponent implements OnInit {
     this.ModalInstanceQuestion.open();
   }
   aceptado(){
+    this.modalidad = this.catalogues.name;
     this.createHistory();
     this.close = false;
-    this.finalizar= true;
+    this.finalizar= true;     
   }
   finalizarCromatica(){
     this.router.navigate(['/aplicacion/concesion']);
-      this.ModalInstance.close();
-    this.ModalInstancePreview.close();
   }
   
  }

@@ -34,22 +34,20 @@ export class SeleccionFisicoMecanicaComponent implements OnInit {
     this.modalidadID = this.route.snapshot.paramMap.get("id");
     this.concesion = this.shared.getConcesion();
     this.vehiculo = this.shared.getVehiculo();
-    this.service.getCatalogoType().subscribe(({ data })=>{
-      this.catalogues = data['catalogueTypes'];
-      
-      // console.log(this.catalogues);
-      for (const catalogo of this.catalogues) {
-        // console.log(catalogo.name);
-
-      }      
-    })
+    
+    this.modalidadID = this.route.snapshot.paramMap.get("id");
+    this.service.catalogueByModalidadID(this.modalidadID).subscribe(({ data })=>{
+      this.catalogues = data['catalogueByModalidad'];            
+    });
     this.searchFisicoMecanica();
   }
 
   searchFisicoMecanica(){
-   let filtro = this.catalogues.filter(palabra=>(palabra.name));
-   console.log(filtro);
+  //  let filtro = this.catalogues.filter(palabra=>(palabra.name));
+  //  console.log(filtro);
    
   }
-
+  redirect(){
+    this.router.navigate(['/aplicacion/verificacion/fisicoMecanica/'])
+  }
 }

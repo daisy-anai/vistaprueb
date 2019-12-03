@@ -20,7 +20,6 @@ export class BuscarConcesionComponent {
   public tipo: number = 1;
   public filtro: string = 'candido gallegos';
   public errores: Array<String> = [];
-
   constructor(
     private service?: ConcesionService,
     private shared?: MediumDataService,
@@ -49,7 +48,6 @@ export class BuscarConcesionComponent {
       this.service.getConcesiones(this.filtro.trim(), this.tipo, 1).subscribe(result => {
         this.concesiones = result.data['concesiones']; 
         console.log(this.concesiones);
-        
         this.loading = false;
       },(error)=>{
         var toastHTML = '<span><i class="material-icons">error_outline</i>Concesion no encontrada</span>';

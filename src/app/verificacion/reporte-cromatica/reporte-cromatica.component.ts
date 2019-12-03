@@ -5,7 +5,7 @@ import { IMAGEOAXACAWEB } from "../../../assets/imgoaxacagobmx";
 import { IMAGE } from "../../../assets/imglogo";
 //servicios
 import { MediumDataService } from '../../shared/services/medium.data.service';
-
+import { VerificarcionService }from '../verificacion.service';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
@@ -16,26 +16,46 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 export class ReporteCromaticaComponent implements OnInit {
   @Input() color: string;
+  @Input() modalidad: string;
+  @Input() idhistory: string;
 
   public concesion : any;
   public vehiculo: any;
   public placas: any;
+  public history: any;
+  public seccion:any;
 
-  constructor(private shared?: MediumDataService) 
-  {}
+  constructor(
+    private shared?: MediumDataService,
+    private service?: VerificarcionService
+    ){}
+  
   ngOnInit() {
 
     this.concesion = this.shared.getConcesion();
     this.vehiculo = this.shared.getVehiculo();
     for (const placa of this.vehiculo.placa) {
       this.placas = placa.matricula;  
-      // this.placas.toUpperCase()
       }
+     
+  
   }
   
   
   generarpdf(){
-
+    // function review(){
+    //   this.service.historybyID(this.idhistory).subscribe(({ data })=>{
+    //     this.history = data['history'];
+    //     for (const secciones of this.history.review.sections) {
+    //       this.seccion= secciones;
+    //       console.log("seccion",this.seccion);         
+    //     // for (const propiedad of secciones.properties) {
+          
+    //     // } 
+    //     }
+    //   });
+    // }
+    
     pdfMake.fonts = {
       Roboto: {
         normal: 'Roboto-Regular.ttf',
@@ -179,15 +199,56 @@ export class ReporteCromaticaComponent implements OnInit {
                 },
                {
                  columns:
-                 [{ width: 10, text: ''},
-                   { width: 200,text:"Para mayor información consulte la página www.semovi.oaxaca.gob.mx; telefono: atención 0 1( 9 5 1) 5 0 1 6 6 9 1, Ext 1622; o enviar un correo electronico a: controldetransporte@semovioaxaca.gob.mx *OPCIONAL" , fontSize: 4}]
-                 }
+                 [  { width: 10, text: ''},
+                    { width: 200,text:"Para mayor información consulte la página www.semovi.oaxaca.gob.mx; telefono: atención 0 1( 9 5 1) 5 0 1 6 6 9 1, Ext 1622; o enviar un correo electronico a: controldetransporte@semovioaxaca.gob.mx *OPCIONAL" , fontSize: 4,pageBreak: 'after'}
+                   
+                  ]         
+                } 
               ]
             },
+            //nueva pagina 
+            {
+              columns:
+              [
+                { text: "Plan de Reordenamiento", bold:true}
+              ]
+            },
+            {
+              columns:
+              [
+                {  width: 250, text: 'Norma Técnica NT-OAX-SEVITRA-01-2015 \n\n\n', fontSize: 9,bold: true , margin: [0, 0, 0, 0]},
+              ]
+            },
+            {
+              columns:
+              [
+                
+                { width: 250,alignment: 'justify', text: 'Cromática, elementos de identidad y lineamientos que deberán seguir los vehículos que pŕesentan el sercicio de Transporte Público en sus diversas modalidades,que cuenten con Concesión o permioso reconocidos por la Secretaria de Movilidad. \n\n\n', fontSize: 9,bold: false , margin: [0, 10, 0, 0]},
+                {width:15, text:''},
+                { width: 250,text: ['CROMÁTICA AUTORIZADA                               ',{alignment: 'justify',text:'PARA EL SERVICIO DE TRNASPORTE PÚBLICO EN LA MODALIDAD ', fontSize:8,bold:false,},{text:this.modalidad, fontSize:12,bold:true ,toUpperCase:true}],fontSize: 12,bold: true , margin: [0, 10, 0, 0]}
+
+              ]
+            },
+            {
+              columns:
+              [
+                { text: 'Datos a corregir', bold:true, fontSize: 12 ,uppercase: true},
+                // { text:"seccions:"+this.seccion },
+                // { body: this.seccion}
+                
+              ]
+            },
+            {
+              columns:
+              [
+               { image:  'data:image/jpeg;base64,'+IMAGEOAXACAWEB.IMAGE_W,width: 50,height: 500, absolutePosition: {x: 530, y: 180}},
+              ]
+            }
           ]
         }; 
         
           //Descargar el PDF
      pdfMake.createPdf(dd).download('reporte-cromatica-incompleto.pdf');
+      // }
   }
 }

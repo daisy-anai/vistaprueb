@@ -8,6 +8,42 @@ import gql from 'graphql-tag';
 export class VerificarcionService {
 
   constructor(private apollo: Apollo) {}
+  historybyID(id: string){
+    return this.apollo.use('backrevista').watchQuery({
+      query:gql`
+      query historyByID($id:ID!){
+        history(id:$id){
+          id
+          id_concesion
+          id_vehiculo
+          catalogue{
+            id
+            id_modalidad
+            catalogueType{
+              id
+              name
+              description
+              created_at
+              deprecated
+            }
+            name
+            deprecated
+            created_at
+          }
+          review
+          is_correct
+          description
+          created_at
+          deprecated
+          editable
+          tid
+        }
+      }`,
+      variables:{
+        id:id
+      }
+    }).valueChanges;
+  }
 
   createHistory(id_concesion:String,id_vehiculo:string,id_catalogue:string,review:any,is_correct:boolean,description:string){
 

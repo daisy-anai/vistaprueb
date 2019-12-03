@@ -63,19 +63,18 @@
                       <div class="col s12">
                         <div class="col s8">
                           <label>
-                            <input  id="check" name="check" type="checkbox" (click)="checar(propiedad)" />
-                            <span class="letter">{{propiedad.name}} <br></span>
+                          <input  id="check" name="check" type="checkbox" (click)="checar(propiedad)" />
+                          <span class="letter">{{propiedad.name}} <br></span>
                           </label>
                         </div>
-                          <div class="col s4 right">
-                            <div  class="colorCuadro" [ngStyle]="{'background-color': true ? propiedad.value  : 'blue'}"></div>
-                          </div>
-                          <div class="col s12">
-                            <div *ngIf="propiedad.propertyType == type" class="text-justify">
-                              {{propiedad.value}}
-                            </div>  
-                          </div>
-                        
+                        <div class="col s4 right">
+                          <div  class="colorCuadro" [ngStyle]="{'background-color': true ? propiedad.value  : 'blue'}"></div>
+                        </div>
+                        <div class="col s12">
+                          <div *ngIf="propiedad.propertyType == type" class="text-justify">
+                            {{propiedad.value}}
+                          </div>  
+                        </div> 
                       </div>
                     </div>
                   </div>
@@ -86,9 +85,8 @@
             </div>
           </div>  
         </div>
-        </div> 
-      <div>
-    </div>
+      </div> 
+
       <!--Modal prebview modalPreview-->
       <div id="modalPreview" class="modal">
           <div class="modal-content">
@@ -167,10 +165,10 @@
         <h6>Esta seguro que su informacion es correcta</h6>
         <br>
         <div *ngIf="showComplete">
-        <reporte-cromatica [color]="color"></reporte-cromatica>
+        <reporte-cromatica [color]="color" ></reporte-cromatica>
         </div>
         <div *ngIf="showIncomplete">
-          <reporte-cromatica-incompleta [color]="color" ></reporte-cromatica-incompleta>
+          <reporte-cromatica-incompleta [color]="color" [modalidad]= "modalidad" [idhistory]="idhistory"></reporte-cromatica-incompleta>
         </div>
       </div>    
     </div>

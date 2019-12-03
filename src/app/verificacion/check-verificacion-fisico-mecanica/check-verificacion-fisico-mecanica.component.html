@@ -1,1 +1,300 @@
-<p>check-verificacion-fisico-mecanica works!</p>
+<ng-container>
+  <semovi-card>
+    <semovi-card-header>
+      <div class="valign-wrapper">
+        <semovi-card-header-icon  icon="arrow_back"></semovi-card-header-icon>
+        <semovi-card-header-title> Verificación vehículo para Físico Mecánica</semovi-card-header-title>
+      </div>
+    </semovi-card-header>
+    <semovi-card-body>
+        
+      <div class="row">
+        <div class="col s12 z-depth-2  item ">
+          <div class="row">
+            <div *ngIf="alert">
+              <div class=" materialert error">
+                <i class="material-icons">error_outline</i> <span> Los campos no seleccionados seran tomados como Incorrectos</span>
+                <button type="button" class="close-alert" (click)="closeAlert()">×</button>
+              </div>
+            </div>
+          </div>
+        
+          <div class="row ">
+            <div class="col s12">
+              <span class=" negrita">Nombre:</span>
+              <span *ngIf="concesion">{{concesion.concesionario.nombre}} {{concesion.concesionario.primerApellido}} {{concesion.concesionario.segundoApellido}}</span>
+            </div>
+          </div>
+    
+          <div class="row">
+            <div class="col s12" *ngIf="concesion">
+              <span class="negrita">Municipio:</span>
+              <span>{{concesion.concesionario.localidad.municipio.nombre}}</span>
+            </div>
+          </div>
+          <div class="row">
+              <div class="col s12" *ngIf="concesion ">
+              <span class="negrita">Localidad:</span>
+              <span>{{concesion.concesionario.localidad.nombre}}</span>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col m6 left-align">
+              <span class=" negrita">Serie:</span>
+              <span *ngIf="vehiculo">{{vehiculo.serie}} </span> 
+            </div>
+            <div class="col m6 right-align">
+              <span class="negrita">Sitio:</span>
+              <span *ngIf="concesion" >{{concesion.sitio.nombre}}</span>
+            </div>  
+          </div> 
+           
+          <div class="" *ngIf="catalogues">
+            <div class="row">
+              <div class="col s12">
+                <div *ngFor="let seccion of catalogues.configuration.sections">
+                  <span class="uppercase bold">{{seccion.name}}</span> 
+                  <div *ngFor="let propiedad of seccion.properties">
+                    <div class="row">
+                      <div class="col s12">
+                        <div class="col s8">
+                          <label>
+                            <input  id="check" name="check" type="checkbox" (click)="checar(propiedad)" />
+                            <span class="letter">{{propiedad.name}} <br></span>
+                          </label>
+                        </div>
+                        <div class="col s4 right">
+                          <div  class="colorCuadro" [ngStyle]="{'background-color': true ? propiedad.value  : 'blue'}"></div>
+                        </div>
+                        <div class="col s12">
+                          <div *ngIf="propiedad.propertyType == type" class="text-justify">
+                            {{propiedad.value}}
+                          </div>  
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                  <!-- <button class="btn-small right" (click)="openModalDescription()" >Siguiente </button> -->
+                  <button  class="btn-small right"   (click)="preview()">Siguiente</button>
+              </div>
+            </div>
+          </div>  
+        </div>
+      </div> 
+
+ <!--Modal prebview modalPreview-->
+<div id="modalPreview" class="modal">
+  <div class="modal-content">
+    <h6 class="center">Previsulización de datos para Físico Mecánica  </h6>
+    <br>
+    <div class="row">
+      <div class="col s12">
+
+        <div class="row">
+          <div class="col  s12">
+            <h6 class="negrita center"> DATOS DEL CONCESIONARIO:</h6>
+            <hr>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col s12">
+            <span class=" negrita">Nombre:</span>
+            <span *ngIf="concesion">{{concesion.concesionario.nombre}} {{concesion.concesionario.primerApellido}} {{concesion.concesionario.segundoApellido}}</span>
+          </div>
+        </div>
+   
+        <div class="row">
+          <div class="col s12" *ngIf="concesion ">
+            <span class="negrita">Localidad:</span>
+            <span>{{concesion.concesionario.localidad.nombre}}</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12" *ngIf="concesion">
+              <span class="negrita">Municipio:</span>
+            <span>{{concesion.concesionario.localidad.municipio.nombre}}</span>
+          </div>
+        </div>  
+
+        <div class="row">
+          <div class="col s12">
+            <span class="negrita">Sitio:</span>
+            <span *ngIf="concesion" >{{concesion.sitio.nombre}}</span>
+          </div> 
+        </div>
+        <div class="row">
+          <div class="col m12">
+            <div class="input-field  col m8">
+              <textarea  autocomplete="off"  id="domicilio" name="domicilio" class="validate" [(ngModel)]="domiciliooncesionio" class="materialize-textarea"></textarea>
+              <label for="domicilio">Domicilio(Calle y número) </label>
+            </div>
+
+            <div class=" input-field col m4 ">
+              <input type="text" autocomplete="off" id="colonia" name="colonia" [(ngModel)]="coloniaConcesionario" >
+              <label for="colonia"> Colonia</label>
+            </div>
+          </div>
+       </div>
+      
+
+        <div class="row">
+          <div class="col m12">
+            <div class="input-field col m6">
+              <input id="numAcuerdo" type="text" class="validate" [(ngModel)]="numeroAcuerdo">
+              <label for="numAcuerdo">Número de Acuerdo</label>
+            </div>
+            <div class="input-field col m6">
+              <input id="vencimiento" type="text" class="validate" [(ngModel)]="vencimiento">
+              <label for="vencimiento">Vencimiento</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col s12">
+            <h6 class="negrita center">DATOS DEL CONDUCTOR</h6>
+            <hr>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <div class="input-field col m8">
+              <input id="conductor" type="text" class="validate" [(ngModel)]="nombreConductor">
+              <label for="conductor">Nombre completo</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col m12">
+            <div class="input-field col m4">
+              <input id="nLicencia" type="text" class="validate">
+              <label for="nLicencia">Número de Licencia</label>
+            </div>
+            <div class="input-field col m4">
+              <input id="tipoLicencia" type="text" class="validate">
+              <label for="tipoLicencia">Tipo de Licencia</label>
+            </div>
+            <div class="input-field col m4">
+                <input id="vencimientoLicencia" type="text" class="validate">
+                <label for="vencimientoLicencia">Vencimiento de Licencia</label>
+              </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col s12">
+            <h6 class="negrita center" >DATOS DEL VEHÍCULO</h6>
+            <hr>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col m12">
+            <div class="col m4">
+              <span class=" negrita">Marca:</span>
+              <span *ngIf="vehiculo">{{vehiculo.marca.nombre}} </span> 
+            </div>
+              <div class="col m4 ">
+                <span class=" negrita">Modelo:</span>
+                <span *ngIf="vehiculo">{{vehiculo.anioModelo}} </span> 
+              </div> 
+            <div class="col m4 ">
+              <span class=" negrita">Serie:</span>
+              <span *ngIf="vehiculo">{{vehiculo.serie}} </span> 
+            </div> 
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col s12">
+            <div class="input-field col m4">
+              <input id="linea" type="text" class="validate" [(ngModel)]="linea">
+              <label for="linea">Linea</label>
+            </div>
+            <div class="input-field col m4">
+              <input id="tipoClase" type="text" class="validate" [(ngModel)]="tipoClase">
+              <label for="tipoClase">Tipo y Clase</label>
+            </div>
+            <div class="input-field col m4">
+              <input id="vencimientoVehiculo" type="text" class="validate" [(ngModel)]="vencimientoVehiculo">
+              <label for="vencimientoVehiculo">Vencimiento</label>
+            </div>
+          </div> 
+        </div>   
+
+          <div class="row">
+            <div class="col m12">
+              <div class="col m6">
+                <span class=" negrita">Número de motor:</span>
+                <span *ngIf="vehiculo"> {{vehiculo.motor}} </span>
+                </div> 
+              <div class="col m6 left-align">
+                <span class=" negrita">N.U.C :</span>
+                <span *ngIf="concesion">{{concesion.nuc}}</span>
+              </div>     
+            </div> 
+          </div>
+         <div class="row">
+           <div class="col s12">
+            <div class="input-field col m4">
+              <input id="numPoliza" type="text" class="validate" [(ngModel)]="numeroPoliza">
+              <label for="numPoliza">Número de poliza</label>
+            </div>
+           </div>
+         </div>
+
+
+        <div class="row ">
+          <div class="input-field col m8">
+            <textarea  autocomplete="off"  id="description" name="description" class="validate" [(ngModel)]="descriptionHistory" class="materialize-textarea"></textarea>
+            <label for="description">Descripción de la revisión </label>
+          </div>
+          <div class=" input-field col m4 ">
+            <input type="text" autocomplete="off" id="color" name="color" [(ngModel)]="colorVehiculo" >
+            <label for="color"> Color del vehículo</label>
+          </div>
+        </div>
+      </div>
+    
+    </div>
+    <div class="modal-footer">
+      <a class="modal-close waves-effect waves-green btn-flat" (click)="cancelarPreview()">Cancelar</a>
+      <button (click)="questionAlert()" class=" waves-effect waves-green btn-small"
+      [disabled]="!(descriptionHistory.length >=10 && colorVehiculo.length >=3)">Aceptar</button  >
+    </div>
+  </div>
+</div>  
+        
+     <!--question Mod-->
+<div id="question" class="modal">
+  <div class="modal-content">
+    <div class="row">
+      <h6>Esta seguro que su informacion es correcta</h6>
+      <br>
+      <div *ngIf="showComplete">
+      <reporte-cromatica [color]="color" ></reporte-cromatica>
+      </div>
+      <div *ngIf="showIncomplete">
+        <!-- <reporte-cromatica-incompleta [color]="color" [modalidad]= "modalidad" [idhistory]="idhistory"></reporte-cromatica-incompleta> -->
+        <app-reporte-fisico-mecanica></app-reporte-fisico-mecanica>
+      </div>
+    </div>    
+  </div>
+  <div class="modal-footer">
+    <div *ngIf= "close">
+      <a class="modal-close waves-effect waves-green btn-flat"  >Cancelar</a>
+      <button (click)="aceptado()" class=" waves-effect waves-green btn-small">Aceptar</button>
+    </div>
+    <div *ngIf="finalizar">
+      <button (click)="finalizarCromatica()" class=" waves-effect waves-green btn-small">Finalizar</button>
+    </div>
+
+  </div>
+</div>  
+    
+    </semovi-card-body>
+  </semovi-card>
+</ng-container>

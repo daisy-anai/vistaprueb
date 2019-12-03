@@ -10,7 +10,7 @@ import{ SeleccionFisicoMecanicaComponent } from './seleccion-fisico-mecanica/sel
 const routes : Routes=[
   {path:'cromatica/:id',component:CheckVerificacionCromaticaComponent},
   {path:'plantilla/:id', component:SeleccionCatalogoComponent},
-  {path:'fisicoMecanica', component: CheckVerificacionFisicoMecanicaComponent },
+  {path:'fisicoMecanica/:id', component: CheckVerificacionFisicoMecanicaComponent },
   {path: 'cromatica/seleccion/:id', component: SeleccionCromaticaComponent},
   {path: 'fisicoMecanica/seleccion/:id', component: SeleccionFisicoMecanicaComponent},
   {path:'**',redirectTo:''}

@@ -7,6 +7,16 @@
       </div>
     </semovi-card-header>
     <semovi-card-body>  
+        <semovi-list *ngIf="catalogues" class="center ">
+            <semovi-item *ngFor="let catalogo of catalogues ">
+              <semovi-label > {{catalogo.name}} {{catalogo.deprecated}}</semovi-label>
+              <semovi-label>
+                <a class="btn-floating btn-small right"
+                [routerLink]="['/aplicacion/verificacion/fisicoMecanica', catalogo.id]">
+                <i class="material-icons">chrome_reader_mode</i></a>
+              </semovi-label>                
+            </semovi-item>
+          </semovi-list>
     </semovi-card-body>
   </semovi-card>
 </ng-container>

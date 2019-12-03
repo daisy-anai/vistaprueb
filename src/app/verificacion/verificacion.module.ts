@@ -16,6 +16,8 @@ import { ReporteFinalCromaticaComponent} from './reporte-final-cromatica/reporte
 import { ReporteCromaticaComponent } from './reporte-cromatica/reporte-cromatica.component';
 import { SeleccionCromaticaComponent} from './seleccion-cromatica/seleccion-cromatica.component';
 import { SeleccionFisicoMecanicaComponent } from './seleccion-fisico-mecanica/seleccion-fisico-mecanica.component';
+import { CheckVerificacionFisicoMecanicaComponent } from './check-verificacion-fisico-mecanica/check-verificacion-fisico-mecanica.component';
+import { ReporteFisicoMecanicaComponent } from './reporte-fisico-mecanica/reporte-fisico-mecanica.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,10 @@ import { SeleccionFisicoMecanicaComponent } from './seleccion-fisico-mecanica/se
     ReporteFinalCromaticaComponent,
     ReporteCromaticaComponent,
     SeleccionCromaticaComponent,
-    SeleccionFisicoMecanicaComponent
+    SeleccionFisicoMecanicaComponent,
+    CheckVerificacionFisicoMecanicaComponent,
+    ReporteFisicoMecanicaComponent
+    
   ],
   imports: [
     VerificacionRoutingModule,
