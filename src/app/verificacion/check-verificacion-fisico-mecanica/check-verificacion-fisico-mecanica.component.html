@@ -128,12 +128,12 @@
         <div class="row">
           <div class="col m12">
             <div class="input-field  col m8">
-              <textarea  autocomplete="off"  id="domicilio" name="domicilio" class="validate" [(ngModel)]="domiciliooncesionio" class="materialize-textarea"></textarea>
+              <textarea  autocomplete="off"  id="domicilio" name="domicilio" class="validate" [(ngModel)]="domicilioC" class="materialize-textarea"></textarea>
               <label for="domicilio">Domicilio(Calle y número) </label>
             </div>
 
             <div class=" input-field col m4 ">
-              <input type="text" autocomplete="off" id="colonia" name="colonia" [(ngModel)]="coloniaConcesionario" >
+              <input type="text" autocomplete="off" id="colonia" name="colonia" [(ngModel)]="coloniaC" >
               <label for="colonia"> Colonia</label>
             </div>
           </div>
@@ -143,11 +143,11 @@
         <div class="row">
           <div class="col m12">
             <div class="input-field col m6">
-              <input id="numAcuerdo" type="text" class="validate" [(ngModel)]="numeroAcuerdo">
+              <input id="numAcuerdo" type="text" class="validate" [(ngModel)]="numeroA">
               <label for="numAcuerdo">Número de Acuerdo</label>
             </div>
             <div class="input-field col m6">
-              <input id="vencimiento" type="text" class="validate" [(ngModel)]="vencimiento">
+              <input id="vencimiento" type="date" [(ngModel)]="vencimientoC">
               <label for="vencimiento">Vencimiento</label>
             </div>
           </div>
@@ -162,7 +162,7 @@
         <div class="row">
           <div class="col s12">
             <div class="input-field col m8">
-              <input id="conductor" type="text" class="validate" [(ngModel)]="nombreConductor">
+              <input id="conductor" type="text" class="validate" [(ngModel)]="nombreC">
               <label for="conductor">Nombre completo</label>
             </div>
           </div>
@@ -178,7 +178,7 @@
               <label for="tipoLicencia">Tipo de Licencia</label>
             </div>
             <div class="input-field col m4">
-                <input id="vencimientoLicencia" type="text" class="validate">
+                <input id="vencimientoLicencia" type="date" class="validate">
                 <label for="vencimientoLicencia">Vencimiento de Licencia</label>
               </div>
           </div>
@@ -211,15 +211,15 @@
         <div class="row">
           <div class="col s12">
             <div class="input-field col m4">
-              <input id="linea" type="text" class="validate" [(ngModel)]="linea">
+              <input id="linea" type="text" class="validate" [(ngModel)]="lineaVehiculo">
               <label for="linea">Linea</label>
             </div>
             <div class="input-field col m4">
-              <input id="tipoClase" type="text" class="validate" [(ngModel)]="tipoClase">
+              <input id="tipoClase" type="text" class="validate" [(ngModel)]="tipoClaseVehiculo">
               <label for="tipoClase">Tipo y Clase</label>
             </div>
             <div class="input-field col m4">
-              <input id="vencimientoVehiculo" type="text" class="validate" [(ngModel)]="vencimientoVehiculo">
+              <input id="vencimientoVehiculo" type="date" class="validate" [(ngModel)]="vencimientoV">
               <label for="vencimientoVehiculo">Vencimiento</label>
             </div>
           </div> 
@@ -240,7 +240,7 @@
          <div class="row">
            <div class="col s12">
             <div class="input-field col m4">
-              <input id="numPoliza" type="text" class="validate" [(ngModel)]="numeroPoliza">
+              <input id="numPoliza" type="text" class="validate" [(ngModel)]="numeroPolizaVehiculo">
               <label for="numPoliza">Número de poliza</label>
             </div>
            </div>
@@ -278,8 +278,11 @@
       <reporte-cromatica [color]="color" ></reporte-cromatica>
       </div>
       <div *ngIf="showIncomplete">
-        <!-- <reporte-cromatica-incompleta [color]="color" [modalidad]= "modalidad" [idhistory]="idhistory"></reporte-cromatica-incompleta> -->
-        <app-reporte-fisico-mecanica></app-reporte-fisico-mecanica>
+        <reporte-fisico-mecanica [coloniaConcesionario]="coloniaConcesionario"  [domicilioConcesionario]="domicilioConcesionario"
+        [numeroAcuerdo]="numeroAcuerdo" [vencimiento]="vencimiento" [nombreConductor]="nombreConductor" [linea]="linea" 
+        [tipoClase]="tipoClase" [numeroPoliza]="numeroPoliza" [vencimientoVehiculo]="vencimientoVehiculo" [color]="color" 
+        [idhistory]="idhistory"></reporte-fisico-mecanica>
+   
       </div>
     </div>    
   </div>

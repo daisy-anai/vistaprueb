@@ -6,6 +6,7 @@ import { CatalogoService } from '../../catalogo/catalogo.service';
 import { Catalogues } from '../../shared/models/catalogues';
 import { MediumDataService } from '../../shared/services/medium.data.service';
 import { StorageService } from "../../shared/services/storage.service";
+import { VerificarcionService }from '../verificacion.service';
 
 
 @Component({
@@ -22,13 +23,15 @@ export class SeleccionCatalogoComponent implements OnInit {
   public vehiculo: any;
   public cataloguesList: boolean =true;
   public cromatica: boolean= false;
-  
+  public history: any;
+
   constructor(
     private route?: ActivatedRoute,
     private service?: CatalogoService,
     private shared?: MediumDataService,
     public storageService?: StorageService,
-    private router?: Router
+    private router?: Router,
+    private serviceVerificacion?:VerificarcionService
     ){}
 
   ngOnInit() {
@@ -40,6 +43,7 @@ export class SeleccionCatalogoComponent implements OnInit {
     this.service.catalogueByModalidadID(this.modalidadID).subscribe(({ data })=>{
       this.catalogues = data['catalogueByModalidad'];            
     });
+  
   }
 
   searchCatalogue(){

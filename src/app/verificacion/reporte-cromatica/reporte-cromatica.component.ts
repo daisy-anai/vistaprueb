@@ -43,19 +43,7 @@ export class ReporteCromaticaComponent implements OnInit {
   
   
   generarpdf(){
-    // function review(){
-    //   this.service.historybyID(this.idhistory).subscribe(({ data })=>{
-    //     this.history = data['history'];
-    //     for (const secciones of this.history.review.sections) {
-    //       this.seccion= secciones;
-    //       console.log("seccion",this.seccion);         
-    //     // for (const propiedad of secciones.properties) {
-          
-    //     // } 
-    //     }
-    //   });
-    // }
-    
+
     pdfMake.fonts = {
       Roboto: {
         normal: 'Roboto-Regular.ttf',

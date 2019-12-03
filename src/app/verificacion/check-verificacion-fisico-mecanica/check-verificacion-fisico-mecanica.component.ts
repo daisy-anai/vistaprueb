@@ -42,14 +42,25 @@ export class CheckVerificacionFisicoMecanicaComponent implements OnInit {
   public finalizar: boolean= false;
   //datos para el pdf
   public domicilioConcesionario: string = '';
+  public domicilioC: string=''
   public coloniaConcesionario: string = '';
+  public coloniaC:string = '';
   public numeroAcuerdo: string = '';
+  public numeroA: string = '';
   public vencimiento: string = '';
+  public vencimientoC: string = '';
   public nombreConductor: string = '';
+  public nombreC: string = '';
+
   public linea: string = '';
+  public lineaVehiculo: string = '';
   public tipoClase: string = '';
-  public numeroPoliza: string = '';
+  public tipoClaseVehiculo : string = '';
   public vencimientoVehiculo: string = '';
+  public vencimientoV: string = '';
+  public numeroPoliza: string = '';
+  public numeroPolizaVehiculo: string = '';
+
 
   public color: string ='';
   public descriptionHistory : string = '';
@@ -103,6 +114,8 @@ export class CheckVerificacionFisicoMecanicaComponent implements OnInit {
   createHistory(){
     var cont = 0;
     this.color= this.colorVehiculo;
+    this.domicilioConcesionario= this.domicilioC;
+
     var checkTamanio =document.getElementsByName('check').length
     for (const secciones of this.catalogues.configuration.sections) {
       for (const propiedades of secciones.properties) {
@@ -152,7 +165,18 @@ export class CheckVerificacionFisicoMecanicaComponent implements OnInit {
     this.ModalInstanceQuestion.open();
   }
   aceptado(){
-    this.modalidad = this.catalogues.name;
+    this.domicilioConcesionario= this.domicilioC;
+    this.coloniaConcesionario = this.coloniaC;
+    this.numeroAcuerdo = this.numeroA;
+    this.vencimiento = this.vencimientoC;
+    this.nombreConductor = this.nombreC;
+    this.linea = this.lineaVehiculo;
+    this.tipoClase = this.tipoClaseVehiculo;
+    this.numeroPoliza = this.numeroPolizaVehiculo;
+    this.vencimientoVehiculo = this.vencimientoV;
+    this.color = this.colorVehiculo;
+     this.showIncomplete = true;
+
     // this.createHistory();
     this.close = false;
     this.finalizar= true;     
@@ -160,6 +184,7 @@ export class CheckVerificacionFisicoMecanicaComponent implements OnInit {
   finalizarCromatica(){
     this.router.navigate(['/aplicacion/concesion']);
   }
-  
+
+
 
 }
