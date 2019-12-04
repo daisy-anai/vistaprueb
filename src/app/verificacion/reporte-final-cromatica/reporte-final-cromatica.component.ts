@@ -78,7 +78,7 @@ export class ReporteFinalCromaticaComponent implements OnInit {
             },
             { columns: 
               [
-                { text: 'LUGAR: ',fontSize: 9,bold:true },
+                { text: 'LUGAR: v. Carlos Gracida número 9, San Antonio de la Cal, Oaxaca, Oax. C.P. 71236.',fontSize: 9,bold:true },
                 { text: 'FECHA:'+d.getDate()+'\n\n\n',fontSize: 9,bold:true },
               ]
             },
@@ -126,7 +126,7 @@ export class ReporteFinalCromaticaComponent implements OnInit {
             },
             { columns:
               [
-                {text:'MODELO:',fontSize: 9,bold:true },
+                {text:'MODELO:'+this.vehiculo.anioModelo,fontSize: 9,bold:true },
                 {text:'COLOR: '+this.color +'\n\n',fontSize: 9, bold:true ,toUpperCase: true},
               ]
             },

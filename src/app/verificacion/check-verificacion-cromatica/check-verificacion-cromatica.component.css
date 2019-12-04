@@ -55,7 +55,7 @@ color: red;
 .materialert.error{
   /* background-color: #c62828; */
   color: #fff;
-  background-color: rgba(187, 8, 8, 0.7)
+  background-color: rgba(25, 99, 133, 0.7)
 }
 .materialert .close-alert{
   -webkit-appearance: none;

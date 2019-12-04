@@ -23,8 +23,7 @@ export class ReporteCromaticaComponent implements OnInit {
   public vehiculo: any;
   public placas: any;
   public history: any;
-  public seccion:any;
-
+ 
   constructor(
     private shared?: MediumDataService,
     private service?: VerificarcionService
@@ -37,12 +36,28 @@ export class ReporteCromaticaComponent implements OnInit {
     for (const placa of this.vehiculo.placa) {
       this.placas = placa.matricula;  
       }
-     
-  
+  }
+
+  assignData(){
+    let secciones = [];
+    this.service.historybyID(this.idhistory).subscribe(({ data })=>{
+      this.history = data['history'];
+      for (let i = 0; i < this.history.review.sections.length; i++) {
+        secciones.push({columns: [{text: (i+1)+' '+this.history.review.sections[i].name , fontSize: 9, bold: true}]});
+        for (let j = 0; j < this.history.review.sections[i].properties.length; j++) {
+          if(this.history.review.sections[i].properties[j].checked == false){
+            secciones.push({columns: [{text:'    *  '+ this.history.review.sections[i].properties[j].name , fontSize: 9}]})
+          }
+        } 
+        if(i==this.history.review.sections.length-1){
+          this.generarpdf(secciones);
+        }      
+      }  
+    });
   }
   
   
-  generarpdf(){
+  generarpdf(secciones){
 
     pdfMake.fonts = {
       Roboto: {
@@ -114,7 +129,7 @@ export class ReporteCromaticaComponent implements OnInit {
             {
               columns:
               [
-                {  width: 250, text: 'MODELO: ', fontSize: 9,bold: true , margin: [0, 10, 0, 0]},
+                {  width: 250, text: 'MODELO: '+this.vehiculo.anioModelo, fontSize: 9,bold: true , margin: [0, 10, 0, 0]},
                 {  width: 250, text: 'COLOR:  '+this.color, fontSize: 9,bold: true ,toUpperCase: true, margin: [0, 10, 0, 0]},
               ]
             },
@@ -220,12 +235,9 @@ export class ReporteCromaticaComponent implements OnInit {
             {
               columns:
               [
-                { text: 'Datos a corregir', bold:true, fontSize: 12 ,uppercase: true},
-                // { text:"seccions:"+this.seccion },
-                // { body: this.seccion}
-                
+                { text: 'DATOS A CORREGIR', bold:true, fontSize: 12 ,uppercase: true, alignment:'center'},
               ]
-            },
+            },secciones,
             {
               columns:
               [

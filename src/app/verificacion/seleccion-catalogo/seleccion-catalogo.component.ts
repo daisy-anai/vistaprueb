@@ -8,6 +8,7 @@ import { MediumDataService } from '../../shared/services/medium.data.service';
 import { StorageService } from "../../shared/services/storage.service";
 import { VerificarcionService }from '../verificacion.service';
 
+declare var M; 
 
 @Component({
   selector: 'app-seleccion-catalogo',
@@ -24,6 +25,10 @@ export class SeleccionCatalogoComponent implements OnInit {
   public cataloguesList: boolean =true;
   public cromatica: boolean= false;
   public history: any;
+  public disableFisicoMecancia: boolean = true;
+  public license: any;
+  public numberLicense: string = '';
+
 
   constructor(
     private route?: ActivatedRoute,
@@ -31,10 +36,15 @@ export class SeleccionCatalogoComponent implements OnInit {
     private shared?: MediumDataService,
     public storageService?: StorageService,
     private router?: Router,
-    private serviceVerificacion?:VerificarcionService
+    private verificarcionService?:VerificarcionService
     ){}
 
   ngOnInit() {
+    // var elems = document.querySelectorAll('.datepicker');
+    // var instances = M.Datepicker.init(elems, {
+    //   format: 'yyyy-mm-dd'
+    // });
+
     this.concesion = this.shared.getConcesion();
     this.vehiculo = this.shared.getVehiculo();
     //validar que obtenga una serue de vehiculo
@@ -43,12 +53,28 @@ export class SeleccionCatalogoComponent implements OnInit {
     this.service.catalogueByModalidadID(this.modalidadID).subscribe(({ data })=>{
       this.catalogues = data['catalogueByModalidad'];            
     });
-  
+
+    
+ //01113689
+
   }
 
+  assingLicense(){
+    console.log("licencia");
+    
+    this.verificarcionService.licenseByNumber(this.numberLicense).subscribe(({ data })=>{
+     
+      this.license = data['licenseByNumber'];
+      console.log(this.license);
+      
+        // this.assingLicense(this.license)
+     });
+  }
   searchCatalogue(){
     if (!this.filtro) {
       this.service.catalogueByModalidadID(this.modalidadID).subscribe(({ data })=>{
+        console.log( data['catalogueByModalidad']);
+        
         this.catalogues = data['catalogueByModalidad'];
       }); 
     }else{

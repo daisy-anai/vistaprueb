@@ -51,16 +51,12 @@ export class CheckVerificacionFisicoMecanicaComponent implements OnInit {
   public vencimientoC: string = '';
   public nombreConductor: string = '';
   public nombreC: string = '';
-
-  public linea: string = '';
-  public lineaVehiculo: string = '';
-  public tipoClase: string = '';
-  public tipoClaseVehiculo : string = '';
   public vencimientoVehiculo: string = '';
   public vencimientoV: string = '';
   public numeroPoliza: string = '';
   public numeroPolizaVehiculo: string = '';
-
+  public observacionRevision: string = '';
+  public observacion: string = '';
 
   public color: string ='';
   public descriptionHistory : string = '';
@@ -170,14 +166,12 @@ export class CheckVerificacionFisicoMecanicaComponent implements OnInit {
     this.numeroAcuerdo = this.numeroA;
     this.vencimiento = this.vencimientoC;
     this.nombreConductor = this.nombreC;
-    this.linea = this.lineaVehiculo;
-    this.tipoClase = this.tipoClaseVehiculo;
-    this.numeroPoliza = this.numeroPolizaVehiculo;
     this.vencimientoVehiculo = this.vencimientoV;
     this.color = this.colorVehiculo;
-     this.showIncomplete = true;
+    this.observacion = this.observacionRevision;
+    this.showIncomplete = true;
 
-    // this.createHistory();
+    this.createHistory();
     this.close = false;
     this.finalizar= true;     
   }

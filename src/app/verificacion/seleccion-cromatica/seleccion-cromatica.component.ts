@@ -6,7 +6,7 @@ import { CatalogoService } from '../../catalogo/catalogo.service';
 import { Catalogues } from '../../shared/models/catalogues';
 import { MediumDataService } from '../../shared/services/medium.data.service';
 import { StorageService } from "../../shared/services/storage.service";
-
+import { CatalogueType } from '../../shared/models/catalogueType'
 
 @Component({
   selector: 'app-seleccion-cromatica',
@@ -16,10 +16,13 @@ import { StorageService } from "../../shared/services/storage.service";
 export class SeleccionCromaticaComponent implements OnInit {
   private modalidadID: string;
   private catalogues: Array<Catalogues>;
+  public cataloguesTypes: Array<CatalogueType>;
   public filtro: string;
   public concesion: any;
   public vehiculo: any;
-  
+  public tipo : any;
+
+
   constructor(
     private route?: ActivatedRoute,
     private service?: CatalogoService,
@@ -33,21 +36,23 @@ export class SeleccionCromaticaComponent implements OnInit {
     this.vehiculo = this.shared.getVehiculo();
     //validar que obtenga una serue de vehiculo
    
+    
     this.modalidadID = this.route.snapshot.paramMap.get("id");
     this.service.catalogueByModalidadID(this.modalidadID).subscribe(({ data })=>{
-      this.catalogues = data['catalogueByModalidad'];            
+      this.catalogues = data['catalogueByModalidad'].filter(e => e.catalogueType.name === "cromática");       
     });
+
+ 
   }
   searchCatalogue(){
     if (!this.filtro) {
       this.service.catalogueByModalidadID(this.modalidadID).subscribe(({ data })=>{
-        this.catalogues = data['catalogueByModalidad'];
+        this.catalogues = data['catalogueByModalidad'].filter(e => e.catalogueType.name === "cromática");
       }); 
     }else{
       this.service.searchWord(1,this.filtro.trim().toLowerCase()).subscribe(({data})=>{
-        this.catalogues = data['cataloguesLike'];
+        this.catalogues = data['cataloguesLike'].filter(e => e.catalogueType.name === "cromática");
       });
     }
   }
-
 }

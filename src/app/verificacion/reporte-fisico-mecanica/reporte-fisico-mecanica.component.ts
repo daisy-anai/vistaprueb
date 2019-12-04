@@ -25,12 +25,11 @@ export class ReporteFisicoMecanicaComponent implements OnInit {
   @Input() numeroAcuerdo: string;
   @Input() vencimiento:string;
   @Input() nombreConductor:string;
-  @Input() linea:string;
-  @Input() tipoClase:string;
   @Input() numeroPoliza:string;
   @Input() vencimientoVehiculo:string;
   @Input() color:string;
   @Input() idhistory: string;
+  @Input() observacion: string;
 
 
 
@@ -51,27 +50,29 @@ export class ReporteFisicoMecanicaComponent implements OnInit {
     for (const placa of this.vehiculo.placa) {
       this.placas = placa.matricula;  
       }
-      // for (const secciones of this.history.review.sections) {
-
-        // for (const propiedad of secciones.properties) {
-          
-        //  } 
   }
-  generarpdf(){
-    let historial = [];
-    this.service.historybyID('ZYK4w9aAOdvMRnBp').subscribe(({ data })=>{
+
+  rellenarArreglo(){
+    let secciones = [];
+    let placas = [];
+
+    this.service.historybyID('WVYmxkazYeJ0PoX1').subscribe(({ data })=>{
       this.history = data['history'];
       for (let i = 0; i < this.history.review.sections.length; i++) {
-         console.log(this.history.review.sections[i].name);      
-         historial.push({columns: [{text: this.history.review.sections[i].name , fontSize: 9}]});
-      //  historial.push(this.history.review.sections[i].name);
-        console.log( historial);
-        
-      }
+        secciones.push({columns: [{text: (i+1)+' '+this.history.review.sections[i].name , fontSize: 9, bold: true}]});
+        for (let j = 0; j < this.history.review.sections[i].properties.length; j++) {
+          if(this.history.review.sections[i].properties[j].checked == false){
+            secciones.push({columns: [{text:'    *  '+ this.history.review.sections[i].properties[j].name , fontSize: 9}]})
+          }
+        } 
+        if(i==this.history.review.sections.length-1){
+          this.generarpdf(secciones);
+        }      
+      }  
     });
-      
+  }
 
-
+  generarpdf(secciones:any){
     pdfMake.fonts = { 
       Roboto: {
         normal: 'Roboto-Regular.ttf',
@@ -80,6 +81,7 @@ export class ReporteFisicoMecanicaComponent implements OnInit {
         bolditalics: 'Roboto-MediumItalic.ttf'
       }
     }
+
     var dd ={
       pageSize:'LETTER',
       pageMargins: [ 50, 80, 80, 10 ],
@@ -95,6 +97,12 @@ export class ReporteFisicoMecanicaComponent implements OnInit {
         },
       content:
       [
+        {
+          columns:
+          [
+            {}
+          ]
+        },
         { columns:
           [
             {text: '\n\n'},
@@ -109,7 +117,6 @@ export class ReporteFisicoMecanicaComponent implements OnInit {
                 widths: [120, 120, 120,120],
                 body: [
                   [{text: ' DATOS DEL CONESIONARIO',bold:true ,fontSize:9, colSpan: 4, alignment: 'center'},{},{},{}],
-                  // [{text: 'Nombre completo: '+this.concesion.concesionario.nombre+' '+ this.concesion.concesionario.primerApellido +' '+this.concesion.concesionario.segundoApellido , colSpan: 4,bold:true ,fontSize:8, alignment: 'left'},{},{},{}],
                   [{text: ['Nombre Completo:  ',{text:this.concesion.concesionario.nombre +' '+this.concesion.concesionario.primerApellido+' '+this.concesion.concesionario.segundoApellido ,bold:false}, '', ], fontSize:8 ,alignment: 'justify', colSpan:4, bold:true},{},{},{}],
                   [{text: 'Domicilio(calle y número):  '+this.domicilioConcesionario, bold:true ,fontSize:8, colSpan:3},{},{},{ text: 'Colonia: '+this.coloniaConcesionario, bold:true, fontSize:8}],
                   [{text: 'Población:  '+this.concesion.concesionario.localidad.nombre, bold:true ,fontSize:8, colSpan:2,},{},{ text: 'Municipio: '+this.concesion.concesionario.localidad.municipio.nombre, bold:true, fontSize:8, colSpan:2},{}],
@@ -118,7 +125,7 @@ export class ReporteFisicoMecanicaComponent implements OnInit {
                   [{text: 'Nombre completo:  '+this.nombreConductor, colSpan: 4,bold:true ,fontSize:8, alignment: 'left'},{},{},{}],
                   [{text: 'N° de Licencia ', bold:true ,fontSize:8},{text:'Tipo de Licencia:' ,bold:true, colSpan:2,fontSize:8},{},{text: 'Vencimiento: ', bold:true, fontSize:8}],
                   [{ alignment: 'center', text: 'DATOS DEL VECHÍCULO',fontSize:9, bold:true,colSpan: 4},{},{},{}],
-                  [{text: 'Marca: '+this.vehiculo.marca.nombre, bold:true ,fontSize:8},{text:'Linea:' +this.linea,bold:true, colSpan:2,fontSize:8},{},{text: 'Tipo y Clase: '+this.tipoClase, bold:true, fontSize:8}],
+                  [{text: 'Marca: '+this.vehiculo.marca.nombre, bold:true ,fontSize:8},{text:'Linea:' +this.vehiculo.tipo.nombre,bold:true, colSpan:2,fontSize:8},{},{text: 'Tipo y Clase: '+this.concesion.modalidad.nombre, bold:true, fontSize:8}],
                   [{text: 'N° de Motor: ', bold:true ,fontSize:8},{text:'N° de Serie:   ' +this.vehiculo.serie ,bold:true, colSpan:2,fontSize:8},{},{text: 'Modelo:  ', bold:true, fontSize:8}],
                   [{text: 'Color Oficial: '+this.color, bold:true ,fontSize:8},{text:'N.U.C:  ' + this.concesion.nuc,bold:true,fontSize:8},{text:'N° de Poliza'+this.numeroPoliza,bold:true, fontSize:8},{text: 'Vencimiento: '+this.vencimientoVehiculo, bold:true, fontSize:8}],
                  
@@ -129,7 +136,7 @@ export class ReporteFisicoMecanicaComponent implements OnInit {
                   [{text: 'N° de Cabina', fontSize:8, bold:true,margin: [0, 30,0, 0],colSpan:4},{},{},{}],
                   [{text:'PRÓRROGAS',fontSize:8, bold:true},{text:'Primera',fontSize:8, bold:true, upperCase:true},{text:'segunda',fontSize:8, bold:true},{text:'tercera',fontSize:8, bold:true}],
                   [{text: ' OBSERVACIONES',bold:true ,fontSize:9, colSpan: 4, alignment: 'center'},{},{},{}],
-                  [{text: ' \n\n',bold:true ,fontSize:9, colSpan: 4, alignment: 'center',margin: [0, 30,0, 0]},{},{},{}],       
+                  [{text: this.observacion ,bold:true ,fontSize:9, colSpan: 4, alignment: 'justify',margin: [0, 30,0, 0]},{},{},{}],       
                 ]
 		      	  }
             }
@@ -197,7 +204,7 @@ export class ReporteFisicoMecanicaComponent implements OnInit {
         {
           columns:
           [
-             {text:'_________________________a_____________de ____________20___', fontSize:6,absolutePosition: {x:120, y: 750}}
+             {text:'_________________________a_____________de ____________20___', fontSize:6,absolutePosition: {x:120, y: 700}}
           ]
         },
         {
@@ -218,27 +225,18 @@ export class ReporteFisicoMecanicaComponent implements OnInit {
         {
           columns:
           [
-            {text:'', pageBreak: 'after'}
+            {text:'', pageBreak: 'after'},
+            {text:'\n\n\n'},
+
           ]
           
-        }, historial,
-        // {
-        //   columns:
-        //   [
-        //    {
-        //      table:{
-        //        body: historial
-        //      }
-        //    }
-        //   ]
-
-        // },
+        },
         {
           columns:
           [
-            {text:''}
+            {text:'DATOS A CORREGIR', bold:true, fontSize:9, alignment:'center'}
           ]
-        }
+        },secciones,
       ]
     };
     pdfMake.createPdf(dd).download('reporte-fisicoMecanica.pdf');

@@ -11,12 +11,31 @@
         <div class="col s12 cuadro">
           <div class="z-depth-2  item center">
             <a class="waves-effect black-text" (click)="cromaticaCatalogues()"> Cromática</a> 
-          </div>                 
-          <div class="z-depth-2  item  center ">
-            <a class="waves-effect black-text" (click)="fisicoMecanicaCatalogues()">Fisico Mecánica</a>
-          </div>
+          </div>      
+          <div *ngIf="disabledFisicoMecancia">
+            </div> 
+            <div class="z-depth-2  item  center ">
+              <a class="waves-effect black-text" (click)="fisicoMecanicaCatalogues()">Fisico Mecánica</a>
+            </div>
+                   
         </div>
       </div>
+      <div class="row">
+        <div class="input-field">
+            <input  class="autocomplete" 
+            id="autocompleteLicense" type="text" (change)="searchLicence()" autocomplete="off">
+            <label for="autocompleteLicense"  >Número de Licencia</label>
+          </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input type="text" [(ngModel)]="numberLicense">
+          <label for="">licencia</label>
+          {{numberLicense}}
+        </div>
+        <button (click)="assingLicense()">licencia</button>
+      </div>
+      
     </semovi-card-body>
   </semovi-card>
 </ng-container>

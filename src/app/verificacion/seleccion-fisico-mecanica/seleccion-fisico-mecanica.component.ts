@@ -3,9 +3,13 @@ import { ActivatedRoute , Router} from "@angular/router";
 
 //Service
 import { CatalogoService } from '../../catalogo/catalogo.service';
-import { Catalogues } from '../../shared/models/catalogues';
 import { MediumDataService } from '../../shared/services/medium.data.service';
 import { StorageService } from "../../shared/services/storage.service";
+
+
+//MODULES
+import { CatalogueType } from '../../shared/models/catalogueType'
+import { Catalogues } from '../../shared/models/catalogues';
 
 
 
@@ -21,6 +25,7 @@ export class SeleccionFisicoMecanicaComponent implements OnInit {
   public filtro: string;
   public concesion: any;
   public vehiculo: any;
+  public cataloguesTypes: Array<CatalogueType>;
 
   constructor(
     private route?: ActivatedRoute,
@@ -37,16 +42,23 @@ export class SeleccionFisicoMecanicaComponent implements OnInit {
     
     this.modalidadID = this.route.snapshot.paramMap.get("id");
     this.service.catalogueByModalidadID(this.modalidadID).subscribe(({ data })=>{
-      this.catalogues = data['catalogueByModalidad'];            
+      this.catalogues = data['catalogueByModalidad'].filter(e => e.catalogueType.name === 'fisíco mecánica');            
     });
-    this.searchFisicoMecanica();
   }
 
-  searchFisicoMecanica(){
-  //  let filtro = this.catalogues.filter(palabra=>(palabra.name));
-  //  console.log(filtro);
-   
+  searchCatalogue(){
+    if (!this.filtro) {
+      this.service.catalogueByModalidadID(this.modalidadID).subscribe(({ data })=>{
+        this.catalogues = data['catalogueByModalidad'].filter(e => e.catalogueType.name === 'fisíco mecánica'); 
+      }); 
+    }else{
+      this.service.searchWord(1,this.filtro.trim().toLowerCase()).subscribe(({data})=>{
+        this.catalogues = data['cataloguesLike'];
+
+      });
+    }
   }
+
   redirect(){
     this.router.navigate(['/aplicacion/verificacion/fisicoMecanica/'])
   }

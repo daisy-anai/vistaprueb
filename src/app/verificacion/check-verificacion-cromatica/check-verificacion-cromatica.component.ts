@@ -143,7 +143,7 @@ export class CheckVerificacionCromaticaComponent implements OnInit {
   }
   aceptado(){
     this.modalidad = this.catalogues.name;
-    this.createHistory();
+     this.createHistory();
     this.close = false;
     this.finalizar= true;     
   }

@@ -15,7 +15,7 @@
     
     <semovi-list *ngIf="catalogues" class="center ">
       <semovi-item *ngFor="let catalogo of catalogues ">
-        <semovi-label > {{catalogo.name}} {{catalogo.deprecated}}</semovi-label>
+        <semovi-label > {{catalogo.name}}</semovi-label>
         <semovi-label>
           <a class="btn-floating btn-small right"
           [routerLink]="['/aplicacion/verificacion/cromatica', catalogo.id]">

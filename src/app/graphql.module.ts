@@ -28,5 +28,13 @@ export class GraphQLModule {
       }),
       cache: new InMemoryCache()
     });
+
+    apollo.createNamed('backLicencias', {
+      link: httpLink.create({
+        uri: environment.URIBackLicencias
+      }),
+      cache: new InMemoryCache()
+    });
+  
   }
 }

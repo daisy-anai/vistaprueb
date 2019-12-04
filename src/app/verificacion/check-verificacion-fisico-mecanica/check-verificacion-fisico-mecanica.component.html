@@ -169,18 +169,10 @@
         </div>
         <div class="row">
           <div class="col m12">
-            <div class="input-field col m4">
+            <div class="input-field col m6">
               <input id="nLicencia" type="text" class="validate">
               <label for="nLicencia">Número de Licencia</label>
             </div>
-            <div class="input-field col m4">
-              <input id="tipoLicencia" type="text" class="validate">
-              <label for="tipoLicencia">Tipo de Licencia</label>
-            </div>
-            <div class="input-field col m4">
-                <input id="vencimientoLicencia" type="date" class="validate">
-                <label for="vencimientoLicencia">Vencimiento de Licencia</label>
-              </div>
           </div>
         </div>
 
@@ -206,24 +198,7 @@
               <span *ngIf="vehiculo">{{vehiculo.serie}} </span> 
             </div> 
           </div>
-        </div>
-
-        <div class="row">
-          <div class="col s12">
-            <div class="input-field col m4">
-              <input id="linea" type="text" class="validate" [(ngModel)]="lineaVehiculo">
-              <label for="linea">Linea</label>
-            </div>
-            <div class="input-field col m4">
-              <input id="tipoClase" type="text" class="validate" [(ngModel)]="tipoClaseVehiculo">
-              <label for="tipoClase">Tipo y Clase</label>
-            </div>
-            <div class="input-field col m4">
-              <input id="vencimientoVehiculo" type="date" class="validate" [(ngModel)]="vencimientoV">
-              <label for="vencimientoVehiculo">Vencimiento</label>
-            </div>
-          </div> 
-        </div>   
+        </div> 
 
           <div class="row">
             <div class="col m12">
@@ -231,7 +206,7 @@
                 <span class=" negrita">Número de motor:</span>
                 <span *ngIf="vehiculo"> {{vehiculo.motor}} </span>
                 </div> 
-              <div class="col m6 left-align">
+              <div class="col m6">
                 <span class=" negrita">N.U.C :</span>
                 <span *ngIf="concesion">{{concesion.nuc}}</span>
               </div>     
@@ -239,11 +214,16 @@
           </div>
          <div class="row">
            <div class="col s12">
-            <div class="input-field col m4">
+            <div class="input-field col m6">
               <input id="numPoliza" type="text" class="validate" [(ngModel)]="numeroPolizaVehiculo">
               <label for="numPoliza">Número de poliza</label>
             </div>
-           </div>
+            <div class="input-field col m6">
+              <input id="vencimientoVehiculo" type="date" class="validate" [(ngModel)]="vencimientoV">
+              <label for="vencimientoVehiculo">Vencimiento</label>
+            </div>
+          </div> 
+         
          </div>
 
 
@@ -255,6 +235,14 @@
           <div class=" input-field col m4 ">
             <input type="text" autocomplete="off" id="color" name="color" [(ngModel)]="colorVehiculo" >
             <label for="color"> Color del vehículo</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s12">
+          <div class="input-field">
+            <textarea  autocomplete="off"  id="observacion" name="observacion" class="validate" [(ngModel)]="observacionRevision" class="materialize-textarea"></textarea>
+            <label for="observacion">Observaciones de la  revisión </label>
           </div>
         </div>
       </div>
@@ -279,9 +267,8 @@
       </div>
       <div *ngIf="showIncomplete">
         <reporte-fisico-mecanica [coloniaConcesionario]="coloniaConcesionario"  [domicilioConcesionario]="domicilioConcesionario"
-        [numeroAcuerdo]="numeroAcuerdo" [vencimiento]="vencimiento" [nombreConductor]="nombreConductor" [linea]="linea" 
-        [tipoClase]="tipoClase" [numeroPoliza]="numeroPoliza" [vencimientoVehiculo]="vencimientoVehiculo" [color]="color" 
-        [idhistory]="idhistory"></reporte-fisico-mecanica>
+        [numeroAcuerdo]="numeroAcuerdo" [vencimiento]="vencimiento" [nombreConductor]="nombreConductor"  [numeroPoliza]="numeroPoliza"
+        [vencimientoVehiculo]="vencimientoVehiculo" [color]="color" [idhistory]="idhistory" [observacion]="observacion"></reporte-fisico-mecanica>
    
       </div>
     </div>    

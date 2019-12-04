@@ -3,8 +3,7 @@ import { Router } from '@angular/router';
 // Services
 import { ConcesionService } from '../concesion.service';
 import { MediumDataService } from '../../shared/services/medium.data.service';
-import { HostListener } from '@angular/core';
-
+import {StorageService} from '../../shared/services/storage.service';
 // Interfaces
 import { Concesion } from '../../shared/models/concesion';
 declare var M: any;
@@ -23,8 +22,16 @@ export class BuscarConcesionComponent {
   constructor(
     private service?: ConcesionService,
     private shared?: MediumDataService,
-    private router?: Router
+    private router?: Router,
+    private storageService?: StorageService
   ) {}
+
+  sesion(){
+    //centro de trabajo
+    this.storageService.getCurrentSession();
+    console.log(this.storageService.getCurrentSession());
+    
+  }
  
  //ocultar teclado movil
   onKey(e) {
