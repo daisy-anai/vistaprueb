@@ -17,4 +17,9 @@
 .cuadro :first-child {
   align-self: center;
 }
+.colorCuadro{
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+}
   

@@ -29,8 +29,6 @@ export class CheckVerificacionCromaticaComponent implements OnInit {
   public descriptionHistory : string = '';
   public colorVehiculo: string ='';
   public ModalInstance: any;
-  public ModalInstanceDownload :any;
-  public ModalInstanceIncomplete: any;
   public ModalInstancePreview: any;
   public ModalInstanceQuestion: any;
   public is_correct : boolean= false;
@@ -119,6 +117,8 @@ export class CheckVerificacionCromaticaComponent implements OnInit {
         this.showComplete= false;
       }
       this.idhistory= this.history.id;
+    }, (error) => {
+      console.log("Error", error)
     });
     
    
@@ -134,20 +134,23 @@ export class CheckVerificacionCromaticaComponent implements OnInit {
     this.alert= false;
   }
   questionAlert(){
-    
     var question = document.getElementById('question');
 		this.ModalInstanceQuestion = M.Modal.init(question, {
       dismissible:false
     });
     this.ModalInstanceQuestion.open();
   }
+
   aceptado(){
     this.modalidad = this.catalogues.name;
      this.createHistory();
     this.close = false;
-    this.finalizar= true;     
+    this.finalizar= true;    
+    this.ModalInstancePreview.close();
+ 
   }
   finalizarCromatica(){
+    this.ModalInstanceQuestion.close();
     this.router.navigate(['/aplicacion/concesion']);
   }
   

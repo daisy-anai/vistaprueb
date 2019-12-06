@@ -42,19 +42,18 @@ export class SeleccionFisicoMecanicaComponent implements OnInit {
     
     this.modalidadID = this.route.snapshot.paramMap.get("id");
     this.service.catalogueByModalidadID(this.modalidadID).subscribe(({ data })=>{
-      this.catalogues = data['catalogueByModalidad'].filter(e => e.catalogueType.name === 'fisíco mecánica');            
+      this.catalogues = data['catalogueByModalidad'].filter(e => e.catalogueType.name === 'físico mecánica');            
     });
   }
 
   searchCatalogue(){
     if (!this.filtro) {
       this.service.catalogueByModalidadID(this.modalidadID).subscribe(({ data })=>{
-        this.catalogues = data['catalogueByModalidad'].filter(e => e.catalogueType.name === 'fisíco mecánica'); 
+        this.catalogues = data['catalogueByModalidad'].filter(filter => filter.catalogueType.name === 'físico mecánica'); 
       }); 
     }else{
       this.service.searchWord(1,this.filtro.trim().toLowerCase()).subscribe(({data})=>{
-        this.catalogues = data['cataloguesLike'];
-
+        this.catalogues = data['cataloguesLike'].filter(watch => watch.catalogueType.name === 'físico mecánica') ;        
       });
     }
   }

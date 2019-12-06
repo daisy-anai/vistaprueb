@@ -81,6 +81,8 @@ export class BuscarVehiculoComponent implements OnInit {
             for (const vigencia of this.vigencias) {
               var years = this.anio.getFullYear() - this.vehiculo.anioModelo ;  
               if (years <= vigencia.legal_years) {
+                console.log(years, vigencia.legal_years);
+                
               } else{
               this.ModalInstance.open();
               }

@@ -46,6 +46,105 @@ export class VerificarcionService {
     }).valueChanges;
   }
 
+  historyByCompleteChecksWhereCentroTrabajo(id_centro_trabajo: number){
+    return this.apollo.use('backrevista').watchQuery({
+      query: gql `
+      query  historyByCompleteChecksWhereCentroTrabajo($id_centro_trabajo:ID!){
+        historyByCompleteChecksWhereCentroTrabajo(id_centro_trabajo:$id_centro_trabajo){
+          id
+          id_concesion
+          id_vehiculo
+          catalogue{
+            id
+            id_modalidad
+            catalogueType{
+              id
+              name
+              description
+              created_at
+              deprecated
+            }
+          }         
+          review
+          is_correct
+          description
+          created_at
+          deprecated
+          editable
+          tid
+        }
+      }
+      `, variables:{
+        id_centro_trabajo: id_centro_trabajo
+      }
+    }).valueChanges;
+  }
+
+  historyByIncompleteChecksWhereCentroTrabajo(id_centro_trabajo: number){
+    return this.apollo.use('backrevista').watchQuery({
+      query: gql`
+      query historyByIncompleteChecksWhereCentroTrabajo($id_centro_trabajo:ID!){
+        historyByIncompleteChecksWhereCentroTrabajo(id_centro_trabajo:$id_centro_trabajo){
+          id
+          id_concesion
+          id_vehiculo
+          catalogue{
+            id
+            id_modalidad
+            catalogueType{
+              id
+              name
+              description
+              created_at
+              deprecated
+            }
+          }   
+          review
+          is_correct
+          description
+          created_at
+          deprecated
+          editable
+          tid
+        }
+      }`, variables:{
+        id_centro_trabajo: id_centro_trabajo
+      }
+    }).valueChanges;
+  }
+  
+  historyUltimateReviewByVehiculo(id_vehiculo: string){
+    return this.apollo.use('backrevista').watchQuery({
+      query : gql`
+      query historyUltimateReviewByVehiculo($id_vehiculo:ID!){
+        historyUltimateReviewByVehiculo(id_vehiculo:$id_vehiculo){
+        id
+          id_concesion
+          id_vehiculo
+          catalogue{
+            id
+            id_modalidad
+            catalogueType{
+              id
+              name
+              description
+              created_at
+              deprecated
+            }
+          }   
+          review
+          is_correct
+          description
+          created_at
+          deprecated
+          editable
+          tid
+        }
+      }`, variables:{
+        id_vehiculo: id_vehiculo
+      }
+    }).valueChanges;
+  }
 
   historybyID(id: string){
     return this.apollo.use('backrevista').watchQuery({
@@ -83,6 +182,10 @@ export class VerificarcionService {
       }
     }).valueChanges;
   }
+
+
+  //mutations
+
 
   createHistory(id_concesion:String,id_vehiculo:string,id_catalogue:string,review:any,is_correct:boolean,description:string){
 

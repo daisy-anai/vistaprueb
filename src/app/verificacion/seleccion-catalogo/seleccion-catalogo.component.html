@@ -16,26 +16,54 @@
             </div> 
             <div class="z-depth-2  item  center ">
               <a class="waves-effect black-text" (click)="fisicoMecanicaCatalogues()">Fisico Mecánica</a>
+              <a class=" black-text disabled"  *ngIf="disabledE" >Fisico ssMecánica</a>
+
+            </div> 
+                 
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12">
+          <div>
+            <label >Cuenta con una plantilla sin Finalizar</label>
+            <div *ngIf= "history">
+             
+              <div class="">
+                <semovi-group>
+                    <semovi-label> {{history.id}}</semovi-label>
+                  </semovi-group>
+                <div *ngFor="let seccion of history.review.sections">
+                  <span class="uppercase bold">{{seccion.name}}</span> 
+                  <div *ngFor="let propiedad of seccion.properties">
+                    
+                    <div class="row">
+                      <div class="col s12">
+                        <div class="col s8">
+                          <label>
+                          <input  id="check" name="check" type="checkbox"  />
+                          <span class="letter">{{propiedad.name}} <br></span>
+                          </label>
+                        </div>
+                        <div class="col s4 right">
+                          <div  class="colorCuadro" [ngStyle]="{'background-color': true ? propiedad.value  : 'blue'}"></div>
+                        </div>
+                        <div class="col s12">
+                          <div *ngIf="propiedad.propertyType == type" class="text-justify">
+                            {{propiedad.value}}
+                          </div>  
+                        </div> 
+                      </div>
+                    </div>
+                  </div>
+                </div> 
+              </div>
+          
             </div>
-                   
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field">
-            <input  class="autocomplete" 
-            id="autocompleteLicense" type="text" (change)="searchLicence()" autocomplete="off">
-            <label for="autocompleteLicense"  >Número de Licencia</label>
           </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <input type="text" [(ngModel)]="numberLicense">
-          <label for="">licencia</label>
-          {{numberLicense}}
         </div>
-        <button (click)="assingLicense()">licencia</button>
       </div>
-      
+
     </semovi-card-body>
   </semovi-card>
 </ng-container>

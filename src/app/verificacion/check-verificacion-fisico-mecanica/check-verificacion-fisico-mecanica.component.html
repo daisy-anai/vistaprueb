@@ -89,6 +89,7 @@
   <div class="modal-content">
     <h6 class="center">Previsulización de datos para Físico Mecánica  </h6>
     <br>
+    
     <div class="row">
       <div class="col s12">
 
@@ -128,26 +129,25 @@
         <div class="row">
           <div class="col m12">
             <div class="input-field  col m8">
-              <textarea  autocomplete="off"  id="domicilio" name="domicilio" class="validate" [(ngModel)]="domicilioC" class="materialize-textarea"></textarea>
+              <textarea  autocomplete="off"  id="domicilio" name="domicilio" class="validate" [(ngModel)]="domicilioC" class="materialize-textarea" required></textarea>
               <label for="domicilio">Domicilio(Calle y número) </label>
             </div>
 
             <div class=" input-field col m4 ">
-              <input type="text" autocomplete="off" id="colonia" name="colonia" [(ngModel)]="coloniaC" >
+              <input type="text" autocomplete="off" id="colonia" name="colonia" [(ngModel)]="coloniaC" required>
               <label for="colonia"> Colonia</label>
             </div>
           </div>
        </div>
       
-
         <div class="row">
           <div class="col m12">
             <div class="input-field col m6">
-              <input id="numAcuerdo" type="text" class="validate" [(ngModel)]="numeroA">
+              <input id="numAcuerdo" type="number" class="validate" [(ngModel)]="numeroA" required>
               <label for="numAcuerdo">Número de Acuerdo</label>
             </div>
             <div class="input-field col m6">
-              <input id="vencimiento" type="date" [(ngModel)]="vencimientoC">
+              <input id="vencimiento" type="date" [(ngModel)]="vencimientoC" required>
               <label for="vencimiento">Vencimiento</label>
             </div>
           </div>
@@ -159,19 +159,39 @@
             <hr>
           </div>
         </div>
+
         <div class="row">
-          <div class="col s12">
-            <div class="input-field col m8">
-              <input id="conductor" type="text" class="validate" [(ngModel)]="nombreC">
-              <label for="conductor">Nombre completo</label>
+          <div class="col m12">
+            <div class="input-field col m4">
+              <input id="nLicencia" type="text" class="validate" [(ngModel)]="numberLicense" required>
+              <label for="nLicencia">Número de Licencia</label>
+            </div>
+            <div *ngIf="datosLicencia">
+              <div class="col m4">
+                <div *ngIf="license">
+                  <span class="negrita">Tipo de Licencia:</span>
+                  <span>{{license.tipo}} </span>
+                </div>
+              </div>
+              <div class="col m4">
+                <div *ngIf="license">
+                  <span class="negrita">Tipo de Licencia:</span>
+                  <span>{{license.fecha_vencimiento}} </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+
         <div class="row">
-          <div class="col m12">
-            <div class="input-field col m6">
-              <input id="nLicencia" type="text" class="validate">
-              <label for="nLicencia">Número de Licencia</label>
+          <div class="col s12">
+            <div *ngIf="datosLicencia">
+              <div class="">
+                <div *ngIf="license">
+                  <span>Nombre:</span>
+                  <span>{{license.contribuyente.nombre}} {{license.contribuyente.primer_apellido}} {{license.contribuyente.segundo_apellido}}</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -215,15 +235,16 @@
          <div class="row">
            <div class="col s12">
             <div class="input-field col m6">
-              <input id="numPoliza" type="text" class="validate" [(ngModel)]="numeroPolizaVehiculo">
+              <input id="numPoliza" type="text" class="validate" [(ngModel)]="numeroPolizaVehiculo" required>
               <label for="numPoliza">Número de poliza</label>
+              
             </div>
             <div class="input-field col m6">
-              <input id="vencimientoVehiculo" type="date" class="validate" [(ngModel)]="vencimientoV">
+              <input id="vencimientoVehiculo" type="date" class="validate" [(ngModel)]="vencimientoV" required>
               <label for="vencimientoVehiculo">Vencimiento</label>
+            
             </div>
           </div> 
-         
          </div>
 
 
@@ -233,7 +254,7 @@
             <label for="description">Descripción de la revisión </label>
           </div>
           <div class=" input-field col m4 ">
-            <input type="text" autocomplete="off" id="color" name="color" [(ngModel)]="colorVehiculo" >
+            <input type="text" autocomplete="off" id="color" name="color" [(ngModel)]="colorVehiculo" required>
             <label for="color"> Color del vehículo</label>
           </div>
         </div>
@@ -251,7 +272,8 @@
     <div class="modal-footer">
       <a class="modal-close waves-effect waves-green btn-flat" (click)="cancelarPreview()">Cancelar</a>
       <button (click)="questionAlert()" class=" waves-effect waves-green btn-small"
-      [disabled]="!(descriptionHistory.length >=10 && colorVehiculo.length >=3)">Aceptar</button  >
+      [disabled]="!(descriptionHistory.length >=10 && colorVehiculo.length >=3 && domicilioC.length >=10 && coloniaC.length >=5 &&  vencimientoC.length ==10 )">Aceptar</button  >
+    
     </div>
   </div>
 </div>  
@@ -267,7 +289,7 @@
       </div>
       <div *ngIf="showIncomplete">
         <reporte-fisico-mecanica [coloniaConcesionario]="coloniaConcesionario"  [domicilioConcesionario]="domicilioConcesionario"
-        [numeroAcuerdo]="numeroAcuerdo" [vencimiento]="vencimiento" [nombreConductor]="nombreConductor"  [numeroPoliza]="numeroPoliza"
+        [numeroAcuerdo]="numeroAcuerdo" [vencimiento]="vencimiento" [nLicencia]="nLicencia"  [numeroPoliza]="numeroPoliza"
         [vencimientoVehiculo]="vencimientoVehiculo" [color]="color" [idhistory]="idhistory" [observacion]="observacion"></reporte-fisico-mecanica>
    
       </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormArray , FormBuilder, Validators, Form} from '@angular/forms';
+import { FormGroup , FormBuilder, Validators, Form} from '@angular/forms';
 
 //service
 import { MediumDataService } from '../../shared/services/medium.data.service';
@@ -19,6 +19,7 @@ declare var M: any;
   styleUrls: ['./check-verificacion-fisico-mecanica.component.css']
 })
 export class CheckVerificacionFisicoMecanicaComponent implements OnInit {
+  public pdfForm : FormGroup;
   public catalogueID :string;
   private catalogues: any;
   public type: string = 'texto'; 
@@ -26,16 +27,13 @@ export class CheckVerificacionFisicoMecanicaComponent implements OnInit {
   public vehiculo : any;
   public history: any;
   public proipiedacCheck: any;
-  public ModalInstance: any;
-  public ModalInstanceDownload :any;
-  public ModalInstanceIncomplete: any;
   public ModalInstancePreview: any;
   public ModalInstanceQuestion: any;
   public is_correct : boolean= false;
   public download : boolean = false;
   public reportComplete : boolean =false;
   public alert: boolean= true;
-
+  public license: any;
   public showComplete: boolean= false;
   public showIncomplete: boolean= false;
   public close : boolean= true;
@@ -49,15 +47,15 @@ export class CheckVerificacionFisicoMecanicaComponent implements OnInit {
   public numeroA: string = '';
   public vencimiento: string = '';
   public vencimientoC: string = '';
-  public nombreConductor: string = '';
-  public nombreC: string = '';
+  public nLicencia: string = '';
+  public numberLicense: string = ''
   public vencimientoVehiculo: string = '';
   public vencimientoV: string = '';
   public numeroPoliza: string = '';
   public numeroPolizaVehiculo: string = '';
   public observacionRevision: string = '';
   public observacion: string = '';
-
+  public datosLicencia: boolean= false;
   public color: string ='';
   public descriptionHistory : string = '';
   public colorVehiculo: string ='';
@@ -100,7 +98,10 @@ export class CheckVerificacionFisicoMecanicaComponent implements OnInit {
           propiedades.checked = false;
         }
       }   
-   });     
+   });    
+
+
+
   }
 
   checar(propiedad: any ){
@@ -139,7 +140,6 @@ export class CheckVerificacionFisicoMecanicaComponent implements OnInit {
       }
       this.idhistory= this.history.id;
     });
-    
    
   }
   cancelarPreview(){
@@ -153,29 +153,54 @@ export class CheckVerificacionFisicoMecanicaComponent implements OnInit {
     this.alert= false;
   }
   questionAlert(){
+    var acuerdo = document.getElementById('numAcuerdo');
+    var acuerdo2 = document.getElementsByClassName('numAcuerdo')
+    let e =
+    // var pass = (<HTMLInputElement>document.getElementById("password")).value;
+    console.log(acuerdo, acuerdo2);
+    
     
     var question = document.getElementById('question');
-		this.ModalInstanceQuestion = M.Modal.init(question, {
+    this.ModalInstanceQuestion = M.Modal.init(question, {
       dismissible:false
     });
-    this.ModalInstanceQuestion.open();
+    //01113689
+
+    this.service.licenseByNumber(this.numberLicense).subscribe(({ data })=>{
+      this.license = data['licenseByNumber'];
+        console.log(this.license, "true");  
+        this.datosLicencia = true;
+        this.ModalInstanceQuestion.open();
+
+    },(error) => {
+      var errores = error.message.split(":");
+      var toastHTML = '<span> <div class="valign-wrapper"><i class="material-icons">error_outline</i>  &nbsp;&nbsp;'+errores[1]+'</div></span>';
+      M.toast({html: toastHTML});
+    });
+  
+   
   }
   aceptado(){
     this.domicilioConcesionario= this.domicilioC;
     this.coloniaConcesionario = this.coloniaC;
     this.numeroAcuerdo = this.numeroA;
     this.vencimiento = this.vencimientoC;
-    this.nombreConductor = this.nombreC;
+    this.nLicencia = this.numberLicense;
     this.vencimientoVehiculo = this.vencimientoV;
     this.color = this.colorVehiculo;
     this.observacion = this.observacionRevision;
+    this.nLicencia = this.numberLicense;
     this.showIncomplete = true;
 
     this.createHistory();
     this.close = false;
-    this.finalizar= true;     
+    this.finalizar= true; 
+    this.ModalInstancePreview.close();
+    
   }
   finalizarCromatica(){
+    this.ModalInstanceQuestion.close();
+
     this.router.navigate(['/aplicacion/concesion']);
   }
 

@@ -39,7 +39,9 @@ export class SeleccionCromaticaComponent implements OnInit {
     
     this.modalidadID = this.route.snapshot.paramMap.get("id");
     this.service.catalogueByModalidadID(this.modalidadID).subscribe(({ data })=>{
-      this.catalogues = data['catalogueByModalidad'].filter(e => e.catalogueType.name === "cromática");       
+      this.catalogues = data['catalogueByModalidad'].filter(e => e.catalogueType.name === "cromática");             
+      console.log(this.catalogues);
+      
     });
 
  
@@ -51,7 +53,7 @@ export class SeleccionCromaticaComponent implements OnInit {
       }); 
     }else{
       this.service.searchWord(1,this.filtro.trim().toLowerCase()).subscribe(({data})=>{
-        this.catalogues = data['cataloguesLike'].filter(e => e.catalogueType.name === "cromática");
+        this.catalogues = data['cataloguesLike'].filter(e => e.catalogueType.name === "cromática").filter(deprecado => deprecado.deprecated === false)  ;
       });
     }
   }
