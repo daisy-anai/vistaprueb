@@ -11,7 +11,6 @@ import { CrearVigenciasComponent } from './crear-vigencias/crear-vigencias.compo
 import { ListarVigenciasComponent } from './listar-vigencias/listar-vigencias.component';
 import { ModificarVigenciasComponent } from './modificar-vigencias/modificar-vigencias.component';
 import { ComponentsModule } from '../shared/components/components.module';
-
 @NgModule({
   declarations: [
     CrearVigenciasComponent,

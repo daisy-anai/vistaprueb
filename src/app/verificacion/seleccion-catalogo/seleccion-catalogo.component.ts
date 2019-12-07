@@ -32,6 +32,10 @@ export class SeleccionCatalogoComponent implements OnInit {
   public numberLicense: string = '';
   public disabledE : boolean = false; 
   public type: string ='texto';
+  public ModalInstancePreview: any;
+  public previewExistente : boolean = false;
+  public historia : any;
+  public cromaticaExitosa : boolean = false;
   constructor(
     private route?: ActivatedRoute,
     private service?: CatalogoService,
@@ -56,17 +60,35 @@ export class SeleccionCatalogoComponent implements OnInit {
     this.modalidadID = this.route.snapshot.paramMap.get("id");
     this.service.catalogueByModalidadID(this.modalidadID).subscribe(({ data })=>{
       this.catalogues = data['catalogueByModalidad'];   
-       
+
     });
     
     this.verificarcionService.historyUltimateReviewByVehiculo(this.vehiculo.id).subscribe(({ data })=>{
-      this.history = data['historyUltimateReviewByVehiculo']
-      console.log("", this.history);
-      
-    })
+      this.history = data['historyUltimateReviewByVehiculo'];
+      if(this.history.is_correct == false && this.history.catalogue.catalogueType.name=='cromática'){
+       
+        this.previewExistente = true;
+      }else{
+
+        this.previewExistente = false;
+        this.cromaticaExitosa = true;
+      }
+ 
+    });
+  
+
+     
+  }
+  plantillaHistoryCheck(){
+    console.log(this.history.id);
+    this.router.navigate([`/aplicacion/verificacion/historia/${this.history.id}`])
   }
 
 
+  continuarPlantilla(){
+    console.log(this.history.id);
+    this.router.navigate([`/aplicacion/verificacion/historia/${this.history.id}`])
+  }
   searchCatalogue(){
     if (!this.filtro) {
       this.service.catalogueByModalidadID(this.modalidadID).subscribe(({ data })=>{        

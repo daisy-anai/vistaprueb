@@ -76,14 +76,20 @@ export class BuscarVehiculoComponent implements OnInit {
         this.vigenciasService.getVigenciasModalidadByID(modalidadID).subscribe(({ data })=>{
           this.vigencias = data['validityByModalidad'];
           if( Object.keys(this.vigencias).length === 0){
-            this.ModalInstanceVigencia.open();
+            // this.ModalInstanceVigencia.open();
+            console.log("es vacio");
+            
           }else{
             for (const vigencia of this.vigencias) {
               var years = this.anio.getFullYear() - this.vehiculo.anioModelo ;  
               if (years <= vigencia.legal_years) {
-                console.log(years, vigencia.legal_years);
-                
+                console.log("year",years, vigencia.legal_years); 
+                console.log("años", vigencia.extension_years);
+
               } else{
+                console.log("si es menos");
+                console.log("year",years, vigencia.legal_years);              
+                
               this.ModalInstance.open();
               }
             }

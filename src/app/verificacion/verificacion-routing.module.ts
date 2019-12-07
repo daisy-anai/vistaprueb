@@ -5,7 +5,8 @@ import { CheckVerificacionCromaticaComponent} from './check-verificacion-cromati
 import { SeleccionCatalogoComponent } from './seleccion-catalogo/seleccion-catalogo.component';
 import { CheckVerificacionFisicoMecanicaComponent } from './check-verificacion-fisico-mecanica/check-verificacion-fisico-mecanica.component'
 import { SeleccionCromaticaComponent } from './seleccion-cromatica/seleccion-cromatica.component';
-import{ SeleccionFisicoMecanicaComponent } from './seleccion-fisico-mecanica/seleccion-fisico-mecanica.component';
+import { SeleccionFisicoMecanicaComponent } from './seleccion-fisico-mecanica/seleccion-fisico-mecanica.component';
+import { HistoriaComponent } from './historia/historia.component';
 
 const routes : Routes=[
   {path:'cromatica/:id',component:CheckVerificacionCromaticaComponent},
@@ -13,6 +14,7 @@ const routes : Routes=[
   {path:'fisicoMecanica/:id', component: CheckVerificacionFisicoMecanicaComponent },
   {path: 'cromatica/seleccion/:id', component: SeleccionCromaticaComponent},
   {path: 'fisicoMecanica/seleccion/:id', component: SeleccionFisicoMecanicaComponent},
+  {path: 'historia/:id', component: HistoriaComponent},
   {path:'**',redirectTo:''}
 ];
 

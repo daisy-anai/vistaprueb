@@ -5,6 +5,7 @@ import { CrearVigenciasComponent } from './crear-vigencias/crear-vigencias.compo
 import { ListarVigenciasComponent } from  './listar-vigencias/listar-vigencias.component';
 import { ModificarVigenciasComponent } from  './modificar-vigencias/modificar-vigencias.component';
 
+
 const routes: Routes = [
   { path: '', component: ListarVigenciasComponent },
   { path: 'crear/:id', component: CrearVigenciasComponent },

@@ -98,8 +98,12 @@ export class CheckVerificacionCromaticaComponent implements OnInit {
           cont ++
           if(checkTamanio== cont){
             this.is_correct= true;
+            console.log("true");
+            
           }else{
             this.is_correct= false;
+            console.log("false");
+            
           }    
         }
       }

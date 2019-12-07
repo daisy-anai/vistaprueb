@@ -18,6 +18,8 @@ import { SeleccionCromaticaComponent} from './seleccion-cromatica/seleccion-crom
 import { SeleccionFisicoMecanicaComponent } from './seleccion-fisico-mecanica/seleccion-fisico-mecanica.component';
 import { CheckVerificacionFisicoMecanicaComponent } from './check-verificacion-fisico-mecanica/check-verificacion-fisico-mecanica.component';
 import { ReporteFisicoMecanicaComponent } from './reporte-fisico-mecanica/reporte-fisico-mecanica.component';
+import { ReporteFinalFisicoMecanicaComponent } from './reporte-final-fisico-mecanica/reporte-final-fisico-mecanica.component';
+import { HistoriaComponent } from './historia/historia.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { ReporteFisicoMecanicaComponent } from './reporte-fisico-mecanica/report
     SeleccionCromaticaComponent,
     SeleccionFisicoMecanicaComponent,
     CheckVerificacionFisicoMecanicaComponent,
-    ReporteFisicoMecanicaComponent
+    ReporteFisicoMecanicaComponent,
+    HistoriaComponent,
+    ReporteFinalFisicoMecanicaComponent
     
   ],
   imports: [

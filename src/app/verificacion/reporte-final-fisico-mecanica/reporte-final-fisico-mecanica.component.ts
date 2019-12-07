@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit,Input} from '@angular/core';
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import { IMAGEOAXACAWEB } from "../../../assets/imgoaxacagobmx";
@@ -7,44 +7,50 @@ import { IMAGE_BANNER } from "../../../assets/banner";
 import { Cuadro}from '../../../assets/square';
 import { Square} from '../../../assets/square2';
 
-//models
-// import {} from '../../shared/models/'
 //servicios
 import { MediumDataService } from '../../shared/services/medium.data.service';
 import { VerificarcionService }from '../verificacion.service';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
+
 @Component({
-  selector: 'reporte-fisico-mecanica',
-  templateUrl: './reporte-fisico-mecanica.component.html',
-  styleUrls: ['./reporte-fisico-mecanica.component.css']
+  selector: 'reporte-final-fisico-mecanica',
+  templateUrl: './reporte-final-fisico-mecanica.component.html',
+  styleUrls: ['./reporte-final-fisico-mecanica.component.css']
 })
-export class ReporteFisicoMecanicaComponent implements OnInit {
- 
+export class ReporteFinalFisicoMecanicaComponent implements OnInit {
+  @Input() domicilioConcesionario:string;
+  @Input() coloniaConcesionario:string;
+  @Input() numeroAcuerdo: string;
+  @Input() vencimiento:string;
+  @Input() nLicencia:string;
+  @Input() numeroPoliza:string;
+  @Input() vencimientoVehiculo:string;
+  @Input() color:string;
   @Input() idhistory: string;
-
-
-
-
+  @Input() observacion: string;
 
   public concesion : any;
   public vehiculo: any;
   public placas: any;
   public history: any;
   public license: any;
-
   constructor(
     private shared?: MediumDataService,
     private service?: VerificarcionService
-    ){}
+
+  ) {}
 
   ngOnInit() {
-     this.concesion = this.shared.getConcesion();
+    this.concesion = this.shared.getConcesion();
     this.vehiculo = this.shared.getVehiculo();
     for (const placa of this.vehiculo.placa) {
       this.placas = placa.matricula;  
       }
-   
+      console.log(this.nLicencia);
+      this.service.licenseByNumber(this.nLicencia).subscribe(({ data })=>{
+        this.license  = data['licenseByNumber'];
+      });
       
   }
 
@@ -54,6 +60,9 @@ export class ReporteFisicoMecanicaComponent implements OnInit {
 
     this.service.historybyID(this.idhistory).subscribe(({ data })=>{
       this.history = data['history'];
+      console.log(this.history);
+      this.generarpdf(secciones);
+
       for (let i = 0; i < this.history.review.sections.length; i++) {
         secciones.push({columns: [{text: (i+1)+' '+this.history.review.sections[i].name , fontSize: 9, bold: true}]});
         for (let j = 0; j < this.history.review.sections[i].properties.length; j++) {
@@ -66,6 +75,8 @@ export class ReporteFisicoMecanicaComponent implements OnInit {
         }      
       }  
     });
+    console.log("completo");
+    
   }
 
   generarpdf(secciones:any){
@@ -108,33 +119,33 @@ export class ReporteFisicoMecanicaComponent implements OnInit {
         { columns:
           [
             {
-              // table: 
-              // {
-              //   widths: [120, 120, 120,120],
-              //   body: [
-              //     [{text: ' DATOS DEL CONESIONARIO',bold:true ,fontSize:9, colSpan: 4, alignment: 'center'},{},{},{}],
-              //     [{text: ['Nombre Completo:  ',{text:this.concesion.concesionario.nombre +' '+this.concesion.concesionario.primerApellido+' '+this.concesion.concesionario.segundoApellido ,bold:false}, '', ], fontSize:8 ,alignment: 'justify', colSpan:4, bold:true},{},{},{}],
-              //     [{text: 'Domicilio(calle y número):  '+this.domicilioConcesionario, bold:true ,fontSize:8, colSpan:3},{},{},{ text: 'Colonia: '+this.coloniaConcesionario, bold:true, fontSize:8}],
-              //     [{text: 'Población:  '+this.concesion.concesionario.localidad.nombre, bold:true ,fontSize:8, colSpan:2,},{},{ text: 'Municipio: '+this.concesion.concesionario.localidad.municipio.nombre, bold:true, fontSize:8, colSpan:2},{}],
-              //     [{text: 'Sitio o Agrupación:  '+this.concesion.sitio.nombre, bold:true ,fontSize:8, colSpan:2},{},{text:'N° de Acuerdo: '+ this.numeroAcuerdo,bold:true,fontSize:8},{text: 'Vencimiento: '+this.vencimiento, bold:true, fontSize:8}],
-              //     [{ alignment: 'center', text: 'DATOS DEL CONDUCTOR',fontSize:9, bold:true ,colSpan: 4},{},{},{}],
-              //     [{text: 'Nombre completo:  '+this.license.contribuyente.nombre+' '+this.license.contribuyente.primer_apellido+' '+this.license.contribuyente.segundo_apellido, colSpan: 4,bold:true ,fontSize:8, alignment: 'left'},{},{},{}],
-              //     [{text: 'N° de Licencia: '+this.nLicencia, bold:true ,fontSize:8},{text:'Tipo de Licencia:  '+this.license.tipo ,bold:true, colSpan:2,fontSize:8},{},{text: 'Vencimiento: '+this.license.fecha_vencimiento, bold:true, fontSize:8}],
-              //     [{ alignment: 'center', text: 'DATOS DEL VECHÍCULO',fontSize:9, bold:true,colSpan: 4},{},{},{}],
-              //     [{text: 'Marca: '+this.vehiculo.marca.nombre, bold:true ,fontSize:8},{text:'Linea: ' +this.vehiculo.tipo.nombre,bold:true, colSpan:2,fontSize:8},{},{text: 'Tipo y Clase: '+this.concesion.modalidad.nombre, bold:true, fontSize:8}],
-              //     [{text: 'N° de Motor: '+this.vehiculo.motor, bold:true ,fontSize:8},{text:'N° de Serie:   ' +this.vehiculo.serie ,bold:true, colSpan:2,fontSize:8},{},{text: 'Modelo:  '+this.vehiculo.anioModelo, bold:true, fontSize:8}],
-              //     [{text: 'Color Oficial: '+this.color, bold:true ,fontSize:8},{text:'N.U.C:  ' + this.concesion.nuc,bold:true,fontSize:8},{text:'N° de Poliza'+this.numeroPoliza,bold:true, fontSize:8},{text: 'Vencimiento: '+this.vencimientoVehiculo, bold:true, fontSize:8}],
+              table: 
+              {
+                widths: [120, 120, 120,120],
+                body: [
+                  [{text: ' DATOS DEL CONESIONARIO',bold:true ,fontSize:9, colSpan: 4, alignment: 'center'},{},{},{}],
+                  [{text: ['Nombre Completo:  ',{text:this.concesion.concesionario.nombre +' '+this.concesion.concesionario.primerApellido+' '+this.concesion.concesionario.segundoApellido ,bold:false}, '', ], fontSize:8 ,alignment: 'justify', colSpan:4, bold:true},{},{},{}],
+                  [{text: 'Domicilio(calle y número):  '+this.domicilioConcesionario, bold:true ,fontSize:8, colSpan:3},{},{},{ text: 'Colonia: '+this.coloniaConcesionario, bold:true, fontSize:8}],
+                  [{text: 'Población:  '+this.concesion.concesionario.localidad.nombre, bold:true ,fontSize:8, colSpan:2,},{},{ text: 'Municipio: '+this.concesion.concesionario.localidad.municipio.nombre, bold:true, fontSize:8, colSpan:2},{}],
+                  [{text: 'Sitio o Agrupación:  '+this.concesion.sitio.nombre, bold:true ,fontSize:8, colSpan:2},{},{text:'N° de Acuerdo: '+ this.numeroAcuerdo,bold:true,fontSize:8},{text: 'Vencimiento: '+this.vencimiento, bold:true, fontSize:8}],
+                  [{ alignment: 'center', text: 'DATOS DEL CONDUCTOR',fontSize:9, bold:true ,colSpan: 4},{},{},{}],
+                  [{text: 'Nombre completo:  '+this.license.contribuyente.nombre+' '+this.license.contribuyente.primer_apellido+' '+this.license.contribuyente.segundo_apellido, colSpan: 4,bold:true ,fontSize:8, alignment: 'left'},{},{},{}],
+                  [{text: 'N° de Licencia: '+this.nLicencia, bold:true ,fontSize:8},{text:'Tipo de Licencia:  '+this.license.tipo ,bold:true, colSpan:2,fontSize:8},{},{text: 'Vencimiento: '+this.license.fecha_vencimiento, bold:true, fontSize:8}],
+                  [{ alignment: 'center', text: 'DATOS DEL VECHÍCULO',fontSize:9, bold:true,colSpan: 4},{},{},{}],
+                  [{text: 'Marca: '+this.vehiculo.marca.nombre, bold:true ,fontSize:8},{text:'Linea: ' +this.vehiculo.tipo.nombre,bold:true, colSpan:2,fontSize:8},{},{text: 'Tipo y Clase: '+this.concesion.modalidad.nombre, bold:true, fontSize:8}],
+                  [{text: 'N° de Motor: '+this.vehiculo.motor, bold:true ,fontSize:8},{text:'N° de Serie:   ' +this.vehiculo.serie ,bold:true, colSpan:2,fontSize:8},{},{text: 'Modelo:  '+this.vehiculo.anioModelo, bold:true, fontSize:8}],
+                  [{text: 'Color Oficial: '+this.color, bold:true ,fontSize:8},{text:'N.U.C:  ' + this.concesion.nuc,bold:true,fontSize:8},{text:'N° de Poliza'+this.numeroPoliza,bold:true, fontSize:8},{text: 'Vencimiento: '+this.vencimientoVehiculo, bold:true, fontSize:8}],
                  
-              //     [{alignment: 'center', text: 'CALCAS DEL VEHÍCULO',fontSize:9, bold:true,colSpan: 4 },{},{},{}],
-              //     [{text: 'N° de Motor:  ', fontSize:8, bold:true,margin: [0, 30,0, 0], colSpan:4},{},{},{}],
-              //     [{text: 'N° de Serie ', fontSize:8, bold:true,margin: [0, 30,0,0],colSpan:4 },{},{},{}],
-              //     [{text: 'N° de Placa VIN ', fontSize:8, bold:true,margin: [0, 30,0, 0],colSpan:4 },{},{},{}],
-              //     [{text: 'N° de Cabina', fontSize:8, bold:true,margin: [0, 30,0, 0],colSpan:4},{},{},{}],
-              //     [{text:'PRÓRROGAS',fontSize:8, bold:true},{text:'Primera',fontSize:8, bold:true, upperCase:true},{text:'segunda',fontSize:8, bold:true},{text:'tercera',fontSize:8, bold:true}],
-              //     [{text: ' OBSERVACIONES',bold:true ,fontSize:9, colSpan: 4, alignment: 'center'},{},{},{}],
-              //     [{text: this.observacion ,bold:true ,fontSize:9, colSpan: 4, alignment: 'justify',margin: [0, 30,0, 0]},{},{},{}],       
-              //   ]
-		      	  // }
+                  [{alignment: 'center', text: 'CALCAS DEL VEHÍCULO',fontSize:9, bold:true,colSpan: 4 },{},{},{}],
+                  [{text: 'N° de Motor:  ', fontSize:8, bold:true,margin: [0, 30,0, 0], colSpan:4},{},{},{}],
+                  [{text: 'N° de Serie ', fontSize:8, bold:true,margin: [0, 30,0,0],colSpan:4 },{},{},{}],
+                  [{text: 'N° de Placa VIN ', fontSize:8, bold:true,margin: [0, 30,0, 0],colSpan:4 },{},{},{}],
+                  [{text: 'N° de Cabina', fontSize:8, bold:true,margin: [0, 30,0, 0],colSpan:4},{},{},{}],
+                  [{text:'PRÓRROGAS',fontSize:8, bold:true},{text:'Primera',fontSize:8, bold:true, upperCase:true},{text:'segunda',fontSize:8, bold:true},{text:'tercera',fontSize:8, bold:true}],
+                  [{text: ' OBSERVACIONES',bold:true ,fontSize:9, colSpan: 4, alignment: 'center'},{},{},{}],
+                  [{text: this.observacion ,bold:true ,fontSize:9, colSpan: 4, alignment: 'justify',margin: [0, 30,0, 0]},{},{},{}],       
+                ]
+		      	  }
             }
           ] 
         },
@@ -217,26 +228,10 @@ export class ReporteFisicoMecanicaComponent implements OnInit {
             { image: 'data:image/jpeg;base64,'+Square.square,width: 310,height: 150,absolutePosition: {x:50, y: 570}},
 
           ]
-        },
-        {
-          columns:
-          [
-            {text:'', pageBreak: 'after'},
-            {text:'\n\n\n'},
-
-          ]
-          
-        },
-        {
-          columns:
-          [
-            {text:'DATOS A CORREGIR', bold:true, fontSize:9, alignment:'center'}
-          ]
-        },secciones,
+        } 
       ]
     };
     pdfMake.createPdf(dd).download('reporte-fisicoMecanica.pdf');
 
   }
-
 }
