@@ -30,7 +30,7 @@ export class CheckVerificacionFisicoMecanicaComponent implements OnInit {
   public ModalInstancePreview: any;
   public ModalInstanceQuestion: any;
   public ModalInstancePreviewErrores: any;
-
+  public ModalInstanceQuestionError: any;
   public is_correct : boolean= false;
   public download : boolean = false;
   public reportComplete : boolean =false;
@@ -40,6 +40,7 @@ export class CheckVerificacionFisicoMecanicaComponent implements OnInit {
   public showIncomplete: boolean= false;
   public close : boolean= true;
   public finalizar: boolean= false;
+
   //datos para el pdf
   public domicilioConcesionario: string = '';
   public domicilioC: string=''
@@ -62,13 +63,15 @@ export class CheckVerificacionFisicoMecanicaComponent implements OnInit {
   public descriptionHistory : string = '';
   public colorVehiculo: string ='';
   public modalidad: string='';
+  public finalizaError: boolean= false;
+  public closeError: boolean= true;
 
   public idhistory: string= '';
-
   public colorValido : boolean = false;
   public datosCompletos: boolean = false;
   public descripcionTotal: boolean = false;
 
+  public ocultar: boolean = false;
   constructor( 
     private route?: ActivatedRoute,
     private catalogueService?: CatalogoService,
@@ -81,18 +84,14 @@ export class CheckVerificacionFisicoMecanicaComponent implements OnInit {
 
   ngOnInit() {
 
+  
+    this.concesion= this.shared.getConcesion();
+    this.vehiculo = this.shared.getVehiculo();
+ 
     var modalPreview = document.getElementById('modalPreview');
     this.ModalInstancePreview= M.Modal.init(modalPreview,{
       dismissible:false
     });
-
-    var modalPreviewErrores = document.getElementById('modalPreviewErrores');
-    this.ModalInstancePreviewErrores= M.Modal.init(modalPreviewErrores,{
-      dismissible:false
-    });
-    this.concesion= this.shared.getConcesion();
-    this.vehiculo = this.shared.getVehiculo();
- 
 
     if(!this.vehiculo){
       var toastHTML= '<span><div class="valign-wrapper">No se encontro vehículo<i class="material-icons">error_outline</i> </div></span>';
@@ -101,7 +100,6 @@ export class CheckVerificacionFisicoMecanicaComponent implements OnInit {
     }
   
     this.catalogueID= this.route.snapshot.paramMap.get('id');
-
     this.catalogueService.catalogueByID( this.route.snapshot.paramMap.get("id")).subscribe(({ data })=>{
       this.catalogues = data['catalogue'];    
       for (const secciones of this.catalogues.configuration.sections ) {
@@ -109,8 +107,7 @@ export class CheckVerificacionFisicoMecanicaComponent implements OnInit {
           propiedades.checked = false;
         }
       }   
-   });    
-
+    });    
 
 
   }
@@ -120,7 +117,6 @@ export class CheckVerificacionFisicoMecanicaComponent implements OnInit {
   } 
 
   createHistory(){
-    var cont = 0;
     this.color= this.colorVehiculo;
     this.domicilioConcesionario= this.domicilioC;
     this.is_correct= true;
@@ -143,47 +139,69 @@ export class CheckVerificacionFisicoMecanicaComponent implements OnInit {
         }
       }
     }
-    console.log(this.is_correct);
-    
+ 
     var id_concesion = this.concesion.id;
     var id_vehiculo = this.vehiculo.id;
     var id_catalogue = this.catalogues.id
     this.service.createHistory(id_concesion,id_vehiculo,id_catalogue,this.catalogues.configuration,this.is_correct,this.descriptionHistory).subscribe(({data})=>{ 
       this.history = data['history'];
       this.idhistory= this.history.id;
-      this.showComplete = true;;
-
       if(this.is_correct == true){
         this.showComplete = true;;
-        this.showIncomplete=true;
+        this.showIncomplete=false;
       }else{  
         this.showIncomplete = true;
-        this.showComplete= true;
+        this.showComplete= false;
       }
     });
    
   }
   cancelarPreview(){
-   this.descriptionHistory ='';
-   this.colorVehiculo='';
+    this.descriptionHistory ='';
+    this.colorVehiculo='';
+    this.domicilioC='';
+    this.coloniaC='';
+    this.numeroA='';
+    this.vencimientoC='';
+    this.numberLicense='';
+    this.vencimientoV='';
+   
+  this.observacionRevision;
+   this.numberLicense;
+  }
+  cancelarPreviewError(){
+    this.descriptionHistory ='';
   }
   preview(){
-
     this.is_correct= true;
-
-    var checkTamanio =document.getElementsByName('check').length
     for (const secciones of this.catalogues.configuration.sections) {
       for (const propiedades of secciones.properties) {
-
         if(propiedades.checked==false){
           this.is_correct= false; 
-          this.ModalInstancePreviewErrores.open();
+          console.log("",this.is_correct);
         }
-      }
-    }
-    this.ModalInstancePreview.open();
-    console.log(this.is_correct);
+     }
+   }
+  this.isCorrect();
+  }
 
+  isCorrect(){
+    console.log(this.is_correct);
+    if(this.is_correct == true){
+      this.ocultar = true;
+      this.ModalInstancePreview.open();
+    }else{
+      this.ocultar= false;
+      this.modalopenFalse();
+    }  
+  }
+
+  modalopenFalse(){
+    var modalPreviewErrores = document.getElementById('modalPreviewErrores');
+    this.ModalInstancePreviewErrores= M.Modal.init(modalPreviewErrores,{
+      dismissible:false
+    });
+    this.ModalInstancePreviewErrores.open();
 
   }
   closeAlert(){
@@ -196,30 +214,30 @@ export class CheckVerificacionFisicoMecanicaComponent implements OnInit {
     this.ModalInstanceQuestion = M.Modal.init(question, {
       dismissible:false
     });
-    //  
-
-    this.service.licenseByNumber(this.numberLicense).subscribe(({ data })=>{
-      this.license = data['licenseByNumber'];
-        this.datosLicencia = true;
-        this.ModalInstanceQuestion.open();
-    },(error) => {
-      var errores = error.message.split(":");
-      var toastHTML = '<span> <div class="valign-wrapper"><i class="material-icons">error_outline</i>  &nbsp;&nbsp;'+errores[1]+'</div></span>';
-      M.toast({html: toastHTML});
-    });
+      this.service.licenseByNumber(this.numberLicense).subscribe(({ data })=>{
+        this.license = data['licenseByNumber'];
+          this.datosLicencia = true;
+          this.ModalInstanceQuestion.open();
+      },(error) => {
+        var errores = error.message.split(":");
+        var toastHTML = '<span> <div class="valign-wrapper"><i class="material-icons">error_outline</i>  &nbsp;&nbsp;'+errores[1]+'</div></span>';
+        M.toast({html: toastHTML});
+      });
+   
+    
+   
   }
 
   questionAlertErrores(){
-    var question = document.getElementById('question');
-    this.ModalInstanceQuestion = M.Modal.init(question, {
+    var question = document.getElementById('questionError');
+    this.ModalInstanceQuestionError = M.Modal.init(question, {
       dismissible:false
     });
-console.log("errores");
+    this.ModalInstanceQuestionError.open();
 
   }
   aceptado(){
-    this.showIncomplete = true;
-    this.showComplete= true;
+
     this.domicilioConcesionario= this.domicilioC;
     this.coloniaConcesionario = this.coloniaC;
     this.numeroAcuerdo = this.numeroA;
@@ -229,19 +247,50 @@ console.log("errores");
     this.color = this.colorVehiculo;
     this.observacion = this.observacionRevision;
     this.nLicencia = this.numberLicense;
-    // this.showIncomplete = true;
-    
+  
     this.createHistory();
     this.close = false;
     this.finalizar= true; 
-    this.showIncomplete = true;
 
      this.ModalInstancePreview.close();
     
   }
+  aceptadoError(){
+    this.is_correct= true;
+
+    var checkTamanio =document.getElementsByName('check').length
+    for (const secciones of this.catalogues.configuration.sections) {
+      for (const propiedades of secciones.properties) {
+
+        if(propiedades.checked==false){
+          this.is_correct= false; 
+        }
+      }
+    }
+    
+    var id_concesion = this.concesion.id;
+    var id_vehiculo = this.vehiculo.id;
+    var id_catalogue = this.catalogues.id
+    this.service.createHistory(id_concesion,id_vehiculo,id_catalogue,this.catalogues.configuration,this.is_correct,this.descriptionHistory).subscribe(({data})=>{ 
+      this.history = data['history'];
+      this.idhistory= this.history.id;
+      if(this.is_correct == false){
+        this.showIncomplete = true;
+      }
+    });
+    this.closeError = false;
+    this.finalizaError  = true;
+    this.ModalInstancePreviewErrores.close();
+
+  }
   finalizarCromatica(){
     this.ModalInstanceQuestion.close();
     this.router.navigate(['/aplicacion/concesion']);
+  }
+  finalizarCromaticaError(){
+    this.ModalInstanceQuestionError.close();
+    this.router.navigate(['/aplicacion/concesion']);
+
   }
 
 }

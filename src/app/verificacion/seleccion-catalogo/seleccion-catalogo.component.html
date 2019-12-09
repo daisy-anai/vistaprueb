@@ -34,6 +34,121 @@
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="cols12">
+          <button class="waves-effect waves-light btn" (click)="information()">Más Información</button>
+
+        </div>
+      </div>
+
+      <!--Modal prebview modalPreview-->
+      <div id="modalPreviewhistory" class="modal">
+        <div class="modal-content">
+          <h6 class="center negrita">Historial Cromática</h6>
+          <br>
+          <div class="row">
+            <div class="col s12">
+              <div class="row">
+                <div class="col s12 right-align">
+                  <span class="negrita">Fecha de revisión: </span>
+                  <span>{{date}}</span>
+                </div>
+              </div>
+
+              <div class="row" *ngIf="history">
+                <div class="col s12">
+                  <div class="row">
+                    <div *ngIf="history.is_correct==true"> 
+                      <span class="negrita green-text center  ">El vehículo fue evaluado exitosamente el día }</span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div *ngIf="history.is_correct==false">
+                      <span class="negrita blue-text center" >El vehiculo tuvo algunos erroes</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col s8">
+                  <span class="negrita">Nombre: </span>
+                  <span *ngIf="concesion">{{concesion.concesionario.nombre}} {{concesion.concesionario.primerApellido}} {{concesion.concesionario.segundoApellido}} </span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col m6 left-align">
+                  <span class=" negrita">Serie:</span>
+                  <span *ngIf="vehiculo">{{vehiculo.serie}} </span> 
+                </div>
+                <div class="col m6 center-align">
+                  <span class="negrita">Sitio:</span>
+                  <span *ngIf="concesion" >{{concesion.sitio.nombre}}</span>
+                </div>  
+                </div> 
+        
+                <div class="row">
+                  <div class="col s12" *ngIf="concesion ">
+                    <span class="negrita">Localidad:</span>
+                    <span>{{concesion.concesionario.localidad.nombre}}</span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col s12" *ngIf="concesion">
+                    <span class="negrita">Municipio:</span>
+                    <span>{{concesion.concesionario.localidad.municipio.nombre}}</span>
+                  </div>
+                </div> 
+               
+                <div class="" *ngIf="history">
+                   
+                  <div class="row">
+                    <div class="col s12">
+                        <div *ngFor="let seccion of history.review.sections">
+                        <span class="uppercase bold">{{seccion.name}}</span> 
+                        <div *ngFor="let propiedad of seccion.properties">
+                          <div class="row">
+                            <div class="col s12">
+                              <div class="col s8">
+                                <label *ngIf="propiedad.checked==true">
+                                  <input  id="check" name="check" type="checkbox" (click)="checar(propiedad)"  value="{{propiedad.checked}}" checked disabled="disabled"/>
+                                  <span class="letter">{{propiedad.name}} <br></span>
+                                </label>
+                                <label *ngIf="propiedad.checked== false">
+                                  <input  id="check" name="check" type="checkbox" (click)="checar(propiedad)"  value="{{propiedad.checked}}" disabled="disabled"/>
+                                  <span class="letter">{{propiedad.name}} </span>
+                                </label>
+                              </div>
+                              <div class="col s4 right">
+                                <div  class="colorCuadro" [ngStyle]="{'background-color': true ? propiedad.value  : 'blue'}"></div>
+                              </div>
+
+                             
+                              <div class="col s12">
+                                <div *ngIf="propiedad.propertyType == type" class="text-justify">
+                                  {{propiedad.value}}
+                                </div>  
+                              </div> 
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+               
+                </div>  
+              </div>
+           </div>
+          <div class="modal-footer">
+            <a class="modal-close waves-effect waves-green btn-flat">Cerrar</a>
+             <historial-cromatica [historyID]= "historyID"></historial-cromatica>
+          </div>
+        </div>
+       </div>  
+       <div class="row">
+         <div class="col s12">
+           <reporte-final-fisico-mecanica></reporte-final-fisico-mecanica>
+         </div>
+       </div>
 
     </semovi-card-body>
   </semovi-card>

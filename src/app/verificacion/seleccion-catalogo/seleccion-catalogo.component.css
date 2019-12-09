@@ -22,4 +22,15 @@
   height: 30px;
   border-radius: 10px;
 }
-  
+.uppercase{
+  font-weight: bold;
+  text-transform:uppercase;
+
+}
+.negrita{
+  font-weight: bold;
+
+}
+.letter:first-letter{  
+  text-transform:uppercase;
+}

@@ -5,7 +5,7 @@ import { IMAGEOAXACAWEB } from "../../../assets/imgoaxacagobmx";
 import { IMAGE } from "../../../assets/imglogo";
 //servicios
 import { MediumDataService } from '../../shared/services/medium.data.service';
-import { VerificarcionService }from '../verificacion.service';
+import { VerificarcionService }from '../../verificacion/verificacion.service';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
@@ -23,6 +23,7 @@ export class ReporteCromaticaComponent implements OnInit {
   public vehiculo: any;
   public placas: any;
   public history: any;
+  public formatted_date: any;
  
   constructor(
     private shared?: MediumDataService,
@@ -36,6 +37,9 @@ export class ReporteCromaticaComponent implements OnInit {
     for (const placa of this.vehiculo.placa) {
       this.placas = placa.matricula;  
       }
+      const months = ["ENERO", "FEBRERO", "MARZO","ABRIL", "MAYO", "JUNIO", "JULLIO", "AUGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIMEBRE", "DICIEMBRE"];
+      let date = new Date()
+       this.formatted_date = date.getDate() + "-" + months[date.getMonth()] + "-" + date.getFullYear()
   }
 
   assignData(){
@@ -90,7 +94,7 @@ export class ReporteCromaticaComponent implements OnInit {
             { columns:
               [
                 { width: 282, text: ''},
-                { width: 240, text: 'LUGAR Y FECHA:'+ new Date().toLocaleString().split(',')[0]+'', fontSize: 7,bold: true , margin: [0, 10, 0, 0]},
+                { width: 240, text: 'LUGAR Y FECHA:'+this.formatted_date, fontSize: 7,bold: true , margin: [0, 10, 0, 0]},
               ]
             },
             { columns:
@@ -130,7 +134,7 @@ export class ReporteCromaticaComponent implements OnInit {
               columns:
               [
                 {  width: 250, text: 'MODELO: '+this.vehiculo.anioModelo, fontSize: 9,bold: true , margin: [0, 10, 0, 0]},
-                {  width: 250, text: 'COLOR:  '+this.color, fontSize: 9,bold: true ,toUpperCase: true, margin: [0, 10, 0, 0]},
+                {  width: 250, text: 'COLOR:  '+ (this.color+ '').toUpperCase(), fontSize: 9,bold: true ,toUpperCase: true, margin: [0, 10, 0, 0]},
               ]
             },
             {
@@ -228,7 +232,7 @@ export class ReporteCromaticaComponent implements OnInit {
                 
                 { width: 250,alignment: 'justify', text: 'Cromática, elementos de identidad y lineamientos que deberán seguir los vehículos que pŕesentan el sercicio de Transporte Público en sus diversas modalidades,que cuenten con Concesión o permioso reconocidos por la Secretaria de Movilidad. \n\n\n', fontSize: 9,bold: false , margin: [0, 10, 0, 0]},
                 {width:15, text:''},
-                { width: 250,text: ['CROMÁTICA AUTORIZADA                               ',{alignment: 'justify',text:'PARA EL SERVICIO DE TRNASPORTE PÚBLICO EN LA MODALIDAD ', fontSize:8,bold:false,},{text:this.modalidad, fontSize:12,bold:true ,toUpperCase:true}],fontSize: 12,bold: true , margin: [0, 10, 0, 0]}
+                { width: 250,text: ['CROMÁTICA AUTORIZADA                               ',{alignment: 'justify',text:'PARA EL SERVICIO DE TRNASPORTE PÚBLICO EN LA MODALIDAD ', fontSize:8,bold:false,},{text: (this.modalidad + '').toUpperCase(), fontSize:12,bold:true}],fontSize: 12,bold: true , margin: [0, 10, 0, 0]}
 
               ]
             },

@@ -9,6 +9,42 @@ export class VerificarcionService {
 
   constructor(private apollo: Apollo) {}
 
+  historyByVehiculo(id_vehiculo: string){
+    return this.apollo.use('backrevista').watchQuery({
+      query: gql`
+      query  historyByVehiculo($id_vehiculo:ID!){
+        historyByVehiculo(id_vehiculo:$id_vehiculo){
+          id
+          id_concesion
+          id_vehiculo
+          catalogue{
+            id
+            id_modalidad
+            catalogueType{
+              id
+              name
+              description
+              created_at
+              deprecated
+            }
+            name
+            configuration
+            created_at
+            deprecated
+          }   
+          review
+          is_correct
+          description
+          created_at
+          deprecated
+          editable
+        }
+      }`, variables:{
+        id_vehiculo:id_vehiculo
+      }
+    }).valueChanges;
+  }
+
   licenseByNumber(numero : string){
     return this.apollo.use('backLicencias').watchQuery({
       query: gql `
@@ -19,7 +55,7 @@ export class VerificarcionService {
             nombre
             primer_apellido
             segundo_apellido
-             curp
+            curp
             ubicacion{
               calle
               numero_exterior

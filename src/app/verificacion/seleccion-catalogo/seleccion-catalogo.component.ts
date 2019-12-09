@@ -35,7 +35,11 @@ export class SeleccionCatalogoComponent implements OnInit {
   public ModalInstancePreview: any;
   public previewExistente : boolean = false;
   public historia : any;
+  public historyVehiculo: any;
   public cromaticaExitosa : boolean = false;
+  public historyID : string = '';
+  public date: string ;
+
   constructor(
     private route?: ActivatedRoute,
     private service?: CatalogoService,
@@ -52,7 +56,13 @@ export class SeleccionCatalogoComponent implements OnInit {
     // var instances = M.Datepicker.init(elems, {
     //   format: 'yyyy-mm-dd'
     // });
+    const months = ["ENERO", "FEBRERO", "MARZO","ABRIL", "MAYO", "JUNIO", "JULLIO", "AUGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIMEBRE", "DICIEMBRE"];
 
+  
+    var modalPreview = document.getElementById('modalPreviewhistory');
+    this.ModalInstancePreview= M.Modal.init(modalPreview,{
+      dismissible:false
+    });
     this.concesion = this.shared.getConcesion();
     this.vehiculo = this.shared.getVehiculo();
     //validar que obtenga una serue de vehiculo
@@ -65,28 +75,40 @@ export class SeleccionCatalogoComponent implements OnInit {
     
     this.verificarcionService.historyUltimateReviewByVehiculo(this.vehiculo.id).subscribe(({ data })=>{
       this.history = data['historyUltimateReviewByVehiculo'];
+      this.historyID = this.history.id;
+
       if(this.history.is_correct == false && this.history.catalogue.catalogueType.name=='cromática'){
-       
+        let current_datetime = new Date(this.history.created_at);
+        let fecha = current_datetime.getDate() + "-" + months[current_datetime.getMonth()] + "-" + current_datetime.getFullYear();
+          this.date = fecha;
         this.previewExistente = true;
       }else{
-
+        let current_datetime = new Date(this.history.created_at);
+        let fecha2 = current_datetime.getDate() + "-" + months[current_datetime.getMonth()] + "-" + current_datetime.getFullYear();        
         this.previewExistente = false;
         this.cromaticaExitosa = true;
       }
- 
+    
     });
-  
 
+    this.verificarcionService.historyByVehiculo(this.vehiculo.id).subscribe(({ data })=>{
+      this.historyVehiculo = data['historyByVehiculo'];
+      
+    });
      
   }
+
+  information(){
+  
+    this.ModalInstancePreview.open();
+
+  }
   plantillaHistoryCheck(){
-    console.log(this.history.id);
     this.router.navigate([`/aplicacion/verificacion/historia/${this.history.id}`])
   }
 
 
   continuarPlantilla(){
-    console.log(this.history.id);
     this.router.navigate([`/aplicacion/verificacion/historia/${this.history.id}`])
   }
   searchCatalogue(){

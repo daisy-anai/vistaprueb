@@ -126,21 +126,21 @@
             <span *ngIf="concesion" >{{concesion.sitio.nombre}}</span>
           </div> 
         </div>
-        <div class="row">
-          <div class="col m12">
-            <div class="input-field  col m8">
-              <textarea  autocomplete="off"  id="domicilio" name="domicilio" class="validate" [(ngModel)]="domicilioC" class="materialize-textarea" required></textarea>
-              <label for="domicilio">Domicilio(Calle y número) </label>
-            </div>
-
-            <div class=" input-field col m4 ">
-              <input type="text" autocomplete="off" id="colonia" name="colonia" [(ngModel)]="coloniaC" required>
-              <label for="colonia"> Colonia</label>
+       
+          <div class="row">
+            <div class="col m12">
+              <div class="input-field  col m8">
+                <textarea  autocomplete="off"  id="domicilio" name="domicilio" class="validate" [(ngModel)]="domicilioC" class="materialize-textarea" required></textarea>
+                <label for="domicilio">Domicilio(Calle y número) </label>
+              </div>
+  
+              <div class=" input-field col m4 ">
+                <input type="text" autocomplete="off" id="colonia" name="colonia" [(ngModel)]="coloniaC" required>
+                <label for="colonia"> Colonia</label>
+              </div>
             </div>
           </div>
-        </div>
-
-          <div class="row">
+             <div class="row">
             <div class="col m12">
               <div class="input-field col m6">
                 <input id="numAcuerdo" type="number" class="validate" [(ngModel)]="numeroA" required>
@@ -257,6 +257,10 @@
             </div>
           </div>
       
+      
+    
+
+       
 
         <div class="row">
           <div class="input-field col m8" >      
@@ -289,14 +293,14 @@
       <h6>Esta seguro que su informacion es correcta</h6>
       <br>
       <div *ngIf="showComplete">
-      <!-- <reporte-final-fisico-mecanica [coloniaConcesionario]="coloniaConcesionario"  [domicilioConcesionario]="domicilioConcesionario"
+       <reporte-final-fisico-mecanica [coloniaConcesionario]="coloniaConcesionario"  [domicilioConcesionario]="domicilioConcesionario"
       [numeroAcuerdo]="numeroAcuerdo" [vencimiento]="vencimiento" [nLicencia]="nLicencia"  [numeroPoliza]="numeroPoliza"
-      [vencimientoVehiculo]="vencimientoVehiculo" [color]="color" [idhistory]="idhistory" [observacion]="observacion"></reporte-final-fisico-mecanica> -->
-      </div>
-      <div *ngIf="showIncomplete">
-        <reporte-fisico-mecanica [idhistory]="idhistory" ></reporte-fisico-mecanica>
-   
-      </div>
+      [vencimientoVehiculo]="vencimientoVehiculo" [color]="color" [idhistory]="idhistory" [observacion]="observacion"></reporte-final-fisico-mecanica>       
+    </div>
+    <!-- <div *ngIf="showIncomplete">
+      <reporte-fisico-mecanica [idhistory]="idhistory" ></reporte-fisico-mecanica>
+ 
+    </div> -->
     </div>    
   </div>
   <div class="modal-footer">
@@ -313,7 +317,7 @@
 
 
 <!--Modal prebview modalPreview con errores-->
-<div id="modalPreviewErrores" class="modal">
+ <div id="modalPreviewErrores" class="modal">
     <div class="modal-content">
       <h6 class="center">Previsulización de datos para Físico Mecánica  </h6>
       <br>
@@ -371,8 +375,29 @@
         [disabled]="!(descriptionHistory.length >=10)">Aceptar</button  >  
       </div>
     </div>
-  </div>  
-          
+  </div>   
+            <!--question Mod-->
+<div id="questionError" class="modal">
+  <div class="modal-content">
+    <div class="row">
+      <h6>Esta seguro que su informacion es correcta</h6>
+      <br>
+      <div *ngIf="showIncomplete">
+        <reporte-fisico-mecanica [idhistory]="idhistory" ></reporte-fisico-mecanica>
+      </div>
+    </div>    
+  </div>
+  <div class="modal-footer">
+    <div *ngIf= "closeError">
+      <a class="modal-close waves-effect waves-green btn-flat" (click)="cancelarPreviewError()" >Cancelar</a>
+      <button (click)="aceptadoError()" class=" waves-effect waves-green btn-small">Aceptar</button>
+    </div>
+    <div *ngIf="finalizaError">
+      <button (click)="finalizarCromaticaError()" class=" waves-effect waves-green btn-small">Finalizar</button>
+    </div>
+  </div>
+</div>   
+   
 
     </semovi-card-body>
   </semovi-card>

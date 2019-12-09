@@ -21,11 +21,17 @@ export class ReporteFinalCromaticaComponent implements OnInit {
   public concesion : any;
   public vehiculo: any;
   public placas : any;
+  public formatted_date: any;
+
 
   constructor(private shared?: MediumDataService)
    {}
 
   ngOnInit() {
+    const months = ["ENERO", "FEBRERO", "MARZO","ABRIL", "MAYO", "JUNIO", "JULLIO", "AUGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIMEBRE", "DICIEMBRE"];
+      let date = new Date()
+       this.formatted_date = date.getDate() + "-" + months[date.getMonth()] + "-" + date.getFullYear()
+
       this.concesion = this.shared.getConcesion();
       this.vehiculo = this.shared.getVehiculo();
       this.concesion = this.shared.getConcesion();
@@ -79,7 +85,12 @@ export class ReporteFinalCromaticaComponent implements OnInit {
             { columns: 
               [
                 { text: 'LUGAR: v. Carlos Gracida número 9, San Antonio de la Cal, Oaxaca, Oax. C.P. 71236.',fontSize: 9,bold:true },
-                { text: 'FECHA:'+d.getDate()+'\n\n\n',fontSize: 9,bold:true },
+              ]
+            },
+            {
+              columns:
+              [
+                { text: 'FECHA:'+this.formatted_date+'\n\n\n',fontSize: 9,bold:true , alignment:'right'},
               ]
             },
             { columns:
@@ -126,8 +137,8 @@ export class ReporteFinalCromaticaComponent implements OnInit {
             },
             { columns:
               [
-                {text:'MODELO:'+this.vehiculo.anioModelo,fontSize: 9,bold:true },
-                {text:'COLOR: '+this.color +'\n\n',fontSize: 9, bold:true ,toUpperCase: true},
+                {text:'MODELO: '+this.vehiculo.anioModelo,fontSize: 9,bold:true },
+                {text:'COLOR: '+ (this.color +'').toUpperCase() +'\n\n',fontSize: 9, bold:true ,toUpperCase: true},
               ]
             },
             { columns:
