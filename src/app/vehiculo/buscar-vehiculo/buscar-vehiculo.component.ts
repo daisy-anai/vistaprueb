@@ -26,11 +26,10 @@ export class BuscarVehiculoComponent implements OnInit {
   public filtro: String = 'KMHAG51G44U340853';
   public vehiculo: any;
   public concesion:Concesion;
-  public vigencias: any;
   public  anio = new Date();
   public ModalInstance: any;
   public ModalInstanceVigencia: any;
-
+  public vigencia: Vigencia;
 
   constructor(
     private service?: VehiculoService,
@@ -59,6 +58,7 @@ export class BuscarVehiculoComponent implements OnInit {
 		this.ModalInstanceVigencia = M.Modal.init(modalvigencia, {
       dismissible:false
     });
+
   }
   preview(){
     this.ModalInstance.open();
@@ -72,31 +72,14 @@ export class BuscarVehiculoComponent implements OnInit {
     this.loading = true;
     this.service.getVehiculo(this.concesion.id, this.filtro).subscribe(result => {
       this.vehiculo = result.data['vehiculoActivo'];
-        var modalidadID=  this.concesion.modalidad.id;
-        this.vigenciasService.getVigenciasModalidadByID(modalidadID).subscribe(({ data })=>{
-          this.vigencias = data['validityByModalidad'];
-          if( Object.keys(this.vigencias).length === 0){
-            // this.ModalInstanceVigencia.open();
-            console.log("es vacio");
-            
-          }else{
-            for (const vigencia of this.vigencias) {
-              var years = this.anio.getFullYear() - this.vehiculo.anioModelo ;  
-              if (years <= vigencia.legal_years) {
-                console.log("year",years, vigencia.legal_years); 
-                console.log("años", vigencia.extension_years);
-
-              } else{
-                console.log("si es menos");
-                console.log("year",years, vigencia.legal_years);              
-                
-              this.ModalInstance.open();
-              }
-            }
-          }
-          console.log(this.vehiculo);
-          
-        });
+      this.vigenciasService.getVigenciasModalidadByID(this.concesion.modalidad.id).subscribe(({ data })=>{
+        [this.vigencia ] = data['validityByModalidad'];  
+        let prorrogaDisponible= this.vehiculo.anioModelo + this.vigencia.legal_years + this.vigencia.extension_years - new Date().getFullYear();
+        if(prorrogaDisponible == 0){
+          this.ModalInstance.open();
+        } 
+      });
+    
       this.loading = false;
     },(error) => {
       var errores = error.message.split(":");
@@ -114,11 +97,15 @@ export class BuscarVehiculoComponent implements OnInit {
   }
 
   returnStart(){
+    this.ModalInstance.close();
+    this.router.navigate(['/aplicacion/inicio']);
+  }
+  returnStart2(){
+    this.ModalInstance.close();
     this.router.navigate(['/aplicacion/inicio']);
   }
 
   permitido(vehiculo: Vehiculo): Boolean {
-
     let errores: Array<String> = [];
     let status: Boolean = true;
     if(vehiculo.estatus != 'A'){

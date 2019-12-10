@@ -178,7 +178,6 @@ export class CheckVerificacionFisicoMecanicaComponent implements OnInit {
       for (const propiedades of secciones.properties) {
         if(propiedades.checked==false){
           this.is_correct= false; 
-          console.log("",this.is_correct);
         }
      }
    }
@@ -186,7 +185,6 @@ export class CheckVerificacionFisicoMecanicaComponent implements OnInit {
   }
 
   isCorrect(){
-    console.log(this.is_correct);
     if(this.is_correct == true){
       this.ocultar = true;
       this.ModalInstancePreview.open();
@@ -247,7 +245,7 @@ export class CheckVerificacionFisicoMecanicaComponent implements OnInit {
     this.color = this.colorVehiculo;
     this.observacion = this.observacionRevision;
     this.nLicencia = this.numberLicense;
-  
+    this.numeroPoliza= this.numeroPolizaVehiculo;
     this.createHistory();
     this.close = false;
     this.finalizar= true; 

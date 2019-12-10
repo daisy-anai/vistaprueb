@@ -9,6 +9,7 @@ import { CatalogoService } from '../../catalogo/catalogo.service';
 // Models
 import { Modalidad } from '../../shared/models/modalidad';
 import {Vigencia } from '../../shared/models/vigencia';
+declare var M: any;
 
 
 @Component({
@@ -49,14 +50,15 @@ export class CrearVigenciasComponent implements OnInit {
   */
  
   crearVigencia(){
-    console.log(this.catalogoForm.value);
     const id_modalidad = this.catalogoForm.value.id_modalidad;
     const legal_years= this.catalogoForm.value.anios_legales;
     const extension_years= this.catalogoForm.value.anios_prorroga;
     this.service.createVigencia(id_modalidad,legal_years,extension_years).subscribe((result)  => {
       this.router.navigate([`/aplicacion/vigencias/modalidad/${id_modalidad}`])  
-    }, (error) => {
-        console.log(error);
+    },(error) => {
+      var errores = error.message.split(":");
+      var toastHTML = '<span> <div class="valign-wrapper"><i class="material-icons">error_outline</i>  &nbsp;&nbsp;'+errores[1]+'</div></span>';
+      M.toast({html: toastHTML});
     });
   }
  
