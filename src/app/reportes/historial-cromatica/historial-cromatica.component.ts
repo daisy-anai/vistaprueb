@@ -15,29 +15,28 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
   styleUrls: ['./historial-cromatica.component.css']
 })
 export class HistorialCromaticaComponent implements OnInit {
-  @Input() historyID: string;
+  // @Input() historyID: string;
 
   public concesion : any;
   public vehiculo: any;
   public history: any
   public hola: string='holaaaa';
+
   constructor(
     private shared?: MediumDataService,
     private service?: VerificarcionService
     ){}
 
-  ngOnInit() {
-
+  ngOnInit() {    
     this.concesion = this.shared.getConcesion();
     this.vehiculo = this.shared.getVehiculo();
     
   }
   assignData(){
     let historial=  [];
-    const months = ["ENERO", "FEBRERO", "MARZO","ABRIL", "MAYO", "JUNIO", "JULLIO", "AUGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIMEBRE", "DICIEMBRE"];
-
+    const months = ["ENERO", "FEBRERO", "MARZO","ABRIL", "MAYO", "JUNIO", "JULLIO", "AUGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIMEBRE", "DICIEMBRE"];    
     this.service.historyByVehiculo(this.vehiculo.id).subscribe(({ data })=>{
-      this.history = data['historyByVehiculo'];
+      this.history = data['historyByVehiculo'];      
       for (let i = 0; i < this.history.length; i++) {        
         if(this.history[i].catalogue.catalogueType.name == 'cromática'){
           let current_datetime = new Date(this.history[i].created_at)
@@ -58,10 +57,10 @@ export class HistorialCromaticaComponent implements OnInit {
               }
             }
           }
+
           if(this.history[i].is_correct == false){
             let current_datetime = new Date(this.history[i].created_at)
             let formatted_date = current_datetime.getDate() + "-" + months[current_datetime.getMonth()] + "-" + current_datetime.getFullYear()
-         
             historial.push({columns: [{text:'LA REVISIÓN DE CROMÁTICA NO FUE EXITOSA EL DÍA:  '+formatted_date, fontSize:9, }]});
             historial.push({columns:[{text:'\n'}]});
 
@@ -74,16 +73,15 @@ export class HistorialCromaticaComponent implements OnInit {
           }
           historial.push({columns: [{text:['Descripción del vehículo:  ', { text: this.history[i].description ,bold:false, fontSize:9}],fontSize: 9, bold: true, alignment:'justify',pageBreak: 'after'}]});
           historial.push({columns:[{text:'\n\n'}]});
-
-          if(i==this.history.length -1){
-            this.generarPDF(historial)
-          }
+        } 
+        if(i==this.history.length -1){
+          this.generarPDF(historial);
         }
- 
       }
    
     });
   }
+  
   generarPDF(historial: any){
     pdfMake.fonts = {
       Roboto: {
@@ -107,12 +105,6 @@ export class HistorialCromaticaComponent implements OnInit {
           },
       content:
           [ 
-            {
-              columns:
-              [
-                {text:(this.hola +'').toUpperCase()}
-              ]
-            }, 
            
             {
               columns:
@@ -175,10 +167,9 @@ export class HistorialCromaticaComponent implements OnInit {
       
         }; 
         
-          //Descargar el PDF
-     pdfMake.createPdf(dd).download('historial.pdf');
+    //Descargar el PDF
+    pdfMake.createPdf(dd).download('historial.pdf');
     
-      // }
   }
 
 }

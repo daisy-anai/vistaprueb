@@ -70,8 +70,8 @@ export class CheckVerificacionFisicoMecanicaComponent implements OnInit {
   public colorValido : boolean = false;
   public datosCompletos: boolean = false;
   public descripcionTotal: boolean = false;
-
   public ocultar: boolean = false;
+
   constructor( 
     private route?: ActivatedRoute,
     private catalogueService?: CatalogoService,
@@ -83,11 +83,8 @@ export class CheckVerificacionFisicoMecanicaComponent implements OnInit {
     ){}
 
   ngOnInit() {
-
-  
     this.concesion= this.shared.getConcesion();
     this.vehiculo = this.shared.getVehiculo();
- 
     var modalPreview = document.getElementById('modalPreview');
     this.ModalInstancePreview= M.Modal.init(modalPreview,{
       dismissible:false
@@ -108,8 +105,6 @@ export class CheckVerificacionFisicoMecanicaComponent implements OnInit {
         }
       }   
     });    
-
-
   }
 
   checar(propiedad: any ){
@@ -153,8 +148,11 @@ export class CheckVerificacionFisicoMecanicaComponent implements OnInit {
         this.showIncomplete = true;
         this.showComplete= false;
       }
+    },(error) => {
+      var errores = error.message.split(":");
+      var toastHTML = '<span> <div class="valign-wrapper"><i class="material-icons">error_outline</i>  &nbsp;&nbsp;'+errores[1]+'</div></span>';
+      M.toast({html: toastHTML});
     });
-   
   }
   cancelarPreview(){
     this.descriptionHistory ='';
@@ -221,9 +219,6 @@ export class CheckVerificacionFisicoMecanicaComponent implements OnInit {
         var toastHTML = '<span> <div class="valign-wrapper"><i class="material-icons">error_outline</i>  &nbsp;&nbsp;'+errores[1]+'</div></span>';
         M.toast({html: toastHTML});
       });
-   
-    
-   
   }
 
   questionAlertErrores(){
@@ -259,7 +254,6 @@ export class CheckVerificacionFisicoMecanicaComponent implements OnInit {
     var checkTamanio =document.getElementsByName('check').length
     for (const secciones of this.catalogues.configuration.sections) {
       for (const propiedades of secciones.properties) {
-
         if(propiedades.checked==false){
           this.is_correct= false; 
         }
@@ -275,6 +269,10 @@ export class CheckVerificacionFisicoMecanicaComponent implements OnInit {
       if(this.is_correct == false){
         this.showIncomplete = true;
       }
+    },(error) => {
+      var errores = error.message.split(":");
+      var toastHTML = '<span> <div class="valign-wrapper"><i class="material-icons">error_outline</i>  &nbsp;&nbsp;'+errores[1]+'</div></span>';
+      M.toast({html: toastHTML});
     });
     this.closeError = false;
     this.finalizaError  = true;

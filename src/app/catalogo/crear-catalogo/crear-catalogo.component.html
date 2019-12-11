@@ -32,16 +32,18 @@
               </div>
             </div>
 
-            <div class="row">
-              <div class="col s12">
-                <div class="input-field ">
-                  <input  class="autocomplete" id="autocompleteLocalidad"
-                    type="text"  formControlName="id_localidad" autocomplete="off">
-                  <label for="autocompleteLocalidad" style="color:teal">Localidad</label>
+            <div *ngIf="showLocalidad">
+              <div class="row">
+                <div class="col s12">
+                  <div class="input-field ">
+                    <input  class="autocomplete" id="autocompleteLocalidad"
+                      type="text"  formControlName="id_localidad" autocomplete="off">
+                    <label for="autocompleteLocalidad" style="color:teal">Localidad</label>
+                  </div>
                 </div>
               </div>
             </div>
-
+          
             <div class="row">
                 <div class="input-field col s12">
                     <input id="catalogue_name" type="text" class="validate"
@@ -121,22 +123,25 @@
                               <a  class="waves-effect waves-light red-text" (click)="removeProperty(section, j)" >Cancelar</a>
                             </div>
 
-                            <div class="col s12">
-                              <div class="input-field ">
-                                <input id="S[{{i}}]-P[{{j}}]-name" type="text" class="validate"
-                                formControlName="name"  autocomplete="off"  >
-                              <label for="S[{{i}}]-P[{{j}}]-name" style="color:teal">Nombre de propiedad</label>
-                              </div>
-                            </div>
-                              <div class="col s12">
-                                <div class="col s9">
-                                  <label for="id_tipo_catalogo">Tipo de propiedad</label>
-                                  <select class="browser-default" formControlName="propertyType" id="S[{{i}}]-P[{{j}}]-propertyType">
-                                    <option value="" disabled selected>Elige una opción</option>
-                                    <option *ngFor="let property of propertyTypes" value="{{property.name}}"> {{ property.name }} </option>
-                                  </select>
+                            <div class="col m6">
+                                <div class="input-field ">
+                                  <input id="S[{{i}}]-P[{{j}}]-name" type="text" class="validate"
+                                    formControlName="name"  autocomplete="off">
+                                  <label for="S[{{i}}]-P[{{j}}]-name">Nombre de propiedad</label>
                                 </div>
-                            </div>
+                                <label for="S[{{i}}]-P[{{j}}]-name" style="color:teal">Nombre de propiedad</label>
+
+                              </div>
+  
+                              <div class="col s6">
+                                <label for="id_tipo_catalogo">Tipo de propiedad</label>
+                                <select class="browser-default" formControlName="propertyType" id="S[{{i}}]-P[{{j}}]-propertyType">
+                                  <option value="" disabled selected>Elige una opción</option>
+                                  <option *ngFor="let property of propertyTypes" value="{{property.name}}"> {{ property.name }} </option>
+                                </select>
+                              </div>
+                             
+                              
                           </div>
 
                           <div class="" [ngSwitch]="onChangePropertyType(i, j)">

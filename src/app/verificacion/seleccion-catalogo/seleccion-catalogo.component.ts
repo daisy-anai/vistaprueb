@@ -75,20 +75,22 @@ export class SeleccionCatalogoComponent implements OnInit {
     
     this.verificarcionService.historyUltimateReviewByVehiculo(this.vehiculo.id).subscribe(({ data })=>{
       this.history = data['historyUltimateReviewByVehiculo'];
-      this.historyID = this.history.id;
-
+      
       if(this.history.is_correct == false && this.history.catalogue.catalogueType.name=='cromática'){
         let current_datetime = new Date(this.history.created_at);
         let fecha = current_datetime.getDate() + "-" + months[current_datetime.getMonth()] + "-" + current_datetime.getFullYear();
           this.date = fecha;
+          
         this.previewExistente = true;
       }else{
         let current_datetime = new Date(this.history.created_at);
         let fecha2 = current_datetime.getDate() + "-" + months[current_datetime.getMonth()] + "-" + current_datetime.getFullYear();        
         this.previewExistente = false;
         this.cromaticaExitosa = true;
+        this.date = fecha2;
       }
-    
+      this.historyID = this.history.id;
+      
     });
 
     this.verificarcionService.historyByVehiculo(this.vehiculo.id).subscribe(({ data })=>{

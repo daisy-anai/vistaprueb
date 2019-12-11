@@ -97,13 +97,9 @@ export class CheckVerificacionCromaticaComponent implements OnInit {
         if(propiedades.checked==true){
           cont ++
           if(checkTamanio== cont){
-            this.is_correct= true;
-            console.log("true");
-            
+            this.is_correct= true;            
           }else{
             this.is_correct= false;
-            console.log("false");
-            
           }    
         }
       }
@@ -121,8 +117,10 @@ export class CheckVerificacionCromaticaComponent implements OnInit {
         this.showComplete= false;
       }
       this.idhistory= this.history.id;
-    }, (error) => {
-      console.log("Error", error)
+    },(error) => {
+      var errores = error.message.split(":");
+      var toastHTML = '<span> <div class="valign-wrapper"><i class="material-icons">error_outline</i>  &nbsp;&nbsp;'+errores[1]+'</div></span>';
+      M.toast({html: toastHTML});
     });
     
    

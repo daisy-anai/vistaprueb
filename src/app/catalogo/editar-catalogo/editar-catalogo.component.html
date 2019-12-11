@@ -9,7 +9,6 @@
       </semovi-card-header>
   
       <semovi-body>
-          <!-- {{catalogueForm.value | json}} -->
         <div class="row" *ngIf="modalidad">
           <div class="col s12">
             <form [formGroup]="catalogueForm" (ngSubmit)="onPreview()">
@@ -23,7 +22,31 @@
                   <button (click)="onPreview()" class="btn-small"> Previsualizar </button>
                 </div>
               </div>
-  
+
+              <div class="row">
+                <div class="col s12">
+                  <div class="input-field">
+                    <input  class="autocomplete" formControlName="municipio"
+                      id="autocompleteMunicipio" type="text" (change)="searchLocalidadesByMunicipio()" autocomplete="off">
+                      <label for="autocompleteMunicipio" style="color:teal" >Municipio</label>
+                  </div>
+                </div>
+              </div>
+
+                <div class="row">
+                  <div class="col s12">
+                    <div class="input-field ">
+                      <input  class="autocomplete" id="autocompleteLocalidad"
+                        type="text"  formControlName="id_localidad" autocomplete="off">
+                      <label for="autocompleteLocalidad" style="color:teal">Localidad</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngIf='showLocalidad'>
+                </div>
+            
+            <!--   
               <div class="row">
                 <div class="col s12">
                   <div class="input-field ">
@@ -34,7 +57,7 @@
                   </div>
                   </div>
                 </div>  
-                
+                 
                 <div class="row">
                   <div class="col s12" >
                     <div class="input-field ">
@@ -44,7 +67,7 @@
                       </select>
                     </div>
                   </div>
-                </div>
+                </div>  -->
 
               <div class="row">
                 <div class="col s12">
@@ -61,19 +84,13 @@
                   <div class="" >
                     <label for="id_tipo_catalogo">Tipo de catalogo</label>
                     <select class="browser-default" formControlName="id_catalogue_type">
-                      <option *ngFor="let catalogo of cataloguesTypes" value="{{catalogo.id}}"> {{ catalogo.name }} </option>
+                      <option *ngFor="let catalogoType of cataloguesTypes" value="{{catalogoType.id}}"> {{ catalogoType.name }} </option>
                     </select>
                   </div>
                 </div>
               </div>
   
-              <div class="row">
-                <div class="col s12">
-                  <!-- <p>
-                    {{catalogueForm.value | json}}
-                  </p> -->
-                </div>
-              </div>
+            
               <div class="row valign-wrapper">
                 <div class="col s8">
                   <p>Agregar sección</p>

@@ -56,10 +56,19 @@ export class ReporteFisicoMecanicaComponent implements OnInit {
     this.service.historybyID(this.idhistory).subscribe(({ data })=>{
       this.history = data['history'];
       for (let i = 0; i < this.history.review.sections.length; i++) {
-        secciones.push({columns: [{text: (i+1)+' '+this.history.review.sections[i].name , fontSize: 9, bold: true}]});
+        secciones.push({columns: [{text:' '+(this.history.review.sections[i].name +'').toUpperCase(), fontSize: 9, bold: true, alignment:'center'}]});
+        secciones.push({columns:[{text:'\n'}]});
         for (let j = 0; j < this.history.review.sections[i].properties.length; j++) {
           if(this.history.review.sections[i].properties[j].checked == false){
-            secciones.push({columns: [{text:'    *  '+ this.history.review.sections[i].properties[j].name , fontSize: 9}]})
+            secciones.push({columns: [{ text:''+ (this.history.review.sections[i].properties[j].name +' ').toUpperCase(), fontSize: 9, bold: true}]});
+            secciones.push({columns:[{text:'\n'}]});
+            if(this.history.review.sections[i].properties[j].propertyType == 'texto'){
+              secciones.push({columns: [{text: ['Descripción:' ,{ text: this.history.review.sections[i].properties[j].value , bold: false, fontSize:9}], fontSize: 9, bold: true} ]});
+              secciones.push({columns:[{text:'\n\n'}]});
+            }         
+          }else{
+            secciones.push({columns: [{ text:''+ (this.history.review.sections[i].properties[j].name +' ').toUpperCase(), fontSize: 9, bold: true}]});
+            secciones.push({columns:[{text:'\n'}]});
           }
         } 
         if(i==this.history.review.sections.length-1){

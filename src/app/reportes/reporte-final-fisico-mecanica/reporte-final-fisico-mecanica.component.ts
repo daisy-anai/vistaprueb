@@ -81,15 +81,15 @@ export class ReporteFinalFisicoMecanicaComponent implements OnInit {
       if(i == aniosUsados){
         console.log("iguales");
       }else{
-        circulo.push({columns:[{canvas:[{ type: 'ellipse',x: 100+(i*-20), y:-5,color: 'black',fillOpacity: 0.9, r1: 5, r2: 5}]}]});
+        circulo.push({columns:[{canvas:[{ type: 'ellipse',x: 140+(i*20), y:-5,color: 'black',fillOpacity: 0.9, r1: 5, r2: 5}]}]});
      }  
     } 
-     
-    for (let j = 0; j < aniosDisponibles; j++) {
+
+    for (let j = 0; j < aniosDisponibles ; j++) {
       if(j == aniosDisponibles){
         console.log("igales anios");      
       }else{
-        circulo.push({columns:[{canvas:[{ type: 'ellipse', x: 130+(j*-20), y:-5,background:'black' ,fillOpacity: 0.5, r1: 5, r2: 5 }]}]});
+        circulo.push({columns:[{canvas:[{ type: 'ellipse', x: 250+(j*20), y:-5,background:'black' ,fillOpacity: 0.5, r1: 5, r2: 5 }]}]});
       }
     }
     this.generarpdf(placas, circulo);
@@ -171,6 +171,7 @@ export class ReporteFinalFisicoMecanicaComponent implements OnInit {
           ]
 
         },circulo,
+    
          {
           columns:
           [
@@ -250,7 +251,7 @@ export class ReporteFinalFisicoMecanicaComponent implements OnInit {
             { image: 'data:image/jpeg;base64,'+Square.square,width: 310,height: 150,absolutePosition: {x:50, y: 620}},
 
           ]
-        } 
+        }
       ]
     };
     pdfMake.createPdf(dd).download('reporte-fisicoMecanica.pdf');

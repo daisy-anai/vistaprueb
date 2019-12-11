@@ -31,7 +31,7 @@ export class CrearCatalogoComponent implements OnInit {
   public localidades: any;
   public localidad: any;
   public nameproperty: any
-
+  public showLocalidad: any;
   public localidadName: string='';
   public newPropertyName: string ='';
   public nameMunicipio: string = '';
@@ -92,14 +92,14 @@ export class CrearCatalogoComponent implements OnInit {
 		var modal = document.getElementById('previewModal');
     this.ModalInstance = M.Modal.init(modal, {});
 
-    var modalAdd = document.getElementById('addCatalogueType');
-		this.ModalInstanceAdd = M.Modal.init(modalAdd, {
-      dismissible:false
-    });
-    var modalProperty= document.getElementById('addCatalogueProperty');
-    this.ModalInstanceProperty = M.Modal.init(modalProperty,{
-      dismissible: false
-    });
+    // var modalAdd = document.getElementById('addCatalogueType');
+		// this.ModalInstanceAdd = M.Modal.init(modalAdd, {
+    //   dismissible:false
+    // });
+    // var modalProperty= document.getElementById('addCatalogueProperty');
+    // this.ModalInstanceProperty = M.Modal.init(modalProperty,{
+    //   dismissible: false
+    // });
   }
     //catalogue type
   newCatalogueType(){
@@ -172,7 +172,14 @@ export class CrearCatalogoComponent implements OnInit {
         this.service.getLocalidades(this.municipioID.id).subscribe(({ data })=>{
           this.localidades = data['localidades'];
           this.assignLocalidades(this.localidades);
-        });
+
+        //   if(this.localidades){
+        //     this.showLocalidad = true;
+        //     this.assignLocalidades(this.localidades);
+        //   }else{
+        //     this.showLocalidad = false;
+        //   }
+         });
       }
     }
   }
@@ -274,8 +281,10 @@ export class CrearCatalogoComponent implements OnInit {
               ).subscribe(({data}) => {
                 this.ModalInstance.close();
                 this.router.navigate(['/aplicacion/catalogo/modalidad', this.modalidad.id]);
-              }, (error) => {
-                console.log("Error", error)
+              },(error) => {
+                var errores = error.message.split(":");
+                var toastHTML = '<span> <div class="valign-wrapper"><i class="material-icons">error_outline</i>  &nbsp;&nbsp;'+errores[1]+'</div></span>';
+                M.toast({html: toastHTML});
               });
             }
           }

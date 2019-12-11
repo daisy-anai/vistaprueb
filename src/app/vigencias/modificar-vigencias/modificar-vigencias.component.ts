@@ -10,6 +10,8 @@ import { CatalogoService} from '../../catalogo/catalogo.service'
 import { Modalidad } from '../../shared/models/modalidad';
 import {Vigencia } from '../../shared/models/vigencia';
 
+declare var M: any;
+
 @Component({
   selector: 'app-modificar-vigencias',
   templateUrl: './modificar-vigencias.component.html',
@@ -34,9 +36,7 @@ export class ModificarVigenciasComponent implements OnInit {
     this.service.vigenciasByID(this.route.snapshot.paramMap.get("id")).subscribe(result =>{
       this.vigencia = result.data['validity'];        
       this.catalogoService.getModalidad(this.vigencia.id_modalidad).subscribe((result)=>{
-        this.modalidad = result.data['modalidad']; 
-        console.log(this.vigencia);
-        
+        this.modalidad = result.data['modalidad'];         
         this.modalidad.vigencia = this.vigencia;   
         this.vigenciaForm = this.formBuilder.group({
           id_modalidad: [this.modalidad.id, Validators.required],
@@ -58,16 +58,16 @@ export class ModificarVigenciasComponent implements OnInit {
 
   modificarVigencia(){
     let id = this.route.snapshot.paramMap.get("id");
-    console.log(this.vigenciaForm.value.id_modalidad);
-    console.log(this.vigenciaForm);
-    
     let id_modalidad = this.vigenciaForm.value.id_modalidad
     let legal_years= this.vigenciaForm.value.anios_legales;
     let extension_years = this.vigenciaForm.value.anios_prorroga;
     this.service.updateVigencias(id,id_modalidad,legal_years,extension_years).subscribe(result =>{
       this.router.navigate([`/aplicacion/vigencias/modalidad/${id_modalidad}`])  
-     }, (error) => {
-      console.log("Error", error)
+     },(error) => {
+      var errores = error.message.split(":");
+      var toastHTML = '<span> <div class="valign-wrapper"><i class="material-icons">error_outline</i>  &nbsp;&nbsp;'+errores[1]+'</div></span>';
+      M.toast({html: toastHTML});
     });
+
   }
 }

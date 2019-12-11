@@ -15,7 +15,7 @@
             <ul class="collapsible semovi-item ">
               <li>  
                 <div class="row ">
-                 <div class="col s12">
+                 <div class="col m12">
                    <div class="col m6">
                       <span class="span">Plantilla: </span>
                       <span *ngIf="catalogo"> {{ catalogo.name }}</span >
@@ -50,7 +50,7 @@
                                   <div class="col s10 offset-s1 " *ngFor="let seccion of catalogo.configuration.sections; let indice=index ">
                                     <div class="carousel-item  black-text" href="#one!">
                                       <h6 class="uppercase text-content span" >  {{seccion.name}}</h6>
-                                      <div *ngFor="let propiedad of seccion.properties; let indicep= indice">
+                                      <div *ngFor="let propiedad of seccion.properties; let indicep= indice" class="center">
                                         <span class="black-text text-content col s10" > <span class="span">Propiedad:</span>  {{propiedad.name}}</span>
                                         <div class="col s2 center">
                                             <div  class="colorCuadro" [ngStyle]="{'background-color': true ? propiedad.value  : 'blue'}"></div>
@@ -71,7 +71,7 @@
                 </li>               
                 <div *ngIf="catalogo">
                 <div class="card-action " *ngIf="!catalogo.deprecated">
-                  <!-- <a [routerLink]="['/aplicacion/catalogo/modificar',catalogo.id]">Modificar</a> -->
+                  <a [routerLink]="['/aplicacion/catalogo/modificar',catalogo.id]">Modificar</a>
                   <a (click)="preview()" class="waves-effect right" >Eliminar</a>  
                 </div>
               </div>

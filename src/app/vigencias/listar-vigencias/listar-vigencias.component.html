@@ -6,8 +6,7 @@
             <a class="semovi-card-header-icon" [routerLink]="['/aplicacion/catalogo/modalidad', modalidades.id]">
               <i class="material-icons">arrow_back</i>
             </a>
-        </div>
-        
+        </div>  
         <semovi-card-header-title> Vigencias </semovi-card-header-title>       
           <div class=" col s2  right" *ngIf="modalidades">
             <a *ngIf="agregarVisible" [routerLink]="['/aplicacion/vigencias/crear', modalidades.id]" class="btn-floating btn-small waves-effect waves-light red right">
