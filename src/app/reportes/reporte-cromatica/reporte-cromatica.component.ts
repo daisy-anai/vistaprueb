@@ -1,4 +1,4 @@
-import { Component, OnInit,Input, ModuleWithComponentFactories } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import { IMAGEOAXACAWEB } from "../../../assets/imgoaxacagobmx";
@@ -34,18 +34,20 @@ export class ReporteCromaticaComponent implements OnInit {
 
     this.concesion = this.shared.getConcesion();
     this.vehiculo = this.shared.getVehiculo();
+    
     for (const placa of this.vehiculo.placa) {
       this.placas = placa.matricula;  
       }
       const months = ["ENERO", "FEBRERO", "MARZO","ABRIL", "MAYO", "JUNIO", "JULLIO", "AUGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIMEBRE", "DICIEMBRE"];
       let date = new Date()
-       this.formatted_date = date.getDate() + "-" + months[date.getMonth()] + "-" + date.getFullYear()
+      this.formatted_date = date.getDate() + "-" + months[date.getMonth()] + "-" + date.getFullYear()
   }
 
   assignData(){
     let secciones = [];
     this.service.historybyID(this.idhistory).subscribe(({ data })=>{
       this.history = data['history'];
+      
       for (let i = 0; i < this.history.review.sections.length; i++) {
         secciones.push({columns: [{text:' '+(this.history.review.sections[i].name +'').toUpperCase(), fontSize: 9, bold: true, alignment:'center'}]});
         secciones.push({columns:[{text:'\n'}]});
@@ -54,7 +56,7 @@ export class ReporteCromaticaComponent implements OnInit {
             secciones.push({columns: [{ text:''+ (this.history.review.sections[i].properties[j].name +' ').toUpperCase(), fontSize: 9, bold: true}]});
             secciones.push({columns:[{text:'\n'}]});
             if(this.history.review.sections[i].properties[j].propertyType == 'texto'){
-              secciones.push({columns: [{text: ['Descripción:' ,{ text: this.history.review.sections[i].properties[j].value , bold: false, fontSize:9}], fontSize: 9, bold: true} ]});
+              secciones.push({columns: [{text: ['Descripción: ' ,{ text: this.history.review.sections[i].properties[j].value , bold: false, fontSize:9}], fontSize: 9, bold: true} ]});
               secciones.push({columns:[{text:'\n\n'}]});
             }
           }else{
@@ -63,14 +65,17 @@ export class ReporteCromaticaComponent implements OnInit {
           }
          } 
         if(i==this.history.review.sections.length-1){
-          this.generarpdf(secciones);
+          let catalogueName = this.history.catalogue.name;
+
+          this.generarpdf(secciones, catalogueName);
         }      
       }  
+      
     });
   }
   
   
-  generarpdf(secciones){
+  generarpdf(secciones: any, name: any){
 
     pdfMake.fonts = {
       Roboto: {
@@ -103,7 +108,7 @@ export class ReporteCromaticaComponent implements OnInit {
             { columns:
               [
                 { width: 282, text: ''},
-                { width: 240, text: 'LUGAR Y FECHA:'+this.formatted_date, fontSize: 7,bold: true , margin: [0, 10, 0, 0]},
+                { width: 240, text: 'LUGAR Y FECHA:'+this.formatted_date, fontSize: 7,bold: true , margin: [0, 10, 0, 0], alignment:'right'},
               ]
             },
             { columns:
@@ -241,7 +246,7 @@ export class ReporteCromaticaComponent implements OnInit {
                 
                 { width: 250,alignment: 'justify', text: 'Cromática, elementos de identidad y lineamientos que deberán seguir los vehículos que pŕesentan el sercicio de Transporte Público en sus diversas modalidades,que cuenten con Concesión o permioso reconocidos por la Secretaria de Movilidad. \n\n\n', fontSize: 9,bold: false , margin: [0, 10, 0, 0]},
                 {width:15, text:''},
-                { width: 250,text: ['CROMÁTICA AUTORIZADA                               ',{alignment: 'justify',text:'PARA EL SERVICIO DE TRNASPORTE PÚBLICO EN LA MODALIDAD ', fontSize:8,bold:false,},{text: (this.modalidad + '').toUpperCase(), fontSize:12,bold:true}],fontSize: 12,bold: true , margin: [0, 10, 0, 0]}
+                { width: 250,text: ['CROMÁTICA AUTORIZADA                               ',{alignment: 'justify',text:'PARA EL SERVICIO DE TRNASPORTE PÚBLICO EN LA MODALIDAD ', fontSize:8,bold:false,},{text: (name+ '').toUpperCase(), fontSize:12,bold:true}],fontSize: 12,bold: true , margin: [0, 10, 0, 0]}
 
               ]
             },
@@ -250,6 +255,13 @@ export class ReporteCromaticaComponent implements OnInit {
               [
                 { text: 'DATOS A CORREGIR', bold:true, fontSize: 12 ,uppercase: true, alignment:'center'},
               ]
+            },
+            {
+              columns:
+              [
+                {text:'\n'}
+              ]
+
             },secciones,
             {
               columns:

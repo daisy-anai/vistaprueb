@@ -38,6 +38,10 @@ const routes: Routes = [
         loadChildren:()=> import ('../resetpassword/resetpassword.module').then(m => m.ResetpasswordModule)
       },
       {
+        path:'actividades',
+        loadChildren:()=> import('../reporte-actividades/reporte-actividades.module').then(m => m.ReporteActividadesModule)
+      },
+      {
         path: '**',
         redirectTo: 'concesion'
       }

@@ -72,6 +72,8 @@ export class BuscarVehiculoComponent implements OnInit {
     this.loading = true;
     this.service.getVehiculo(this.concesion.id, this.filtro).subscribe(result => {
       this.vehiculo = result.data['vehiculoActivo'];
+      console.log(this.vehiculo);
+      
       this.vigenciasService.getVigenciasModalidadByID(this.concesion.modalidad.id).subscribe(({ data })=>{
         [this.vigencia ] = data['validityByModalidad'];  
         let prorrogaDisponible= this.vehiculo.anioModelo + this.vigencia.legal_years + this.vigencia.extension_years - new Date().getFullYear();
