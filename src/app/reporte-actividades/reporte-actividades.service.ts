@@ -73,4 +73,28 @@ export class ReporteActividadesService {
       }
     }).valueChanges;
   }
+
+  historial(){
+   return  this.apollo.use('backrevista').watchQuery({
+      query: gql`
+      query historial{
+        histories{
+          id
+          id_concesion
+          catalogue{
+            id
+            catalogueType{
+              name
+            }
+            name
+          }
+          is_correct
+          review
+           editable
+          tid
+          created_at
+        }
+      }`
+    }).valueChanges;
+  }
 }
