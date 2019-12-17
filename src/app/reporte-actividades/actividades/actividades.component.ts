@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../../shared/services/storage.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 //models
 import { User } from '../../shared/models/user';
 
 //service
 import { ReporteActividadesService } from '../reporte-actividades.service';
-import{ CatalogoService } from '../../catalogo/catalogo.service';
+import { CatalogoService } from '../../catalogo/catalogo.service';
+
+declare var M;
 
 @Component({
   selector: 'app-actividades',
@@ -27,26 +31,73 @@ export class ActividadesComponent implements OnInit {
   public idComleteChecksHistory: string;
   public idIncompleteChecks: string = '';
   public idIncomleteChecksHistory: string;
+d
+  public fromDate: string;
+  public toDate: string;
+  public reporte : boolean= false;
+  public validate: boolean= true;
+  public modalPDF: any;
+  public from: any;
+  public to: any;
+  public finalizar:  boolean= false;
+  public close: boolean = true;
 
   constructor(
     private storageService?: StorageService,
     private service?: ReporteActividadesService,
-    private catalogueservice?: CatalogoService  ){}
+    private catalogueservice?: CatalogoService,
+    private router?: Router,
+  
+
+    ){}
 
   ngOnInit() {
     this.user = this.storageService.getCurrentUser();
-    this.service.historyByCompleteChecksWhereCentroTrabajo(this.user.id_centro_trabajo).subscribe(({ data })=>{
-      this.completeChecks = data['historyByCompleteChecksWhereCentroTrabajo'];
-      this.complete = this.completeChecks.length;
-      // console.log(this.complete);
-      // console.log(this.completeChecks);
-      
 
+    var modalPreview = document.getElementById('download');
+    this.modalPDF= M.Modal.init(modalPreview,{
+      dismissible:false
     });
-    this.catalogueservice.getModalidades().subscribe(( { data })=>{
-      this.modalidades = data['modalidades'];
-      // console.log(this.modalidades)
-    })
+
+    var elems = document.querySelectorAll('.datepicker');
+    var instances = M.Datepicker.init(elems, {
+    format: 'yyyy-mm-dd',
+    });
+
+    // Swal.fire({
+    //   title: 'Error!',
+    //   text: 'Do you want to continue',
+    //   icon: 'error',
+    //   confirmButtonText: 'Cool'
+    // });
+ 
   }
 
+  downloandReporte(){
+    this.from= (<HTMLInputElement>document.getElementById("from")).value;    
+    this.to= (<HTMLInputElement>document.getElementById("toDate")).value;    
+    this.fromDate = this.from;
+    this.toDate = this.to;
+    this.modalPDF.open();
+  }
+  generarPDF(){
+    this.close = false;
+    this.reporte =true;
+    this.finalizar= true;
+  }
+  cancelar(){
+  
+    (<HTMLInputElement>document.getElementById("from")).value = '';
+    (<HTMLInputElement>document.getElementById("toDate")).value= '';
+  }
+
+  finalizarReporte(){
+    this.modalPDF.close();
+    this.router.navigate(['/aplicacion/concesion']);
+    
+  }
+  showdates(){
+    (<HTMLInputElement>document.getElementById("from")).value;
+
+  }
 }

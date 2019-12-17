@@ -8,8 +8,61 @@
     </semovi-card-header>
 
     <semovi-body>
-       <historial-actividades></historial-actividades> 
-    hola
+      <div class="row">
+        <div class="col s12">
+          <div class="center-align">
+            <span class="texto ">
+              SELECCIONAR UNA FECHA PARA EL REPORTE 
+            </span>
+          </div>
+
+          <div class="col s12">
+            <div class="col s6">
+              <semovi-label>Fecha inicial: </semovi-label>
+              <input type="text" class="datepicker" id="from" name="from"  autocomplete="off">
+            </div>
+            <div class="col s6">
+              <semovi-label>Fecha final: </semovi-label>
+              <input type="text" class="datepicker" id="toDate" name="toDate"  autocomplete="off">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s12"> <!-- [disabled] ="!(todate.length >= 10)" -->
+          
+              <button class="waves-effect waves-light btn-small right" (click)="downloandReporte()" type="submit" >Aceptar</button>
+            </div>
+          </div>     
+        </div> 
+      </div>  
+      
+       <!--modal  download pdf-->
+ <div id="download" class="modal">
+    <div class="modal-content">
+      <div class="row">
+        <h6>Esta seguro que la fecha es la correcta</h6>
+        <br>
+        <div *ngIf="reporte">
+          <div class="row" >
+            <div class="col s12">
+              <historial-actividades [fromDate]="fromDate" [to_date]="toDate"  ></historial-actividades>
+            </div>
+          </div>
+        </div> 
+
+      </div>    
+    </div>
+    <div class="modal-footer">
+      <div *ngIf= "close">
+        <a class="modal-close waves-effect waves-green btn-flat" (click)="cancelar()" >Cancelar</a>
+        <button (click)="generarPDF()" class=" waves-effect waves-green btn-small">Aceptar</button>
+      </div>
+      <div *ngIf="finalizar">
+        <button (click)="finalizarReporte()" class=" waves-effect waves-green btn-small">Finalizar</button>
+     </div>
+
+    </div>
+  </div>  
     </semovi-body>
   </semovi-card>
 </ng-container>

@@ -7,6 +7,7 @@
         <a [routerLink]="['/aplicacion/concesion']"><img class="responsive-img logo-semovi" src="assets/images/banner.png"></a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li><a [routerLink]="['/aplicacion/concesion']">Inicio</a></li>
+          <li><a [routerLink]="['/aplicacion/actividades/reporte']">Reportes</a></li>
           <li><a [routerLink]="['/aplicacion/configuracion']" >Configuración</a></li>
           <li>
             <a class="dropdown-menu" data-target="dropdown-menu-options">
@@ -35,7 +36,7 @@
     <li class="divider"></li> -->
     <li>
       <a (click)="changePassword()">
-        <i class="material-icons">account_circle</i>Cambio contraseña
+        <i class="material-icons">account_circle</i>Cambio de contraseña
       </a>
     </li>
     <li class="divider"></li>
@@ -61,6 +62,12 @@
     <li>
       <a [routerLink]="['/aplicacion/concesion']">
         <i class="material-icons">home</i> Inicio
+      </a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a [routerLink]="['/aplicacion/actividades/reporte']">
+        <i class="material-icons">library_books</i> Reportes
       </a>
     </li>
     <li class="divider"></li>

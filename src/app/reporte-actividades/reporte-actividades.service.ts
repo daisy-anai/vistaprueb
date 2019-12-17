@@ -97,4 +97,44 @@ export class ReporteActividadesService {
       }`
     }).valueChanges;
   }
+  
+  historyByBetweenDates(from_date: string,to_date: string){
+    return  this.apollo.use('backrevista').watchQuery({
+      query: gql`
+      query historyByBetweenDates($from_date:Date!,$to_date:Date!){
+        historyByBetweenDates(from_date:$from_date,to_date:$to_date){
+          id
+          id_concesion
+          id_vehiculo
+          catalogue{
+            id
+            id_modalidad
+            id_localidad
+            catalogueType{
+              id
+               name
+              description
+              created_at
+              deprecated
+            }
+            name
+            configuration
+            created_at
+            deprecated
+          }
+          review
+          is_correct
+          description
+          created_at
+          deprecated
+          editable
+          tid
+        }
+      }`,
+      variables:{
+        from_date: from_date,
+        to_date: to_date
+      }
+    }).valueChanges;
+  }
 }

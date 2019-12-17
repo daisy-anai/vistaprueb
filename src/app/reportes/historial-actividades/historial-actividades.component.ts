@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
-import { IMAGEOAXACAWEB } from "../../../assets/imgoaxacagobmx";
 import { IMAGE } from "../../../assets/imglogo";
+
+
 //servicios
 import { MediumDataService } from '../../shared/services/medium.data.service';
 import { CatalogoService} from '../../catalogo/catalogo.service'
@@ -20,15 +21,20 @@ import { User } from '../../shared/models/user';
 //service
 import { ReporteActividadesService } from '../../reporte-actividades/reporte-actividades.service';
 import { getLocaleDateFormat } from '@angular/common';
-
+ declare var M;
 @Component({
   selector: 'historial-actividades',
   templateUrl: './historial-actividades.component.html',
   styleUrls: ['./historial-actividades.component.css']
 })
 export class HistorialActividadesComponent implements OnInit {
+  @Input() fromDate :string;
+  @Input() to_date: string;
+
 
   public formatted_date: any;
+  public formatted_date2: any;
+
   public modalidades: Array<Modalidad>;
 
   public user: User;
@@ -36,7 +42,7 @@ export class HistorialActividadesComponent implements OnInit {
   public incompleteChecksCromatica: any;
   public completeCheckFisicoMecanica: any;
   public incompleteChecksFisicoMecanica: any;
-
+  public historyBetweenDate : any;
   public totalCromaticaCompleto: any;
   public totalCromaticaIncompleto: any;
   public totalFisicoMecnaicaCompleto: any;
@@ -122,7 +128,7 @@ export class HistorialActividadesComponent implements OnInit {
   public acarreos: number=0;
   public cargaLigeras: number=0;
   public especializadas: number=0;
-  public bicitaxsi4: number  =0;
+  public bicitaxis: number  =0;
   public cargaGenerals: number =0;
   public servicioTuristicos: number = 0;
   public escolares: number=0;
@@ -131,148 +137,146 @@ export class HistorialActividadesComponent implements OnInit {
   public cargaPesadas: number =0;
   public suburbanos: number=0;
   public metropolitanos: number=0;
-  public personalles: number=0;
+  public personales: number=0;
+
+
   constructor(
     private catalogueService?: CatalogoService,
     private storageService?: StorageService,
-    private service?: ReporteActividadesService
+    private service?: ReporteActividadesService,
+  
     ){}
 
   ngOnInit() {
-    const months = ["ENERO", "FEBRERO", "MARZO","ABRIL", "MAYO", "JUNIO", "JULLIO", "AUGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIMEBRE", "DICIEMBRE"];
-    let date = new Date();
-    this.formatted_date = date.getDate() + "-" + months[date.getMonth()] + "-" + date.getFullYear();
     this.user = this.storageService.getCurrentUser();
 
-    this.service.historyByCompleteChecksWhereCentroTrabajo(this.user.id_centro_trabajo).subscribe(({ data })=>{
-      this.completeChecksCromatica = data['historyByCompleteChecksWhereCentroTrabajo'].filter(e => e.catalogue.catalogueType.name ==='cromática');      
-        for (let i = 0; i < this.completeChecksCromatica.length; i++) {
-          //this.completeChecksCromatica[i].created_at = date.getDate() + "-" + months[date.getMonth()] + "-" + date.getFullYear();
-            if((new Date (this.completeChecksCromatica[i].created_at).getDate()) == date.getDate()){
-              this.totalCromaticaCompleto = this.completeChecksCromatica.length;
-                console.log(this.totalCromaticaCompleto);
-                
-              switch (this.completeChecksCromatica[i].catalogue.id_modalidad ) {
-                case 'MD0001': this.taxi++; break;
-                case 'MD0003': this.urbano++; break;
-                case 'MD0004': this.foraneo++; break;
-                case 'MD0005': this.acarreo++; break;
-                case 'MD0006': this.cargaLigera++; break;
-                case 'MD0007': this.especializada++; break;
-                case 'MD0010': this.bicitaxi++; break;
-                case 'MD0011': this.cargaGeneral++;break;
-                case 'MD0012': this.servicioTuristico++; break;
-                case 'MD0013': this.escolar++; break;
-                case 'MD0014': this.acarreoAgua++; break;
-                case 'MD0017': this.mototaxi++; break;
-                case 'MD0019': this.cargaPesada++; break;
-                case 'MD0021': this.suburbano++; break;
-                case 'MD0022': this.metropolitano++; break;
-                case 'MD0023': this.personal++; break;
-                default: break;
-              }                
+    this.service.historyByBetweenDates(this.fromDate,this.to_date).subscribe(({ data})=>{
+      this.historyBetweenDate = data['historyByBetweenDates'];      
+        for (let i = 0; i < this.historyBetweenDate.length; i++) {
+          //cromatica completos
+          if(this.historyBetweenDate[i].catalogue.catalogueType.name=='cromática' && this.historyBetweenDate[i].is_correct == true){  
+            switch(this.historyBetweenDate[i].catalogue.id_modalidad){
+              case 'MD0001': this.taxi++; break;
+              case 'MD0003': this.urbano++; break;
+              case 'MD0004': this.foraneo++; break;
+              case 'MD0005': this.acarreo++; break;
+              case 'MD0006': this.cargaLigera++; break;
+              case 'MD0007': this.especializada++; break;
+              case 'MD0010': this.bicitaxi++; break;
+              case 'MD0011': this.cargaGeneral++;break;
+              case 'MD0012': this.servicioTuristico++; break;
+              case 'MD0013': this.escolar++; break;
+              case 'MD0014': this.acarreoAgua++; break;
+              case 'MD0017': this.mototaxi++; break;
+              case 'MD0019': this.cargaPesada++; break;
+              case 'MD0021': this.suburbano++; break;
+              case 'MD0022': this.metropolitano++; break;
+              case 'MD0023': this.personal++; break;
+              default: break;
+            } 
+          }else if(this.historyBetweenDate[i].catalogue.catalogueType.name=='cromática' && this.historyBetweenDate[i].is_correct == false){
+            //cromática incompleto
+            switch (this.historyBetweenDate[i].catalogue.id_modalidad ) {
+              case 'MD0001': this.taxi2++; break;
+              case 'MD0003': this.urbano2++; break;
+              case 'MD0004': this.foraneo2++; break;
+              case 'MD0005': this.acarreo2++; break;
+              case 'MD0006': this.cargaLigera2++; break;
+              case 'MD0007': this.especializada2++; break;
+              case 'MD0010': this.bicitaxi2++; break;
+              case 'MD0011': this.cargaGeneral2++;break;
+              case 'MD0012': this.servicioTuristico2++; break;
+              case 'MD0013': this.escolar2++; break;
+              case 'MD0014': this.acarreoAgua2++; break;
+              case 'MD0017': this.mototaxi2++; break;
+              case 'MD0019': this.cargaPesada2++; break;
+              case 'MD0021': this.suburbano2++; break;
+              case 'MD0022': this.metropolitano2++; break;
+              case 'MD0023': this.personal2++; break;
+              default: break;
             }
+          }else if(this.historyBetweenDate[i].catalogue.catalogueType.name=='físico mecánica' && this.historyBetweenDate[i].is_correct == true){
+            //físico mecánica completo
+            switch (this.historyBetweenDate[i].catalogue.id_modalidad ) {
+              case 'MD0001': this.taxi3++; break;
+              case 'MD0003': this.urbano3++; break;
+              case 'MD0004': this.foraneo3++; break;
+              case 'MD0005': this.acarreo3++; break;
+              case 'MD0006': this.cargaLigera3++; break;
+              case 'MD0007': this.especializada3++; break;
+              case 'MD0010': this.bicitaxi3++; break;
+              case 'MD0011': this.cargaGeneral3++;break;
+              case 'MD0012': this.servicioTuristico3++; break;
+              case 'MD0013': this.escolar3++; break;
+              case 'MD0014': this.acarreoAgua3++; break;
+              case 'MD0017': this.mototaxi3++; break;
+              case 'MD0019': this.cargaPesada3++; break;
+              case 'MD0021': this.suburbano3++; break;
+              case 'MD0022': this.metropolitano3++; break;
+              case 'MD0023': this.personal3++; break;
+              default: break;
+            }
+          }else if(this.historyBetweenDate[i].catalogue.catalogueType.name=='físico mecánica' && this.historyBetweenDate[i].is_correct == false){
+            //fisico mecanica incompleto
+            switch (this.historyBetweenDate[i].catalogue.id_modalidad ) {
+              case 'MD0001': this.taxi4++; break;
+              case 'MD0003': this.urbano4++; break;
+              case 'MD0004': this.foraneo4++; break;
+              case 'MD0005': this.acarreo4++; break;
+              case 'MD0006': this.cargaLigera4++; break;
+              case 'MD0007': this.especializada4++; break;
+              case 'MD0010': this.bicitaxi4++; break;
+              case 'MD0011': this.cargaGeneral4++;break;
+              case 'MD0012': this.servicioTuristico4++; break;
+              case 'MD0013': this.escolar4++; break;
+              case 'MD0014': this.acarreoAgua4++; break;
+              case 'MD0017': this.mototaxi4++; break;
+              case 'MD0019': this.cargaPesada4++; break;
+              case 'MD0021': this.suburbano4++; break;
+              case 'MD0022': this.metropolitano4++; break;
+              case 'MD0023': this.personal4++; break;
+              default: break;
+            }
+          }
+        }
+      },(error) => {
+        var errores = error.message.split(":");
+        var toastHTML = '<span> <div class="valign-wrapper"><i class="material-icons">error_outline</i>  &nbsp;&nbsp;'+errores[1]+'</div></span>';
+        M.toast({html: toastHTML});
+     });
+
+    const months = ["ENERO", "FEBRERO", "MARZO","ABRIL", "MAYO", "JUNIO", "JULLIO", "AUGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIMEBRE", "DICIEMBRE"];
+    let date= new Date(this.fromDate);
+    let date2= new Date(this.to_date);
+    this.formatted_date = date.getDate()+1 + "-" + months[date.getMonth()] + "-" + date.getFullYear();
+    this.formatted_date2 = date2.getDate()+1 + "-" + months[date2.getMonth()] + "-" + date2.getFullYear();
+
      
-        } 
-     }); 
-      //checks incompletos  cromatica (con observaciones)
-    this.service.historyByIncompleteChecksWhereCentroTrabajo(this.user.id_centro_trabajo).subscribe(({ data })=>{
-      this.incompleteChecksCromatica = data['historyByIncompleteChecksWhereCentroTrabajo'].filter(e => e.catalogue.catalogueType.name === 'cromática');
-      this.totalCromaticaIncompleto = this.incompleteChecksCromatica.length;
-      for (let i = 0; i < this.incompleteChecksCromatica.length; i++) {   
-        if((new Date (this.incompleteChecksCromatica[i].created_at).getDate()) == date.getDate()){
-          switch (this.incompleteChecksCromatica[i].catalogue.id_modalidad ) {
-            case 'MD0001': this.taxi2++; break;
-            case 'MD0003': this.urbano2++; break;
-            case 'MD0004': this.foraneo2++; break;
-            case 'MD0005': this.acarreo2++; break;
-            case 'MD0006': this.cargaLigera2++; break;
-            case 'MD0007': this.especializada2++; break;
-            case 'MD0010': this.bicitaxi2++; break;
-            case 'MD0011': this.cargaGeneral2++;break;
-            case 'MD0012': this.servicioTuristico2++; break;
-            case 'MD0013': this.escolar2++; break;
-            case 'MD0014': this.acarreoAgua2++; break;
-            case 'MD0017': this.mototaxi2++; break;
-            case 'MD0019': this.cargaPesada2++; break;
-            case 'MD0021': this.suburbano2++; break;
-            case 'MD0022': this.metropolitano2++; break;
-            case 'MD0023': this.personal2++; break;
-            default: break;
-          }
-        }
-      }
-     });
-
-        // checks completos fisico mecánica
-    this.service.historyByCompleteChecksWhereCentroTrabajo(this.user.id_centro_trabajo).subscribe(({ data })=>{
-      this.completeCheckFisicoMecanica = data['historyByCompleteChecksWhereCentroTrabajo'].filter(e => e.catalogue.catalogueType.name === 'físico mecánica');
-      this.totalFisicoMecnaicaCompleto = this.completeCheckFisicoMecanica.length;
-
-      for (let i = 0; i < this.completeCheckFisicoMecanica.length; i++) {   
-        if((new Date (this.completeCheckFisicoMecanica[i].created_at).getDate()) == date.getDate()){
-          switch (this.completeCheckFisicoMecanica[i].catalogue.id_modalidad ) {
-            case 'MD0001': this.taxi3++; break;
-            case 'MD0003': this.urbano3++; break;
-            case 'MD0004': this.foraneo3++; break;
-            case 'MD0005': this.acarreo3++; break;
-            case 'MD0006': this.cargaLigera3++; break;
-            case 'MD0007': this.especializada3++; break;
-            case 'MD0010': this.bicitaxi3++; break;
-            case 'MD0011': this.cargaGeneral3++;break;
-            case 'MD0012': this.servicioTuristico3++; break;
-            case 'MD0013': this.escolar3++; break;
-            case 'MD0014': this.acarreoAgua3++; break;
-            case 'MD0017': this.mototaxi3++; break;
-            case 'MD0019': this.cargaPesada3++; break;
-            case 'MD0021': this.suburbano3++; break;
-            case 'MD0022': this.metropolitano3++; break;
-            case 'MD0023': this.personal3++; break;
-            default: break;
-          }
-        }
-      }
-    });
-
- 
-    //checks incompletos físico macánica
-    this.service.historyByIncompleteChecksWhereCentroTrabajo(this.user.id_centro_trabajo).subscribe(({ data })=>{
-      this.incompleteChecksFisicoMecanica = data['historyByIncompleteChecksWhereCentroTrabajo'].filter(e => e.catalogue.catalogueType.name === 'físico mecánica');
-      this.totalFisicoMecanicaInconpleto = this.incompleteChecksFisicoMecanica.length;
-      for (let i = 0; i < this.incompleteChecksFisicoMecanica.length; i++) {   
-        if((new Date (this.incompleteChecksFisicoMecanica[i].created_at).getDate()) == date.getDate()){
-          switch (this.incompleteChecksFisicoMecanica[i].catalogue.id_modalidad ) {
-            case 'MD0001': this.taxi4++; break;
-            case 'MD0003': this.urbano4++; break;
-            case 'MD0004': this.foraneo4++; break;
-            case 'MD0005': this.acarreo4++; break;
-            case 'MD0006': this.cargaLigera4++; break;
-            case 'MD0007': this.especializada4++; break;
-            case 'MD0010': this.bicitaxi4++; break;
-            case 'MD0011': this.cargaGeneral4++;break;
-            case 'MD0012': this.servicioTuristico4++; break;
-            case 'MD0013': this.escolar4++; break;
-            case 'MD0014': this.acarreoAgua4++; break;
-            case 'MD0017': this.mototaxi4++; break;
-            case 'MD0019': this.cargaPesada4++; break;
-            case 'MD0021': this.suburbano4++; break;
-            case 'MD0022': this.metropolitano4++; break;
-            case 'MD0023': this.personal4++; break;
-            default: break;
-          }
-        }
-      }
-     });
-     this.taxi+this.taxi2+this.taxi3+this.taxi4
   }
 
   showData(){
+    this.taxis = this.taxi+this.taxi2+this.taxi3+this.taxi4;
+    this.urbanos = this.urbano+this.urbano2+this.urbano3+this.urbano4;
+    this.foraneos = this.foraneo+this.foraneo2+this.foraneo3+this.foraneo4;
+    this.acarreos = this.acarreo+this.acarreo2+this.acarreo3+this.acarreo4;
+    this.cargaLigeras =this.cargaLigera+ this.cargaLigera2+this.cargaLigera3+this.cargaGeneral4;
+    this.especializadas = this.especializada+this.especializada2+this.especializada3+this.especializada4;
+    this.bicitaxis = this.bicitaxi+this.bicitaxi2+this.bicitaxi3+this.bicitaxi4;
+    this.cargaGenerals = this.cargaGeneral+this.cargaGeneral2+this.cargaGeneral3+this.cargaGeneral4;
+    this.servicioTuristicos = this.servicioTuristico+this.servicioTuristico2+this.servicioTuristico3+this.servicioTuristico4;
+    this.escolares = this.escolar+this.escolar2+this.escolar3+this.escolar4;
+    this.acarreoAguas =this.acarreoAgua+ this.acarreoAgua2+this.acarreoAgua3+ this.acarreoAgua4;
+    this.mototaxis = this.mototaxi+ this.mototaxi2+this.mototaxi3+ this.mototaxi4;
+    this.cargaPesadas = this.cargaPesada+this.cargaPesada2+this.cargaPesada3+this.cargaPesada4;
+    this.suburbanos = this.suburbano+this.suburbano2+this.suburbano3+this.suburbano4;
+    this.metropolitanos = this.metropolitano+this.metropolitano2+this.metropolitano3+this.metropolitano4;
+    this.personales = this.personal+this.personal2+this.personal3+this.personal4;
+
     let listaModalidades=[];
     this.catalogueService.getModalidades().subscribe(({ data })=>{
       this.modalidades = data['modalidades'];
       for (let i = 0; i < this.modalidades.length; i++) {
-         listaModalidades.push({ headerRows: 1, text: this.modalidades[i].nombre, fontSize:8, bold:true, border: [false,true,true,true]});
-       
+        listaModalidades.push({ headerRows: 1, text: this.modalidades[i].nombre, fontSize:8, bold:true});
         if(i==this.modalidades.length-1){
           this.generarPDF(listaModalidades); 
         }   
@@ -303,10 +307,9 @@ export class HistorialActividadesComponent implements OnInit {
       content:
           [  
             {text: 'REPORTE DE ACTIVIDADES', bold:true, fontSize: 10 , alignment:'center'},       
-            {text: 'DEL '+ this.formatted_date ,fontSize:10, bold: true, alignment: 'center'},
+            {text: 'DEL '+ this.formatted_date+'  AL '+ this.formatted_date2,fontSize:10, bold: true, alignment: 'center'},
             {text: 'DEPARTAMENTO DE CONTROL DE TRANSPORTE ', bold:true, fontSize: 10, alignment:'center', background:'gray',fillOpacity: 0.1},
             {text: '\n ',fontSize:10, bold: true, alignment: 'center'},
-            // listaModalidades,
             { 
               table:
               { 
@@ -317,22 +320,22 @@ export class HistorialActividadesComponent implements OnInit {
                   [{rowSpan: 2, text: 'ACTIVIDAD', fontSize:8, bold: true}, {colSpan:6,text:'Unidades Revisadas por Inspeccion', fontSize:8, bold:true, alignment:'center'}, {},{},{},{},{}],
                   ['',{text: 'Total/unidades\nrevisadas', fontSize:7},{text: 'Sin observaciones', fontSize:7},{text:'Con observaciones', fontSize:7},{text:'Revista físico-mecánicas\nentregadas', fontSize:7},{text:'Pre-revistas',fontSize:7},{text:'TOTAL/UNIDADES\n ATENDIDAS X\n MODALIDAD',fontSize:7}],
                   [listaModalidades, 
-                  [{text: this.taxi+this.taxi2+this.taxi3+this.taxi4, alignment:'center', fontSize:8, style: 'tableHeader'},
-                  {text: this.urbano+this.urbano2+this.urbano3+this.urbano4, alignment:'center', fontSize:8},
-                  {text: this.foraneo+this.foraneo2+this.foraneo3+this.foraneo4, alignment:'center', fontSize:8},
-                  {text: this.acarreo+this.acarreo2+this.acarreo3+this.acarreo4,alignment:'center', fontSize:8},
-                  {text: this.cargaLigera+ this.cargaLigera2+this.cargaLigera3+this.cargaGeneral4,alignment:'center', fontSize:8},
-                  {text: this.especializada+this.especializada2+this.especializada3+this.especializada4, alignment:'center', fontSize:8},
-                  {text: this.bicitaxi+this.bicitaxi2+this.bicitaxi3+this.bicitaxi4, alignment:'center', fontSize:8},
-                  {text: this.cargaGeneral+this.cargaGeneral2+this.cargaGeneral3+this.cargaGeneral4,alignment:'center', fontSize:8},
-                  {text: this.servicioTuristico+this.servicioTuristico2+this.servicioTuristico3+this.servicioTuristico4, alignment:'center', fontSize:8},
-                  {text: this.escolar+this.escolar2+this.escolar3+this.escolar4,alignment:'center', fontSize:8},
-                  {text: this.acarreoAgua+ this.acarreoAgua2+this.acarreoAgua3+ this.acarreoAgua4,alignment:'center', fontSize:8},
-                  {text: this.mototaxi+ this.mototaxi2+this.mototaxi3+ this.mototaxi4,alignment:'center', fontSize:8},
-                  {text: this.cargaPesada+this.cargaPesada2+this.cargaPesada3+this.cargaPesada4,alignment:'center', fontSize:8},
-                  {text: this.suburbano+this.suburbano2+this.suburbano3+this.suburbano4,alignment:'center', fontSize:8},
-                  {text: this.metropolitano+this.metropolitano2+this.metropolitano3+this.metropolitano4, alignment:'center', fontSize:8},
-                  {text: this.personal+this.personal2+this.personal3+this.personal4,alignment:'center', fontSize:8}],
+                  [{text:this.taxis, alignment:'center', fontSize:8, style: 'tableHeader'},
+                  {text: this.urbanos, alignment:'center', fontSize:8},
+                  {text: this.foraneos, alignment:'center', fontSize:8},
+                  {text: this.acarreos,alignment:'center', fontSize:8},
+                  {text: this.cargaLigeras,alignment:'center', fontSize:8},
+                  {text: this.especializadas, alignment:'center', fontSize:8},
+                  {text: this.bicitaxis, alignment:'center', fontSize:8},
+                  {text: this.cargaGenerals,alignment:'center', fontSize:8},
+                  {text: this.servicioTuristicos, alignment:'center', fontSize:8},
+                  {text: this.escolares,alignment:'center', fontSize:8},
+                  {text: this.acarreoAguas,alignment:'center', fontSize:8},
+                  {text: this.mototaxis,alignment:'center', fontSize:8},
+                  {text: this.cargaPesadas,alignment:'center', fontSize:8},
+                  {text: this.suburbanos,alignment:'center', fontSize:8},
+                  {text: this.metropolitanos, alignment:'center', fontSize:8},
+                  {text: this.personales,alignment:'center', fontSize:8}],
 
                   [{text: this.taxi , fontSize:8, alignment:'center'},
                   {text:this.urbano, fontSize:8, alignment:'center'},
@@ -418,21 +421,19 @@ export class HistorialActividadesComponent implements OnInit {
                   {text: this.suburbano+this.suburbano2+this.suburbano3+this.suburbano4,alignment:'center', fontSize:8},
                   {text: this.metropolitano+this.metropolitano2+this.metropolitano3+this.metropolitano4, alignment:'center', fontSize:8},
                   {text: this.personal+this.personal2+this.personal3+this.personal4,alignment:'center', fontSize:8}]
-                ],
+                ], 
                   [{text:'TOTAL', alignment:'center', fontSize:9, bold:true},
-                  {text: this.totalCromaticaCompleto+this.totalCromaticaIncompleto+this.totalFisicoMecnaicaCompleto+this.totalFisicoMecanicaInconpleto, alignment:'center', fontSize:8},
+                  {text: this.taxis+this.urbanos+ this.foraneos+this.acarreos+this.cargaLigeras+this.especializadas+this.bicitaxis+this.cargaGenerals+this.servicioTuristicos+this.escolares+this.acarreoAguas+this.mototaxis+this.cargaPesadas+this.metropolitanos+this.personales, alignment:'center', fontSize:8},
                   {text: this.taxi+this.urbano+this.foraneo+this.acarreo+this.cargaLigera+this.especializada+this.bicitaxi+this.cargaGeneral+this.servicioTuristico+this.escolar+this.acarreoAgua+this.mototaxi+this.cargaPesada+this.suburbano+this.metropolitano+this.personal, alignment:'center', fontSize:8},
                   {text: this.taxi2+this.urbano2+this.foraneo2+this.acarreo2+this.cargaLigera2+this.especializada2+this.bicitaxi2+this.cargaGeneral2+this.servicioTuristico2+this.escolar2+this.acarreoAgua2+this.mototaxi2+this.cargaPesada2+this.suburbano2+this.metropolitano2+this.personal2, alignment:'center', fontSize:8},
                   {text: this.taxi3+this.urbano3+this.foraneo3+this.acarreo3+this.cargaLigera3+this.especializada3+this.bicitaxi3+this.cargaGeneral3+this.servicioTuristico3+this.escolar3+this.acarreoAgua3+this.mototaxi3+this.cargaPesada3+this.suburbano3+this.metropolitano3+this.personal3, alignment:'center', fontSize:8},
                   {text: this.taxi4+this.urbano4+this.foraneo4+this.acarreo4+this.cargaLigera4+this.especializada4+this.bicitaxi4+this.cargaGeneral4+this.servicioTuristico4+this.escolar4+this.acarreoAgua4+this.mototaxi4+this.cargaPesada4+this.suburbano4+this.metropolitano4+this.personal4, alignment:'center', fontSize:8},
-                  {text: this.taxi+this.urbano+this.foraneo+this.acarreo+this.cargaLigera+this.especializada+this.bicitaxi+this.cargaGeneral+this.servicioTuristico+this.escolar+this.acarreoAgua+this.mototaxi+this.cargaPesada+this.suburbano+this.metropolitano+this.personal, alignment:'center', fontSize:8},
+                  {text: this.taxis+this.urbanos+ this.foraneos+this.acarreos+this.cargaLigeras+this.especializadas+this.bicitaxis+this.cargaGenerals+this.servicioTuristicos+this.escolares+this.acarreoAguas+this.mototaxis+this.cargaPesadas+this.metropolitanos+this.personales, alignment:'center', fontSize:8},
                   ] 
                 ]
               }
            }  
           ]
-         
-       
         }; 
         //   let name=[]
         // this.catalogueService.getModalidades().subscribe(({ data })=>{
@@ -440,16 +441,12 @@ export class HistorialActividadesComponent implements OnInit {
         //   for (let i = 0; i < this.modalidades.length; i++) {
         //     console.log(this.modalidades[i].nombre);
         //     name.push(this.modalidades[i].nombre);
-        //     console.log(name);
-            
+        //     console.log(name);        
         //     console.log();
-            
         //    console.log( dd.content[4].table.body.push([{ text: '-'+name }, {text:'1'},{text:''+ this.taxi},{text:'3'},{text:'3'},{},{}]));
         //   }
           
         // });
-
-
     //console.log(dd.content[3].columns[0]['table']['body'].push([{text:'inteo'}, {text:'1'},{text:'2'},{text:'3'},{text:'3'},{},{}]))
     pdfMake.createPdf(dd).download('actividades.pdf');
     
