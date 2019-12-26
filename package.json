@@ -1,6 +1,9 @@
 {
   "name": "ng-revista",
-  "version": "0.0.1",
+  "version": "0.0.2",
+  "description": "This web application is for the 'Revista' process",
+  "author": "Daisy Anai Sosa M. <daisysosa1500@gmail.com>",
+  "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -10,7 +13,6 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "^8.2.12",
     "@angular/common": "~8.2.0",
