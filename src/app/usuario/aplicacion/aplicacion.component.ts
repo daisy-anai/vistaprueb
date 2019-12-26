@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
 import { Apollo } from 'apollo-angular';
@@ -18,7 +18,7 @@ declare var M: any;
   templateUrl: './aplicacion.component.html',
   styleUrls: ['./aplicacion.component.css']
 })
-export class AplicacionComponent implements OnInit {
+export class AplicacionComponent implements OnInit, OnDestroy {
   public user: User;
 
   constructor(
@@ -67,7 +67,12 @@ export class AplicacionComponent implements OnInit {
     this.session.logout();
     this.router.navigate(['/login']);
   }
+
   changePassword(){
     this.router.navigate(['/aplicacion/usuario/'])
+  }
+
+  ngOnDestroy() {
+    this.apollo.removeClient('backrevista');
   }
 }
